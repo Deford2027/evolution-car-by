@@ -6,14 +6,47 @@ interface Props {
   theme: 'v1' | 'v2';
   title: string;
   description: string;
+  canonical?: string;
+  ogImage?: string;
+  /** пока сайт не запущен, страницы закрыты от индексации */
+  noindex?: boolean;
+  /** блоки schema.org; по умолчанию — карточка организации */
+  jsonLd?: unknown[];
 }
 
-const { theme, title, description } = Astro.props;
+const {
+  theme,
+  title,
+  description,
+  canonical,
+  ogImage = '/img/hero-evolution-hd-v2.jpg',
+  noindex = true,
+  jsonLd,
+} = Astro.props;
 
 const fonts =
   theme === 'v1'
     ? 'family=Oswald:wght@500;600;700&family=Golos+Text:wght@400;500;600'
     : 'family=Manrope:wght@300;400;500;600&family=Golos+Text:wght@400;500;600';
+
+const canonicalUrl = canonical ?? new URL(Astro.url.pathname, Astro.site).href;
+
+const organizationLd = {
+  '@context': 'https://schema.org',
+  '@type': 'AutoDealer',
+  name: site.brand,
+  telephone: site.phone,
+  url: Astro.site?.href,
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: site.city,
+    addressCountry: 'BY',
+    streetAddress: site.showroom,
+  },
+  openingHours: 'Mo-Su 09:00-20:00',
+};
+
+const blocks = jsonLd ?? [organizationLd];
 ---
 
 <!doctype html>
@@ -23,31 +56,24 @@ const fonts =
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
-    <meta name="robots" content="noindex, nofollow" />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
+    <link rel="canonical" href={canonicalUrl} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={site.brand} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content={new URL(ogImage, Astro.site).href} />
+    <meta property="og:locale" content="ru_RU" />
+    <meta name="twitter:card" content="summary_large_image" />
+
     <link rel="icon" href="/img/EVOLUTION_CARS_.svg" type="image/svg+xml" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="stylesheet" href={`https://fonts.googleapis.com/css2?${fonts}&display=swap`} />
-    <script
-      type="application/ld+json"
-      set:html={JSON.stringify({
-        '@context': 'https://schema.org',
-        '@type': 'AutoDealer',
-        name: site.brand,
-        telephone: site.phone,
-        url: Astro.site?.href,
-        address: {
-          '@type': 'PostalAddress',
-          addressLocality: 'Минск',
-          addressCountry: 'BY',
-          streetAddress: site.showroom,
-        },
-        openingHours: 'Mo-Su 09:00-20:00',
-      })}
-    />
+
+    {blocks.map((block) => <script type="application/ld+json" set:html={JSON.stringify(block)} />)}
   </head>
   <body>
     <slot />
