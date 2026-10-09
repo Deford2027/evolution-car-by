@@ -16,10 +16,11 @@ export const site = {
   vk: 'https://vk.com/',
 } as const;
 
+// href, начинающийся с #, — якорь на главной: шапка добавляет к нему свой префикс
 export const nav: NavLink[] = [
-  { label: 'Авто в наличии', href: '#showroom' },
+  { label: 'Авто в наличии', href: '/catalog/' },
   { label: 'Авто под заказ', href: '#directions' },
-  { label: 'Каталог', href: '#directions' },
+  { label: 'Каталог', href: '/catalog/' },
   { label: 'Пригнали', href: '#reviews' },
   { label: 'О компании', href: '#why' },
   { label: 'Контакты', href: '#contacts' },

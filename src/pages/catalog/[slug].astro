@@ -1,0 +1,289 @@
+---
+import '../../styles/theme-v2.css';
+import '../../styles/islands.css';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/v2/Header.astro';
+import Footer from '../../components/v2/Footer.astro';
+import Breadcrumbs from '../../components/v2/Breadcrumbs.astro';
+import CarCard from '../../components/v2/CarCard.astro';
+import ModalHost from '../../components/islands/ModalHost';
+import LeadForm from '../../components/islands/LeadForm';
+import { cars, carTitle, formatPrice, countries, powertrains, conditions, availabilities } from '../../content/cars';
+import type { Car } from '../../content/cars';
+import { carMeta, carLd, breadcrumbsLd } from '../../lib/seo';
+import { quiz, finalOffer, benefits } from '../../content/home';
+
+export function getStaticPaths() {
+  return cars.map((car) => ({ params: { slug: car.slug }, props: { car } }));
+}
+
+const { car } = Astro.props as { car: Car };
+const meta = carMeta(car);
+const name = carTitle(car);
+
+const crumbs = [
+  { name: 'Главная', href: '/zeekr/' },
+  { name: 'Каталог автомобилей', href: '/catalog/' },
+  { name: name, href: `/catalog/${car.slug}/` },
+];
+
+const facts = [
+  { label: 'Цена под ключ', value: `от ${formatPrice(car.priceUsd)}`, accent: true },
+  { label: 'Наличие', value: availabilities[car.availability] },
+  { label: 'Срок поставки', value: `${car.deliveryWeeks[0]}–${car.deliveryWeeks[1]} недель` },
+  { label: 'Рынок', value: countries[car.country].label },
+  { label: 'Двигатель', value: powertrains[car.powertrain] },
+  {
+    label: 'Состояние',
+    value: car.mileageKm
+      ? `${conditions[car.condition]}, ${car.mileageKm.toLocaleString('ru-RU')} км`
+      : conditions[car.condition],
+  },
+];
+
+const similar = cars
+  .filter((c) => c.slug !== car.slug && (c.country === car.country || c.powertrain === car.powertrain))
+  .slice(0, 3);
+---
+
+<BaseLayout
+  theme="v2"
+  title={meta.title}
+  description={meta.description}
+  canonical={meta.canonical}
+  ogImage={car.photos[0]}
+  jsonLd={[breadcrumbsLd(crumbs), carLd(car)]}
+>
+  <Header />
+  <Breadcrumbs crumbs={crumbs} />
+
+  <main>
+    <article>
+      <section class="section hero-car">
+        <div class="container hero-car__grid">
+          <div class="gallery">
+            <img
+              class="gallery__main"
+              src={car.photos[0]}
+              alt={`${name} — ${car.bodyType.toLowerCase()}, ${powertrains[car.powertrain].toLowerCase()}`}
+              width="854"
+              height="534"
+              fetchpriority="high"
+            />
+            <p class="gallery__note">
+              Фотография демонстрационная. Снимки конкретного автомобиля менеджер пришлёт
+              до согласования договора.
+            </p>
+          </div>
+
+          <div class="intro">
+            <p class="kicker">{countries[car.country].label} · {car.bodyType}</p>
+            <h1 class="intro__title">{name}</h1>
+            <p class="intro__tagline">{car.tagline}</p>
+
+            <dl class="facts">
+              {facts.map((fact) => (
+                <div class={fact.accent ? 'fact fact--accent' : 'fact'}>
+                  <dt>{fact.label}</dt>
+                  <dd>{fact.value}</dd>
+                </div>
+              ))}
+            </dl>
+
+            <div class="intro__actions">
+              <a class="btn" href="#request">Оставить заявку</a>
+              <button class="btn btn--ghost" type="button" data-open="quiz">Рассчитать стоимость</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--tight">
+        <div class="container text-block">
+          <h2 class="block__title">Об автомобиле</h2>
+          <div class="prose">
+            {car.description.map((paragraph) => <p>{paragraph}</p>)}
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--tight">
+        <div class="container">
+          <h2 class="block__title">Характеристики</h2>
+          <div class="specs">
+            {car.specs.map((group) => (
+              <div class="specs__group">
+                <h3 class="specs__title">{group.group}</h3>
+                <dl>
+                  {group.rows.map((row) => (
+                    <div class="specs__row">
+                      <dt>{row.label}</dt>
+                      <dd>{row.value}</dd>
+                    </div>
+                  ))}
+                </dl>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--tight">
+        <div class="container">
+          <h2 class="block__title">Что входит в стоимость под ключ</h2>
+          <ul class="included">
+            {benefits.map((item) => (
+              <li>
+                <h3 class="included__title">{item.title}</h3>
+                <p class="included__text">{item.text}</p>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      <section class="section" id="request">
+        <div class="container request">
+          <div>
+            <h2 class="block__title">Запросить расчёт по {name}</h2>
+            <p class="request__text">
+              Менеджер уточнит комплектацию и цвет, проверит доступные предложения
+              на площадках {countries[car.country].genitive} и пришлёт стоимость
+              под ключ с учётом доставки, таможенного оформления и подготовки документов.
+            </p>
+          </div>
+          <div class="request__panel">
+            <LeadForm
+              client:visible
+              namePlaceholder={finalOffer.namePlaceholder}
+              phonePlaceholder={finalOffer.phonePlaceholder}
+              cta={finalOffer.cta}
+              consent={finalOffer.consent}
+              success={finalOffer.success}
+              source={`Карточка: ${name}`}
+            />
+          </div>
+        </div>
+      </section>
+
+      {similar.length > 0 && (
+        <section class="section section--tight">
+          <div class="container">
+            <h2 class="block__title">Похожие автомобили</h2>
+            <ul class="similar">
+              {similar.map((item) => (
+                <li><CarCard car={item} /></li>
+              ))}
+            </ul>
+          </div>
+        </section>
+      )}
+
+      <div class="container">
+        <p class="disclaimer">
+          Цена указана ориентировочно под ключ и не является публичной офертой.
+          Итоговая стоимость зависит от курса валют, комплектации, маршрута доставки
+          и обязательных платежей на дату сделки.
+        </p>
+      </div>
+    </article>
+  </main>
+
+  <Footer />
+  <ModalHost
+    client:idle
+    quizTitle={quiz.title}
+    quizSteps={quiz.steps}
+    contactQuestion={quiz.contactStep.q}
+    channels={quiz.contactStep.channels}
+    consent={finalOffer.consent}
+    success={finalOffer.success}
+    videoPoster="/img/unsplash/service.jpg"
+  />
+</BaseLayout>
+
+<style>
+  .section--tight { padding-block: clamp(1.75rem, 1.2rem + 2vw, 2.5rem); }
+  .block__title {
+    font-size: clamp(1.375rem, 1.2rem + .9vw, 1.75rem);
+    padding-bottom: .875rem;
+    margin-bottom: 1.25rem;
+    border-bottom: 1px solid var(--c-line);
+  }
+
+  .hero-car { padding-top: clamp(1.75rem, 1.2rem + 2vw, 2.5rem); }
+  .hero-car__grid { display: grid; gap: clamp(1.5rem, 1rem + 2vw, 2.5rem); }
+  @media (min-width: 1024px) {
+    .hero-car__grid { grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 3rem; align-items: start; }
+  }
+
+  .gallery__main { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; border-radius: var(--r-card); }
+  .gallery__note { color: var(--c-text-3); font-size: .75rem; margin-top: .75rem; line-height: 1.5; }
+
+  .intro__title { margin-top: .75rem; }
+  .intro__tagline { color: var(--c-text-2); margin-top: 1rem; font-size: 1rem; }
+
+  .facts {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1px;
+    margin-top: 1.75rem;
+    background: var(--c-line);
+    border: 1px solid var(--c-line);
+    border-radius: var(--r-card);
+    overflow: hidden;
+  }
+  .fact { background: var(--c-surface); padding: .875rem 1rem; }
+  .fact dt { color: var(--c-text-3); font-size: .75rem; }
+  .fact dd { margin-top: .25rem; font-size: .9375rem; }
+  .fact--accent dd { font-family: var(--font-display); font-size: 1.25rem; color: var(--c-accent); }
+
+  .intro__actions { display: flex; flex-wrap: wrap; gap: .625rem; margin-top: 1.5rem; }
+
+  .text-block { display: grid; }
+  .prose { display: grid; gap: 1rem; max-width: 78ch; }
+  .prose p { color: var(--c-text-2); font-size: 1rem; line-height: 1.65; }
+
+  .specs { display: grid; gap: clamp(1.5rem, 1rem + 2vw, 2.5rem); }
+  @media (min-width: 768px) { .specs { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+  .specs__title { font-size: .9375rem; color: var(--c-text-3); margin-bottom: .75rem; }
+  .specs__row {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding-block: .625rem;
+    border-bottom: 1px solid var(--c-line);
+    font-size: .875rem;
+  }
+  .specs__row dt { color: var(--c-text-3); }
+  .specs__row dd { text-align: right; }
+
+  .included { display: grid; gap: 1.5rem; }
+  @media (min-width: 640px) { .included { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (min-width: 1024px) { .included { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+  .included__title { font-size: 1rem; margin-bottom: .5rem; }
+  .included__text { color: var(--c-text-2); font-size: .875rem; line-height: 1.5; }
+
+  .request { display: grid; gap: 2rem; align-items: start; }
+  @media (min-width: 1024px) { .request { grid-template-columns: minmax(0, 1fr) minmax(0, 27rem); gap: 3rem; } }
+  .request__text { color: var(--c-text-2); font-size: .9375rem; max-width: 56ch; }
+  .request__panel {
+    background: color-mix(in srgb, #3a241c 82%, var(--c-surface));
+    border: 1px solid var(--c-line);
+    border-radius: var(--r-card);
+    padding: clamp(1.5rem, 1rem + 2vw, 2rem);
+  }
+
+  .similar { display: grid; gap: var(--gap); }
+  @media (min-width: 640px) { .similar { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (min-width: 1024px) { .similar { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+  .similar li { display: grid; }
+
+  .disclaimer {
+    padding-bottom: clamp(2rem, 1.5rem + 2vw, 3rem);
+    color: var(--c-text-3);
+    font-size: .75rem;
+    line-height: 1.5;
+    max-width: 92ch;
+  }
+</style>

@@ -226,3 +226,34 @@
 .quiz__chip.is-active { border-color: var(--c-accent); color: var(--c-text); background: var(--c-accent-soft); }
 .quiz__back { color: var(--c-text-3); font-size: .8125rem; justify-self: start; }
 .quiz__done { font-size: 1rem; padding: 1rem 0; }
+
+/* ——— фильтр каталога ——— */
+.filter {
+  display: grid;
+  gap: 1rem;
+  padding-block: 1.25rem;
+  margin-bottom: clamp(1.5rem, 1rem + 2vw, 2rem);
+  border-top: 1px solid var(--c-line);
+  border-bottom: 1px solid var(--c-line);
+}
+.filter__row { display: grid; gap: .5rem; }
+.filter__label { color: var(--c-text-3); font-size: .75rem; text-transform: uppercase; letter-spacing: .08em; }
+.filter__chips { display: flex; flex-wrap: wrap; gap: .5rem; }
+.filter__chip {
+  padding: .4375rem .875rem;
+  border: 1px solid var(--c-line-strong);
+  border-radius: var(--r-btn);
+  color: var(--c-text-2);
+  font-size: .875rem;
+  transition: border-color .2s var(--ease), color .2s var(--ease), background .2s var(--ease);
+}
+.filter__chip:hover { color: var(--c-text); }
+.filter__chip.is-active { border-color: var(--c-accent); color: var(--c-text); background: var(--c-accent-soft); }
+.filter__foot { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+.filter__count { color: var(--c-text-3); font-size: .8125rem; }
+.filter__reset { color: var(--c-accent); font-size: .8125rem; font-weight: 600; }
+
+@media (min-width: 900px) {
+  .filter { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.5rem 2.5rem; }
+  .filter__foot { grid-column: 1 / -1; }
+}

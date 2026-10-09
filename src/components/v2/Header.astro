@@ -1,6 +1,10 @@
 ---
 import { site, nav, ui } from '../../content/site';
 import MobileMenu from '../islands/MobileMenu.tsx';
+
+// на внутренних страницах якоря должны вести на главную V2
+const home = '/zeekr/';
+const links = nav.map((l) => ({ ...l, href: l.href.startsWith('#') ? home + l.href : l.href }));
 ---
 
 <div class="topbar">
@@ -28,7 +32,7 @@ import MobileMenu from '../islands/MobileMenu.tsx';
     </a>
 
     <nav class="hdr__nav" aria-label="Основное меню">
-      {nav.map((l) => <a href={l.href}>{l.label}</a>)}
+      {links.map((l) => <a href={l.href}>{l.label}</a>)}
     </nav>
 
     <div class="hdr__actions">
@@ -36,7 +40,7 @@ import MobileMenu from '../islands/MobileMenu.tsx';
       <a class="btn btn--ghost hdr__cta" href="#service">Сервис</a>
     </div>
 
-    <MobileMenu client:media="(max-width: 1100px)" links={nav} phone={site.phone} phoneHref={site.phoneHref} cta={ui.order} />
+    <MobileMenu client:media="(max-width: 1100px)" links={links} phone={site.phone} phoneHref={site.phoneHref} cta={ui.order} />
   </div>
 </header>
 

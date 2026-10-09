@@ -69,7 +69,8 @@ const inStock = car.availability === 'in-stock';
     font-size: .75rem;
   }
   .badge i { width: 6px; height: 6px; border-radius: 50%; background: var(--c-text-3); }
-  .badge--ok { background: var(--c-ok-soft); }
+  /* на светлых фото прозрачный бейдж не читался — подкладываем фон страницы */
+  .badge--ok { background: color-mix(in srgb, var(--c-bg) 72%, var(--c-ok-soft)); }
   .badge--ok i { background: var(--c-ok); }
 
   .card__body {
