@@ -1,0 +1,87 @@
+---
+import { salon } from '../../content/home';
+---
+
+<section class="section showroom" id="showroom">
+  <div class="container">
+    <div class="showroom__head">
+      <h2>{salon.title}</h2>
+      <p class="showroom__lead">{salon.lead}</p>
+    </div>
+
+    <ul class="showroom__cards">
+      {salon.cards.map((card) => (
+        <li class="card showroom__card">
+          <h3 class="showroom__card-title">{card.title}</h3>
+          <p class="showroom__card-text">{card.text}</p>
+        </li>
+      ))}
+    </ul>
+  </div>
+
+  <div class="showroom__stage">
+    <span class="showroom__word" aria-hidden="true">EVOLUTION</span>
+    <img class="showroom__car" src="/img/image_467.png" alt="" loading="lazy" width="1680" height="617" />
+  </div>
+</section>
+
+<style>
+  .showroom { padding-bottom: 0; }
+
+  .showroom__head { display: grid; gap: 1.5rem; }
+  .showroom__lead { color: var(--c-text-2); font-size: 1rem; max-width: 56ch; }
+  @media (min-width: 1024px) {
+    .showroom__head { grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 4rem; align-items: start; }
+  }
+
+  .showroom__cards {
+    display: grid;
+    gap: var(--gap);
+    margin-top: clamp(2rem, 1rem + 3vw, 3.5rem);
+    position: relative;
+    z-index: 2;
+  }
+  .showroom__card {
+    padding: clamp(1.5rem, 1rem + 1.5vw, 2rem);
+    background: var(--c-surface);
+    display: grid;
+    gap: .75rem;
+    align-content: start;
+  }
+  .showroom__card-title { font-size: clamp(1.125rem, 1rem + .6vw, 1.5rem); }
+  .showroom__card-text { color: var(--c-text-3); font-size: .9375rem; line-height: 1.45; }
+
+  @media (min-width: 900px) {
+    .showroom__cards { grid-template-columns: repeat(3, minmax(0, 1fr)); align-items: start; }
+    /* на тильде карточки стоят ступенькой: первая ниже остальных */
+    .showroom__card:nth-child(1) { margin-top: 2.75rem; }
+    .showroom__card:nth-child(2) { margin-top: 1.25rem; }
+  }
+
+  .showroom__stage {
+    position: relative;
+    margin-top: clamp(-1.5rem, -1rem - 1vw, 0rem);
+    display: grid;
+    place-items: center;
+    isolation: isolate;
+    overflow: hidden;
+  }
+  .showroom__word {
+    position: absolute;
+    inset-block: auto;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(4rem, -1rem + 22vw, 18rem);
+    line-height: .9;
+    letter-spacing: -.02em;
+    color: #0d1119;
+    white-space: nowrap;
+    z-index: -1;
+    user-select: none;
+  }
+  .showroom__car {
+    width: min(100%, 1400px);
+    height: auto;
+    object-fit: contain;
+  }
+</style>
