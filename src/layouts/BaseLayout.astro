@@ -1,0 +1,55 @@
+---
+import '../styles/base.css';
+import { site } from '../content/site';
+
+interface Props {
+  theme: 'v1' | 'v2';
+  title: string;
+  description: string;
+}
+
+const { theme, title, description } = Astro.props;
+
+const fonts =
+  theme === 'v1'
+    ? 'family=Oswald:wght@500;600;700&family=Golos+Text:wght@400;500;600'
+    : 'family=Manrope:wght@300;400;500;600&family=Golos+Text:wght@400;500;600';
+---
+
+<!doctype html>
+<html lang="ru" data-theme={theme}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <link rel="icon" href="/img/EVOLUTION_CARS_.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href={`https://fonts.googleapis.com/css2?${fonts}&display=swap`} />
+    <script
+      type="application/ld+json"
+      set:html={JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'AutoDealer',
+        name: site.brand,
+        telephone: site.phone,
+        url: Astro.site?.href,
+        address: {
+          '@type': 'PostalAddress',
+          addressLocality: 'Минск',
+          addressCountry: 'BY',
+          streetAddress: site.showroom,
+        },
+        openingHours: 'Mo-Su 09:00-20:00',
+      })}
+    />
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>
