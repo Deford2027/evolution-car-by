@@ -1,7 +1,14 @@
 import type { APIRoute } from 'astro';
 import { cars } from '../content/cars';
 
-const paths = ['/', '/zeekr/', '/catalog/', ...cars.map((c) => `/catalog/${c.slug}/`)];
+const paths = [
+  '/',
+  '/catalog/',
+  ...cars.map((c) => `/catalog/${c.slug}/`),
+  '/zeekr/',
+  '/zeekr/catalog/',
+  ...cars.map((c) => `/zeekr/catalog/${c.slug}/`),
+];
 
 export const GET: APIRoute = ({ site }) => {
   const body = `<?xml version="1.0" encoding="UTF-8"?>

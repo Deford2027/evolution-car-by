@@ -2,10 +2,10 @@
 import type { Car } from '../../content/cars';
 import { carTitle, formatPrice, countries, availabilities, conditions } from '../../content/cars';
 
-interface Props { car: Car; eager?: boolean }
-const { car, eager = false } = Astro.props;
+interface Props { car: Car; eager?: boolean; base?: string }
+const { car, eager = false, base = '/zeekr/catalog/' } = Astro.props;
 
-const href = `/catalog/${car.slug}/`;
+const href = `${base}${car.slug}/`;
 const inStock = car.availability === 'in-stock';
 ---
 

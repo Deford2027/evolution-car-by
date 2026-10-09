@@ -1,6 +1,9 @@
 ---
 import { site, nav, ui } from '../../content/site';
 import MobileMenu from '../islands/MobileMenu.tsx';
+
+// на внутренних страницах якоря ведут на главную
+const links = nav.map((l) => ({ ...l, href: l.href.startsWith('#') ? '/' + l.href : l.href }));
 ---
 
 <header class="hdr">
@@ -11,7 +14,7 @@ import MobileMenu from '../islands/MobileMenu.tsx';
       </a>
 
       <nav class="hdr__nav" aria-label="Основное меню">
-        {nav.map((l) => <a href={l.href}>{l.label}</a>)}
+        {links.map((l) => <a href={l.href}>{l.label}</a>)}
       </nav>
 
       <div class="hdr__side">
@@ -28,7 +31,7 @@ import MobileMenu from '../islands/MobileMenu.tsx';
         <a class="btn btn--ghost hdr__cta" href="#final">{ui.order}</a>
       </div>
 
-      <MobileMenu client:media="(max-width: 1100px)" links={nav} phone={site.phone} phoneHref={site.phoneHref} cta={ui.order} />
+      <MobileMenu client:media="(max-width: 1100px)" links={links} phone={site.phone} phoneHref={site.phoneHref} cta={ui.order} />
     </div>
   </div>
 </header>

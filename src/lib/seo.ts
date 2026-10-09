@@ -12,7 +12,7 @@ export interface Crumb {
   href: string;
 }
 
-export function carMeta(car: Car) {
+export function carMeta(car: Car, base = '/catalog/') {
   const name = carTitle(car);
   const country = countries[car.country].genitive;
   const state = car.condition === 'new' ? 'новый' : `с пробегом ${car.mileageKm?.toLocaleString('ru-RU')} км`;
@@ -23,7 +23,7 @@ export function carMeta(car: Car) {
       `${name}, ${state}. ${car.tagline}. Доставка ${country} под ключ за ` +
       `${car.deliveryWeeks[0]}–${car.deliveryWeeks[1]} недель: покупка, страхование, ` +
       `таможенное оформление и документы для постановки на учёт в Беларуси.`,
-    canonical: abs(`/catalog/${car.slug}/`),
+    canonical: abs(`${base}${car.slug}/`),
   };
 }
 
@@ -41,7 +41,7 @@ export function breadcrumbsLd(crumbs: Crumb[]) {
 }
 
 /** Schema.org Car наследуется от Product, поэтому offers и brand валидны. */
-export function carLd(car: Car) {
+export function carLd(car: Car, base = '/catalog/') {
   const specs = car.specs.flatMap((group) => group.rows);
   const find = (label: string) => specs.find((row) => row.label === label)?.value;
 
@@ -51,7 +51,7 @@ export function carLd(car: Car) {
     name: carTitle(car),
     description: car.description[0],
     image: car.photos.map((photo) => abs(photo)),
-    url: abs(`/catalog/${car.slug}/`),
+    url: abs(`${base}${car.slug}/`),
     brand: { '@type': 'Brand', name: car.brand },
     model: car.model,
     vehicleModelDate: String(car.year),
@@ -80,7 +80,7 @@ export function carLd(car: Car) {
         car.availability === 'in-stock'
           ? 'https://schema.org/InStock'
           : 'https://schema.org/PreOrder',
-      url: abs(`/catalog/${car.slug}/`),
+      url: abs(`${base}${car.slug}/`),
       seller: {
         '@type': 'AutoDealer',
         name: site.brand,
@@ -102,7 +102,7 @@ export function carLd(car: Car) {
   };
 }
 
-export function catalogLd(list: Car[]) {
+export function catalogLd(list: Car[], base = '/catalog/') {
   return {
     '@context': 'https://schema.org',
     '@type': 'ItemList',
@@ -111,7 +111,7 @@ export function catalogLd(list: Car[]) {
     itemListElement: list.map((car, i) => ({
       '@type': 'ListItem',
       position: i + 1,
-      url: abs(`/catalog/${car.slug}/`),
+      url: abs(`${base}${car.slug}/`),
       name: `${carTitle(car)} — ${conditions[car.condition].toLowerCase()}`,
     })),
   };

@@ -4,7 +4,10 @@ import MobileMenu from '../islands/MobileMenu.tsx';
 
 // на внутренних страницах якоря должны вести на главную V2
 const home = '/zeekr/';
-const links = nav.map((l) => ({ ...l, href: l.href.startsWith('#') ? home + l.href : l.href }));
+const links = nav.map((l) => ({
+  ...l,
+  href: l.href.startsWith('#') ? home + l.href : l.href.replace('/catalog/', '/zeekr/catalog/'),
+}));
 ---
 
 <div class="topbar">
