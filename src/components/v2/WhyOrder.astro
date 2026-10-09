@@ -1,0 +1,44 @@
+---
+import { why } from '../../content/home';
+---
+
+<section class="section" id="why">
+  <div class="container">
+    <div class="head">
+      <div>
+        <p class="kicker">{why.kicker}</p>
+        <h2 class="head__title">{why.title}</h2>
+      </div>
+    </div>
+
+    <ul class="cards">
+      {why.items.map((item) => (
+        <li class="wcard">
+          <img src={item.img} alt="" loading="lazy" width="860" height="1000" />
+          <div class="wcard__body">
+            <h3 class="wcard__title">{item.title}</h3>
+            <p class="wcard__text">{item.text}</p>
+          </div>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .head { margin-bottom: clamp(2rem, 1.2rem + 3vw, 3rem); }
+  .head__title { margin-top: .875rem; max-width: 24ch; }
+
+  .cards { display: grid; gap: var(--gap); }
+  @media (min-width: 768px) { .cards { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+
+  .wcard {
+    background: var(--c-surface);
+    border-radius: var(--r-card);
+    overflow: hidden;
+  }
+  .wcard img { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; }
+  .wcard__body { padding: 1.25rem 1.5rem 1.5rem; }
+  .wcard__title { font-size: clamp(1.0625rem, 1rem + .4vw, 1.25rem); margin-bottom: .5rem; }
+  .wcard__text { color: var(--c-text-2); font-size: .9375rem; line-height: 1.5; }
+</style>
