@@ -1,6 +1,8 @@
 ---
 import '../../styles/theme-v2.css';
 import '../../styles/islands.css';
+import { quiz, finalOffer } from '../../content/home';
+import ModalHost from '../../components/islands/ModalHost';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Header from '../../components/v2/Header.astro';
 import Hero from '../../components/v2/Hero.astro';
@@ -41,4 +43,14 @@ import Footer from '../../components/v2/Footer.astro';
     <Contacts />
   </main>
   <Footer />
+  <ModalHost
+    client:idle
+    quizTitle={quiz.title}
+    quizSteps={quiz.steps}
+    contactQuestion={quiz.contactStep.q}
+    channels={quiz.contactStep.channels}
+    consent={finalOffer.consent}
+    success={finalOffer.success}
+    videoPoster="/img/unsplash/service.jpg"
+  />
 </BaseLayout>

@@ -1,0 +1,109 @@
+import { useState } from 'preact/hooks';
+import { submitLead } from '../../lib/submit';
+
+interface Step { q: string; a: string[] }
+interface Props {
+  title: string;
+  steps: Step[];
+  contactQuestion: string;
+  channels: string[];
+  consent: string;
+  success: string;
+  onDone?: () => void;
+}
+
+export default function Quiz({ title, steps, contactQuestion, channels, consent, success, onDone }: Props) {
+  const total = steps.length + 1;
+  const [step, setStep] = useState(0);
+  const [answers, setAnswers] = useState<string[]>([]);
+  const [channel, setChannel] = useState(channels[0]);
+  const [phone, setPhone] = useState('');
+  const [agreed, setAgreed] = useState(false);
+  const [state, setState] = useState<'idle' | 'sending' | 'done'>('idle');
+  const [error, setError] = useState('');
+
+  const pick = (value: string) => {
+    const next = [...answers];
+    next[step] = value;
+    setAnswers(next);
+    setStep(step + 1);
+  };
+
+  const send = async () => {
+    if (phone.replace(/\D/g, '').length < 11) return setError('Укажите номер телефона полностью');
+    if (!agreed) return setError('Отметьте согласие на обработку данных');
+    setError('');
+    setState('sending');
+    await submitLead({
+      name: `Квиз: ${answers.join(' / ')}`,
+      phone: `${channel}: ${phone}`,
+      source: 'Опрос на расчёт стоимости',
+    });
+    setState('done');
+    onDone?.();
+  };
+
+  if (state === 'done') return <p class="quiz__done">{success}</p>;
+
+  return (
+    <div class="quiz">
+      <p class="quiz__title">{title}</p>
+      <div class="quiz__bar" aria-hidden="true">
+        <i style={{ width: `${((step + 1) / total) * 100}%` }} />
+      </div>
+      <p class="quiz__counter">Шаг {step + 1} из {total}</p>
+
+      {step < steps.length ? (
+        <>
+          <p class="quiz__q">{steps[step].q}</p>
+          <div class="quiz__options">
+            {steps[step].a.map((option) => (
+              <button class="quiz__option" type="button" key={option} onClick={() => pick(option)}>
+                {option}
+              </button>
+            ))}
+          </div>
+        </>
+      ) : (
+        <>
+          <p class="quiz__q">{contactQuestion}</p>
+          <div class="quiz__channels">
+            {channels.map((c) => (
+              <button
+                class={c === channel ? 'quiz__chip is-active' : 'quiz__chip'}
+                type="button"
+                key={c}
+                onClick={() => setChannel(c)}
+              >
+                {c}
+              </button>
+            ))}
+          </div>
+          <input
+            class="lead-form__input"
+            type="tel"
+            inputMode="tel"
+            placeholder="+375 29 123-45-67"
+            value={phone}
+            onInput={(e) => setPhone((e.target as HTMLInputElement).value)}
+          />
+          <label class="lead-form__consent">
+            <input type="checkbox" checked={agreed} onChange={(e) => setAgreed((e.target as HTMLInputElement).checked)} />
+            <span>{consent}</span>
+          </label>
+          <button class="btn btn--block" type="button" onClick={send} disabled={state === 'sending'}>
+            {state === 'sending' ? 'Отправляем…' : 'Получить расчёт'}
+          </button>
+        </>
+      )}
+
+      {error && <p class="lead-form__error" role="alert">{error}</p>}
+
+      {step > 0 && state === 'idle' && (
+        <button class="quiz__back" type="button" onClick={() => setStep(step - 1)}>
+          ← Назад
+        </button>
+      )}
+    </div>
+  );
+}

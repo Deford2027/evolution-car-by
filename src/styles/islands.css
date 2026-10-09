@@ -170,3 +170,59 @@
   }
   .lead-form--wide .lead-form__submit { min-width: 15.5rem; }
 }
+
+/* ——— модальное окно ——— */
+.modal {
+  width: min(100% - 2rem, 34rem);
+  max-height: 86svh;
+  margin: auto;
+  padding: clamp(1.5rem, 1rem + 2vw, 2.25rem);
+  border: 1px solid var(--c-line-strong);
+  border-radius: var(--r-card);
+  background: var(--c-surface);
+  color: var(--c-text);
+  overflow: auto;
+}
+.modal::backdrop { background: rgba(0, 0, 0, .72); backdrop-filter: blur(3px); }
+.modal__close {
+  position: sticky;
+  top: 0;
+  margin-left: auto;
+  display: block;
+  width: 2.25rem; height: 2.25rem;
+  border-radius: var(--r-btn);
+  border: 1px solid var(--c-line-strong);
+  color: var(--c-text-2);
+}
+.modal__video img { width: 100%; border-radius: var(--r-card); }
+.modal__video figcaption { color: var(--c-text-3); font-size: .8125rem; margin-top: .875rem; }
+
+/* ——— квиз ——— */
+.quiz { display: grid; gap: 1rem; }
+.quiz__title { font-family: var(--font-display); font-size: 1.25rem; line-height: 1.25; }
+.quiz__bar { height: 2px; background: var(--c-line-strong); border-radius: 2px; overflow: hidden; }
+.quiz__bar i { display: block; height: 100%; background: var(--c-accent); transition: width .3s var(--ease); }
+.quiz__counter { color: var(--c-text-3); font-size: .75rem; }
+.quiz__q { font-size: 1.0625rem; margin-top: .25rem; }
+.quiz__options { display: grid; gap: .5rem; }
+.quiz__option {
+  text-align: left;
+  padding: .875rem 1.125rem;
+  border: 1px solid var(--c-line-strong);
+  border-radius: var(--r-btn);
+  color: var(--c-text);
+  font-size: .9375rem;
+  transition: border-color .2s var(--ease), background .2s var(--ease);
+}
+.quiz__option:hover { border-color: var(--c-accent); background: var(--c-accent-soft); }
+.quiz__channels { display: flex; flex-wrap: wrap; gap: .5rem; }
+.quiz__chip {
+  padding: .5rem .875rem;
+  border: 1px solid var(--c-line-strong);
+  border-radius: var(--r-btn);
+  font-size: .875rem;
+  color: var(--c-text-2);
+}
+.quiz__chip.is-active { border-color: var(--c-accent); color: var(--c-text); background: var(--c-accent-soft); }
+.quiz__back { color: var(--c-text-3); font-size: .8125rem; justify-self: start; }
+.quiz__done { font-size: 1rem; padding: 1rem 0; }
