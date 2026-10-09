@@ -56,7 +56,13 @@ import { steps } from '../../content/home';
   .step__text { color: var(--c-text-2); font-size: .875rem; line-height: 1.5; }
 
   @media (min-width: 768px) {
-    .flow { grid-template-columns: repeat(5, minmax(0, 1fr)); column-gap: 1.5rem; border-bottom: 1px solid var(--c-line); }
+    .flow { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 1.5rem; }
+    .step:nth-child(odd) { border-left: 0; padding-left: 0; margin-left: 0; }
+  }
+  @media (min-width: 1100px) {
+    .flow { grid-template-columns: repeat(5, minmax(0, 1fr)); border-bottom: 1px solid var(--c-line); }
+    .step:nth-child(odd) { border-left: 1px solid var(--c-line); padding-left: 1.5rem; margin-left: -.75rem; }
+    .step:first-child { border-left: 0; padding-left: 0; margin-left: 0; }
     .step { border-bottom: 0; padding-block: 1.75rem; }
     .step + .step { border-left: 1px solid var(--c-line); padding-left: 1.5rem; margin-left: -.75rem; }
   }
