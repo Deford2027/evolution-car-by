@@ -1,0 +1,22 @@
+---
+import '../styles/theme-v1.css';
+import '../styles/islands.css';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/v1/Header.astro';
+import Hero from '../components/v1/Hero.astro';
+import Benefits from '../components/v1/Benefits.astro';
+import Directions from '../components/v1/Directions.astro';
+---
+
+<BaseLayout
+  theme="v1"
+  title="Evolution Car — автомобили из Китая, Кореи, США и Европы под ключ"
+  description="Подбираем и привозим автомобили из Китая, Южной Кореи, США и Европы. Экономия до 30%, работа по договору, доставка под ключ и собственный сервис."
+>
+  <Header />
+  <main>
+    <Hero />
+    <Benefits />
+    <Directions />
+  </main>
+</BaseLayout>

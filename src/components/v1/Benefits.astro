@@ -1,0 +1,49 @@
+---
+import { benefits } from '../../content/home';
+---
+
+<section class="section benefits">
+  <div class="container">
+    <ul class="grid grid--4">
+      {benefits.map((item) => (
+        <li class="card benefit">
+          <span class="benefit__dot" aria-hidden="true"></span>
+          <h3 class="benefit__title">{item.title}</h3>
+          <p class="benefit__text">{item.text}</p>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .benefits { padding-block: clamp(2rem, 1rem + 4vw, 4rem); }
+
+  .benefit {
+    padding: clamp(1.5rem, 1rem + 1.5vw, 2rem);
+    display: grid;
+    align-content: start;
+    gap: .75rem;
+  }
+  .benefit__dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--c-accent);
+    margin-bottom: clamp(2rem, 1rem + 3vw, 3.5rem);
+  }
+  /* на тильде заголовки карточек набраны текстовым гротеском, не Oswald */
+  .benefit__title {
+    font-family: var(--font-body);
+    font-weight: 400;
+    text-transform: none;
+    letter-spacing: -.01em;
+    font-size: clamp(1.25rem, 1.1rem + .6vw, 1.5rem);
+    line-height: 1.2;
+  }
+  .benefit__text {
+    color: var(--c-text-3);
+    font-size: 1rem;
+    line-height: 1.45;
+  }
+</style>

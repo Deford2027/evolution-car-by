@@ -1,0 +1,91 @@
+---
+import { site, nav, ui } from '../../content/site';
+import MobileMenu from '../islands/MobileMenu.tsx';
+---
+
+<header class="hdr">
+  <div class="container">
+    <div class="hdr__bar">
+      <a class="hdr__logo" href="/" aria-label={site.brand}>
+        <img src="/img/EVOLUTION_CARS_.svg" alt="" width="123" height="23" />
+      </a>
+
+      <nav class="hdr__nav" aria-label="Основное меню">
+        {nav.map((l) => <a href={l.href}>{l.label}</a>)}
+      </nav>
+
+      <div class="hdr__side">
+        <a class="hdr__phone" href={site.phoneHref}>
+          <span class="hdr__phone-num">{site.phone}</span>
+          <span class="hdr__phone-hours">{site.hoursShort}</span>
+        </a>
+        <a class="hdr__icon" href={site.telegram} aria-label="Telegram" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M21.9 4.3 18.7 19c-.2 1-.9 1.3-1.8.8l-4.9-3.6-2.4 2.3c-.3.3-.5.5-1 .5l.4-5 9.1-8.2c.4-.3-.1-.5-.6-.2L6.3 12.7 1.5 11.2c-1-.3-1-1 .2-1.5l19-7.3c.9-.3 1.6.2 1.2 1.9Z"/></svg>
+        </a>
+        <a class="hdr__icon" href={site.whatsapp} aria-label="WhatsApp" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.8 4.9-1.3A10 10 0 1 0 12 2Zm5.6 14.1c-.2.7-1.3 1.3-1.9 1.3-.5 0-1.1.2-3.6-.8-3-1.3-5-4.4-5.1-4.6-.2-.2-1.3-1.7-1.3-3.3 0-1.5.8-2.3 1.1-2.6.3-.3.6-.4.8-.4h.6c.2 0 .5-.1.7.5l1 2.4c.1.2.1.4 0 .6l-.4.6c-.1.2-.3.3-.1.6.1.3.7 1.2 1.5 1.9 1 .9 1.8 1.2 2.1 1.3.3.1.4.1.6-.1l.8-1c.2-.2.4-.2.6-.1l2.2 1c.2.1.4.2.5.3.1.2.1.6-.1 1.4Z"/></svg>
+        </a>
+        <a class="btn btn--ghost hdr__cta" href="#final">{ui.order}</a>
+      </div>
+
+      <MobileMenu client:media="(max-width: 1100px)" links={nav} phone={site.phone} phoneHref={site.phoneHref} cta={ui.order} />
+    </div>
+  </div>
+</header>
+
+<style>
+  .hdr {
+    position: sticky;
+    top: 0;
+    z-index: 60;
+    padding-block: 1rem;
+  }
+  .hdr__bar {
+    display: flex;
+    align-items: center;
+    gap: clamp(1rem, 2vw, 2.5rem);
+    padding: .875rem 1rem .875rem 1.75rem;
+    border-radius: var(--r-pill);
+    background: rgba(16, 20, 28, .82);
+    backdrop-filter: blur(14px);
+    border: 1px solid var(--c-line);
+  }
+  .hdr__logo img { width: 123px; height: auto; }
+  .hdr__nav {
+    display: none;
+    gap: clamp(.75rem, 1.4vw, 1.5rem);
+    font-size: .8125rem;
+    color: var(--c-text-2);
+  }
+  .hdr__nav a { transition: color .2s var(--ease); white-space: nowrap; }
+  .hdr__nav a:hover { color: var(--c-accent); }
+  .hdr__side { display: none; align-items: center; gap: .625rem; margin-left: auto; }
+  .hdr__phone { display: grid; line-height: 1.25; text-align: right; margin-right: .5rem; }
+  .hdr__phone-num { font-size: .8125rem; font-weight: 500; }
+  .hdr__phone-hours { font-size: .6875rem; color: var(--c-text-3); }
+  .hdr__icon {
+    display: grid;
+    place-items: center;
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    border: 1px solid var(--c-line-strong);
+    color: var(--c-text);
+    transition: background .2s var(--ease), border-color .2s var(--ease);
+  }
+  .hdr__icon:hover { background: var(--c-btn2-bg-hover); border-color: var(--c-accent); }
+  .hdr__cta {
+    padding: .75rem 1.5rem;
+    border-radius: var(--r-pill);
+    border-color: rgba(255, 255, 255, .5);
+    background: transparent;
+    text-transform: none;
+    letter-spacing: 0;
+    font-size: .875rem;
+    font-weight: 500;
+  }
+  .hdr__cta:hover { background: var(--c-accent); border-color: var(--c-accent); }
+
+  @media (min-width: 1101px) {
+    .hdr__nav, .hdr__side { display: flex; }
+  }
+</style>

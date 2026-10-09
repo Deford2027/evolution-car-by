@@ -1,0 +1,66 @@
+---
+import { hero } from '../../content/home';
+---
+
+<section class="hero">
+  <img class="hero__bg" src="/img/hero-evolution-hd-v2.jpg" alt="" fetchpriority="high" width="1448" height="1086" />
+  <div class="container hero__inner">
+    <div class="hero__copy">
+      <h1>{hero.title}</h1>
+      <p class="hero__lead">{hero.lead}</p>
+    </div>
+    <a class="btn hero__cta" href="#final">{hero.cta}</a>
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    margin-top: calc(var(--header-h) * -1 - 1rem);
+    min-height: 100svh;
+    display: grid;
+    align-items: end;
+    isolation: isolate;
+    overflow: hidden;
+  }
+  .hero__bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 35%;
+    z-index: -2;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background:
+      linear-gradient(180deg, rgba(0, 4, 12, .72) 0%, rgba(0, 4, 12, 0) 38%),
+      linear-gradient(0deg, var(--c-bg) 2%, rgba(0, 4, 12, .1) 55%);
+  }
+  .hero__inner {
+    display: grid;
+    gap: 2rem;
+    padding-bottom: clamp(2.5rem, 1rem + 5vw, 5rem);
+  }
+  .hero__copy { max-width: min(100%, 56rem); }
+  .hero__lead {
+    margin-top: 1rem;
+    color: var(--c-text-2);
+    font-size: 1.0625rem;
+  }
+  .hero__cta { justify-self: start; min-width: min(100%, 20rem); }
+
+  @media (min-width: 1024px) {
+    .hero__inner {
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: end;
+      gap: 3rem;
+    }
+    .hero__lead { margin-top: 1.25rem; }
+    .hero__cta { justify-self: end; min-width: 20rem; padding-block: 1.5rem; }
+  }
+</style>
