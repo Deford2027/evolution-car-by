@@ -1,0 +1,70 @@
+---
+import { team } from '../../content/home';
+---
+
+<section class="section team" id="team">
+  <div class="container">
+    <div class="sec-head">
+      <p class="kicker">[ {team.kicker} ]</p>
+      <div>
+        <h2 class="team__title">{team.title}</h2>
+        <p class="team__lead">{team.lead}</p>
+      </div>
+    </div>
+  </div>
+
+  <ul class="team__track" role="list">
+    {team.items.map((member) => (
+      <li class="team__card">
+        <img class="team__img" src={member.img} alt={member.name} loading="lazy" width="840" height="1120" />
+        <div class="team__copy">
+          <p class="team__name">{member.name}</p>
+          <p class="team__role">{member.role}</p>
+        </div>
+      </li>
+    ))}
+  </ul>
+</section>
+
+<style>
+  .sec-head { display: grid; gap: 1rem; margin-bottom: clamp(2rem, 1rem + 3vw, 3rem); }
+  @media (min-width: 1024px) {
+    .sec-head { grid-template-columns: minmax(0, 18rem) minmax(0, 1fr); gap: 2rem; align-items: start; }
+  }
+  .team__title { max-width: 20ch; }
+  .team__lead { color: var(--c-text-3); margin-top: 1.25rem; font-size: 1rem; max-width: 46ch; }
+
+  .team__track {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: min(72vw, 26rem);
+    gap: var(--gap);
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding-inline: var(--gutter);
+    padding-bottom: 1rem;
+    scrollbar-width: thin;
+    scrollbar-color: var(--c-line-strong) transparent;
+  }
+  .team__card {
+    position: relative;
+    scroll-snap-align: start;
+    border-radius: var(--r-card);
+    overflow: hidden;
+    isolation: isolate;
+    aspect-ratio: 3 / 4;
+    display: grid;
+    align-content: end;
+    padding: clamp(1.25rem, 1rem + 1vw, 1.75rem);
+  }
+  .team__img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: -2; }
+  .team__card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: linear-gradient(180deg, rgba(0, 4, 12, 0) 45%, rgba(0, 4, 12, .85) 100%);
+  }
+  .team__name { font-size: clamp(1.125rem, 1rem + .55vw, 1.375rem); }
+  .team__role { color: var(--c-text-3); font-size: .9375rem; margin-top: .25rem; }
+</style>

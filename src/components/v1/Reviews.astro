@@ -1,0 +1,71 @@
+---
+import { reviews } from '../../content/home';
+---
+
+<section class="section reviews" id="reviews">
+  <div class="container">
+    <div class="sec-head">
+      <p class="kicker">[ {reviews.kicker} ]</p>
+      <div>
+        <h2 class="reviews__title">{reviews.title}</h2>
+        <p class="reviews__lead">{reviews.lead}</p>
+      </div>
+    </div>
+
+    <ul class="grid grid--3">
+      {reviews.items.map((item) => (
+        <li class="card review">
+          <div class="review__top">
+            <p class="review__name">{item.name}</p>
+            <p class="review__stars" aria-label="Оценка 5 из 5">★★★★★</p>
+          </div>
+          <p class="review__text">{item.text}</p>
+          <ul class="review__shots">
+            {item.photos.map((photo) => (
+              <li><img src={photo} alt="" loading="lazy" width="300" height="200" /></li>
+            ))}
+          </ul>
+          <a class="review__link" href="#contacts">{reviews.linkLabel}</a>
+        </li>
+      ))}
+    </ul>
+
+    <a class="btn reviews__cta" href="#contacts">{reviews.cta}</a>
+  </div>
+</section>
+
+<style>
+  .sec-head { display: grid; gap: 1rem; margin-bottom: clamp(2rem, 1rem + 3vw, 3rem); }
+  @media (min-width: 1024px) {
+    .sec-head { grid-template-columns: minmax(0, 18rem) minmax(0, 1fr); gap: 2rem; align-items: start; }
+  }
+  .reviews__title { max-width: 20ch; }
+  .reviews__lead { color: var(--c-text-3); margin-top: 1.25rem; font-size: 1rem; max-width: 60ch; }
+
+  .review {
+    padding: clamp(1.5rem, 1rem + 1.5vw, 2rem);
+    display: grid;
+    grid-template-rows: auto 1fr auto auto;
+    gap: 1.25rem;
+    background: var(--c-surface);
+  }
+  .review__top { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+  .review__name {
+    font-family: var(--font-body);
+    font-size: clamp(1.125rem, 1rem + .5vw, 1.375rem);
+  }
+  .review__stars { color: var(--c-accent); letter-spacing: .12em; font-size: .9375rem; }
+  .review__text { color: var(--c-text-3); font-size: .9375rem; line-height: 1.5; }
+  .review__shots { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .5rem; }
+  .review__shots img { width: 100%; aspect-ratio: 3 / 2; object-fit: cover; border-radius: 4px; }
+  .review__link { color: var(--c-accent); font-weight: 600; font-size: .9375rem; }
+  .review__link:hover { color: var(--c-accent-hover); }
+
+  .reviews__cta {
+    display: flex;
+    width: fit-content;
+    margin: clamp(2rem, 1rem + 3vw, 3rem) auto 0;
+    min-width: min(100%, 18.75rem);
+    padding-block: 1.375rem;
+  }
+</style>
