@@ -119,3 +119,44 @@
 }
 .quiz__option:hover, .quiz__option.is-active { border-color: var(--c-accent); background: var(--c-accent-soft); }
 .quiz__actions { display: flex; gap: .75rem; justify-content: space-between; }
+
+/* ——— форма заявки ——— */
+.lead-form { display: grid; gap: .875rem; }
+.lead-form__fields { display: grid; gap: .75rem; }
+.lead-form__input {
+  width: 100%;
+  padding: 1rem 1.125rem;
+  border-radius: var(--r-btn);
+  border: 1px solid var(--c-line-strong);
+  background: var(--c-surface-2);
+  color: var(--c-text);
+  font-size: .9375rem;
+}
+.lead-form__input::placeholder { color: var(--c-text-3); }
+.lead-form__submit { padding-block: 1.0625rem; }
+.lead-form__consent {
+  display: flex;
+  align-items: start;
+  gap: .625rem;
+  color: var(--c-text-3);
+  font-size: .75rem;
+  line-height: 1.35;
+  cursor: pointer;
+}
+.lead-form__consent input { margin-top: .15rem; accent-color: var(--c-accent); flex: none; }
+.lead-form__error { color: var(--c-accent); font-size: .8125rem; }
+.lead-form__done {
+  padding: 1.25rem 1.5rem;
+  border: 1px solid var(--c-line-strong);
+  border-radius: var(--r-card);
+  background: var(--c-accent-soft);
+  font-size: .9375rem;
+}
+
+@media (min-width: 900px) {
+  .lead-form--wide .lead-form__fields {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) auto;
+    gap: 1rem;
+  }
+  .lead-form--wide .lead-form__submit { min-width: 15.5rem; }
+}
