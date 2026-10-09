@@ -1,0 +1,74 @@
+---
+import { reviews } from '../../content/home';
+---
+
+<section class="section" id="reviews">
+  <div class="container">
+    <div class="bar">
+      <p class="kicker">{reviews.kicker}</p>
+      <p class="bar__rating"><span class="bar__stars" aria-hidden="true">★★★★★</span> 5,0</p>
+      <p class="bar__count">{reviews.lead}</p>
+      <a class="bar__link" href="#contacts">{reviews.cta} <span aria-hidden="true">→</span></a>
+    </div>
+
+    <ul class="cards">
+      {reviews.items.map((item) => (
+        <li class="rev">
+          <div class="rev__head">
+            <p class="rev__name">{item.name}</p>
+            <p class="rev__stars" aria-label="Оценка 5 из 5">★★★★★</p>
+          </div>
+          <p class="rev__text">{item.text}</p>
+          <ul class="rev__shots">
+            {item.photos.map((photo) => (
+              <li><img src={photo} alt="" loading="lazy" width="300" height="200" /></li>
+            ))}
+          </ul>
+          <a class="rev__link" href="#contacts">{reviews.linkLabel} <span aria-hidden="true">→</span></a>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .bar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1rem 1.5rem;
+    padding-bottom: 1.25rem;
+    margin-bottom: clamp(1.5rem, 1rem + 2vw, 2.25rem);
+    border-bottom: 1px solid var(--c-line);
+  }
+  .bar__rating { display: flex; align-items: center; gap: .5rem; font-size: 1.125rem; }
+  .bar__stars { color: var(--c-accent); letter-spacing: .1em; }
+  .bar__count { color: var(--c-text-3); font-size: .875rem; max-width: 42ch; }
+  .bar__link { margin-left: auto; color: var(--c-accent); font-size: .875rem; font-weight: 600; }
+  .bar__link:hover { color: var(--c-accent-hover); }
+
+  .cards { display: grid; gap: var(--gap); }
+  @media (min-width: 768px) { .cards { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+
+  .rev {
+    background: var(--c-surface);
+    border-radius: var(--r-card);
+    padding: 1.5rem;
+    display: grid;
+    grid-template-rows: auto 1fr auto auto;
+    gap: 1rem;
+  }
+  .rev__head { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+  .rev__name { font-weight: 600; }
+  .rev__stars { color: var(--c-accent); font-size: .8125rem; letter-spacing: .08em; }
+  .rev__text { color: var(--c-text-2); font-size: .9375rem; line-height: 1.55; }
+  .rev__shots { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .375rem; }
+  .rev__shots img { width: 100%; aspect-ratio: 3 / 2; object-fit: cover; border-radius: var(--r-card); }
+  .rev__link {
+    padding-top: 1rem;
+    border-top: 1px solid var(--c-line);
+    color: var(--c-accent);
+    font-size: .875rem;
+    font-weight: 600;
+  }
+</style>
