@@ -1,0 +1,90 @@
+---
+import { site, nav, ui } from '../../content/site';
+import MobileMenu from '../islands/MobileMenu.tsx';
+---
+
+<div class="topbar">
+  <div class="container topbar__inner">
+    <p>Шоурум: {site.showroom}</p>
+    <p class="topbar__group">
+      <span class="topbar__label">Отдел продаж</span>
+      <a href={site.phoneHref}>{site.phone}</a>
+    </p>
+    <p class="topbar__group topbar__service">
+      <span class="topbar__label">Сервис</span>
+      <span>{site.service}</span>
+    </p>
+    <p class="topbar__group">
+      <span class="topbar__label">Режим работы</span>
+      <span class="topbar__strong">{site.hoursFull}</span>
+    </p>
+  </div>
+</div>
+
+<header class="hdr">
+  <div class="container hdr__inner">
+    <a class="hdr__logo" href="/zeekr/" aria-label={site.brand}>
+      <img src="/img/EVOLUTION_CARS_.svg" alt="" width="123" height="23" />
+    </a>
+
+    <nav class="hdr__nav" aria-label="Основное меню">
+      {nav.map((l) => <a href={l.href}>{l.label}</a>)}
+    </nav>
+
+    <div class="hdr__actions">
+      <a class="btn hdr__cta" href="#final">Подобрать автомобиль</a>
+      <a class="btn btn--ghost hdr__cta" href="#service">Сервис</a>
+    </div>
+
+    <MobileMenu client:media="(max-width: 1100px)" links={nav} phone={site.phone} phoneHref={site.phoneHref} cta={ui.order} />
+  </div>
+</header>
+
+<style>
+  .topbar {
+    background: var(--c-bg-alt);
+    border-bottom: 1px solid var(--c-line);
+    font-size: .75rem;
+    color: var(--c-text-3);
+  }
+  .topbar__inner {
+    display: none;
+    align-items: center;
+    gap: 2rem;
+    min-height: var(--topbar-h);
+  }
+  .topbar__group { display: flex; align-items: baseline; gap: .5rem; }
+  .topbar__label { text-transform: uppercase; letter-spacing: .06em; font-size: .6875rem; }
+  .topbar__group a,
+  .topbar__strong { color: var(--c-text); font-weight: 600; }
+  .topbar__service { margin-left: auto; }
+
+  .hdr {
+    position: sticky;
+    top: 0;
+    z-index: 60;
+    background: color-mix(in srgb, var(--c-bg) 72%, transparent);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--c-line);
+  }
+  .hdr__inner {
+    display: flex;
+    align-items: center;
+    gap: clamp(1rem, .3rem + 2.2vw, 2.5rem);
+    min-height: var(--header-h);
+  }
+  .hdr__logo img { height: 1.375rem; width: auto; }
+
+  .hdr__nav { display: none; gap: clamp(1rem, .4rem + 1.5vw, 1.75rem); }
+  .hdr__nav a { color: var(--c-text-2); font-size: .9375rem; transition: color .2s var(--ease); }
+  .hdr__nav a:hover { color: var(--c-text); }
+
+  .hdr__actions { display: none; gap: .625rem; margin-left: auto; }
+  .hdr__cta { white-space: nowrap; }
+
+  @media (min-width: 1101px) {
+    .topbar__inner { display: flex; }
+    .hdr__nav { display: flex; }
+    .hdr__actions { display: flex; }
+  }
+</style>
