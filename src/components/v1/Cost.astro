@@ -1,0 +1,130 @@
+---
+import { calc } from '../../content/home';
+import { site } from '../../content/site';
+---
+
+<section class="section cost" id="cost">
+  <div class="container">
+    <div class="cost__panel">
+      <div class="cost__copy">
+        <p class="kicker cost__kicker">[ {calc.kicker} ]</p>
+        <h2 class="cost__title">{calc.title}</h2>
+        <p class="cost__lead">{calc.lead}</p>
+        <div class="cost__actions">
+          <button class="btn" type="button" data-open="quiz">{calc.cta}</button>
+          <p class="cost__note">{calc.note}</p>
+        </div>
+      </div>
+
+      <div class="cost__stage">
+        <span class="cost__word" aria-hidden="true">EVOLUTION</span>
+        <img class="cost__car" src="/img/Group_1171275068.png" alt="" loading="lazy" width="1298" height="784" />
+        <img class="cost__manager" src="/img/IMG_7468_1.png" alt={calc.manager.name} loading="lazy" width="840" height="970" />
+        <div class="cost__badge">
+          <div>
+            <p class="cost__badge-name">{calc.manager.name}</p>
+            <p class="cost__badge-role">{calc.manager.role}</p>
+          </div>
+          <a class="cost__chip cost__chip--tg" href={site.telegram} aria-label="Telegram">TG</a>
+          <a class="cost__chip cost__chip--wa" href={site.whatsapp} aria-label="WhatsApp">WA</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .cost__panel {
+    position: relative;
+    background: var(--c-surface-light);
+    color: var(--c-text-on-light);
+    border-radius: var(--r-card);
+    overflow: hidden;
+    display: grid;
+    isolation: isolate;
+  }
+  .cost__copy {
+    padding: clamp(1.75rem, 1rem + 3vw, 3.25rem);
+    display: grid;
+    align-content: start;
+    gap: 1.25rem;
+    position: relative;
+    z-index: 2;
+  }
+  .cost__kicker { color: #8a8a86; }
+  .cost__title {
+    color: var(--c-text-on-light);
+    max-width: 24ch;
+    font-size: clamp(1.625rem, .95rem + 2.9vw, 2.5rem);
+  }
+  .cost__lead { color: #5f5f5c; font-size: 1rem; max-width: 46ch; }
+  .cost__actions { display: grid; gap: 1rem; margin-top: .5rem; }
+  .cost__note { color: #8a8a86; font-size: .8125rem; line-height: 1.35; }
+  @media (min-width: 560px) {
+    .cost__actions { grid-template-columns: auto minmax(0, 1fr); align-items: center; gap: 1.5rem; }
+  }
+
+  .cost__stage { position: relative; min-height: 18rem; }
+  .cost__word {
+    position: absolute;
+    top: 8%;
+    right: -2%;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(3rem, 1rem + 9vw, 7.5rem);
+    letter-spacing: -.02em;
+    color: #ededea;
+    white-space: nowrap;
+    z-index: -1;
+    user-select: none;
+  }
+  .cost__car {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 72%;
+    height: auto;
+    object-fit: contain;
+  }
+  .cost__manager {
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    translate: -50% 0;
+    width: auto;
+    height: 94%;
+    object-fit: contain;
+  }
+  .cost__badge {
+    position: absolute;
+    right: clamp(.75rem, .4rem + 1.2vw, 1.5rem);
+    bottom: clamp(.75rem, .4rem + 1.2vw, 1.5rem);
+    background: #fff;
+    border-radius: 10px;
+    padding: .625rem .75rem;
+    display: flex;
+    align-items: center;
+    gap: .625rem;
+    box-shadow: 0 10px 30px -12px rgba(0, 0, 0, .35);
+  }
+  .cost__badge-name { font-family: var(--font-display); font-weight: 700; text-transform: uppercase; font-size: 1rem; line-height: 1.1; }
+  .cost__badge-role { color: #6f6f6c; font-size: .75rem; }
+  .cost__chip {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    font-size: .625rem;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: .02em;
+  }
+  .cost__chip--tg { background: #27a7e7; }
+  .cost__chip--wa { background: #2cb742; }
+
+  @media (min-width: 900px) {
+    .cost__panel { grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); min-height: 30rem; }
+    .cost__copy { align-content: center; }
+  }
+</style>

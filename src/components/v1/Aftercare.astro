@@ -1,0 +1,86 @@
+---
+import { service } from '../../content/home';
+---
+
+<section class="section aftercare" id="service">
+  <div class="container">
+    <div class="card aftercare__panel">
+      <figure class="aftercare__media">
+        <img src="/img/unsplash/service.jpg" alt="" loading="lazy" width="900" height="600" />
+        <button class="aftercare__play" type="button" data-open="video" aria-label="Смотреть видео о сервисе">
+          <span aria-hidden="true">▶</span>
+        </button>
+      </figure>
+
+      <div class="aftercare__copy">
+        <h2>{service.title}</h2>
+        <p class="aftercare__lead">{service.lead}</p>
+
+        <ul class="aftercare__list">
+          {service.items.map((item) => (
+            <li class="aftercare__item">
+              <span class="aftercare__dot" aria-hidden="true"></span>
+              {item}
+            </li>
+          ))}
+        </ul>
+
+        <a class="btn btn--block aftercare__cta" href="#final">{service.cta}</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .aftercare__panel {
+    display: grid;
+    overflow: hidden;
+    background: var(--c-surface);
+  }
+  .aftercare__media { position: relative; min-height: 16rem; }
+  .aftercare__media img { width: 100%; height: 100%; object-fit: cover; }
+  .aftercare__play {
+    position: absolute;
+    inset: 0;
+    margin: auto;
+    width: 6.25rem;
+    height: 6.25rem;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, .18);
+    backdrop-filter: blur(6px);
+    color: #fff;
+    display: grid;
+    place-items: center;
+    font-size: 1.5rem;
+    transition: background .25s var(--ease), scale .25s var(--ease);
+  }
+  .aftercare__play:hover { background: rgba(255, 255, 255, .3); scale: 1.05; }
+
+  .aftercare__copy {
+    padding: clamp(1.5rem, 1rem + 2.5vw, 3rem);
+    display: grid;
+    align-content: center;
+    gap: 1.25rem;
+  }
+  .aftercare__lead { color: var(--c-text-2); font-size: 1rem; max-width: 60ch; }
+  .aftercare__list { display: grid; gap: .625rem; margin-top: .5rem; }
+  .aftercare__item {
+    display: flex;
+    align-items: center;
+    gap: .75rem;
+    padding: .875rem 1.125rem;
+    border: 1px solid var(--c-line);
+    border-radius: 10px;
+    color: var(--c-text-2);
+    font-size: .9375rem;
+  }
+  .aftercare__dot { width: 6px; height: 6px; border-radius: 50%; background: var(--c-accent); flex: none; }
+  .aftercare__cta { margin-top: .5rem; padding-block: 1.375rem; }
+
+  @media (min-width: 640px) {
+    .aftercare__list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  @media (min-width: 1024px) {
+    .aftercare__panel { grid-template-columns: minmax(0, .72fr) minmax(0, 1fr); }
+  }
+</style>
