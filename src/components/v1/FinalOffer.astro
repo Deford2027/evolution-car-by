@@ -1,0 +1,67 @@
+---
+import { finalOffer } from '../../content/home';
+import LeadForm from '../islands/LeadForm';
+---
+
+<section class="section final" id="final">
+  <div class="container">
+    <div class="final__panel">
+      <img class="final__bg" src="/img/image.png" alt="" loading="lazy" width="1680" height="1120" />
+      <div class="final__inner">
+        <div class="final__head">
+          <h2 class="final__title">{finalOffer.title}</h2>
+          <p class="final__lead">{finalOffer.lead}</p>
+        </div>
+        <LeadForm
+          client:visible
+          namePlaceholder={finalOffer.namePlaceholder}
+          phonePlaceholder={finalOffer.phonePlaceholder}
+          cta={finalOffer.cta}
+          consent={finalOffer.consent}
+          success={finalOffer.success}
+          layout="wide"
+          source="Финальный оффер"
+        />
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .final__panel {
+    position: relative;
+    border-radius: var(--r-card);
+    overflow: hidden;
+    isolation: isolate;
+    min-height: min(120vw, 38rem);
+    display: grid;
+    align-items: end;
+  }
+  .final__bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -2;
+  }
+  .final__panel::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: linear-gradient(180deg, rgba(0, 4, 12, .1) 30%, rgba(0, 4, 12, .72) 100%);
+  }
+  .final__inner {
+    padding: clamp(1.5rem, 1rem + 2.5vw, 3rem);
+    display: grid;
+    gap: 1.75rem;
+  }
+  .final__head { display: grid; gap: 1.25rem; }
+  .final__title { max-width: 22ch; }
+  .final__lead { color: var(--c-text-2); font-size: .9375rem; max-width: 52ch; }
+  @media (min-width: 1024px) {
+    .final__head { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 3rem; align-items: end; }
+    .final__lead { justify-self: end; }
+  }
+</style>
