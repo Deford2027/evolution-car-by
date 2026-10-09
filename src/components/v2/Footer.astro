@@ -1,0 +1,76 @@
+---
+import { footer } from '../../content/home';
+import { site } from '../../content/site';
+---
+
+<footer class="ftr">
+  <div class="container">
+    <div class="ftr__cols">
+      <div class="ftr__brand">
+        <img src="/img/EVOLUTION_CARS_.svg" alt={site.brand} width="123" height="23" />
+        {footer.about.split('\n').map((line) => <p>{line}</p>)}
+      </div>
+
+      {footer.columns.map((column) => (
+        <nav class="ftr__col" aria-label={column.title}>
+          <p class="ftr__col-title">{column.title}</p>
+          <ul>
+            {column.links.map((link) => <li><a href="#final">{link}</a></li>)}
+          </ul>
+        </nav>
+      ))}
+
+      <div class="ftr__col">
+        <p class="ftr__col-title">Связаться:</p>
+        <ul>
+          <li><a href={site.phoneHref}>{site.phone}</a></li>
+          <li><a href={site.telegram}>Telegram</a></li>
+          <li><a href={site.whatsapp}>WhatsApp</a></li>
+          <li>{site.showroom}</li>
+          <li>{site.service}</li>
+          <li>{footer.hours}</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="ftr__bottom">
+      <p>© {new Date().getFullYear()} {site.brand}. Автосалон автомобилей в наличии и под заказ, {site.city}.</p>
+      <p class="ftr__disclaimer">
+        Информация на сайте носит справочный характер и не является публичной офертой.
+        Доступность моделей, комплектации и сроки поставки уточняйте у менеджера.
+      </p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .ftr {
+    border-top: 1px solid var(--c-line);
+    padding-block: clamp(2.5rem, 1.5rem + 4vw, 4rem) 2rem;
+    background: var(--c-bg-alt);
+  }
+  .ftr__cols { display: grid; gap: 2.5rem; }
+  @media (min-width: 768px) { .ftr__cols { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (min-width: 1024px) { .ftr__cols { grid-template-columns: minmax(0, 1.5fr) repeat(4, minmax(0, 1fr)); gap: 2rem; } }
+
+  .ftr__brand img { height: 1.375rem; width: auto; margin-bottom: 1.25rem; }
+  .ftr__brand p { color: var(--c-text-3); font-size: .8125rem; line-height: 1.55; margin-bottom: .75rem; max-width: 36ch; }
+
+  .ftr__col-title { font-size: .875rem; margin-bottom: 1rem; }
+  .ftr__col li { color: var(--c-text-2); font-size: .8125rem; }
+  .ftr__col li + li { margin-top: .625rem; }
+  .ftr__col a { color: var(--c-text-2); }
+  .ftr__col a:hover { color: var(--c-text); }
+
+  .ftr__bottom {
+    margin-top: clamp(2rem, 1.5rem + 2vw, 3rem);
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--c-line);
+    display: grid;
+    gap: .75rem;
+    color: var(--c-text-3);
+    font-size: .75rem;
+    line-height: 1.5;
+  }
+  .ftr__disclaimer { max-width: 100ch; }
+</style>
