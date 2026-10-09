@@ -1,0 +1,117 @@
+---
+import { footer } from '../../content/home';
+import { site } from '../../content/site';
+---
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer__top">
+      <a class="footer__logo" href="#top">
+        <img src="/img/EVOLUTION_CARS_.svg" alt={site.brand} width="206" height="40" />
+      </a>
+      <div class="footer__contact">
+        <a class="footer__phone" href={site.phoneHref}>{site.phone}</a>
+        <p class="footer__hours">Ежедневно с 10 до 20</p>
+      </div>
+      <ul class="footer__social">
+        <li><a href={site.telegram} aria-label="Telegram">TG</a></li>
+        <li><a href={site.whatsapp} aria-label="WhatsApp">WA</a></li>
+      </ul>
+      <a class="btn btn--ghost footer__order" href="#final">Заказать</a>
+    </div>
+
+    <div class="footer__cols">
+      <div class="footer__about">
+        {footer.about.split('\n').map((line) => <p>{line}</p>)}
+        <p class="footer__hours footer__hours--block">{footer.hours}</p>
+      </div>
+      {footer.columns.map((column) => (
+        <nav class="footer__col" aria-label={column.title}>
+          <p class="footer__col-title">{column.title}</p>
+          <ul>
+            {column.links.map((link) => (
+              <li><a href="#final">{link}</a></li>
+            ))}
+          </ul>
+        </nav>
+      ))}
+    </div>
+
+    <div class="footer__bottom">
+      <p>© {new Date().getFullYear()} {site.brand}</p>
+      <a href="#final">{footer.credit}</a>
+    </div>
+  </div>
+
+  <p class="footer__word" aria-hidden="true">EVOLUTION CAR</p>
+</footer>
+
+<style>
+  .footer {
+    position: relative;
+    padding-top: clamp(2.5rem, 1.5rem + 4vw, 4rem);
+    overflow: hidden;
+    isolation: isolate;
+    background: linear-gradient(180deg, var(--c-bg) 0%, #1a0c05 100%);
+  }
+  .footer__top {
+    display: grid;
+    gap: 1.25rem;
+    align-items: center;
+    padding-bottom: clamp(1.5rem, 1rem + 2vw, 2.5rem);
+    border-bottom: 1px solid var(--c-line);
+  }
+  .footer__logo img { height: 2rem; width: auto; }
+  .footer__phone { font-weight: 600; font-size: .9375rem; }
+  .footer__hours { color: var(--c-text-3); font-size: .8125rem; }
+  .footer__social { display: flex; gap: .625rem; }
+  .footer__social a {
+    width: 2.75rem; height: 2.75rem;
+    border-radius: 50%;
+    border: 1px solid var(--c-line-strong);
+    display: grid; place-items: center;
+    font-size: .6875rem; font-weight: 600;
+    color: var(--c-text-2);
+  }
+  .footer__order { border-radius: var(--r-pill); padding-inline: 2rem; }
+
+  .footer__cols {
+    display: grid;
+    gap: 2rem;
+    padding-block: clamp(2rem, 1.5rem + 2vw, 3rem);
+  }
+  .footer__about p { color: var(--c-text-2); font-size: .875rem; line-height: 1.5; margin-bottom: 1rem; max-width: 34ch; }
+  .footer__hours--block { margin-top: 1.5rem; }
+  .footer__col-title { margin-bottom: 1rem; font-size: .9375rem; }
+  .footer__col li + li { margin-top: .625rem; }
+  .footer__col a { color: var(--c-text-2); font-size: .875rem; }
+  .footer__col a:hover { color: var(--c-text); }
+
+  .footer__bottom {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: space-between;
+    padding-block: 1.5rem;
+    border-top: 1px solid var(--c-line);
+    color: var(--c-text-3);
+    font-size: .8125rem;
+  }
+  .footer__word {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(3rem, -1rem + 17vw, 13rem);
+    line-height: .85;
+    letter-spacing: -.02em;
+    text-align: center;
+    color: rgba(255, 255, 255, .06);
+    white-space: nowrap;
+    user-select: none;
+    margin-top: 1rem;
+  }
+
+  @media (min-width: 768px) {
+    .footer__top { grid-template-columns: minmax(0, 1fr) auto auto auto; gap: 1.5rem; }
+    .footer__cols { grid-template-columns: minmax(0, 1.4fr) repeat(3, minmax(0, 1fr)); gap: 2.5rem; }
+  }
+</style>

@@ -1,0 +1,111 @@
+---
+import { contacts } from '../../content/home';
+import { site } from '../../content/site';
+
+// метка на шоуруме, без поисковой панели виджета
+const mapSrc = 'https://yandex.ru/map-widget/v1/?ll=27.5366%2C53.9134&z=16&pt=27.5366,53.9134,pm2rdm';
+---
+
+<section class="contacts" id="contacts">
+  <div class="contacts__map">
+    <iframe
+      src={mapSrc}
+      title="Карта: Evolution Car на проспекте Машерова, 15/4"
+      loading="lazy"
+      allowfullscreen
+    ></iframe>
+  </div>
+
+  <div class="container contacts__layer">
+    <div class="contacts__panel">
+      <p class="kicker">[ {contacts.kicker} ]</p>
+      <h2 class="contacts__title">{contacts.title}</h2>
+      <p class="contacts__lead">{contacts.lead}</p>
+
+      <dl class="contacts__rows">
+        {contacts.rows.map((row) => (
+          <div class="contacts__row">
+            <dt>{row.label}</dt>
+            <dd>{row.value}</dd>
+          </div>
+        ))}
+      </dl>
+
+      <ul class="contacts__social">
+        <li><a href={site.telegram} aria-label="Telegram">TG</a></li>
+        <li><a href={site.whatsapp} aria-label="WhatsApp">WA</a></li>
+        <li><a href={site.vk} aria-label="ВКонтакте">VK</a></li>
+      </ul>
+    </div>
+
+    <ul class="contacts__shots">
+      {contacts.photos.map((photo) => (
+        <li><img src={photo} alt="" loading="lazy" width="432" height="450" /></li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .contacts { position: relative; isolation: isolate; }
+  .contacts__map { position: absolute; inset: 0; z-index: -1; }
+  .contacts__map iframe { width: 100%; height: 100%; border: 0; filter: grayscale(.35) brightness(.72); }
+
+  .contacts__layer {
+    display: grid;
+    gap: 1.5rem;
+    padding-block: clamp(2.5rem, 1.5rem + 4vw, 5rem);
+    align-items: end;
+    min-height: min(130vw, 40rem);
+  }
+
+  .contacts__panel {
+    background: rgba(2, 5, 11, .78);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--c-line);
+    border-radius: var(--r-card);
+    padding: clamp(1.5rem, 1rem + 2vw, 2.75rem);
+    display: grid;
+    gap: 1rem;
+    align-content: start;
+    max-width: 34rem;
+  }
+  .contacts__title { font-size: clamp(2rem, 1.2rem + 3.4vw, 3rem); }
+  .contacts__lead { color: var(--c-text-2); font-size: .9375rem; }
+  .contacts__rows {
+    display: grid;
+    gap: 1.5rem 2rem;
+    margin-top: 1.25rem;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .contacts__row dt { color: var(--c-text-3); font-size: .875rem; margin-bottom: .375rem; }
+  .contacts__row dd { font-size: 1.0625rem; }
+  .contacts__social { display: flex; gap: .625rem; margin-top: 1rem; }
+  .contacts__social a {
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 8px;
+    border: 1px solid var(--c-line-strong);
+    display: grid;
+    place-items: center;
+    font-size: .6875rem;
+    font-weight: 600;
+    color: var(--c-text-2);
+  }
+  .contacts__social a:hover { background: var(--c-btn2-bg-hover); color: var(--c-text); }
+
+  .contacts__shots {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 8.75rem;
+    gap: .5rem;
+    overflow-x: auto;
+    scrollbar-width: none;
+    justify-self: end;
+  }
+  .contacts__shots img { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 4px; }
+
+  @media (min-width: 1024px) {
+    .contacts__layer { grid-template-columns: minmax(0, 34rem) minmax(0, 1fr); align-items: end; }
+  }
+</style>

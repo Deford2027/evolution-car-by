@@ -31,6 +31,16 @@
   background: var(--c-bg);
   overflow-y: auto;
 }
+.mm__close {
+  position: absolute;
+  top: 1.75rem;
+  right: var(--gutter);
+  width: 44px; height: 44px;
+  border-radius: var(--r-btn);
+  border: 1px solid var(--c-line-strong);
+  color: var(--c-text);
+  font-size: 1rem;
+}
 .mm__nav { display: grid; gap: 1.25rem; font-size: 1.25rem; }
 .mm__phone { font-size: 1.125rem; color: var(--c-text-2); }
 
