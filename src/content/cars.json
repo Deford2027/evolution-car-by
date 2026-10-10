@@ -12,7 +12,7 @@
   "year": "2022-2024",
   "priceUsd": 24000,
   "priceByn": 72000,
-  "photo": "https://static.tildacdn.com/stor6132-3539-4561-b332-303933643237/e925669b8ebe9550849299c4f996dc06.png",
+  "photo": "/img/cars/bmw-x1.jpg",
   "description": "Молодым семьям, парам или людям, которые ценят комфорт и стиль. Идеально для города и небольших поездок на природу. Конкурент Audi Q3 и Mercedes GLB.",
   "note": "Ориентир для типового лота соответствующего года/двигателя из исходного файла; фактическая цена зависит от ставки на аукционе, состояния, логистики и таможенной стоимости.",
   "specs": [
@@ -67,7 +67,7 @@
   "year": "2022-2024",
   "priceUsd": 29000,
   "priceByn": 87000,
-  "photo": "https://static.tildacdn.com/stor3436-3931-4936-b063-633533333730/e7e6ae9a6667fb09dc73d13c5196f9a3.png",
+  "photo": "/img/cars/bmw-x3.jpg",
   "description": "Семейный премиум-кроссовер. Для тех, кому нужно больше места и комфорта по сравнению с X1. Отличный вариант для поездок за город и путешествий.",
   "note": "Ориентир для типового лота соответствующего года/двигателя из исходного файла; фактическая цена зависит от ставки на аукционе, состояния, логистики и таможенной стоимости.",
   "specs": [
@@ -122,7 +122,7 @@
   "year": "2023",
   "priceUsd": 52000,
   "priceByn": 156000,
-  "photo": "https://static.tildacdn.com/stor3338-3266-4163-b662-626334316466/59f52c9f23f8239f0079919d32eb9859.png",
+  "photo": "/img/cars/bmw-x5.jpg",
   "description": "2023 · 4WD · пробег 90-100000 км · Автомат · 3.0 л диз",
   "note": "Ориентир для 3.0 xDrive; 4.4 и PHEV могут существенно отличаться.",
   "specs": [
@@ -165,7 +165,7 @@
   "year": "2022",
   "priceUsd": 60000,
   "priceByn": 180000,
-  "photo": "https://static.tildacdn.com/stor6438-6238-4731-b938-383033643361/a907d6575ffadae1ac773db0ba5458d3.png",
+  "photo": "/img/cars/bmw-x7.jpg",
   "description": "Топ-модель для самых требовательных клиентов. 3 ряда сидений, премиум-салон, статус. Конкурирует с Mercedes GLS и Audi Q8.",
   "note": "Ориентир для 3.0 xDrive; M60i/4.4 существенно дороже.",
   "specs": [
@@ -220,7 +220,7 @@
   "year": "2022-2024",
   "priceUsd": 27000,
   "priceByn": 81000,
-  "photo": "https://static.tildacdn.com/stor6538-6532-4139-a366-663233616636/fb2b36d3643627e8073284ed121e8177.png",
+  "photo": "/img/cars/bmw-3-seriya-g20.jpg",
   "description": "Самая востребованная линейка в Беларуси. Для молодежи и семей, которые предпочитают седан классом выше. Конкурент Mercedes C-Class и Audi A4.",
   "note": "Ориентир для типового лота соответствующего года/двигателя из исходного файла; фактическая цена зависит от ставки на аукционе, состояния, логистики и таможенной стоимости.",
   "specs": [
@@ -275,7 +275,7 @@
   "year": "2022-2024",
   "priceUsd": 30000,
   "priceByn": 90000,
-  "photo": "https://static.tildacdn.com/stor3134-3561-4138-b161-346564363732/199e6fa7897a07d017ecf5c7eedb30d0.png",
+  "photo": "/img/cars/bmw-5-seriya-g30.jpg",
   "description": "Классика бизнес-седана. Для тех, кто хочет больше авто, чем 3-я серия. Статусное авто для работы и представительства.",
   "note": "Ориентир для типового лота соответствующего года/двигателя из исходного файла; фактическая цена зависит от ставки на аукционе, состояния, логистики и таможенной стоимости.",
   "specs": [
@@ -330,7 +330,7 @@
   "year": "2021-2024",
   "priceUsd": 29000,
   "priceByn": 87000,
-  "photo": "https://static.tildacdn.com/stor3962-3932-4334-a364-343439386239/fa2ce0fc48a553c097d1957053da3e92.png",
+  "photo": "/img/cars/audi-q5.jpg",
   "description": "Универсальный премиум-кроссовер — наиболее популярный Audi в Беларуси. Для семей, которым нужны статус, качество и комфорт. Конкурент BMW X3 и Mercedes GLC.",
   "note": "Ориентир для типового лота соответствующего года/двигателя из исходного файла; фактическая цена зависит от ставки на аукционе, состояния, логистики и таможенной стоимости.",
   "specs": [
@@ -385,7 +385,7 @@
   "year": "2022-2024",
   "priceUsd": 34000,
   "priceByn": 102000,
-  "photo": "https://static.tildacdn.com/stor6665-3561-4137-b662-643133393165/1e6d76895047487a36d94931a25c52d5.png",
+  "photo": "/img/cars/audi-q7.jpg",
   "description": "Флагман среди SUV Audi. 3-й ряд, премиум. Конкурент BMW X5 и Mercedes GLE.",
   "note": "Ориентир для 3.0 TFSI/TDI; конкретная таможенная стоимость зависит от двигателя.",
   "specs": [
@@ -440,7 +440,7 @@
   "year": "2021-2025",
   "priceUsd": 22500,
   "priceByn": 67500,
-  "photo": "https://static.tildacdn.com/stor6564-3931-4461-b739-613131306462/cf29fe666b4f7086e8b3ed875a19b1be.png",
+  "photo": "/img/cars/audi-a4-b9.jpg",
   "description": "Сбалансированный бизнес-седан Audi. Конкурент BMW 3-й серии и Mercedes C-Class.",
   "note": "Ориентир для типового лота соответствующего года/двигателя из исходного файла; фактическая цена зависит от ставки на аукционе, состояния, логистики и таможенной стоимости.",
   "specs": [
@@ -495,7 +495,7 @@
   "year": "2021-2025",
   "priceUsd": 25000,
   "priceByn": 75000,
-  "photo": "https://static.tildacdn.com/stor3831-3164-4131-b466-353432333836/371c3988ded28cb7e0c6530770321d3f.png",
+  "photo": "/img/cars/audi-a5.jpg",
   "description": "Стильный coupe/Sportback. Для тех, кто хочет эмоциональную покупку премиум.",
   "note": "Ориентир для типового лота соответствующего года/двигателя из исходного файла; фактическая цена зависит от ставки на аукционе, состояния, логистики и таможенной стоимости.",
   "specs": [
@@ -550,7 +550,7 @@
   "year": "2023",
   "priceUsd": 39000,
   "priceByn": 117000,
-  "photo": "https://static.tildacdn.com/stor3431-6465-4430-b864-333931613234/0b587ff5e14fca59c6a81d1072f328b4.png",
+  "photo": "/img/cars/mercedes-benz-gle.jpg",
   "description": "2023 · 4WD · пробег 100-120000 км · Автомат · 2.0 л диз",
   "note": "Ориентир для GLE 350/450; AMG существенно дороже.",
   "specs": [
@@ -593,7 +593,7 @@
   "year": "2021-2024",
   "priceUsd": 27000,
   "priceByn": 81000,
-  "photo": "https://static.tildacdn.com/stor3236-3931-4833-a334-353434386336/ac1b0198f45e3531276147b20565b957.png",
+  "photo": "/img/cars/mercedes-benz-glc.jpg",
   "description": "Базовый премиум, бизнес-седан",
   "note": "Ориентир для типового лота соответствующего года/двигателя из исходного файла; фактическая цена зависит от ставки на аукционе, состояния, логистики и таможенной стоимости.",
   "specs": [
@@ -648,7 +648,7 @@
   "year": "2022-2024",
   "priceUsd": 23000,
   "priceByn": 69000,
-  "photo": "https://static.tildacdn.com/stor6538-3230-4531-a164-613537393166/cfddf11638a73883dba2ac6e78773a6b.png",
+  "photo": "/img/cars/ford-mustang.jpg",
   "description": "Легендарный muscle car. Для тех, кто хочет драйв, эмоции и американский стиль. Классика жанра.",
   "note": "Ориентир для типового лота соответствующего года/двигателя из исходного файла; фактическая цена зависит от ставки на аукционе, состояния, логистики и таможенной стоимости.",
   "specs": [
@@ -703,7 +703,7 @@
   "year": "2022-2024",
   "priceUsd": 17000,
   "priceByn": 51000,
-  "photo": "https://static.tildacdn.com/stor3638-6263-4464-b765-393864343561/8a347e5e090908edf26abedbc1f5b127.png",
+  "photo": "/img/cars/honda-civic.jpg",
   "description": "Компактный спортивный, доступный",
   "note": "Ориентир для типового лота соответствующего года/двигателя из исходного файла; фактическая цена зависит от ставки на аукционе, состояния, логистики и таможенной стоимости.",
   "specs": [
@@ -758,7 +758,7 @@
   "year": "2022-2023",
   "priceUsd": 25000,
   "priceByn": 75000,
-  "photo": "https://static.tildacdn.com/stor6464-3865-4462-b631-626131346637/6c5d8a5d1f43c318176b4895c1e15bde.png",
+  "photo": "/img/cars/toyota-rav4.jpg",
   "description": "Самый продаваемый кроссовер в США. Надёжный, компактный. Конкурент Honda CR-V.",
   "note": "Ориентир для 2021–2024, 2.5 бензин или Hybrid; комплектация и привод заметно меняют цену.",
   "specs": [
@@ -813,7 +813,7 @@
   "year": "2022-2023",
   "priceUsd": 19000,
   "priceByn": 57000,
-  "photo": "https://static.tildacdn.com/stor3333-3238-4439-a166-323365306264/83121285a2ea1122d361433464dadc3f.png",
+  "photo": "/img/cars/honda-accord.jpg",
   "description": "Надёжный бизнес-седан. Просторный салон, экономичность. Конкурент Toyota Camry.",
   "note": "Ориентир для типового лота соответствующего года/двигателя из исходного файла; фактическая цена зависит от ставки на аукционе, состояния, логистики и таможенной стоимости.",
   "specs": [
@@ -868,7 +868,7 @@
   "year": "2022-2023",
   "priceUsd": 21500,
   "priceByn": 64500,
-  "photo": "https://static.tildacdn.com/stor6364-3564-4362-b939-626461663831/b5c8814623a4bd9bf0b2e21c8bdb1495.png",
+  "photo": "/img/cars/honda-cr-v.jpg",
   "description": "Один из лучших компактных кроссоверов. Надёжность, экономичность. Конкурент Toyota RAV4.",
   "note": "Ориентир для 2021–2024, 1.5T или Hybrid; AWD обычно дороже.",
   "specs": [
@@ -923,7 +923,7 @@
   "year": "2021-2024",
   "priceUsd": 20000,
   "priceByn": 60000,
-  "photo": "https://static.tildacdn.com/stor6363-3963-4463-b935-333862336464/199da67ccfcaa1ff8580bb92c64a3af5.png",
+  "photo": "/img/cars/tesla-model-3.jpg",
   "description": "Электромобиль №1 в мире. Быстрый, технологичный. Для IT и молодёжи.",
   "note": "Ориентир для 2021–2024, Long Range/RWD/AWD; EV, таможенная экономика отличается от ДВС.",
   "specs": [
@@ -979,7 +979,7 @@
   "year": "2025",
   "priceUsd": 38000,
   "priceByn": 114000,
-  "photo": "https://static.tildacdn.com/stor3435-6565-4231-a634-386432626636/d2f7d46b8d09140019916cc1acb9fa6d.png",
+  "photo": "/img/cars/tesla-model-y.jpg",
   "description": "2025 · Long Range AWD · Электро · Задний / полный · запас хода 455–533 км",
   "note": "Ориентир для 2021–2024, Long Range/RWD/AWD; EV.",
   "specs": [
@@ -1030,7 +1030,7 @@
   "year": "2022-2024",
   "priceUsd": 12000,
   "priceByn": 36000,
-  "photo": "https://static.tildacdn.com/stor6631-6561-4938-b866-326563326366/4255e1592d009420e7a3c1fc982f92ff.png",
+  "photo": "/img/cars/chevrolet-malibu.jpg",
   "description": "Комфорт",
   "note": "Ориентир для типового лота соответствующего года/двигателя из исходного файла; фактическая цена зависит от ставки на аукционе, состояния, логистики и таможенной стоимости.",
   "specs": [
@@ -1085,7 +1085,7 @@
   "year": "2024",
   "priceUsd": 13500,
   "priceByn": 40500,
-  "photo": "https://static.tildacdn.com/stor3839-3136-4661-b761-616334633863/9fddc3360700410ba7ceaec82b262af9.png",
+  "photo": "/img/cars/chevrolet-trax.jpg",
   "description": "Бюджетный городской SUV",
   "note": "Ориентир для типового лота соответствующего года/двигателя из исходного файла; фактическая цена зависит от ставки на аукционе, состояния, логистики и таможенной стоимости.",
   "specs": [
@@ -1140,7 +1140,7 @@
   "year": "2022-2024",
   "priceUsd": 12000,
   "priceByn": 36000,
-  "photo": "https://static.tildacdn.com/stor6137-3064-4633-b034-303233353363/3b70410e7235221c6d89783fbc569904.png",
+  "photo": "/img/cars/chevrolet-equinox.jpg",
   "description": "Бюджетный городской SUV",
   "note": "Ориентир для типового лота соответствующего года/двигателя из исходного файла; фактическая цена зависит от ставки на аукционе, состояния, логистики и таможенной стоимости.",
   "specs": [
@@ -1195,7 +1195,7 @@
   "year": "2022-2024",
   "priceUsd": 14000,
   "priceByn": 42000,
-  "photo": "https://static.tildacdn.com/stor3430-3865-4162-a534-323163393831/7d85e7bd8a02303717125ccb68bdd0cf.png",
+  "photo": "/img/cars/gmc-terrain.jpg",
   "description": "Компактный кроссовер GMC",
   "note": "Ориентир для типового лота соответствующего года/двигателя из исходного файла; фактическая цена зависит от ставки на аукционе, состояния, логистики и таможенной стоимости.",
   "specs": [
@@ -1250,7 +1250,7 @@
   "year": "2022-2024",
   "priceUsd": 14500,
   "priceByn": 43500,
-  "photo": "https://static.tildacdn.com/stor6338-3237-4565-b162-323033666438/e5cbd562289af5d2fd60a04e140f7852.png",
+  "photo": "/img/cars/ford-escape.jpg",
   "description": "Компактный семейный кроссовер",
   "note": "Ориентир для типового лота соответствующего года/двигателя из исходного файла; фактическая цена зависит от ставки на аукционе, состояния, логистики и таможенной стоимости.",
   "specs": [
@@ -1305,7 +1305,7 @@
   "year": "2022-2024",
   "priceUsd": 21000,
   "priceByn": 63000,
-  "photo": "https://static.tildacdn.com/stor3166-3161-4039-b562-373163326562/ee9440a1775b842a6e22cd55045fee75.png",
+  "photo": "/img/cars/ford-explorer.jpg",
   "description": "Семейный 3-рядный SUV",
   "note": "Ориентир для типового лота соответствующего года/двигателя из исходного файла; фактическая цена зависит от ставки на аукционе, состояния, логистики и таможенной стоимости.",
   "specs": [
@@ -1360,7 +1360,7 @@
   "year": "2022-2024",
   "priceUsd": 22000,
   "priceByn": 66000,
-  "photo": "https://static.tildacdn.com/stor6563-3765-4766-b331-333235366130/149ea9d4fad5df9cfeb7ee21269da73b.png",
+  "photo": "/img/cars/volkswagen-tiguan.jpg",
   "description": "Надёжный немецкий кроссовер",
   "note": "Ориентир для типового лота соответствующего года/двигателя из исходного файла; фактическая цена зависит от ставки на аукционе, состояния, логистики и таможенной стоимости.",
   "specs": [
@@ -1415,7 +1415,7 @@
   "year": "2022-2024",
   "priceUsd": 20000,
   "priceByn": 60000,
-  "photo": "https://static.tildacdn.com/stor3761-3531-4632-a532-363765663236/c240da1c7f5f8e19ba4883b969f32f0a.png",
+  "photo": "/img/cars/alfa-romeo-giulia.jpg",
   "description": "Итальянский спортивный седан",
   "note": "Ориентир для типового лота соответствующего года/двигателя из исходного файла; фактическая цена зависит от ставки на аукционе, состояния, логистики и таможенной стоимости.",
   "specs": [
@@ -1470,7 +1470,7 @@
   "year": "2022-2024",
   "priceUsd": 22000,
   "priceByn": 66000,
-  "photo": "https://static.tildacdn.com/stor6430-6365-4064-b035-626263643466/cff96449a6c313a7af0c48444ee191e9.png",
+  "photo": "/img/cars/volvo-xc60.jpg",
   "description": "Безопасный премиум-кроссовер",
   "note": "Ориентир для типового лота соответствующего года/двигателя из исходного файла; фактическая цена зависит от ставки на аукционе, состояния, логистики и таможенной стоимости.",
   "specs": [
@@ -1525,7 +1525,7 @@
   "year": "2022-2024",
   "priceUsd": 25000,
   "priceByn": 75000,
-  "photo": "https://static.tildacdn.com/stor3033-3561-4138-b935-646166393764/b95df2af69bb68a0df05b5f5ce5c3ae7.png",
+  "photo": "/img/cars/volvo-xc90.jpg",
   "description": "Флагман Volvo SUV",
   "note": "Ориентир для типового лота соответствующего года/двигателя из исходного файла; фактическая цена зависит от ставки на аукционе, состояния, логистики и таможенной стоимости.",
   "specs": [
@@ -1580,7 +1580,7 @@
   "year": "2022-2024",
   "priceUsd": 21000,
   "priceByn": 63000,
-  "photo": "https://static.tildacdn.com/stor3662-6339-4135-a336-323235333434/2b208903d32a3c480874b642475e39c7.png",
+  "photo": "/img/cars/volvo-s60.jpg",
   "description": "Безопасный премиум-седан",
   "note": "Ориентир для типового лота соответствующего года/двигателя из исходного файла; фактическая цена зависит от ставки на аукционе, состояния, логистики и таможенной стоимости.",
   "specs": [
@@ -1635,7 +1635,7 @@
   "year": "2022",
   "priceUsd": 22800,
   "priceByn": 68400,
-  "photo": "https://static.tildacdn.com/stor6235-3931-4163-b536-646433313532/6308eef7e945e87fde229db1ffa492fe.png",
+  "photo": "/img/cars/hyundai-tucson-nx4.jpg",
   "description": "2022 · 2WD · пробег 90-100000 км · Автомат · 1.6 л бенз",
   "note": "",
   "specs": [
@@ -1678,7 +1678,7 @@
   "year": "2023",
   "priceUsd": 28500,
   "priceByn": 85500,
-  "photo": "https://static.tildacdn.com/stor3766-6461-4030-b864-303561623264/1e454da5dc4ae2855bf9ed612a7c3af9.png",
+  "photo": "/img/cars/kia-sportage-5-nq5.jpg",
   "description": "2023 · 2WD · пробег 110-130000 км · Автомат · 1.6 л бенз",
   "note": "",
   "specs": [
@@ -1721,7 +1721,7 @@
   "year": "2023",
   "priceUsd": 25800,
   "priceByn": 77400,
-  "photo": "https://static.tildacdn.com/stor3835-3434-4464-b765-336438366563/390d1af4b5d5464512345ae00c55fdd2.png",
+  "photo": "/img/cars/hyundai-santa-fe-tm.jpg",
   "description": "2023 · 2WD · пробег 100-110000 км · Автомат · 2.2 л диз",
   "note": "",
   "specs": [
@@ -1764,7 +1764,7 @@
   "year": "2023",
   "priceUsd": 27000,
   "priceByn": 81000,
-  "photo": "https://static.tildacdn.com/stor6661-3838-4363-b638-383433313261/ab6260823e888b1f5335574a5336e85b.png",
+  "photo": "/img/cars/kia-sorento-4-mq4.jpg",
   "description": "2023 · 2WD · пробег 120-190000 км · Автомат · 2.2 л диз",
   "note": "",
   "specs": [
@@ -1807,7 +1807,7 @@
   "year": "2022",
   "priceUsd": 40000,
   "priceByn": 118000,
-  "photo": "https://static.tildacdn.com/stor3536-3461-4463-b263-663537306264/93556cbd02bf20d8cf9819f021500bbb.png",
+  "photo": "/img/cars/hyundai-palisade.jpg",
   "description": "2022 · 4WD · пробег ~55 000 км · 8AT · 3.8 бензин",
   "note": "",
   "specs": [
@@ -1850,7 +1850,7 @@
   "year": "2023",
   "priceUsd": 25000,
   "priceByn": 75000,
-  "photo": "https://static.tildacdn.com/stor6636-6330-4531-b666-656361363837/dfe419340b523d227e196077180d2e4b.png",
+  "photo": "/img/cars/kia-carnival-4.jpg",
   "description": "2023 · 2WD · пробег 140-160000 км · Автомат · 2.2 л диз",
   "note": "",
   "specs": [
@@ -1893,7 +1893,7 @@
   "year": "2023",
   "priceUsd": 25700,
   "priceByn": 77100,
-  "photo": "https://static.tildacdn.com/stor3432-6237-4365-a630-343231323161/a9ce4c79c6c1f617420d7aff9acae188.png",
+  "photo": "/img/cars/kia-k5.jpg",
   "description": "2023 · 2WD · пробег 49-60000 км · Автомат · 1.6 л бенз",
   "note": "",
   "specs": [
@@ -1936,7 +1936,7 @@
   "year": "2023",
   "priceUsd": 31000,
   "priceByn": 93000,
-  "photo": "https://static.tildacdn.com/stor6536-3161-4735-b066-656661363833/615426f7a931d67db7fa42e3641dac44.png",
+  "photo": "/img/cars/hyundai-sonata-dn8.jpg",
   "description": "2023 · 2WD · пробег 70-90000 км · Автомат · 2.0 л бенз",
   "note": "",
   "specs": [
@@ -1979,7 +1979,7 @@
   "year": "2023",
   "priceUsd": 27000,
   "priceByn": 81000,
-  "photo": "https://static.tildacdn.com/stor6131-6436-4864-b433-353235313734/6bdd739b83f8b74b7a9c01a1efa9760e.png",
+  "photo": "/img/cars/bmw-5.jpg",
   "description": "2023 · 2WD · пробег 90-100000 км · Автомат · 2.0 л бенз",
   "note": "",
   "specs": [
@@ -2022,7 +2022,7 @@
   "year": "2023",
   "priceUsd": 82000,
   "priceByn": 246000,
-  "photo": "https://static.tildacdn.com/stor3638-6365-4530-b338-363137646362/3f57cecc87f3ece1e4f4704c48113ef4.png",
+  "photo": "/img/cars/bmw-7.jpg",
   "description": "2023 · 2WD · пробег 21 420 км · Автомат · 2.0 л бенз",
   "note": "",
   "specs": [
@@ -2065,7 +2065,7 @@
   "year": "2023",
   "priceUsd": 39500,
   "priceByn": 116500,
-  "photo": "https://static.tildacdn.com/stor3038-3566-4433-a432-623162373734/d557a0d160e9c7bf5bec6ea2276796fa.png",
+  "photo": "/img/cars/hyundai-staria.jpg",
   "description": "2023 · 2WD · пробег ~35 000 км · 8AT · 2.2 дизель",
   "note": "",
   "specs": [
@@ -2108,7 +2108,7 @@
   "year": "2022",
   "priceUsd": 32000,
   "priceByn": 96000,
-  "photo": "https://static.tildacdn.com/stor6332-6134-4736-a665-643762356363/47dada9b0a25e4831df46cabbedc5751.png",
+  "photo": "/img/cars/kia-mohave-the-master.jpg",
   "description": "2022 · 4WD · пробег 80-100000 км · Автомат · 3.0 л диз",
   "note": "",
   "specs": [
@@ -2151,7 +2151,7 @@
   "year": "2023",
   "priceUsd": 32600,
   "priceByn": 97800,
-  "photo": "https://static.tildacdn.com/stor3034-3761-4861-a136-636430396536/79a787ef05babbc61a8d199380c4f3d7.png",
+  "photo": "/img/cars/genesis-g80.jpg",
   "description": "2023 · AWD · пробег 100-120000 км · Автомат · 2.5 л бенз",
   "note": "",
   "specs": [
@@ -2194,7 +2194,7 @@
   "year": "2023",
   "priceUsd": 38300,
   "priceByn": 114900,
-  "photo": "https://static.tildacdn.com/stor3038-3564-4164-b736-643063383763/bdc554f028ee6b2d8d367fc471940484.png",
+  "photo": "/img/cars/genesis-gv70.jpg",
   "description": "2023 · AWD · пробег 80-100000 км · Автомат · 2.2 л диз",
   "note": "",
   "specs": [
@@ -2237,7 +2237,7 @@
   "year": "2023",
   "priceUsd": 38200,
   "priceByn": 114600,
-  "photo": "https://static.tildacdn.com/stor6630-3365-4835-b930-336465323433/43ca6f4edceba10cffc733584b58ee39.png",
+  "photo": "/img/cars/genesis-gv80.jpg",
   "description": "2023 · AWD · пробег 70-90000 км · Автомат · 2.5 л бенз",
   "note": "",
   "specs": [
@@ -2280,7 +2280,7 @@
   "year": "2023",
   "priceUsd": 59000,
   "priceByn": 177000,
-  "photo": "https://static.tildacdn.com/stor3965-3939-4239-b430-393135633238/0852a59afece02bbe7c7169bc133740b.png",
+  "photo": "/img/cars/mercedes-benz-s-class.jpg",
   "description": "2023 · 2WD · пробег 90-110000 км · Автомат · 3.0 л диз",
   "note": "",
   "specs": [
@@ -2323,7 +2323,7 @@
   "year": "2023",
   "priceUsd": 28500,
   "priceByn": 84000,
-  "photo": "https://static.tildacdn.com/stor3532-6564-4361-b339-636231383737/b33da8ec66abd42ed3a763085656415d.png",
+  "photo": "/img/cars/kia-k8.jpg",
   "description": "2023 · 2WD · пробег ~35 000 км · 8AT · 2.5 бензин",
   "note": "",
   "specs": [
@@ -2366,7 +2366,7 @@
   "year": "2022",
   "priceUsd": 39000,
   "priceByn": 115000,
-  "photo": "https://static.tildacdn.com/stor3430-6666-4931-b236-303736663366/3e9cb559b4e7f31d9481688b0f0e58ed.png",
+  "photo": "/img/cars/kia-k9.jpg",
   "description": "2022 · RWD / AWD · пробег ~45 000 км · 8AT · 3.3T бензин",
   "note": "",
   "specs": [
@@ -2409,7 +2409,7 @@
   "year": "2023",
   "priceUsd": 26500,
   "priceByn": 78000,
-  "photo": "https://static.tildacdn.com/stor6436-3335-4262-a262-373463343139/1b5bae197e7bcdfb0ba91b9bc76d4e29.png",
+  "photo": "/img/cars/kia-niro.jpg",
   "description": "2023 · 2WD · пробег ~30 000 км · 6DCT · 1.6 Hybrid",
   "note": "",
   "specs": [
@@ -2452,7 +2452,7 @@
   "year": "2024",
   "priceUsd": 30500,
   "priceByn": 90000,
-  "photo": "https://static.tildacdn.com/stor3038-3865-4462-b733-313135366234/913e51d9d0614c0b79801e46cc116a54.png",
+  "photo": "/img/cars/kia-ev3.jpg",
   "description": "2024 · 2WD · пробег ~20 000 км · 1AT · EV 58.3 кВт·ч",
   "note": "",
   "specs": [
@@ -2495,7 +2495,7 @@
   "year": "2024",
   "priceUsd": 55000,
   "priceByn": 162000,
-  "photo": "https://static.tildacdn.com/stor3831-6237-4061-b634-323961393364/64b00b1e77d5d66efa5c0e81fa4967b0.png",
+  "photo": "/img/cars/kia-ev9.jpg",
   "description": "2024 · AWD · пробег ~25 000 км · 1AT · EV 99.8 кВт·ч",
   "note": "",
   "specs": [
@@ -2538,7 +2538,7 @@
   "year": "2023",
   "priceUsd": 38000,
   "priceByn": 112000,
-  "photo": "https://static.tildacdn.com/stor3066-3932-4439-a339-663234633830/794c123c93f241c392dbb8b7f50b8483.png",
+  "photo": "/img/cars/genesis-gv60.jpg",
   "description": "2023 · AWD · пробег ~30 000 км · 1AT · EV 77.4 кВт·ч",
   "note": "",
   "specs": [
@@ -2581,7 +2581,7 @@
   "year": "2022",
   "priceUsd": 31500,
   "priceByn": 93000,
-  "photo": "https://static.tildacdn.com/stor3336-3836-4064-b038-323734353963/f1ff803423fd8dce7224a86153f56417.png",
+  "photo": "/img/cars/genesis-g70.jpg",
   "description": "2022 · AWD · пробег ~35 000 км · 8AT · 2.0T бензин",
   "note": "",
   "specs": [
@@ -2624,7 +2624,7 @@
   "year": "2023",
   "priceUsd": 26000,
   "priceByn": 77000,
-  "photo": "https://static.tildacdn.com/stor3564-3431-4638-a436-366361643132/78783a78a94d2b82de544afc86616f10.png",
+  "photo": "/img/cars/kgm-torres.jpg",
   "description": "2023 · 2WD · пробег ~30 000 км · 6AT · 1.5T бензин",
   "note": "",
   "specs": [
@@ -2668,7 +2668,7 @@
   "year": "2026",
   "priceUsd": 68000,
   "priceByn": 208332,
-  "photo": "https://static.tildacdn.com/stor3339-3064-4231-b037-643964356564/f3ee39c4d5833fc7d9bd973ab768de1e.png",
+  "photo": "/img/cars/zeekr-001.jpg",
   "description": "2026 · Ultra+ · Электро · Постоянный полный · запас хода 730 км",
   "note": "Поколение: I · 3-й рестайлинг Модификация: 103.0 kWh AWD (925 л.с.) Кузов: Лифтбек Количество мест: 5 Статус: В наличии Источник: https://salon.av.by/zeekr_001_14173",
   "specs": [
@@ -2727,7 +2727,7 @@
   "year": "2026",
   "priceUsd": 49000,
   "priceByn": 147000,
-  "photo": "https://static.tildacdn.com/stor3231-3930-4735-a238-633133343166/42c78b9e74591ae53ed2e233e0469d28.png",
+  "photo": "/img/cars/zeekr-7x.jpg",
   "description": "2026 · Ultra · Электро · Полный · запас хода до 715 км",
   "note": "",
   "specs": [
@@ -2778,7 +2778,7 @@
   "year": "2024–2025",
   "priceUsd": 25000,
   "priceByn": 75000,
-  "photo": "https://static.tildacdn.com/stor3261-6163-4230-b439-366438346539/5b64c849705c9e0f55c409c0c13bd4d1.png",
+  "photo": "/img/cars/zeekr-x.jpg",
   "description": "2024–2025 · You / AWD · Электро · Полный · запас хода 500–560 км",
   "note": "",
   "specs": [
@@ -2829,7 +2829,7 @@
   "year": "2024–2025",
   "priceUsd": 36000,
   "priceByn": 108000,
-  "photo": "https://static.tildacdn.com/stor3664-3832-4365-b264-643261323230/bf8db78bd766f2a759d133cf801a0fc9.png",
+  "photo": "/img/cars/zeekr-007.jpg",
   "description": "2024–2025 · Performance / AWD · Электро · Полный · запас хода 616–870 км",
   "note": "",
   "specs": [
@@ -2880,7 +2880,7 @@
   "year": "2024–2025",
   "priceUsd": 75500,
   "priceByn": 226500,
-  "photo": "https://static.tildacdn.com/stor3835-3736-4765-a265-656330613931/29dd5f775f9dea86911801b49d245a93.png",
+  "photo": "/img/cars/zeekr-009.jpg",
   "description": "2024–2025 · ME / AWD, 116 кВт·ч · Электро · Полный · запас хода 702–822 км",
   "note": "",
   "specs": [
@@ -2931,7 +2931,7 @@
   "year": "2026",
   "priceUsd": 57500,
   "priceByn": 172500,
-  "photo": "https://static.tildacdn.com/stor6530-6231-4837-b831-383834663862/b20a86424ede915b0dd5b379c0a4c31d.png",
+  "photo": "/img/cars/lixiang-l7.jpg",
   "description": "2026 · Ultra · EREV · Полный · запас хода до 286 км EV / 1400+ км суммарно",
   "note": "",
   "specs": [
@@ -2984,7 +2984,7 @@
   "year": "2025",
   "priceUsd": 38700,
   "priceByn": 118565,
-  "photo": "https://static.tildacdn.com/stor3066-6335-4765-a530-326333363034/3efd79f448de974949b255fee0650aed.png",
+  "photo": "/img/cars/li-auto-l6.jpg",
   "description": "2025 · pro · Бензин (гибрид) · Постоянный полный · запас хода 1 315 км",
   "note": "Поколение: I Модификация: 1,5 SSR (408 л.с.) Кузов: Внедорожник, 5 дверей Количество мест: 5 Статус: Под заказ Источник: https://salon.av.by/li-auto_l6_4126",
   "specs": [
@@ -3043,7 +3043,7 @@
   "year": "2025",
   "priceUsd": 65000,
   "priceByn": 195000,
-  "photo": "https://static.tildacdn.com/stor3331-3739-4265-b732-616133366366/5aa654eff0544ffd0f479dcbec103333.png",
+  "photo": "/img/cars/lixiang-l9.jpg",
   "description": "2025 · Ultra · EREV · Полный · запас хода 280 км EV / 1 400+ км суммарно",
   "note": "",
   "specs": [
@@ -3094,7 +3094,7 @@
   "year": "2026",
   "priceUsd": 34300,
   "priceByn": 102900,
-  "photo": "https://static.tildacdn.com/stor6566-3438-4330-a532-323666313232/ef3a8aaedb32a0e48a3ae766070b18fe.png",
+  "photo": "/img/cars/voyah-free.jpg",
   "description": "2026 · Plus · EREV · Полный · запас хода до 259 км EV / 1400+ км суммарно",
   "note": "",
   "specs": [
@@ -3145,7 +3145,7 @@
   "year": "2026",
   "priceUsd": 61000,
   "priceByn": 183000,
-  "photo": "https://static.tildacdn.com/stor6664-3736-4436-a137-393038386339/1c0f0380aad0df50c527f805318edda4.png",
+  "photo": "/img/cars/voyah-dreamer.jpg",
   "description": "2026 · Flagship · Электро · Полный · запас хода до 705 км",
   "note": "",
   "specs": [
@@ -3196,7 +3196,7 @@
   "year": "2024–2025",
   "priceUsd": 48500,
   "priceByn": 145500,
-  "photo": "https://static.tildacdn.com/stor6465-6532-4337-b062-616230616661/6e01cefe7f760b5aa1d82eadc9eb231a.png",
+  "photo": "/img/cars/voyah-passion.jpg",
   "description": "2024–2025 · PHEV / AWD · EREV · Полный · запас хода 262 км EV / до 1 260 км суммарно",
   "note": "",
   "specs": [
@@ -3247,7 +3247,7 @@
   "year": "2024–2025",
   "priceUsd": 21500,
   "priceByn": 64500,
-  "photo": "https://static.tildacdn.com/stor3162-3733-4262-a238-343931316164/0ee08a9cd952ad7ca4f49a9d69b5cb80.png",
+  "photo": "/img/cars/volkswagen-id-4-crozz.jpg",
   "description": "2024–2025 · Pure+ / Pro · Электро · Задний · запас хода 425–600 км",
   "note": "",
   "specs": [
@@ -3298,7 +3298,7 @@
   "year": "2024-2025",
   "priceUsd": 26500,
   "priceByn": 79500,
-  "photo": "https://static.tildacdn.com/stor6132-6235-4630-b433-383864326439/e6e8cd761bae6f3ca59272acd47cf784.png",
+  "photo": "/img/cars/volkswagen-id-unix.jpg",
   "description": "2024-2025 · Ultra · Электро · Задний · запас хода 460–621 км",
   "note": "",
   "specs": [
@@ -3351,7 +3351,7 @@
   "year": "2025",
   "priceUsd": 18600,
   "priceByn": 56985,
-  "photo": "https://static.tildacdn.com/stor3463-6331-4532-a537-363265396363/61324927e847a62ad0338c1ac1076fa1.png",
+  "photo": "/img/cars/byd-qin-plus-ev.jpg",
   "description": "2025 · Leading · Электро · Передний · запас хода 510 км",
   "note": "Поколение: I Модификация: 57,6 kWh (136 л.с.) Кузов: Седан Количество мест: 5 Статус: Под заказ Источник: https://salon.av.by/byd_qin-plus-ev_4243",
   "specs": [
@@ -3410,7 +3410,7 @@
   "year": "2025",
   "priceUsd": 26500,
   "priceByn": 79500,
-  "photo": "https://static.tildacdn.com/stor6162-3935-4339-b534-363464623634/92738d2ed06b9eb44df64ffbac95a80b.png",
+  "photo": "/img/cars/byd-han.jpg",
   "description": "2025 · EV / 715 км, Flagship · Электро · Передний / полный · запас хода 605–715 км",
   "note": "",
   "specs": [
@@ -3461,7 +3461,7 @@
   "year": "2025",
   "priceUsd": 21000,
   "priceByn": 63000,
-  "photo": "https://static.tildacdn.com/stor6639-3134-4439-b262-643063666464/a8543b7f7cddfb2c7f58ab3094535281.png",
+  "photo": "/img/cars/byd-seal.jpg",
   "description": "2025 · Premium / AWD · Электро · Задний / полный · запас хода 550–700 км",
   "note": "",
   "specs": [
@@ -3514,7 +3514,7 @@
   "year": "2025",
   "priceUsd": 28500,
   "priceByn": 87315,
-  "photo": "https://static.tildacdn.com/stor3863-3266-4862-b864-386334333732/1245d192b80ce5e7dee7924eec44ca0f.png",
+  "photo": "/img/cars/byd-song-plus-ev.jpg",
   "description": "2025 · smart driving · Электро · Передний · запас хода 605 км",
   "note": "Поколение: I · 3-й рестайлинг Модификация: 87,04 kWh (218 л.с.) Кузов: Внедорожник, 5 дверей Количество мест: 5 Статус: Под заказ Источник: https://salon.av.by/byd_song-plus-ev_4129",
   "specs": [
@@ -3573,7 +3573,7 @@
   "year": "2024",
   "priceUsd": 29500,
   "priceByn": 88500,
-  "photo": "https://static.tildacdn.com/stor6261-6436-4134-b434-363763613364/69f1d928b48be2d42a8202683870bada.png",
+  "photo": "/img/cars/byd-tang.jpg",
   "description": "2024 · EV / AWD · Электро · Полный · запас хода 600–730 км",
   "note": "",
   "specs": [
@@ -3624,7 +3624,7 @@
   "year": "2024–2025",
   "priceUsd": 29500,
   "priceByn": 88500,
-  "photo": "https://static.tildacdn.com/stor6638-3936-4038-b534-383464666237/06cbcb9478d84d221d95f946d6bedd6d.png",
+  "photo": "/img/cars/byd-song-l.jpg",
   "description": "2024–2025 · EV 550 / 662 км · Электро · Задний / полный · запас хода 550–662 км",
   "note": "",
   "specs": [
@@ -3675,7 +3675,7 @@
   "year": "2025",
   "priceUsd": 16000,
   "priceByn": 48000,
-  "photo": "https://static.tildacdn.com/stor3762-3564-4434-b264-646566343663/8609991cf7912df03f2a6ce029967e1d.png",
+  "photo": "/img/cars/byd-yuan-plus-chapmion-edition.jpg",
   "description": "2025 · Champion / 510 км · Электро · Передний · запас хода 430–510 км",
   "note": "",
   "specs": [
@@ -3726,7 +3726,7 @@
   "year": "2024",
   "priceUsd": 144000,
   "priceByn": 432000,
-  "photo": "https://static.tildacdn.com/stor3932-6639-4435-a138-343035356462/c30db9b30d73b975fdb346b63a7c167a.png",
+  "photo": "/img/cars/yangwang-u8.jpg",
   "description": "2024 · Deluxe / Premium · PHEV / EREV · Полный · запас хода 180 км EV / до 1 000 км суммарно",
   "note": "",
   "specs": [
@@ -3777,7 +3777,7 @@
   "year": "2023-2024",
   "priceUsd": 26000,
   "priceByn": 78000,
-  "photo": "https://static.tildacdn.com/stor6536-3332-4162-b230-323964633633/8406a515c04624d306ad5f570a8ca149.png",
+  "photo": "/img/cars/geely-monjaro.jpg",
   "description": "2023-2024 · Flagship / 2.0T AWD · Бензин · Полный",
   "note": "",
   "specs": [
@@ -3828,7 +3828,7 @@
   "year": "2026",
   "priceUsd": 25000,
   "priceByn": 75000,
-  "photo": "https://static.tildacdn.com/stor3566-6533-4034-b133-363562343339/0941c9a86cf295089538d274266b04b1.png",
+  "photo": "/img/cars/geely-boyue-l.jpg",
   "description": "2026 · flagship · Бензин · Передний",
   "note": "",
   "specs": [
@@ -3879,7 +3879,7 @@
   "year": "2023-2024",
   "priceUsd": 16000,
   "priceByn": 48000,
-  "photo": "https://static.tildacdn.com/stor6264-3237-4435-b435-626232616662/04a9f4125559b2413454051a4af9831a.png",
+  "photo": "/img/cars/geely-coolray.jpg",
   "description": "2023-2024 · Flagship · Бензин · Передний",
   "note": "",
   "specs": [
@@ -3930,7 +3930,7 @@
   "year": "2023-2024",
   "priceUsd": 20000,
   "priceByn": 60000,
-  "photo": "https://static.tildacdn.com/stor6434-3261-4430-b363-353430353962/42b2d05c8ae96319e4b0c211d7a66090.png",
+  "photo": "/img/cars/geely-preface.jpg",
   "description": "2023-2024 · Flagship · Бензин · Передний",
   "note": "",
   "specs": [
@@ -3981,7 +3981,7 @@
   "year": "2024",
   "priceUsd": 24000,
   "priceByn": 72000,
-  "photo": "https://static.tildacdn.com/stor3930-6462-4564-b138-306466306235/2ee504c5572a52cf43b7d7612769577f.png",
+  "photo": "/img/cars/geely-galaxy-l7.jpg",
   "description": "2024 · Max / Starship · PHEV · Передний · запас хода 115 км EV / до 1 370 км суммарно",
   "note": "",
   "specs": [
@@ -4032,7 +4032,7 @@
   "year": "2025",
   "priceUsd": 55000,
   "priceByn": 165000,
-  "photo": "https://static.tildacdn.com/stor6137-6565-4935-b839-336336376136/1fad6ec5c788f45b84090f07f8868fa4.png",
+  "photo": "/img/cars/lynk-co-900-lynk-co-09.jpg",
   "description": "2025 · Ultra 2.0T AWD · PHEV · Полный · запас хода 190–280 км EV / до 1 100 км суммарно",
   "note": "",
   "specs": [
@@ -4083,7 +4083,7 @@
   "year": "2025",
   "priceUsd": 35000,
   "priceByn": 105000,
-  "photo": "https://static.tildacdn.com/stor6666-6463-4263-a239-336239313636/fbc68c88503cd5fe7a8f240c3243fcb6.png",
+  "photo": "/img/cars/denza-n7.jpg",
   "description": "2025 · EV 630 Flagship · Электро · Полный · запас хода до 630 км",
   "note": "",
   "specs": [
@@ -4134,7 +4134,7 @@
   "year": "2026",
   "priceUsd": 57800,
   "priceByn": 173400,
-  "photo": "https://static.tildacdn.com/stor6637-3130-4965-b731-326463356131/09331a2f3982c8776996a850c99c8095.png",
+  "photo": "/img/cars/avatr-11.jpg",
   "description": "2026 · MAX · EREV · Задний / Полный · запас хода до 700 км",
   "note": "",
   "specs": [
@@ -4185,7 +4185,7 @@
   "year": "2026",
   "priceUsd": 39000,
   "priceByn": 117000,
-  "photo": "https://static.tildacdn.com/stor6633-3330-4736-b233-326332396364/1913fe916a702089d0dcfa89063ce760.png",
+  "photo": "/img/cars/avatr-12.jpg",
   "description": "2026 · MAX · Электро · Задний · запас хода до 755 км",
   "note": "",
   "specs": [
@@ -4236,7 +4236,7 @@
   "year": "2024",
   "priceUsd": 89000,
   "priceByn": 267000,
-  "photo": "https://static.tildacdn.com/stor3561-6534-4434-b536-396462323465/21953b008e678667304b55c3a7e2c275.png",
+  "photo": "/img/cars/lotus-eletre.jpg",
   "description": "2024 · S / R · Электро · Полный · запас хода 600–650 км",
   "note": "",
   "specs": [
@@ -4287,7 +4287,7 @@
   "year": "2023–2024",
   "priceUsd": 26500,
   "priceByn": 79500,
-  "photo": "https://static.tildacdn.com/stor3032-6464-4662-b932-303232336566/0fecbd096a8f4d50125fabe326159a43.png",
+  "photo": "/img/cars/nissan-aryia.jpg",
   "description": "2023–2024 · Evolve+ / 87 кВт·ч · Электро · Передний / полный · запас хода 430–513 км",
   "note": "",
   "specs": [
@@ -4338,7 +4338,7 @@
   "year": "2024",
   "priceUsd": 29500,
   "priceByn": 88500,
-  "photo": "https://static.tildacdn.com/stor3338-3335-4439-b264-373034316131/d5e655ab2c81013ea10f8e459cb7d386.png",
+  "photo": "/img/cars/nissan-x-trail-e-power-top.jpg",
   "description": "2024 · e-4ORCE / Top · EREV · Полный · запас хода до 1000 км",
   "note": "",
   "specs": [
@@ -4389,7 +4389,7 @@
   "year": "2025",
   "priceUsd": 24000,
   "priceByn": 72000,
-  "photo": "https://static.tildacdn.com/stor3735-6536-4261-b736-626232303638/dd60e7c304a334b367b23fa365320bf8.png",
+  "photo": "/img/cars/changan-deepal-s07.jpg",
   "description": "2025 · Max / AWD · Электро / EREV · Задний / полный · запас хода 200 км EV / до 1 120 км суммарно",
   "note": "",
   "specs": [
@@ -4440,7 +4440,7 @@
   "year": "2023–2024",
   "priceUsd": 45000,
   "priceByn": 135000,
-  "photo": "https://static.tildacdn.com/stor3532-6365-4463-b839-366632616636/11f5586c35d4e1ba3b2e48b68d1a7280.png",
+  "photo": "/img/cars/mercedes-eqb.jpg",
   "description": "2023–2024 · EQB 300 4MATIC · Электро · Передний / полный · запас хода 423–500 км",
   "note": "",
   "specs": [
@@ -4491,7 +4491,7 @@
   "year": "2024",
   "priceUsd": 22000,
   "priceByn": 66000,
-  "photo": "https://static.tildacdn.com/stor6638-6138-4537-a261-646166643534/a830666f3a2776bb52db1031434b318e.png",
+  "photo": "/img/cars/leapmotor-c11.jpg",
   "description": "2024 · EREV / 4WD · Электро / EREV · Задний / полный · запас хода 180–300 км EV / до 1 000 км суммарно",
   "note": "",
   "specs": [
@@ -4542,7 +4542,7 @@
   "year": "2024",
   "priceUsd": 25500,
   "priceByn": 76500,
-  "photo": "https://static.tildacdn.com/stor3432-3264-4437-b236-653663363139/816e99592da1dbb66867cc8d6cf9d345.png",
+  "photo": "/img/cars/kia-ev5-light.jpg",
   "description": "2024 · Long Range / Light · Электро · Передний / полный · запас хода 430–600 км",
   "note": "",
   "specs": [
@@ -4593,7 +4593,7 @@
   "year": "2024",
   "priceUsd": 42000,
   "priceByn": 126000,
-  "photo": "https://static.tildacdn.com/stor3634-3432-4562-a164-333861393461/4c82f001438d6e15794492c5e4604d6e.png",
+  "photo": "/img/cars/polestar-4.jpg",
   "description": "2024 · Long Range Dual Motor · Электро · Задний / полный · запас хода 590–620 км",
   "note": "",
   "specs": [
@@ -4644,7 +4644,7 @@
   "year": "2024",
   "priceUsd": 71000,
   "priceByn": 213000,
-  "photo": "https://static.tildacdn.com/stor6232-3530-4364-b636-373536396262/c0be3b207d4d76cf05f403578c5fa577.png",
+  "photo": "/img/cars/aito-m9.jpg",
   "description": "2024 · Max / Ultra · PHEV / EREV · Полный · запас хода 225 км EV / до 1 400 км суммарно",
   "note": "",
   "specs": [
@@ -4695,7 +4695,7 @@
   "year": "2026",
   "priceUsd": 52000,
   "priceByn": 156000,
-  "photo": "https://static.tildacdn.com/stor3532-3438-4632-a439-626637316566/d9f8927d5653cbd8079325ab7281a86c.png",
+  "photo": "/img/cars/xiaomi-su7.jpg",
   "description": "2026 · MAX · Электро · Полный · запас хода до 835 км",
   "note": "",
   "specs": [
@@ -4746,7 +4746,7 @@
   "year": "2025",
   "priceUsd": 42000,
   "priceByn": 126000,
-  "photo": "https://static.tildacdn.com/stor3837-6134-4366-b534-313231666634/d02e7944268dec42011f8caa7d82ba95.png",
+  "photo": "/img/cars/xiaomi-yu7.jpg",
   "description": "2025 · Max · Электро · Полный · запас хода до 760 км",
   "note": "",
   "specs": [
@@ -4799,7 +4799,7 @@
   "year": "2025",
   "priceUsd": 36000,
   "priceByn": 110293,
-  "photo": "https://static.tildacdn.com/stor6538-3363-4130-b731-643430663733/8c4b3768ca7955b816bcc691ff3a312a.png",
+  "photo": "/img/cars/byd-sea-lion-07.jpg",
   "description": "2025 · Smart Air Edition 4WD · Электро · Постоянный полный · запас хода 550 км",
   "note": "Поколение: I Модификация: 80,64 kWh 4WD (530 л.с.) Кузов: Внедорожник, 5 дверей Количество мест: 5 Статус: Под заказ Источник: https://salon.av.by/byd_sea-lion-07_4241",
   "specs": [
@@ -4860,7 +4860,7 @@
   "year": "2026",
   "priceUsd": 33000,
   "priceByn": 101102,
-  "photo": "https://static.tildacdn.com/stor3163-3466-4963-b837-613739666430/1c5fd4f466a83d8d3d15f584c8169f0a.png",
+  "photo": "/img/cars/geely-xingyue-l.jpg",
   "description": "2026 · Flagship · Бензин · Подключаемый полный",
   "note": "Поколение: I · 2-й рестайлинг Модификация: 2.0 AT AWD (272 л.с.) Кузов: Внедорожник, 5 дверей Количество мест: 5 Средний расход: 8,6 л Статус: Под заказ Источник: https://salon.av.by/geely_xingyue-l_12177",
   "specs": [
@@ -4915,7 +4915,7 @@
   "year": "2026",
   "priceUsd": 22700,
   "priceByn": 68100,
-  "photo": "https://static.tildacdn.com/stor3762-3563-4135-a339-656133646161/04e58394d5841afc11baf10115acba18.png",
+  "photo": "/img/cars/deepal-s05.jpg",
   "description": "2026 · 620 Ultra · Электро · Задний · запас хода до 620 км",
   "note": "",
   "specs": [
@@ -4966,7 +4966,7 @@
   "year": "2026",
   "priceUsd": 29000,
   "priceByn": 87000,
-  "photo": "https://static.tildacdn.com/stor6331-3732-4034-b761-623764643363/3a258267a37b7b354483a2e723053a9a.png",
+  "photo": "/img/cars/deepal-s07.jpg",
   "description": "2026 · 620 Ultra · Электро · Задний · запас хода до 620-630 км",
   "note": "",
   "specs": [
@@ -5017,7 +5017,7 @@
   "year": "2026",
   "priceUsd": 93500,
   "priceByn": 280500,
-  "photo": "https://static.tildacdn.com/stor3137-3863-4632-b462-313638396333/68984b6ede60f6951a8d5d3a951e4ee7.png",
+  "photo": "/img/cars/lixiang-l8.jpg",
   "description": "2026 · Livis · EREV · Полный · запас хода до 430 км EV / 1600+ км суммарно",
   "note": "",
   "specs": [
@@ -5068,7 +5068,7 @@
   "year": "2026",
   "priceUsd": 77000,
   "priceByn": 231000,
-  "photo": "https://static.tildacdn.com/stor6164-3738-4336-a633-333439373533/b16b00f531530b8afd695614d272b917.png",
+  "photo": "/img/cars/denza-n9.jpg",
   "description": "2026 · Flagship · PHEV · Полный · запас хода до 202 км EV / 1300+ км суммарно",
   "note": "",
   "specs": [
@@ -5119,7 +5119,7 @@
   "year": "2025/ 2026",
   "priceUsd": 1660018500,
   "priceByn": null,
-  "photo": "https://static.tildacdn.com/stor3164-6333-4939-b065-343065666235/75c1a97c798c29b6cf973995add2f2f4.png",
+  "photo": "/img/cars/hongqi-e-qm5.jpg",
   "description": "2025/ 2026 · 500km · Электро · Передний · запас хода 500 км",
   "note": "",
   "specs": [
@@ -5170,7 +5170,7 @@
   "year": "2025/ 2026",
   "priceUsd": 2010022400,
   "priceByn": null,
-  "photo": "https://static.tildacdn.com/stor6165-3433-4832-b363-663364643639/b40733bb21af9ef96f784b98d44ffafb.png",
+  "photo": "/img/cars/changan-qiyuan-a07.jpg",
   "description": "2025/ 2026 · 550km Youxiang · Электро · Задний · запас хода до 550 км",
   "note": "",
   "specs": [
@@ -5221,7 +5221,7 @@
   "year": "2025/ 2026",
   "priceUsd": 2250025200,
   "priceByn": null,
-  "photo": "https://static.tildacdn.com/stor6232-6461-4439-b366-623061393038/0eccdd09c5daa6dc31dc9829d461f85b.png",
+  "photo": "/img/cars/changan-qiyuan-q05.jpg",
   "description": "2025/ 2026 · 506 Ultra + Laser Intelligent Edition · Электро · Передний · запас хода до 506 км",
   "note": "",
   "specs": [
@@ -5272,7 +5272,7 @@
   "year": "2026",
   "priceUsd": 30500,
   "priceByn": 91500,
-  "photo": "https://static.tildacdn.com/stor3033-3064-4931-a637-313235323135/acebd2821452f60d1142a5bfea586729.png",
+  "photo": "/img/cars/byd-sea-lion-06.jpg",
   "description": "2026 · 605 flagship · Электро · Задний · запас хода до 605 км",
   "note": "",
   "specs": [
@@ -5323,7 +5323,7 @@
   "year": "2026",
   "priceUsd": 21500,
   "priceByn": 64500,
-  "photo": "https://static.tildacdn.com/stor6461-3463-4438-b530-626336343838/2b88c2e17068b7c70c4bc56c35354ad1.png",
+  "photo": "/img/cars/geely-boyue.jpg",
   "description": "2026 · flagship · Бензин · Передний / Полный",
   "note": "",
   "specs": [
@@ -5374,7 +5374,7 @@
   "year": "2026",
   "priceUsd": 16800,
   "priceByn": 50400,
-  "photo": "https://static.tildacdn.com/stor3933-3365-4634-a331-393765356264/7f3535bceb08af59d27fe31cb2179b94.png",
+  "photo": "/img/cars/hongqi-eqm5.jpg",
   "description": "2026 · 500 km / Travel Edition · Электро · Передний · запас хода до 560 км",
   "note": "",
   "specs": [

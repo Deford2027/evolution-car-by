@@ -1,0 +1,352 @@
+---
+import '../styles/theme-v1.css';
+import '../styles/islands.css';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/v1/Header.astro';
+import Footer from '../components/v1/Footer.astro';
+import Breadcrumbs from '../components/v1/Breadcrumbs.astro';
+import Benefits from '../components/v1/Benefits.astro';
+import Cost from '../components/v1/Cost.astro';
+import Reviews from '../components/v1/Reviews.astro';
+import Contacts from '../components/v1/Contacts.astro';
+import CarCard from '../components/v1/CarCard.astro';
+import ModalHost from '../components/islands/ModalHost';
+import LeadForm from '../components/islands/LeadForm';
+import { directions, protection, processSteps, noBrand } from '../content/directions';
+import type { Direction } from '../content/directions';
+import { cars, countries } from '../content/cars';
+import type { Car } from '../content/cars';
+import { breadcrumbsLd, abs } from '../lib/seo';
+import { quiz, finalOffer } from '../content/home';
+
+export function getStaticPaths() {
+  return directions.map((direction) => ({
+    params: { direction: direction.slug },
+    props: { direction, list: cars.filter((c) => c.country === direction.country).slice(0, 6) },
+  }));
+}
+
+const { direction, list } = Astro.props as { direction: Direction; list: Car[] };
+
+const crumbs = [
+  { name: 'Главная', href: '/' },
+  { name: countries[direction.country].label, href: `/${direction.slug}/` },
+];
+
+const catalogHref = `/catalog/${countries[direction.country].slug}/`;
+---
+
+<BaseLayout
+  theme="v1"
+  title={direction.seoTitle}
+  description={direction.seoDescription}
+  canonical={abs(`/${direction.slug}/`)}
+  jsonLd={[breadcrumbsLd(crumbs)]}
+>
+  <Header />
+
+  <main>
+    <section class="hero">
+      <img class="hero__bg" src="/img/hero-evolution-hd-v2.jpg" alt="" fetchpriority="high" width="1448" height="1086" />
+      <div class="container hero__inner">
+        <div>
+          <h1>{direction.h1}</h1>
+          <p class="hero__lead">{direction.heroLead}</p>
+        </div>
+        <a class="btn hero__cta" href="#offer">Подобрать автомобиль</a>
+      </div>
+    </section>
+
+    <Benefits />
+
+    <section class="section">
+      <div class="container">
+        <div class="sec-head">
+          <p class="kicker">[ Каталог ]</p>
+          <div>
+            <h2>{direction.catalogTitle}</h2>
+            <p class="sec-head__lead">
+              Организуем полный цикл подбора, покупки и логистики автомобилей
+              {' ' + direction.from}.
+            </p>
+          </div>
+        </div>
+
+        {list.length > 0 ? (
+          <>
+            <ul class="cards">
+              {list.map((car) => <li><CarCard car={car} /></li>)}
+            </ul>
+            <a class="btn btn--ghost more" href={catalogHref}>Смотреть все автомобили {direction.from}</a>
+          </>
+        ) : (
+          <div class="card empty">
+            <h3 class="empty__title">Готовых позиций {direction.from} пока нет в каталоге</h3>
+            <p class="empty__text">
+              Направление работает: оставьте заявку, и менеджер проверит предложения
+              на площадках под ваш запрос и бюджет.
+            </p>
+            <button class="btn" type="button" data-open="quiz">Подобрать автомобиль</button>
+          </div>
+        )}
+      </div>
+    </section>
+
+    <Cost />
+
+    <section class="section">
+      <div class="container">
+        <div class="sec-head">
+          <p class="kicker">[ Автомобили ]</p>
+          <h2 class="sec-head__title">{direction.typesTitle}</h2>
+        </div>
+        <ul class="types">
+          {direction.types.map((type) => (
+            <li class="card type">
+              <h3 class="type__title">{type.title}</h3>
+              <p class="type__text">{type.text}</p>
+              <a class="btn btn--block type__cta" href={`/catalog/${type.section}/`}>Смотреть в каталоге</a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="card protection">
+          <div class="protection__head">
+            <h2>{protection.title}</h2>
+            <p class="protection__lead">{protection.lead}</p>
+          </div>
+          <ul class="protection__list">
+            {protection.items.map((item) => (
+              <li>
+                <span class="dot" aria-hidden="true"></span>
+                <h3 class="protection__title">{item.title}</h3>
+                <p class="protection__text">{item.text}</p>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div class="card choose">
+          <div>
+            <h2 class="choose__title">{direction.chooseTitle}</h2>
+            <p class="choose__text">{direction.chooseText}</p>
+          </div>
+          <a class="btn choose__cta" href={catalogHref}>Подобрать автомобиль</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="sec-head">
+          <p class="kicker">[ Процесс покупки ]</p>
+          <div>
+            <h2>{direction.processTitle}</h2>
+            <p class="sec-head__lead">
+              Наша задача — провести клиента через весь процесс покупки, а не передать ему
+              контакты перевозчика после выбора машины
+            </p>
+          </div>
+        </div>
+        <ol class="process">
+          {processSteps.map((step, i) => (
+            <li class="card process__step">
+              <p class="process__num">{String(i + 1).padStart(2, '0')}</p>
+              <h3 class="process__title">{step.title}</h3>
+              <p class="process__text">{step.text}</p>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="sec-head">
+          <p class="kicker">[ {direction.brandsKicker} ]</p>
+          <h2 class="sec-head__title">Какие автомобили можно заказать</h2>
+        </div>
+        <ul class="brands">
+          {direction.brands.map((brand) => <li class="brand">{brand}</li>)}
+          <li class="brand brand--cta">
+            <p class="brand__title">{noBrand.title}</p>
+            <p class="brand__text">{noBrand.text}</p>
+            <button class="btn" type="button" data-open="quiz">{noBrand.cta}</button>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section" id="offer">
+      <div class="container">
+        <div class="card offer">
+          <div>
+            <h2 class="offer__title">{direction.offerTitle}</h2>
+            <p class="offer__text">{direction.offerText}</p>
+          </div>
+          <LeadForm
+            client:visible
+            namePlaceholder={finalOffer.namePlaceholder}
+            phonePlaceholder={finalOffer.phonePlaceholder}
+            cta={finalOffer.cta}
+            consent={finalOffer.consent}
+            success={finalOffer.success}
+            source={`Направление ${countries[direction.country].label}`}
+          />
+        </div>
+      </div>
+    </section>
+
+    <Reviews />
+    <Contacts />
+  </main>
+
+  <Breadcrumbs crumbs={crumbs} />
+  <Footer />
+  <ModalHost
+    client:idle
+    quizTitle={quiz.title}
+    quizSteps={quiz.steps}
+    contactQuestion={quiz.contactStep.q}
+    channels={quiz.contactStep.channels}
+    consent={finalOffer.consent}
+    success={finalOffer.success}
+    videoPoster="/img/unsplash/service.jpg"
+  />
+</BaseLayout>
+
+<style>
+  .hero {
+    position: relative;
+    margin-top: calc(var(--header-h) * -1 - 1rem);
+    min-height: min(86svh, 44rem);
+    display: grid;
+    align-items: end;
+    isolation: isolate;
+    overflow: hidden;
+  }
+  .hero__bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 35%; z-index: -2; }
+  .hero::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background:
+      linear-gradient(180deg, rgba(0, 4, 12, .72) 0%, rgba(0, 4, 12, 0) 38%),
+      linear-gradient(0deg, var(--c-bg) 2%, rgba(0, 4, 12, .1) 55%);
+  }
+  .hero__inner { display: grid; gap: 2rem; padding-bottom: clamp(2.5rem, 1rem + 5vw, 5rem); }
+  .hero h1 { max-width: 20ch; }
+  .hero__lead { margin-top: 1.25rem; color: var(--c-text-2); max-width: 54ch; font-size: 1.0625rem; }
+  .hero__cta { justify-self: start; min-width: min(100%, 20rem); }
+  @media (min-width: 1024px) {
+    .hero__inner { grid-template-columns: minmax(0, 1fr) auto; align-items: end; gap: 3rem; }
+    .hero__cta { justify-self: end; padding-block: 1.5rem; }
+  }
+
+  .sec-head { display: grid; gap: 1rem; margin-bottom: clamp(2rem, 1rem + 3vw, 3rem); }
+  .sec-head__lead { color: var(--c-text-3); margin-top: 1.25rem; font-size: 1rem; max-width: 56ch; }
+  @media (min-width: 1024px) {
+    .sec-head { grid-template-columns: minmax(0, 18rem) minmax(0, 1fr); gap: 2rem; align-items: start; }
+  }
+
+  .cards { display: grid; gap: var(--gap); }
+  @media (min-width: 640px) { .cards { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (min-width: 1024px) { .cards { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+  .cards li { display: grid; }
+  .more { display: flex; width: fit-content; margin: clamp(1.5rem, 1rem + 2vw, 2.5rem) auto 0; }
+
+  .empty { padding: clamp(1.75rem, 1rem + 2.5vw, 3rem); display: grid; gap: 1rem; justify-items: start; }
+  .empty__title { font-size: clamp(1.25rem, 1.1rem + .9vw, 1.75rem); }
+  .empty__text { color: var(--c-text-3); max-width: 64ch; }
+
+  .types { display: grid; gap: var(--gap); }
+  @media (min-width: 640px) { .types { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (min-width: 1024px) { .types { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+  .type {
+    padding: clamp(1.5rem, 1rem + 1.5vw, 2rem);
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    gap: .75rem;
+  }
+  .type__title { font-size: clamp(1.125rem, 1rem + .6vw, 1.5rem); }
+  .type__text { color: var(--c-text-3); font-size: .9375rem; line-height: 1.5; }
+  .type__cta { margin-top: .75rem; }
+
+  .protection { padding: clamp(1.75rem, 1rem + 2.5vw, 3rem); display: grid; gap: 2rem; }
+  .protection__lead { color: var(--c-text-3); margin-top: 1.25rem; max-width: 64ch; font-size: .9375rem; }
+  .protection__list { display: grid; gap: 1.5rem; }
+  @media (min-width: 768px) { .protection__list { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+  .dot { display: block; width: 6px; height: 6px; border-radius: 50%; background: var(--c-accent); margin-bottom: 1rem; }
+  .protection__title { font-size: 1.0625rem; margin-bottom: .5rem; }
+  .protection__text { color: var(--c-text-3); font-size: .875rem; line-height: 1.5; }
+
+  .choose {
+    margin-top: var(--gap);
+    padding: clamp(1.75rem, 1rem + 2.5vw, 3rem);
+    background: var(--c-bg-alt);
+    display: grid;
+    gap: 1.5rem;
+  }
+  .choose__title { font-size: clamp(1.375rem, 1.1rem + 1.2vw, 2rem); }
+  .choose__text { color: var(--c-text-3); margin-top: 1rem; max-width: 64ch; }
+  .choose__cta { justify-self: start; }
+  @media (min-width: 1024px) {
+    .choose { grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 3rem; }
+    .choose__cta { justify-self: end; }
+  }
+
+  .process { display: grid; gap: var(--gap); }
+  @media (min-width: 640px) { .process { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (min-width: 1024px) { .process { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+  .process__step { padding: clamp(1.25rem, 1rem + 1vw, 1.75rem); display: grid; gap: .5rem; align-content: start; }
+  .process__num { font-family: var(--font-display); font-weight: 700; color: var(--c-accent); font-size: 1.25rem; }
+  .process__title { font-size: 1.125rem; }
+  .process__text { color: var(--c-text-3); font-size: .875rem; line-height: 1.5; }
+
+  .brands { display: grid; gap: var(--gap); }
+  @media (min-width: 480px) { .brands { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (min-width: 900px) { .brands { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+  .brand {
+    display: grid;
+    place-items: center;
+    min-height: 7.5rem;
+    padding: 1.5rem;
+    border: 1px solid var(--c-line);
+    border-radius: var(--r-card);
+    background: var(--c-surface);
+    font-family: var(--font-display);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .02em;
+    font-size: 1.125rem;
+    color: var(--c-text-2);
+  }
+  .brand--cta {
+    place-items: start;
+    align-content: start;
+    gap: .5rem;
+    background: var(--c-bg-alt);
+    font-family: var(--font-body);
+    font-weight: 400;
+    text-transform: none;
+    letter-spacing: 0;
+  }
+  .brand__title { font-family: var(--font-display); font-weight: 700; text-transform: uppercase; color: var(--c-text); }
+  .brand__text { color: var(--c-text-3); font-size: .8125rem; }
+
+  .offer {
+    padding: clamp(1.75rem, 1rem + 2.5vw, 3rem);
+    background: var(--c-bg-alt);
+    display: grid;
+    gap: 2rem;
+    align-items: center;
+  }
+  @media (min-width: 1024px) { .offer { grid-template-columns: minmax(0, 1fr) minmax(0, 27rem); gap: 3.5rem; } }
+  .offer__title { font-size: clamp(1.5rem, 1.2rem + 1.4vw, 2.25rem); }
+  .offer__text { color: var(--c-text-3); margin-top: 1rem; font-size: .9375rem; max-width: 60ch; }
+</style>
