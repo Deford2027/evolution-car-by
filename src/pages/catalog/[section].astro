@@ -1,0 +1,169 @@
+---
+import '../../styles/theme-v1.css';
+import '../../styles/islands.css';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/v1/Header.astro';
+import Footer from '../../components/v1/Footer.astro';
+import Breadcrumbs from '../../components/v1/Breadcrumbs.astro';
+import CatalogGrid from '../../components/v1/CatalogGrid.astro';
+import ModalHost from '../../components/islands/ModalHost';
+import { sections, carsOf } from '../../content/cars';
+import type { CatalogSection, Car } from '../../content/cars';
+import { breadcrumbsLd, catalogLd, abs } from '../../lib/seo';
+import { quiz, finalOffer, directions } from '../../content/home';
+
+export function getStaticPaths() {
+  return sections.map((section) => ({
+    params: { section: section.slug },
+    props: { section, list: carsOf(section) },
+  }));
+}
+
+const { section, list } = Astro.props as { section: CatalogSection; list: Car[] };
+
+const crumbs = [
+  { name: 'Главная', href: '/' },
+  { name: 'Каталог автомобилей', href: '/catalog/' },
+  { name: section.title, href: `/catalog/${section.slug}/` },
+];
+
+const prices = list.map((c) => c.priceUsd ?? Infinity).filter(Number.isFinite);
+const minPrice = prices.length ? Math.min(...prices) : null;
+
+// признак, по которому раздел уже отобран, в фильтре не показываем
+const hide: ('country' | 'powertrain' | 'availability')[] = section.slug.startsWith('from_')
+  ? ['country']
+  : section.slug === 'electro_car' || section.slug === 'hybrid'
+    ? ['powertrain']
+    : ['availability'];
+
+const title = `${section.h1} — ${list.length} в каталоге | Evolution Car`;
+const description =
+  `${section.lead} ${list.length} позиций в подборке` +
+  (minPrice ? `, ориентир цены от ${minPrice.toLocaleString('ru-RU')} $ под ключ` : '') +
+  '. Доставка в Минск, таможенное оформление и документы для постановки на учёт.';
+---
+
+<BaseLayout
+  theme="v1"
+  title={title}
+  description={description}
+  canonical={abs(`/catalog/${section.slug}/`)}
+  jsonLd={[breadcrumbsLd(crumbs), catalogLd(list)]}
+>
+  <Header />
+  <Breadcrumbs crumbs={crumbs} />
+
+  <main>
+    <section class="section">
+      <div class="container">
+        <div class="sec-head">
+          <p class="kicker">[ Каталог ]</p>
+          <div>
+            <h1 class="sec-head__title">{section.h1}</h1>
+            <p class="sec-head__lead">{section.lead}</p>
+          </div>
+        </div>
+
+        <nav class="chips" aria-label="Разделы каталога">
+          <a class="chips__item" href="/catalog/">Все автомобили</a>
+          {sections.map((item) => (
+            <a
+              class={item.slug === section.slug ? 'chips__item is-active' : 'chips__item'}
+              href={`/catalog/${item.slug}/`}
+              aria-current={item.slug === section.slug ? 'page' : undefined}
+            >
+              {item.title}
+            </a>
+          ))}
+        </nav>
+
+        {list.length > 0 ? (
+          <CatalogGrid cars={list} hide={hide} />
+        ) : (
+          <div class="card empty">
+            <h2 class="empty__title">В этом разделе пока нет готовых позиций</h2>
+            <p class="empty__text">
+              Это не значит, что направление закрыто: оставьте заявку, и менеджер проверит
+              предложения на зарубежных площадках под ваш запрос и бюджет.
+            </p>
+            <button class="btn empty__cta" type="button" data-open="quiz">Подобрать автомобиль</button>
+          </div>
+        )}
+
+        <div class="card fallback">
+          <div>
+            <h2 class="fallback__title">{directions.fallback.title}</h2>
+            <p class="fallback__text">{directions.fallback.text}</p>
+          </div>
+          <button class="btn fallback__cta" type="button" data-open="quiz">{directions.fallback.cta}</button>
+        </div>
+
+        <p class="note">
+          Цены указаны ориентировочно под ключ и не являются публичной офертой. Итоговая
+          стоимость зависит от курса валют, комплектации, состояния автомобиля, маршрута
+          доставки и обязательных платежей на дату сделки.
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+  <ModalHost
+    client:idle
+    quizTitle={quiz.title}
+    quizSteps={quiz.steps}
+    contactQuestion={quiz.contactStep.q}
+    channels={quiz.contactStep.channels}
+    consent={finalOffer.consent}
+    success={finalOffer.success}
+    videoPoster="/img/unsplash/service.jpg"
+  />
+</BaseLayout>
+
+<style>
+  .sec-head { display: grid; gap: 1rem; margin-bottom: clamp(1.5rem, 1rem + 2vw, 2.5rem); }
+  .sec-head__lead { color: var(--c-text-3); margin-top: 1.25rem; font-size: 1rem; max-width: 64ch; }
+  @media (min-width: 1024px) {
+    .sec-head { grid-template-columns: minmax(0, 18rem) minmax(0, 1fr); gap: 2rem; align-items: start; }
+  }
+
+  .chips { display: flex; flex-wrap: wrap; gap: .5rem; margin-bottom: 1.5rem; }
+  .chips__item {
+    padding: .5rem 1rem;
+    border: 1px solid var(--c-line);
+    border-radius: var(--r-pill);
+    color: var(--c-text-2);
+    font-size: .875rem;
+  }
+  .chips__item:hover { border-color: var(--c-line-strong); color: var(--c-text); }
+  .chips__item.is-active { background: var(--c-accent); border-color: var(--c-accent); color: #fff; }
+
+  .empty { padding: clamp(1.75rem, 1rem + 2.5vw, 3rem); display: grid; gap: 1rem; justify-items: start; }
+  .empty__title { font-size: clamp(1.25rem, 1.1rem + .9vw, 1.75rem); }
+  .empty__text { color: var(--c-text-3); max-width: 64ch; }
+  .empty__cta { margin-top: .5rem; }
+
+  .fallback {
+    margin-top: clamp(2rem, 1.2rem + 3vw, 3.5rem);
+    padding: clamp(1.75rem, 1rem + 2.5vw, 3rem);
+    background: var(--c-bg-alt);
+    display: grid;
+    gap: 1.5rem;
+  }
+  .fallback__title { font-size: clamp(1.375rem, 1.1rem + 1.2vw, 2rem); }
+  .fallback__text { color: var(--c-text-3); margin-top: 1rem; max-width: 70ch; font-size: 1rem; }
+  .fallback__cta { justify-self: start; }
+  @media (min-width: 1024px) {
+    .fallback { grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 3rem; }
+    .fallback__cta { justify-self: end; }
+  }
+
+  .note {
+    margin-top: clamp(1.5rem, 1rem + 2vw, 2.25rem);
+    color: var(--c-text-3);
+    font-size: .75rem;
+    line-height: 1.5;
+    max-width: 92ch;
+  }
+</style>

@@ -1,5 +1,5 @@
 import type { Car } from '../content/cars';
-import { carTitle, countries, powertrains, conditions } from '../content/cars';
+import { countries, powertrains, availabilities } from '../content/cars';
 import { site } from '../content/site';
 
 /** Домен подтверждается клиентом; до этого используется заглушка. */
@@ -12,18 +12,18 @@ export interface Crumb {
   href: string;
 }
 
-export function carMeta(car: Car, base = '/catalog/') {
-  const name = carTitle(car);
+export function carMeta(car: Car) {
   const country = countries[car.country].genitive;
-  const state = car.condition === 'new' ? 'новый' : `с пробегом ${car.mileageKm?.toLocaleString('ru-RU')} км`;
+  const price = car.priceUsd ? ` — ориентир от ${car.priceUsd.toLocaleString('ru-RU')} $` : '';
+  const year = car.year ? ` ${car.year}` : '';
 
   return {
-    title: `${name} купить под заказ ${country} — цена от ${car.priceUsd.toLocaleString('ru-RU')} $ | ${site.brand}`,
+    title: `${car.title}${year} ${country} под ключ${price} | ${site.brand}`,
     description:
-      `${name}, ${state}. ${car.tagline}. Доставка ${country} под ключ за ` +
-      `${car.deliveryWeeks[0]}–${car.deliveryWeeks[1]} недель: покупка, страхование, ` +
-      `таможенное оформление и документы для постановки на учёт в Беларуси.`,
-    canonical: abs(`${base}${car.slug}/`),
+      `${car.title} ${country}: ${powertrains[car.powertrain].toLowerCase()}, ` +
+      `${availabilities[car.availability].toLowerCase()}. ${car.description} ` +
+      `Доставка, страхование, таможенное оформление и документы для постановки на учёт — на нас.`,
+    canonical: abs(`/car/${car.slug}/`),
   };
 }
 
@@ -41,78 +41,64 @@ export function breadcrumbsLd(crumbs: Crumb[]) {
 }
 
 /** Schema.org Car наследуется от Product, поэтому offers и brand валидны. */
-export function carLd(car: Car, base = '/catalog/') {
-  const specs = car.specs.flatMap((group) => group.rows);
-  const find = (label: string) => specs.find((row) => row.label === label)?.value;
+export function carLd(car: Car) {
+  const find = (label: string) => car.specs.find((row) => row.label === label)?.value;
+  const year = (car.year.match(/\d{4}/) ?? [])[0];
 
   return {
     '@context': 'https://schema.org',
     '@type': 'Car',
-    name: carTitle(car),
-    description: car.description[0],
-    image: car.photos.map((photo) => abs(photo)),
-    url: abs(`${base}${car.slug}/`),
+    name: car.title,
+    description: car.description,
+    image: [car.photo],
+    url: abs(`/car/${car.slug}/`),
     brand: { '@type': 'Brand', name: car.brand },
-    model: car.model,
-    vehicleModelDate: String(car.year),
-    productionDate: String(car.year),
-    bodyType: car.bodyType,
+    ...(year ? { vehicleModelDate: year } : {}),
+    ...(find('Кузов') ? { bodyType: find('Кузов') } : {}),
     fuelType: powertrains[car.powertrain],
-    itemCondition:
-      car.condition === 'new'
-        ? 'https://schema.org/NewCondition'
-        : 'https://schema.org/UsedCondition',
-    ...(car.mileageKm
+    ...(find('Мощность')
+      ? { vehicleEngine: { '@type': 'EngineSpecification', name: find('Мощность') } }
+      : {}),
+    ...(find('Привод') ? { driveWheelConfiguration: find('Привод') } : {}),
+    ...(car.priceUsd
       ? {
-          mileageFromOdometer: {
-            '@type': 'QuantitativeValue',
-            value: car.mileageKm,
-            unitCode: 'KMT',
+          offers: {
+            '@type': 'Offer',
+            price: car.priceUsd,
+            priceCurrency: 'USD',
+            availability:
+              car.availability === 'in-stock'
+                ? 'https://schema.org/InStock'
+                : 'https://schema.org/PreOrder',
+            url: abs(`/car/${car.slug}/`),
+            seller: {
+              '@type': 'AutoDealer',
+              name: site.brand,
+              telephone: site.phone,
+              address: {
+                '@type': 'PostalAddress',
+                addressLocality: site.city,
+                addressCountry: 'BY',
+                streetAddress: site.showroom,
+              },
+            },
           },
         }
       : {}),
-    ...(find('Мощность') ? { vehicleEngine: { '@type': 'EngineSpecification', name: find('Мощность') } } : {}),
-    offers: {
-      '@type': 'Offer',
-      price: car.priceUsd,
-      priceCurrency: 'USD',
-      availability:
-        car.availability === 'in-stock'
-          ? 'https://schema.org/InStock'
-          : 'https://schema.org/PreOrder',
-      url: abs(`${base}${car.slug}/`),
-      seller: {
-        '@type': 'AutoDealer',
-        name: site.brand,
-        telephone: site.phone,
-        address: {
-          '@type': 'PostalAddress',
-          addressLocality: site.city,
-          addressCountry: 'BY',
-          streetAddress: site.showroom,
-        },
-      },
-      deliveryLeadTime: {
-        '@type': 'QuantitativeValue',
-        minValue: car.deliveryWeeks[0] * 7,
-        maxValue: car.deliveryWeeks[1] * 7,
-        unitCode: 'DAY',
-      },
-    },
   };
 }
 
-export function catalogLd(list: Car[], base = '/catalog/') {
+export function catalogLd(list: Car[]) {
   return {
     '@context': 'https://schema.org',
     '@type': 'ItemList',
     name: 'Каталог автомобилей Evolution Car',
     numberOfItems: list.length,
-    itemListElement: list.map((car, i) => ({
+    itemListElement: list.slice(0, 50).map((car, i) => ({
       '@type': 'ListItem',
       position: i + 1,
-      url: abs(`${base}${car.slug}/`),
-      name: `${carTitle(car)} — ${conditions[car.condition].toLowerCase()}`,
+      url: abs(`/car/${car.slug}/`),
+      name: car.title,
     })),
   };
 }

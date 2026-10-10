@@ -8,10 +8,12 @@ import Breadcrumbs from '../../components/v1/Breadcrumbs.astro';
 import CarCard from '../../components/v1/CarCard.astro';
 import ModalHost from '../../components/islands/ModalHost';
 import LeadForm from '../../components/islands/LeadForm';
-import { cars, carTitle, formatPrice, countries, powertrains, conditions, availabilities } from '../../content/cars';
+import {
+  cars, countries, powertrains, availabilities, formatUsd, specGroups,
+} from '../../content/cars';
 import type { Car } from '../../content/cars';
 import { carMeta, carLd, breadcrumbsLd } from '../../lib/seo';
-import { quiz, finalOffer, benefits } from '../../content/home';
+import { quiz, finalOffer, benefits, steps } from '../../content/home';
 
 export function getStaticPaths() {
   return cars.map((car) => ({ params: { slug: car.slug }, props: { car } }));
@@ -19,30 +21,28 @@ export function getStaticPaths() {
 
 const { car } = Astro.props as { car: Car };
 const meta = carMeta(car);
-const name = carTitle(car);
+const groups = specGroups(car);
 
 const crumbs = [
   { name: 'Главная', href: '/' },
   { name: 'Каталог автомобилей', href: '/catalog/' },
-  { name, href: `/catalog/${car.slug}/` },
+  { name: countries[car.country].label, href: `/catalog/${countries[car.country].slug}/` },
+  { name: car.title, href: `/car/${car.slug}/` },
 ];
 
 const facts = [
-  { label: 'Цена под ключ', value: `от ${formatPrice(car.priceUsd)}`, accent: true },
+  ...(car.priceUsd ? [{ label: 'Ориентир под ключ', value: `от ${formatUsd(car.priceUsd)}`, accent: true }] : []),
+  ...(car.priceByn ? [{ label: 'В белорусских рублях', value: `≈ ${car.priceByn.toLocaleString('ru-RU')} BYN` }] : []),
   { label: 'Наличие', value: availabilities[car.availability] },
-  { label: 'Срок поставки', value: `${car.deliveryWeeks[0]}–${car.deliveryWeeks[1]} недель` },
   { label: 'Рынок', value: countries[car.country].label },
   { label: 'Двигатель', value: powertrains[car.powertrain] },
-  {
-    label: 'Состояние',
-    value: car.mileageKm
-      ? `${conditions[car.condition]}, ${car.mileageKm.toLocaleString('ru-RU')} км`
-      : conditions[car.condition],
-  },
+  ...(car.year ? [{ label: 'Год выпуска', value: car.year }] : []),
 ];
 
 const similar = cars
-  .filter((c) => c.slug !== car.slug && (c.country === car.country || c.powertrain === car.powertrain))
+  .filter((c) => c.slug !== car.slug && c.brand === car.brand)
+  .concat(cars.filter((c) => c.slug !== car.slug && c.country === car.country && c.powertrain === car.powertrain))
+  .filter((c, i, arr) => arr.findIndex((x) => x.slug === c.slug) === i)
   .slice(0, 3);
 ---
 
@@ -51,7 +51,7 @@ const similar = cars
   title={meta.title}
   description={meta.description}
   canonical={meta.canonical}
-  ogImage={car.photos[0]}
+  ogImage={car.photo}
   jsonLd={[breadcrumbsLd(crumbs), carLd(car)]}
 >
   <Header />
@@ -64,22 +64,22 @@ const similar = cars
           <div class="gallery">
             <img
               class="gallery__main"
-              src={car.photos[0]}
-              alt={`${name} — ${car.bodyType.toLowerCase()}, ${powertrains[car.powertrain].toLowerCase()}`}
-              width="854"
-              height="534"
+              src={car.photo}
+              alt={`${car.title} — ${powertrains[car.powertrain].toLowerCase()}, поставка ${countries[car.country].genitive}`}
+              width="900"
+              height="563"
               fetchpriority="high"
             />
             <p class="gallery__note">
-              Фотография демонстрационная. Снимки конкретного автомобиля менеджер пришлёт
-              до согласования договора.
+              Фотография модели. Снимки конкретного автомобиля с площадки менеджер
+              пришлёт до согласования договора.
             </p>
           </div>
 
           <div class="intro">
-            <p class="kicker">[ {countries[car.country].label} · {car.bodyType} ]</p>
-            <h1 class="intro__title">{name}</h1>
-            <p class="intro__tagline">{car.tagline}</p>
+            <p class="kicker">[ {countries[car.country].label} · {availabilities[car.availability]} ]</p>
+            <h1 class="intro__title">{car.title}</h1>
+            <p class="intro__tagline">{car.description}</p>
 
             <dl class="facts">
               {facts.map((fact) => (
@@ -91,42 +91,43 @@ const similar = cars
             </dl>
 
             <div class="intro__actions">
-              <a class="btn" href="#request">Оставить заявку</a>
-              <button class="btn btn--ghost" type="button" data-open="quiz">Рассчитать стоимость</button>
+              <a class="btn" href="#request">Запросить расчёт</a>
+              <button class="btn btn--ghost" type="button" data-open="quiz">Пройти опрос</button>
+            </div>
+
+            {car.note && <p class="intro__note">{car.note}</p>}
+          </div>
+        </div>
+      </section>
+
+      {groups.length > 0 && (
+        <section class="section section--tight">
+          <div class="container">
+            <h2 class="block__title">Характеристики</h2>
+            <div class="specs">
+              {groups.map((group) => (
+                <div class="card specs__group">
+                  <h3 class="specs__title">{group.group}</h3>
+                  <dl>
+                    {group.rows.map((row) => (
+                      <div class="specs__row">
+                        <dt>{row.label}</dt>
+                        <dd>
+                          {row.value.startsWith('http') ? (
+                            <a href={row.value} target="_blank" rel="nofollow noopener">Открыть источник</a>
+                          ) : (
+                            row.value
+                          )}
+                        </dd>
+                      </div>
+                    ))}
+                  </dl>
+                </div>
+              ))}
             </div>
           </div>
-        </div>
-      </section>
-
-      <section class="section section--tight">
-        <div class="container">
-          <h2 class="block__title">Об автомобиле</h2>
-          <div class="prose">
-            {car.description.map((paragraph) => <p>{paragraph}</p>)}
-          </div>
-        </div>
-      </section>
-
-      <section class="section section--tight">
-        <div class="container">
-          <h2 class="block__title">Характеристики</h2>
-          <div class="specs">
-            {car.specs.map((group) => (
-              <div class="card specs__group">
-                <h3 class="specs__title">{group.group}</h3>
-                <dl>
-                  {group.rows.map((row) => (
-                    <div class="specs__row">
-                      <dt>{row.label}</dt>
-                      <dd>{row.value}</dd>
-                    </div>
-                  ))}
-                </dl>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       <section class="section section--tight">
         <div class="container">
@@ -143,13 +144,27 @@ const similar = cars
         </div>
       </section>
 
+      <section class="section section--tight">
+        <div class="container">
+          <h2 class="block__title">Как проходит покупка</h2>
+          <ol class="flow">
+            {steps.items.map((step, i) => (
+              <li class="flow__step">
+                <p class="flow__num">{String(i + 1).padStart(2, '0')}</p>
+                <h3 class="flow__title">{step.title}</h3>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </section>
+
       <section class="section" id="request">
         <div class="container">
           <div class="card request">
             <div>
-              <h2 class="request__title">Запросить расчёт по {name}</h2>
+              <h2 class="request__title">Запросить расчёт по {car.title}</h2>
               <p class="request__text">
-                Менеджер уточнит комплектацию и цвет, проверит доступные предложения
+                Менеджер уточнит комплектацию, год и состояние, проверит доступные лоты
                 на площадках {countries[car.country].genitive} и пришлёт стоимость под ключ
                 с учётом доставки, таможенного оформления и подготовки документов.
               </p>
@@ -161,7 +176,7 @@ const similar = cars
               cta={finalOffer.cta}
               consent={finalOffer.consent}
               success={finalOffer.success}
-              source={`Карточка: ${name}`}
+              source={`Карточка: ${car.title}`}
             />
           </div>
         </div>
@@ -172,9 +187,7 @@ const similar = cars
           <div class="container">
             <h2 class="block__title">Похожие автомобили</h2>
             <ul class="similar">
-              {similar.map((item) => (
-                <li><CarCard car={item} /></li>
-              ))}
+              {similar.map((item) => <li><CarCard car={item} /></li>)}
             </ul>
           </div>
         </section>
@@ -182,9 +195,9 @@ const similar = cars
 
       <div class="container">
         <p class="disclaimer">
-          Цена указана ориентировочно под ключ и не является публичной офертой.
-          Итоговая стоимость зависит от курса валют, комплектации, маршрута доставки
-          и обязательных платежей на дату сделки.
+          Цена указана ориентировочно под ключ и не является публичной офертой. Итоговая
+          стоимость зависит от курса валют, комплектации, состояния автомобиля, ставки
+          на аукционе, маршрута доставки и обязательных платежей на дату сделки.
         </p>
       </div>
     </article>
@@ -213,18 +226,27 @@ const similar = cars
     .top { grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); align-items: start; }
   }
 
-  .gallery__main { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; border-radius: var(--r-card); }
+  .gallery__main {
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+    border-radius: var(--r-card);
+    background: var(--c-bg-alt);
+  }
   .gallery__note { color: var(--c-text-3); font-size: .75rem; margin-top: .875rem; line-height: 1.5; }
 
   .intro__title { margin-top: .875rem; }
-  .intro__tagline { color: var(--c-text-2); margin-top: 1rem; font-size: 1rem; }
-
-  .facts {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: var(--gap);
-    margin-top: 1.75rem;
+  .intro__tagline { color: var(--c-text-2); margin-top: 1rem; font-size: 1rem; line-height: 1.55; }
+  .intro__note {
+    margin-top: 1.25rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--c-line);
+    color: var(--c-text-3);
+    font-size: .8125rem;
+    line-height: 1.5;
   }
+
+  .facts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--gap); margin-top: 1.75rem; }
   .fact {
     background: var(--c-surface);
     border: 1px solid var(--c-line);
@@ -242,9 +264,6 @@ const similar = cars
 
   .intro__actions { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 1.5rem; }
 
-  .prose { display: grid; gap: 1rem; max-width: 78ch; }
-  .prose p { color: var(--c-text-2); font-size: 1rem; line-height: 1.65; }
-
   .specs { display: grid; gap: var(--gap); }
   @media (min-width: 768px) { .specs { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
   .specs__group { padding: clamp(1.25rem, 1rem + 1vw, 1.75rem); align-content: start; }
@@ -258,20 +277,15 @@ const similar = cars
     font-size: .875rem;
   }
   .specs__row:last-child { border-bottom: 0; }
-  .specs__row dt { color: var(--c-text-3); }
+  .specs__row dt { color: var(--c-text-3); flex: none; max-width: 48%; }
   .specs__row dd { text-align: right; }
+  .specs__row dd a { color: var(--c-accent); }
 
   .included { display: grid; gap: var(--gap); }
   @media (min-width: 640px) { .included { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
   @media (min-width: 1024px) { .included { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
   .included__item { padding: clamp(1.25rem, 1rem + 1vw, 1.75rem); align-content: start; }
-  .included__dot {
-    display: block;
-    width: 6px; height: 6px;
-    border-radius: 50%;
-    background: var(--c-accent);
-    margin-bottom: 1.5rem;
-  }
+  .included__dot { display: block; width: 6px; height: 6px; border-radius: 50%; background: var(--c-accent); margin-bottom: 1.5rem; }
   .included__title {
     font-family: var(--font-body);
     font-weight: 400;
@@ -280,6 +294,12 @@ const similar = cars
     margin-bottom: .5rem;
   }
   .included__text { color: var(--c-text-3); font-size: .875rem; line-height: 1.5; }
+
+  .flow { display: grid; gap: var(--gap); }
+  @media (min-width: 640px) { .flow { grid-template-columns: repeat(5, minmax(0, 1fr)); } }
+  .flow__step { padding-top: 1rem; border-top: 2px solid var(--c-accent); }
+  .flow__num { font-family: var(--font-display); font-weight: 700; color: var(--c-accent); font-size: 1.125rem; }
+  .flow__title { font-family: var(--font-body); font-weight: 400; text-transform: none; font-size: .9375rem; margin-top: .375rem; line-height: 1.35; }
 
   .request {
     padding: clamp(1.75rem, 1rem + 2.5vw, 3rem);

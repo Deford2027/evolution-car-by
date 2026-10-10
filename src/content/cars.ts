@@ -1,10 +1,9 @@
-// Каталог автомобилей. Модели и ориентиры цен взяты из Figma-концепта клиента.
-// Фотографии — демонстрационные: под каждой карточкой выводится оговорка,
-// фактический автомобиль согласуется с менеджером.
+// Каталог: 107 позиций выгружены из Tilda Store (store-27278716-202610100909.csv).
+// Данные лежат в cars.json, здесь — типы, справочники и выборки.
+import data from './cars.json';
 
 export type Country = 'china' | 'korea' | 'europe' | 'usa';
 export type Powertrain = 'ev' | 'hybrid' | 'petrol' | 'diesel';
-export type Condition = 'new' | 'used';
 export type Availability = 'in-stock' | 'on-order';
 
 export interface SpecRow {
@@ -15,32 +14,29 @@ export interface SpecRow {
 export interface Car {
   slug: string;
   brand: string;
-  model: string;
-  year: number;
+  title: string;
   country: Country;
-  bodyType: string;
-  powertrain: Powertrain;
-  condition: Condition;
+  categories: string[];
   availability: Availability;
-  /** ориентир цены под ключ, USD */
-  priceUsd: number;
-  deliveryWeeks: [number, number];
-  mileageKm?: number;
-  /** короткая строка под названием в карточке каталога */
-  tagline: string;
-  /** три ключевых параметра для превью */
-  highlights: string[];
-  photos: string[];
-  /** 2–3 абзаца для страницы модели */
-  description: string[];
-  specs: { group: string; rows: SpecRow[] }[];
+  powertrain: Powertrain;
+  /** в выгрузке это диапазон: «2022-2024» или «2024» */
+  year: string;
+  priceUsd: number | null;
+  priceByn: number | null;
+  photo: string;
+  description: string;
+  /** оговорка продавца об ориентировочной цене, есть не у всех позиций */
+  note: string;
+  specs: SpecRow[];
 }
 
-export const countries: Record<Country, { label: string; genitive: string }> = {
-  china: { label: 'Китай', genitive: 'из Китая' },
-  korea: { label: 'Южная Корея', genitive: 'из Южной Кореи' },
-  europe: { label: 'Европа', genitive: 'из Европы' },
-  usa: { label: 'США', genitive: 'из США' },
+export const cars = data as Car[];
+
+export const countries: Record<Country, { label: string; genitive: string; slug: string }> = {
+  china: { label: 'Китай', genitive: 'из Китая', slug: 'from_china' },
+  korea: { label: 'Южная Корея', genitive: 'из Кореи', slug: 'from_korea' },
+  europe: { label: 'Европа', genitive: 'из Европы', slug: 'from_europe' },
+  usa: { label: 'США', genitive: 'из США', slug: 'from_usa' },
 };
 
 export const powertrains: Record<Powertrain, string> = {
@@ -50,425 +46,109 @@ export const powertrains: Record<Powertrain, string> = {
   diesel: 'Дизель',
 };
 
-export const conditions: Record<Condition, string> = {
-  new: 'Новый',
-  used: 'С пробегом',
-};
-
 export const availabilities: Record<Availability, string> = {
   'in-stock': 'В наличии',
   'on-order': 'Под заказ',
 };
 
-export const cars: Car[] = [
+export interface CatalogSection {
+  slug: string;
+  title: string;
+  h1: string;
+  lead: string;
+  match: (car: Car) => boolean;
+}
+
+/** Разделы повторяют структуру каталога на тильде. */
+export const sections: CatalogSection[] = [
   {
-    slug: 'zeekr-001-2023',
-    brand: 'Zeekr',
-    model: '001',
-    year: 2023,
-    country: 'china',
-    bodyType: 'Шутинг-брейк',
-    powertrain: 'ev',
-    condition: 'new',
-    availability: 'in-stock',
-    priceUsd: 82900,
-    deliveryWeeks: [4, 7],
-    tagline: 'Флагманский электрический шутинг-брейк на 800-вольтовой архитектуре',
-    highlights: ['86 кВт·ч', 'Полный привод', 'Запас хода 620 км'],
-    photos: ['/img/Frame_1171275436.png'],
-    description: [
-      'Zeekr 001 — флагман марки, которую Geely построила вокруг электрической платформы SEA. Кузов шутинг-брейк даёт посадку седана и багажник универсала, а пневмоподвеска с адаптивными амортизаторами снимает с белорусских дорог большую часть неровностей.',
-      'Версия с батареей 86 кВт·ч проходит до 620 км по циклу CLTC. Зарядка на 800 вольт добирает запас с 10 до 80 процентов примерно за полчаса — машина подходит и для города, и для трасс между областными центрами.',
-      'Привозим новые автомобили напрямую с китайского рынка: подбираем комплектацию, проверяем юридическую чистоту, оформляем таможню и передаём с полным пакетом документов для постановки на учёт в Беларуси. Русификация мультимедиа и обслуживание — в собственном сервисе Evolution Car.',
-    ],
-    specs: [
-      {
-        group: 'Силовая установка',
-        rows: [
-          { label: 'Тип', value: 'Электрический, два мотора' },
-          { label: 'Батарея', value: '86 кВт·ч, NMC' },
-          { label: 'Мощность', value: '544 л.с.' },
-          { label: 'Разгон 0–100 км/ч', value: '3,8 с' },
-          { label: 'Запас хода', value: 'до 620 км (CLTC)' },
-          { label: 'Архитектура зарядки', value: '800 В' },
-        ],
-      },
-      {
-        group: 'Кузов и привод',
-        rows: [
-          { label: 'Тип кузова', value: 'Шутинг-брейк, 5 мест' },
-          { label: 'Привод', value: 'Полный' },
-          { label: 'Подвеска', value: 'Пневматическая, адаптивная' },
-          { label: 'Длина', value: '4970 мм' },
-        ],
-      },
-      {
-        group: 'Поставка',
-        rows: [
-          { label: 'Рынок', value: 'Китай' },
-          { label: 'Состояние', value: 'Новый, без пробега' },
-          { label: 'Срок поставки', value: '4–7 недель' },
-          { label: 'Документы', value: 'Полный пакет для постановки на учёт' },
-        ],
-      },
-    ],
+    slug: 'in_stock',
+    title: 'Автомобили в наличии',
+    h1: 'Автомобили в наличии',
+    lead: 'Машины, которые уже находятся у нас или в пути: сроки передачи короче, чем у поставки под заказ.',
+    match: (car) => car.availability === 'in-stock',
   },
   {
-    slug: 'byd-han-ev-2023',
-    brand: 'BYD',
-    model: 'Han EV',
-    year: 2023,
-    country: 'china',
-    bodyType: 'Седан',
-    powertrain: 'ev',
-    condition: 'new',
-    availability: 'in-stock',
-    priceUsd: 64900,
-    deliveryWeeks: [4, 6],
-    tagline: 'Представительский электроседан с батареей Blade',
-    highlights: ['85,4 кВт·ч', 'Полный привод', 'Запас хода 610 км'],
-    photos: ['/img/unsplash/rev1c.jpg'],
-    description: [
-      'BYD Han EV — представительский седан на литий-железо-фосфатной батарее Blade. Такая химия спокойнее переносит белорусскую зиму и быстрые зарядки, а ресурс ячеек рассчитан на длительную эксплуатацию без заметной потери ёмкости.',
-      'Полноприводная версия выдаёт 517 л.с. и разгоняется до сотни за 3,9 секунды, при этом сохраняет запас хода около 610 км. Салон отделан кожей наппа, в базе — вентиляция передних кресел, аудиосистема Dynaudio и поворотный экран мультимедиа.',
-      'Автомобиль идёт с китайского рынка. Мы проверяем историю, оформляем поставку по договору и передаём машину с документами, готовыми для регистрации.',
-    ],
-    specs: [
-      {
-        group: 'Силовая установка',
-        rows: [
-          { label: 'Тип', value: 'Электрический, два мотора' },
-          { label: 'Батарея', value: '85,4 кВт·ч, Blade LFP' },
-          { label: 'Мощность', value: '517 л.с.' },
-          { label: 'Разгон 0–100 км/ч', value: '3,9 с' },
-          { label: 'Запас хода', value: 'до 610 км (CLTC)' },
-        ],
-      },
-      {
-        group: 'Кузов и привод',
-        rows: [
-          { label: 'Тип кузова', value: 'Седан, 5 мест' },
-          { label: 'Привод', value: 'Полный' },
-          { label: 'Длина', value: '4995 мм' },
-        ],
-      },
-      {
-        group: 'Поставка',
-        rows: [
-          { label: 'Рынок', value: 'Китай' },
-          { label: 'Состояние', value: 'Новый, без пробега' },
-          { label: 'Срок поставки', value: '4–6 недель' },
-        ],
-      },
-    ],
+    slug: 'made_to_order',
+    title: 'Автомобили под заказ',
+    h1: 'Автомобили под заказ',
+    lead: 'Подбираем и выкупаем автомобиль на зарубежной площадке под ваш запрос: модель, комплектация, год и бюджет.',
+    match: (car) => car.availability === 'on-order',
   },
   {
-    slug: 'avatr-11-2024',
-    brand: 'Avatr',
-    model: '11',
-    year: 2024,
-    country: 'china',
-    bodyType: 'Кроссовер',
-    powertrain: 'ev',
-    condition: 'new',
-    availability: 'on-order',
-    priceUsd: 71500,
-    deliveryWeeks: [6, 9],
-    tagline: 'Электрический кроссовер Changan, Huawei и CATL',
-    highlights: ['90 кВт·ч', 'Полный привод', 'Huawei HarmonyOS'],
-    photos: ['/img/unsplash/rev3a.jpg'],
-    description: [
-      'Avatr 11 — совместный проект Changan, CATL и Huawei. От Huawei автомобилю достались электроника, мультимедиа на HarmonyOS и набор ассистентов на лидарах, от CATL — батарея, от Changan — платформа и производство.',
-      'Двухмоторная версия на 90 кВт·ч проходит до 680 км по циклу CLTC и разгоняется до сотни за 3,98 секунды. Интерьер построен вокруг изогнутого экрана и минимума физических клавиш.',
-      'Поставка под заказ: подбираем комплектацию и цвет под ваш запрос, фиксируем условия договором и держим вас в курсе на каждом этапе маршрута.',
-    ],
-    specs: [
-      {
-        group: 'Силовая установка',
-        rows: [
-          { label: 'Тип', value: 'Электрический, два мотора' },
-          { label: 'Батарея', value: '90 кВт·ч, CATL' },
-          { label: 'Мощность', value: '578 л.с.' },
-          { label: 'Запас хода', value: 'до 680 км (CLTC)' },
-        ],
-      },
-      {
-        group: 'Кузов и привод',
-        rows: [
-          { label: 'Тип кузова', value: 'Кроссовер, 5 мест' },
-          { label: 'Привод', value: 'Полный' },
-          { label: 'Мультимедиа', value: 'Huawei HarmonyOS' },
-        ],
-      },
-      {
-        group: 'Поставка',
-        rows: [
-          { label: 'Рынок', value: 'Китай' },
-          { label: 'Состояние', value: 'Новый, без пробега' },
-          { label: 'Срок поставки', value: '6–9 недель' },
-        ],
-      },
-    ],
+    slug: 'from_china',
+    title: 'Автомобили из Китая',
+    h1: 'Автомобили из Китая под заказ',
+    lead: 'Электромобили, гибриды и модели с двигателями внутреннего сгорания с китайского рынка.',
+    match: (car) => car.country === 'china',
   },
   {
-    slug: 'kia-k5-2022',
-    brand: 'Kia',
-    model: 'K5',
-    year: 2022,
-    country: 'korea',
-    bodyType: 'Седан',
-    powertrain: 'petrol',
-    condition: 'used',
-    availability: 'in-stock',
-    priceUsd: 28900,
-    deliveryWeeks: [3, 5],
-    mileageKm: 41000,
-    tagline: 'Среднеразмерный седан с корейского рынка, один владелец',
-    highlights: ['2.0 бензин', 'Передний привод', 'Пробег 41 000 км'],
-    photos: ['/img/Frame_1171275437.png'],
-    description: [
-      'Kia K5 внутреннего корейского рынка отличается от европейских версий комплектацией: здесь богаче базовое оснащение и выше качество отделки салона. Этот экземпляр 2022 года прошёл 41 000 километров у одного владельца.',
-      'Атмосферный двигатель 2.0 на 160 л.с. в паре с восьмиступенчатым автоматом — простая и ремонтопригодная связка без турбины и роботизированной коробки. Для ежедневных поездок по городу и области это один из самых спокойных вариантов в своём бюджете.',
-      'Перед отправкой автомобиль проходит проверку по базам и осмотр на площадке. После доставки мы делаем русификацию мультимедиа и предпродажную подготовку в собственном сервисе.',
-    ],
-    specs: [
-      {
-        group: 'Двигатель',
-        rows: [
-          { label: 'Тип', value: 'Бензиновый, атмосферный' },
-          { label: 'Объём', value: '2,0 л' },
-          { label: 'Мощность', value: '160 л.с.' },
-          { label: 'Коробка', value: 'Автомат, 8 ступеней' },
-        ],
-      },
-      {
-        group: 'Состояние',
-        rows: [
-          { label: 'Пробег', value: '41 000 км' },
-          { label: 'Владельцев', value: '1' },
-          { label: 'Привод', value: 'Передний' },
-        ],
-      },
-      {
-        group: 'Поставка',
-        rows: [
-          { label: 'Рынок', value: 'Южная Корея' },
-          { label: 'Состояние', value: 'С пробегом' },
-          { label: 'Срок поставки', value: '3–5 недель' },
-          { label: 'Включено', value: 'Русификация мультимедиа' },
-        ],
-      },
-    ],
+    slug: 'from_korea',
+    title: 'Автомобили из Кореи',
+    h1: 'Автомобили из Южной Кореи под заказ',
+    lead: 'Новые автомобили и автомобили с пробегом массового и премиального сегментов корейского рынка.',
+    match: (car) => car.country === 'korea',
   },
   {
-    slug: 'genesis-gv70-2022',
-    brand: 'Genesis',
-    model: 'GV70',
-    year: 2022,
-    country: 'korea',
-    bodyType: 'Кроссовер',
-    powertrain: 'petrol',
-    condition: 'used',
-    availability: 'in-stock',
-    priceUsd: 45900,
-    deliveryWeeks: [3, 6],
-    mileageKm: 52000,
-    tagline: 'Премиальный кроссовер с полным приводом и турбомотором 2.5T',
-    highlights: ['2.5T, 304 л.с.', 'Полный привод', 'Пробег 52 000 км'],
-    photos: ['/img/unsplash/rev2a.jpg'],
-    description: [
-      'Genesis GV70 — премиальный кроссовер, который в Корее стоит заметно дешевле, чем его немецкие конкуренты у официальных дилеров. Турбированный мотор 2.5T на 304 л.с. работает с восьмиступенчатым автоматом и полным приводом.',
-      'В оснащении — адаптивная подвеска, проекционный дисплей, вентиляция кресел и аудиосистема Lexicon. Салон собран аккуратно, материалы держат вид даже после полусотни тысяч километров.',
-      'Автомобиль проверен по корейским базам, история обслуживания прозрачная. Доставка, таможенное оформление и подготовка документов — на нашей стороне.',
-    ],
-    specs: [
-      {
-        group: 'Двигатель',
-        rows: [
-          { label: 'Тип', value: 'Бензиновый, турбированный' },
-          { label: 'Объём', value: '2,5 л' },
-          { label: 'Мощность', value: '304 л.с.' },
-          { label: 'Коробка', value: 'Автомат, 8 ступеней' },
-        ],
-      },
-      {
-        group: 'Состояние',
-        rows: [
-          { label: 'Пробег', value: '52 000 км' },
-          { label: 'Привод', value: 'Полный' },
-          { label: 'Подвеска', value: 'Адаптивная' },
-        ],
-      },
-      {
-        group: 'Поставка',
-        rows: [
-          { label: 'Рынок', value: 'Южная Корея' },
-          { label: 'Состояние', value: 'С пробегом' },
-          { label: 'Срок поставки', value: '3–6 недель' },
-        ],
-      },
-    ],
+    slug: 'from_europe',
+    title: 'Автомобили из Европы',
+    h1: 'Автомобили из Европы под заказ',
+    lead: 'Европейские автомобили с бензиновыми, дизельными и гибридными силовыми установками.',
+    match: (car) => car.country === 'europe',
   },
   {
-    slug: 'bmw-i4-edrive40-2023',
-    brand: 'BMW',
-    model: 'i4 eDrive40',
-    year: 2023,
-    country: 'europe',
-    bodyType: 'Лифтбек',
-    powertrain: 'ev',
-    condition: 'used',
-    availability: 'on-order',
-    priceUsd: 55900,
-    deliveryWeeks: [5, 8],
-    mileageKm: 23000,
-    tagline: 'Задний привод, 340 л.с. и честные 500 километров запаса',
-    highlights: ['83,9 кВт·ч', 'Задний привод', 'Пробег 23 000 км'],
-    photos: ['/img/unsplash/rev1a.jpg'],
-    description: [
-      'BMW i4 eDrive40 — электрический лифтбек на классической для марки заднеприводной компоновке. 340 л.с. и развесовка близко к идеальной: по поведению в поворотах машина ближе к 3-й серии, чем к типичному электрокару.',
-      'Батарея 83,9 кВт·ч даёт около 500 километров реального запаса летом и порядка 380 зимой. Мультимедиа iDrive 8 на изогнутом экране, в оснащении — адаптивная подвеска и пакет ассистентов.',
-      'Европейский экземпляр с прозрачной сервисной историей. Проверяем автомобиль перед покупкой, организуем доставку и растаможку, передаём с документами для регистрации.',
-    ],
-    specs: [
-      {
-        group: 'Силовая установка',
-        rows: [
-          { label: 'Тип', value: 'Электрический, один мотор' },
-          { label: 'Батарея', value: '83,9 кВт·ч' },
-          { label: 'Мощность', value: '340 л.с.' },
-          { label: 'Разгон 0–100 км/ч', value: '5,7 с' },
-          { label: 'Запас хода', value: 'до 590 км (WLTP)' },
-        ],
-      },
-      {
-        group: 'Состояние',
-        rows: [
-          { label: 'Пробег', value: '23 000 км' },
-          { label: 'Привод', value: 'Задний' },
-          { label: 'Мультимедиа', value: 'iDrive 8' },
-        ],
-      },
-      {
-        group: 'Поставка',
-        rows: [
-          { label: 'Рынок', value: 'Европа' },
-          { label: 'Состояние', value: 'С пробегом' },
-          { label: 'Срок поставки', value: '5–8 недель' },
-        ],
-      },
-    ],
+    slug: 'from_usa',
+    title: 'Автомобили из США',
+    h1: 'Автомобили из США под заказ',
+    lead: 'Электромобили, автомобили с пробегом, премиальные и редкие модели с американского рынка.',
+    match: (car) => car.country === 'usa',
   },
   {
-    slug: 'mercedes-benz-e300-2022',
-    brand: 'Mercedes-Benz',
-    model: 'E 300 4MATIC',
-    year: 2022,
-    country: 'europe',
-    bodyType: 'Седан',
-    powertrain: 'hybrid',
-    condition: 'used',
-    availability: 'in-stock',
-    priceUsd: 52900,
-    deliveryWeeks: [4, 7],
-    mileageKm: 38000,
-    tagline: 'Бизнес-седан с мягким гибридом и полным приводом',
-    highlights: ['2.0T + EQBoost', 'Полный привод', 'Пробег 38 000 км'],
-    photos: ['/img/Frame_1171275476.png'],
-    description: [
-      'Mercedes-Benz E 300 4MATIC — бизнес-седан с двухлитровым турбомотором и мягкогибридной системой EQBoost, которая добавляет момент на старте и сглаживает работу системы «старт-стоп».',
-      'Полный привод 4MATIC и пневмоподвеска AIRMATIC делают машину одинаково уместной и в городе, и на трассе. В оснащении — мультимедиа MBUX на двух экранах, климат с фильтрацией и пакет ассистентов Driving Assistance.',
-      'Европейский автомобиль с подтверждённой историей обслуживания. Берём на себя проверку, покупку, доставку, таможню и подготовку документов.',
-    ],
-    specs: [
-      {
-        group: 'Двигатель',
-        rows: [
-          { label: 'Тип', value: 'Бензиновый турбо + мягкий гибрид' },
-          { label: 'Объём', value: '2,0 л' },
-          { label: 'Мощность', value: '258 л.с. + 20 л.с. EQBoost' },
-          { label: 'Коробка', value: 'Автомат 9G-TRONIC' },
-        ],
-      },
-      {
-        group: 'Состояние',
-        rows: [
-          { label: 'Пробег', value: '38 000 км' },
-          { label: 'Привод', value: 'Полный, 4MATIC' },
-          { label: 'Подвеска', value: 'Пневматическая AIRMATIC' },
-        ],
-      },
-      {
-        group: 'Поставка',
-        rows: [
-          { label: 'Рынок', value: 'Европа' },
-          { label: 'Состояние', value: 'С пробегом' },
-          { label: 'Срок поставки', value: '4–7 недель' },
-        ],
-      },
-    ],
+    slug: 'electro_car',
+    title: 'Электромобили',
+    h1: 'Электромобили под заказ',
+    lead: 'Полностью электрические модели: запас хода, батарея и мощность указаны в карточке каждой позиции.',
+    match: (car) => car.powertrain === 'ev',
   },
   {
-    slug: 'tesla-model-y-long-range-2023',
-    brand: 'Tesla',
-    model: 'Model Y Long Range',
-    year: 2023,
-    country: 'usa',
-    bodyType: 'Кроссовер',
-    powertrain: 'ev',
-    condition: 'used',
-    availability: 'on-order',
-    priceUsd: 43500,
-    deliveryWeeks: [7, 10],
-    mileageKm: 31000,
-    tagline: 'Самый практичный электрокроссовер американского рынка',
-    highlights: ['75 кВт·ч', 'Полный привод', 'Пробег 31 000 км'],
-    photos: ['/img/unsplash/rev3c.jpg'],
-    description: [
-      'Tesla Model Y Long Range — двухмоторный электрический кроссовер с полным приводом и запасом хода около 530 километров. На американском рынке такие машины стоят дешевле европейских аналогов, а состояние кузова обычно лучше за счёт мягкого климата южных штатов.',
-      'Практичность — главный аргумент модели: плоский пол, багажник на 854 литра плюс передний отсек, складывающиеся одним движением задние сиденья. Программное обеспечение обновляется по воздуху.',
-      'Перед покупкой проверяем автомобиль по VIN, запрашиваем отчёт об истории и фотоотчёт с площадки. Доставка из США занимает больше времени, чем из Азии, — закладывайте 7–10 недель.',
-    ],
-    specs: [
-      {
-        group: 'Силовая установка',
-        rows: [
-          { label: 'Тип', value: 'Электрический, два мотора' },
-          { label: 'Батарея', value: '75 кВт·ч' },
-          { label: 'Мощность', value: '384 л.с.' },
-          { label: 'Разгон 0–100 км/ч', value: '5,0 с' },
-          { label: 'Запас хода', value: 'до 533 км (EPA)' },
-        ],
-      },
-      {
-        group: 'Состояние',
-        rows: [
-          { label: 'Пробег', value: '31 000 км' },
-          { label: 'Привод', value: 'Полный' },
-          { label: 'Багажник', value: '854 л + передний отсек' },
-        ],
-      },
-      {
-        group: 'Поставка',
-        rows: [
-          { label: 'Рынок', value: 'США' },
-          { label: 'Состояние', value: 'С пробегом' },
-          { label: 'Срок поставки', value: '7–10 недель' },
-          { label: 'Проверка', value: 'Отчёт по VIN и фото с площадки' },
-        ],
-      },
-    ],
+    slug: 'hybrid',
+    title: 'Гибридные автомобили',
+    h1: 'Гибридные автомобили под заказ',
+    lead: 'Гибриды и модели с увеличенным запасом хода: подходят там, где зарядной инфраструктуры пока мало.',
+    match: (car) => car.powertrain === 'hybrid',
   },
 ];
 
-export function carTitle(car: Car): string {
-  return `${car.brand} ${car.model} ${car.year}`;
+export const getSection = (slug: string) => sections.find((s) => s.slug === slug);
+export const carsOf = (section: CatalogSection) => cars.filter(section.match);
+export const getCar = (slug: string) => cars.find((c) => c.slug === slug);
+
+export const formatUsd = (usd: number) => `${usd.toLocaleString('ru-RU')} $`;
+export const formatByn = (byn: number) => `${byn.toLocaleString('ru-RU')} BYN`;
+
+/** Три коротких параметра для превью в карточке списка. */
+export function highlights(car: Car): string[] {
+  const wanted = ['Мощность', 'Привод', 'Запас хода', 'Батарея', 'Коробка передач', 'Объём двигателя', 'Пробег'];
+  return wanted
+    .map((label) => car.specs.find((s) => s.label === label)?.value)
+    .filter((v): v is string => Boolean(v))
+    .slice(0, 3);
 }
 
-export function formatPrice(usd: number): string {
-  return `${usd.toLocaleString('ru-RU')} $`;
-}
+/** Характеристики, разложенные по смысловым группам для страницы товара. */
+export function specGroups(car: Car): { group: string; rows: SpecRow[] }[] {
+  const map: Record<string, string[]> = {
+    'Автомобиль': ['Год выпуска', 'Год', 'Состояние', 'Пробег', 'Класс', 'Кузов', 'Комплектация'],
+    'Силовая установка': ['Тип двигателя', 'Тип топлива', 'Объём двигателя', 'Мощность', 'Батарея', 'Запас хода'],
+    'Трансмиссия и прочее': ['Коробка передач', 'Привод', 'Тип привода', 'Кому подходит', 'Данные Encar'],
+  };
 
-export function getCar(slug: string): Car | undefined {
-  return cars.find((c) => c.slug === slug);
+  return Object.entries(map)
+    .map(([group, labels]) => ({
+      group,
+      rows: labels
+        .map((label) => car.specs.find((s) => s.label === label))
+        .filter((r): r is SpecRow => Boolean(r)),
+    }))
+    .filter((g) => g.rows.length > 0);
 }

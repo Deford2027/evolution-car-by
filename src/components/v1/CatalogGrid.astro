@@ -1,0 +1,54 @@
+---
+import type { Car } from '../../content/cars';
+import { countries, powertrains, availabilities } from '../../content/cars';
+import CarCard from './CarCard.astro';
+import CatalogFilter from '../islands/CatalogFilter';
+
+interface Props {
+  cars: Car[];
+  /** на странице раздела фильтр по этому признаку уже применён и показывать его незачем */
+  hide?: ('country' | 'powertrain' | 'availability')[];
+}
+const { cars, hide = [] } = Astro.props;
+
+const used = <T extends string>(values: T[]) => [...new Set(values)];
+
+const facets = {
+  country: hide.includes('country')
+    ? []
+    : used(cars.map((c) => c.country)).map((value) => ({ value, label: countries[value].label })),
+  powertrain: hide.includes('powertrain')
+    ? []
+    : used(cars.map((c) => c.powertrain)).map((value) => ({ value, label: powertrains[value] })),
+  availability: hide.includes('availability')
+    ? []
+    : used(cars.map((c) => c.availability)).map((value) => ({ value, label: availabilities[value] })),
+};
+---
+
+<CatalogFilter
+  client:load
+  facets={facets}
+  total={cars.length}
+  cars={cars.map((c) => ({
+    slug: c.slug,
+    country: c.country,
+    powertrain: c.powertrain,
+    availability: c.availability,
+  }))}
+/>
+
+<ul class="grid-cars" id="catalog-grid">
+  {cars.map((car, i) => (
+    <li data-slug={car.slug}>
+      <CarCard car={car} eager={i < 3} />
+    </li>
+  ))}
+</ul>
+
+<style>
+  .grid-cars { display: grid; gap: var(--gap); }
+  @media (min-width: 640px) { .grid-cars { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (min-width: 1024px) { .grid-cars { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+  .grid-cars li { display: grid; }
+</style>
