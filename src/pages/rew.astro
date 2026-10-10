@@ -1,0 +1,57 @@
+---
+import '../styles/theme-v1.css';
+import '../styles/islands.css';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageShell from '../components/v1/PageShell.astro';
+import { reviewsPage } from '../content/pages';
+import { breadcrumbsLd, abs } from '../lib/seo';
+
+const crumbs = [
+  { name: 'Главная', href: '/' },
+  { name: 'Отзывы', href: '/rew/' },
+];
+---
+
+<BaseLayout
+  theme="v1"
+  title={reviewsPage.seoTitle}
+  description={reviewsPage.seoDescription}
+  canonical={abs('/rew/')}
+  jsonLd={[breadcrumbsLd(crumbs)]}
+>
+  <PageShell crumbs={crumbs} h1={reviewsPage.h1} lead={reviewsPage.lead}>
+    <section class="section" style="padding-top:0">
+      <div class="container">
+        <ul class="reviews">
+          {reviewsPage.items.map((item) => (
+            <li class="card review">
+              <div class="review__head">
+                <p class="review__name">{item.name}</p>
+                <p class="review__stars" aria-label="Оценка 5 из 5">★★★★★</p>
+              </div>
+              <p class="review__text">{item.text}</p>
+              <a class="review__link" href="/contact/">{reviewsPage.linkLabel}</a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  </PageShell>
+</BaseLayout>
+
+<style>
+  .reviews { display: grid; gap: var(--gap); }
+  @media (min-width: 640px) { .reviews { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (min-width: 1024px) { .reviews { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+  .review {
+    padding: clamp(1.5rem, 1rem + 1.5vw, 2rem);
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    gap: 1.25rem;
+  }
+  .review__head { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+  .review__name { font-family: var(--font-body); font-size: 1.25rem; }
+  .review__stars { color: var(--c-accent); letter-spacing: .12em; font-size: .9375rem; }
+  .review__text { color: var(--c-text-3); font-size: .9375rem; line-height: 1.55; }
+  .review__link { color: var(--c-accent); font-weight: 600; font-size: .9375rem; }
+</style>

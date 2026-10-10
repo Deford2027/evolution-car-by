@@ -6,7 +6,7 @@ import { site } from '../../content/site';
 <footer class="footer">
   <div class="container">
     <div class="footer__top">
-      <a class="footer__logo" href="#top">
+      <a class="footer__logo" href="/">
         <img src="/img/EVOLUTION_CARS_.svg" alt={site.brand} width="206" height="40" />
       </a>
       <div class="footer__contact">
@@ -17,7 +17,7 @@ import { site } from '../../content/site';
         <li><a href={site.telegram} aria-label="Telegram">TG</a></li>
         <li><a href={site.whatsapp} aria-label="WhatsApp">WA</a></li>
       </ul>
-      <a class="btn btn--ghost footer__order" href="#final">Заказать</a>
+      <a class="btn btn--ghost footer__order" href="/#final">Заказать</a>
     </div>
 
     <div class="footer__cols">
@@ -30,7 +30,7 @@ import { site } from '../../content/site';
           <p class="footer__col-title">{column.title}</p>
           <ul>
             {column.links.map((link) => (
-              <li><a href="#final">{link}</a></li>
+              <li><a href={link.href}>{link.label}</a></li>
             ))}
           </ul>
         </nav>
@@ -39,7 +39,7 @@ import { site } from '../../content/site';
 
     <div class="footer__bottom">
       <p>© {new Date().getFullYear()} {site.brand}</p>
-      <a href="#final">{footer.credit}</a>
+      <span>{footer.credit}</span>
     </div>
   </div>
 

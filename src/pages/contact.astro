@@ -1,0 +1,90 @@
+---
+import '../styles/theme-v1.css';
+import '../styles/islands.css';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageShell from '../components/v1/PageShell.astro';
+import { contactPage } from '../content/pages';
+import { site } from '../content/site';
+import { breadcrumbsLd, abs } from '../lib/seo';
+
+const crumbs = [
+  { name: 'Главная', href: '/' },
+  { name: 'Контакты', href: '/contact/' },
+];
+---
+
+<BaseLayout
+  theme="v1"
+  title={contactPage.seoTitle}
+  description={contactPage.seoDescription}
+  canonical={abs('/contact/')}
+  jsonLd={[breadcrumbsLd(crumbs)]}
+>
+  <PageShell crumbs={crumbs} h1={contactPage.h1}>
+    <section class="section" style="padding-top:0">
+      <div class="container">
+        <ul class="tiles">
+          <li class="card tile">
+            <p class="tile__label">Отдел продаж</p>
+            <a class="tile__value" href={site.phoneHref}>{site.phone}</a>
+            <p class="tile__note">{site.hoursShort}</p>
+          </li>
+          <li class="card tile">
+            <p class="tile__label">Сервис и шоурум</p>
+            <p class="tile__value">{site.showroom}</p>
+            <p class="tile__note">{site.city}</p>
+          </li>
+          <li class="card tile">
+            <p class="tile__label">Сервис</p>
+            <p class="tile__value">{site.service}</p>
+            <p class="tile__note">{site.city}</p>
+          </li>
+          <li class="card tile">
+            <p class="tile__label">Режим работы</p>
+            <p class="tile__value">9:00 — 20:00</p>
+            <p class="tile__note">Ежедневно, без выходных</p>
+          </li>
+        </ul>
+
+        <div class="card messengers">
+          <div>
+            <h2 class="messengers__title">Напишите удобным способом</h2>
+            <p class="messengers__text">
+              Ответим в рабочее время. Если вопрос срочный — звоните, менеджер на связи
+              ежедневно с 9:00 до 20:00.
+            </p>
+          </div>
+          <div class="messengers__links">
+            <a class="btn" href={site.telegram}>Telegram</a>
+            <a class="btn btn--ghost" href={site.whatsapp}>WhatsApp</a>
+            <a class="btn btn--ghost" href={site.phoneHref}>Позвонить</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </PageShell>
+</BaseLayout>
+
+<style>
+  .tiles { display: grid; gap: var(--gap); margin-bottom: var(--gap); }
+  @media (min-width: 560px) { .tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (min-width: 1024px) { .tiles { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+  .tile { padding: clamp(1.25rem, 1rem + 1vw, 1.75rem); align-content: start; }
+  .tile__label { color: var(--c-text-3); font-size: .8125rem; margin-bottom: .75rem; }
+  .tile__value { display: block; font-size: 1.125rem; line-height: 1.3; }
+  a.tile__value:hover { color: var(--c-accent); }
+  .tile__note { color: var(--c-text-3); font-size: .8125rem; margin-top: .5rem; }
+
+  .messengers {
+    padding: clamp(1.75rem, 1rem + 2.5vw, 3rem);
+    background: var(--c-bg-alt);
+    display: grid;
+    gap: 1.5rem;
+  }
+  .messengers__title { font-size: clamp(1.375rem, 1.1rem + 1.2vw, 2rem); }
+  .messengers__text { color: var(--c-text-3); margin-top: 1rem; max-width: 60ch; }
+  .messengers__links { display: flex; flex-wrap: wrap; gap: .75rem; }
+  @media (min-width: 1024px) {
+    .messengers { grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 3rem; }
+  }
+</style>

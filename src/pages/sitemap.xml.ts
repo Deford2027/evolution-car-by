@@ -1,13 +1,20 @@
 import type { APIRoute } from 'astro';
-import { cars } from '../content/cars';
+import { cars, sections } from '../content/cars';
+import { directions } from '../content/directions';
+import { legalPages } from '../content/pages';
 
 const paths = [
   '/',
+  '/about/',
+  '/contact/',
+  '/portfolio/',
+  '/rew/',
+  ...directions.map((d) => `/${d.slug}/`),
   '/catalog/',
-  ...cars.map((c) => `/catalog/${c.slug}/`),
+  ...sections.map((s) => `/catalog/${s.slug}/`),
+  ...cars.map((c) => `/car/${c.slug}/`),
+  ...legalPages.map((p) => `/${p.slug}/`),
   '/zeekr/',
-  '/zeekr/catalog/',
-  ...cars.map((c) => `/zeekr/catalog/${c.slug}/`),
 ];
 
 export const GET: APIRoute = ({ site }) => {

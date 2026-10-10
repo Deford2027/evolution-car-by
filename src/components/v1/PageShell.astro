@@ -1,0 +1,52 @@
+---
+import Header from './Header.astro';
+import Footer from './Footer.astro';
+import Breadcrumbs from './Breadcrumbs.astro';
+import Contacts from './Contacts.astro';
+import ModalHost from '../islands/ModalHost';
+import type { Crumb } from '../../lib/seo';
+import { quiz, finalOffer } from '../../content/home';
+
+interface Props {
+  crumbs: Crumb[];
+  h1: string;
+  lead?: string;
+  /** на страницах-заглушках блок контактов не нужен */
+  contacts?: boolean;
+}
+const { crumbs, h1, lead, contacts = true } = Astro.props;
+---
+
+<Header />
+<Breadcrumbs crumbs={crumbs} />
+
+<main>
+  <section class="section page-head">
+    <div class="container">
+      <h1>{h1}</h1>
+      {lead && <p class="page-head__lead">{lead}</p>}
+    </div>
+  </section>
+
+  <slot />
+
+  {contacts && <Contacts />}
+</main>
+
+<Footer />
+<ModalHost
+  client:idle
+  quizTitle={quiz.title}
+  quizSteps={quiz.steps}
+  contactQuestion={quiz.contactStep.q}
+  channels={quiz.contactStep.channels}
+  consent={finalOffer.consent}
+  success={finalOffer.success}
+  videoPoster="/img/unsplash/service.jpg"
+/>
+
+<style>
+  .page-head { padding-block: clamp(2rem, 1.2rem + 3vw, 4rem) clamp(1.5rem, 1rem + 2vw, 2.5rem); }
+  .page-head h1 { max-width: 24ch; }
+  .page-head__lead { color: var(--c-text-3); margin-top: 1.5rem; font-size: 1.0625rem; max-width: 64ch; }
+</style>

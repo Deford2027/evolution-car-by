@@ -1,0 +1,43 @@
+---
+import '../styles/theme-v1.css';
+import '../styles/islands.css';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/v1/Header.astro';
+import Footer from '../components/v1/Footer.astro';
+import { thanks } from '../content/pages';
+import { site } from '../content/site';
+import { abs } from '../lib/seo';
+---
+
+<BaseLayout
+  theme="v1"
+  title={thanks.seoTitle}
+  description={thanks.seoDescription}
+  canonical={abs('/thank_page/')}
+>
+  <Header />
+  <main class="thanks">
+    <div class="container thanks__inner">
+      <h1>{thanks.h1}</h1>
+      <p class="thanks__text">{thanks.text}</p>
+      <div class="thanks__actions">
+        <a class="btn" href="/">{thanks.cta}</a>
+        <a class="btn btn--ghost" href="/catalog/">Смотреть каталог</a>
+      </div>
+      <p class="thanks__contact">
+        Нужно быстрее? Позвоните: <a href={site.phoneHref}>{site.phone}</a>
+      </p>
+    </div>
+  </main>
+  <Footer />
+</BaseLayout>
+
+<style>
+  .thanks { display: grid; place-items: center; min-height: 70svh; padding-block: clamp(3rem, 2rem + 5vw, 7rem); }
+  .thanks__inner { display: grid; justify-items: center; text-align: center; gap: 1.5rem; }
+  .thanks h1 { font-size: clamp(2.5rem, 1.5rem + 5vw, 5rem); }
+  .thanks__text { color: var(--c-text-2); max-width: 54ch; font-size: 1.0625rem; }
+  .thanks__actions { display: flex; flex-wrap: wrap; gap: .75rem; justify-content: center; margin-top: .5rem; }
+  .thanks__contact { color: var(--c-text-3); font-size: .9375rem; }
+  .thanks__contact a { color: var(--c-accent); }
+</style>

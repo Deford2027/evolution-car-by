@@ -18,12 +18,12 @@ export const site = {
 
 // href, начинающийся с #, — якорь на главной: шапка добавляет к нему свой префикс
 export const nav: NavLink[] = [
-  { label: 'Авто в наличии', href: '/catalog/' },
-  { label: 'Авто под заказ', href: '#directions' },
+  { label: 'Авто в наличии', href: '/catalog/in_stock/' },
+  { label: 'Авто под заказ', href: '/catalog/made_to_order/' },
   { label: 'Каталог', href: '/catalog/' },
-  { label: 'Пригнали', href: '#reviews' },
-  { label: 'О компании', href: '#why' },
-  { label: 'Контакты', href: '#contacts' },
+  { label: 'Пригнали', href: '/portfolio/' },
+  { label: 'О компании', href: '/about/' },
+  { label: 'Контакты', href: '/contact/' },
 ];
 
 export const ui = {
