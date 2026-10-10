@@ -21,6 +21,8 @@ export const nav: NavLink[] = [
   { label: 'Авто в наличии', href: '/catalog/in_stock/' },
   { label: 'Авто под заказ', href: '/catalog/made_to_order/' },
   { label: 'Каталог', href: '/catalog/' },
+  { label: 'Электромобили', href: '/elektromobili/' },
+  { label: 'Доставка', href: '/dostavka-i-rastamozhka/' },
   { label: 'Пригнали', href: '/portfolio/' },
   { label: 'О компании', href: '/about/' },
   { label: 'Контакты', href: '/contact/' },

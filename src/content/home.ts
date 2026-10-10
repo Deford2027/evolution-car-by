@@ -170,13 +170,14 @@ export const footer = {
     { title: 'Автомобили:', links: [
       { label: 'Авто в наличии', href: '/catalog/in_stock/' },
       { label: 'Авто под заказ', href: '/catalog/made_to_order/' },
-      { label: 'Электромобили', href: '/catalog/electro_car/' },
+      { label: 'Электромобили', href: '/elektromobili/' },
       { label: 'Гибридные автомобили', href: '/catalog/hybrid/' },
       { label: 'Рассчитать стоимость', href: '/#cost' },
       { label: 'Подобрать автомобиль', href: '/#final' },
     ] },
     { title: 'Компания:', links: [
       { label: 'О компании', href: '/about/' },
+      { label: 'Доставка и растаможка', href: '/dostavka-i-rastamozhka/' },
       { label: 'Пригнанные авто', href: '/portfolio/' },
       { label: 'Отзывы', href: '/rew/' },
       { label: 'Контакты', href: '/contact/' },

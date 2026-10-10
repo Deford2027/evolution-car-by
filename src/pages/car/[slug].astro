@@ -139,6 +139,10 @@ const similar = cars
       <section class="section section--tight">
         <div class="container">
           <h2 class="block__title">Что входит в стоимость под ключ</h2>
+          <p class="included__lead">
+            Подробно о сроках, маршрутах и составе платежей — на странице
+            <a href="/dostavka-i-rastamozhka/">доставки и растаможки</a>.
+          </p>
           <ul class="included">
             {benefits.map((item) => (
               <li class="card included__item">
@@ -299,6 +303,8 @@ const similar = cars
   .specs__row dd { text-align: right; }
   .specs__row dd a { color: var(--c-accent); }
 
+  .included__lead { color: var(--c-text-3); font-size: .9375rem; margin-bottom: 1.5rem; max-width: 70ch; }
+  .included__lead a { color: var(--c-accent); }
   .included { display: grid; gap: var(--gap); }
   @media (min-width: 640px) { .included { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
   @media (min-width: 1024px) { .included { grid-template-columns: repeat(4, minmax(0, 1fr)); } }

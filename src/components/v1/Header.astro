@@ -64,6 +64,7 @@ const links = nav.map((l) => ({ ...l, href: l.href.startsWith('#') ? '/' + l.hre
   .hdr__nav a:hover { color: var(--c-accent); }
   .hdr__side { display: none; align-items: center; gap: .625rem; margin-left: auto; }
   .hdr__phone { display: grid; line-height: 1.25; text-align: right; margin-right: .5rem; }
+  .hdr__phone { white-space: nowrap; }
   .hdr__phone-num { font-size: .8125rem; font-weight: 500; }
   .hdr__phone-hours { font-size: .6875rem; color: var(--c-text-3); }
   .hdr__icon {

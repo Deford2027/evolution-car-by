@@ -11,6 +11,8 @@ const paths = [
   '/portfolio/',
   '/rew/',
   ...directions.map((d) => `/${d.slug}/`),
+  '/elektromobili/',
+  '/dostavka-i-rastamozhka/',
   '/catalog/',
   ...allBrands().map((b) => `/brand/${b.slug}/`),
   ...sections.map((s) => `/catalog/${s.slug}/`),
