@@ -8,6 +8,7 @@ import Breadcrumbs from '../../components/v1/Breadcrumbs.astro';
 import CatalogGrid from '../../components/v1/CatalogGrid.astro';
 import ModalHost from '../../components/islands/ModalHost';
 import { cars, sections } from '../../content/cars';
+import { allBrands } from '../../content/brands';
 import { breadcrumbsLd, catalogLd, abs } from '../../lib/seo';
 import { quiz, finalOffer, directions } from '../../content/home';
 
@@ -59,6 +60,20 @@ const description =
         </nav>
 
         <CatalogGrid cars={cars} />
+
+        <section class="brands-block">
+          <h2 class="brands-block__title">Автомобили по маркам</h2>
+          <ul class="brands">
+            {allBrands().map((brand) => (
+              <li>
+                <a class="brand" href={`/brand/${brand.slug}/`}>
+                  <span class="brand__name">{brand.name}</span>
+                  <span class="brand__count">{brand.cars.length}</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </section>
 
         <div class="card fallback">
           <div>
@@ -122,6 +137,26 @@ const description =
     .fallback { grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 3rem; }
     .fallback__cta { justify-self: end; }
   }
+
+  .brands-block { margin-top: clamp(2.5rem, 1.5rem + 4vw, 4rem); }
+  .brands-block__title { margin-bottom: clamp(1.25rem, 1rem + 1vw, 1.75rem); }
+  .brands { display: grid; gap: var(--gap); grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  @media (min-width: 640px) { .brands { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+  @media (min-width: 1024px) { .brands { grid-template-columns: repeat(6, minmax(0, 1fr)); } }
+  .brand {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: .75rem;
+    padding: 1rem 1.125rem;
+    background: var(--c-surface);
+    border: 1px solid var(--c-line);
+    border-radius: var(--r-card);
+    transition: border-color .25s var(--ease);
+  }
+  .brand:hover { border-color: var(--c-accent); }
+  .brand__name { font-family: var(--font-display); font-weight: 700; text-transform: uppercase; font-size: .9375rem; }
+  .brand__count { color: var(--c-text-3); font-size: .75rem; font-variant-numeric: tabular-nums; }
 
   .note {
     margin-top: clamp(1.5rem, 1rem + 2vw, 2.25rem);

@@ -1,6 +1,7 @@
 ---
 import { footer } from '../../content/home';
 import { site } from '../../content/site';
+import { popularBrands } from '../../content/brands';
 ---
 
 <footer class="footer">
@@ -25,6 +26,15 @@ import { site } from '../../content/site';
         {footer.about.split('\n').map((line) => <p>{line}</p>)}
         <p class="footer__hours footer__hours--block">{footer.hours}</p>
       </div>
+      <nav class="footer__col" aria-label="Популярные марки">
+        <p class="footer__col-title">Популярные марки:</p>
+        <ul>
+          {popularBrands().slice(0, 8).map((brand) => (
+            <li><a href={`/brand/${brand.slug}/`}>{brand.name}</a></li>
+          ))}
+        </ul>
+      </nav>
+
       {footer.columns.map((column) => (
         <nav class="footer__col" aria-label={column.title}>
           <p class="footer__col-title">{column.title}</p>
@@ -113,5 +123,8 @@ import { site } from '../../content/site';
   @media (min-width: 768px) {
     .footer__top { grid-template-columns: minmax(0, 1fr) auto auto auto; gap: 1.5rem; }
     .footer__cols { grid-template-columns: minmax(0, 1.4fr) repeat(3, minmax(0, 1fr)); gap: 2.5rem; }
+  }
+  @media (min-width: 1200px) {
+    .footer__cols { grid-template-columns: minmax(0, 1.3fr) repeat(4, minmax(0, 1fr)); }
   }
 </style>

@@ -1,0 +1,326 @@
+---
+import '../../styles/theme-v1.css';
+import '../../styles/islands.css';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/v1/Header.astro';
+import Footer from '../../components/v1/Footer.astro';
+import Breadcrumbs from '../../components/v1/Breadcrumbs.astro';
+import CarCard from '../../components/v1/CarCard.astro';
+import ModalHost from '../../components/islands/ModalHost';
+import LeadForm from '../../components/islands/LeadForm';
+import { allBrands, popularBrands } from '../../content/brands';
+import type { Brand } from '../../content/brands';
+import { countries, powertrains, formatUsd } from '../../content/cars';
+import type { Car } from '../../content/cars';
+import { breadcrumbsLd, abs } from '../../lib/seo';
+import { quiz, finalOffer } from '../../content/home';
+
+export function getStaticPaths() {
+  return allBrands().map((brand) => ({ params: { slug: brand.slug }, props: { brand } }));
+}
+
+const { brand } = Astro.props as { brand: Brand & { cars: Car[] } };
+const list = brand.cars;
+
+const crumbs = [
+  { name: 'Главная', href: '/' },
+  { name: 'Каталог автомобилей', href: '/catalog/' },
+  { name: brand.name, href: `/brand/${brand.slug}/` },
+];
+
+const prices = list.map((c) => c.priceUsd ?? Infinity).filter(Number.isFinite) as number[];
+const minPrice = prices.length ? Math.min(...prices) : null;
+const inStock = list.filter((c) => c.availability === 'in-stock').length;
+
+const types = [...new Set(list.map((c) => c.powertrain))];
+const markets = [...new Set(list.map((c) => c.country))];
+
+// кириллическое написание тоже ищут, поэтому оно попадает в title и в текст
+const alias = brand.aliases[0];
+const nameWithAlias = alias ? `${brand.name} (${alias})` : brand.name;
+
+const title =
+  `${brand.name} купить в Минске под заказ${minPrice ? ` — от ${minPrice.toLocaleString('ru-RU')} $` : ''} | Evolution Car`;
+const description =
+  `${brand.name}${alias ? ` (${alias})` : ''} в Беларуси: ${list.length} ` +
+  `${list.length === 1 ? 'позиция' : list.length < 5 ? 'позиции' : 'позиций'} в каталоге` +
+  `${inStock ? `, ${inStock} в наличии` : ''}. ${brand.tagline}. ` +
+  `Доставка под ключ, таможенное оформление и документы для постановки на учёт.`;
+
+const faq = [
+  {
+    q: `Сколько стоит ${brand.name} под ключ в Беларуси?`,
+    a: minPrice
+      ? `Ориентир по каталогу — от ${formatUsd(minPrice)} с учётом покупки, доставки, таможенного оформления и подготовки документов. Итоговая сумма зависит от комплектации, года выпуска и курса валют на дату сделки.`
+      : `Стоимость считаем под конкретную модель и комплектацию: в неё входят покупка, доставка, страхование на время перевозки, таможенное оформление и документы для постановки на учёт.`,
+  },
+  {
+    q: `Сколько ждать ${brand.name} после заказа?`,
+    a: `Из Китая и Кореи — обычно 4–7 недель от подтверждения заказа до выдачи, из США — 7–10 недель. Точный срок называем после того, как выбран конкретный автомобиль на площадке.`,
+  },
+  {
+    q: `Есть ли гарантия на ${brand.name}?`,
+    a: `На новые автомобили действует гарантия производителя, её условия зависят от марки и модели и фиксируются в договоре. После выдачи автомобиль можно обслуживать в собственном сервисе Evolution Car в Минске.`,
+  },
+];
+
+const faqLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faq.map((item) => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: { '@type': 'Answer', text: item.a },
+  })),
+};
+
+const others = popularBrands().filter((b) => b.slug !== brand.slug).slice(0, 8);
+---
+
+<BaseLayout
+  theme="v1"
+  title={title}
+  description={description}
+  canonical={abs(`/brand/${brand.slug}/`)}
+  ogImage={list[0]?.photo}
+  jsonLd={[breadcrumbsLd(crumbs), faqLd]}
+>
+  <Header />
+  <Breadcrumbs crumbs={crumbs} />
+
+  <main>
+    <section class="section section--top">
+      <div class="container">
+        <div class="head">
+          <div>
+            <p class="kicker">[ {brand.country} ]</p>
+            <h1>{brand.name} — купить в Минске под заказ</h1>
+            <p class="head__tagline">{brand.tagline}</p>
+          </div>
+          <dl class="facts">
+            <div class="fact">
+              <dt>Позиций в каталоге</dt>
+              <dd>{list.length}</dd>
+            </div>
+            {inStock > 0 && (
+              <div class="fact">
+                <dt>В наличии</dt>
+                <dd>{inStock}</dd>
+              </div>
+            )}
+            {minPrice && (
+              <div class="fact fact--accent">
+                <dt>Цена под ключ</dt>
+                <dd>от {formatUsd(minPrice)}</dd>
+              </div>
+            )}
+            <div class="fact">
+              <dt>Рынки поставки</dt>
+              <dd>{markets.map((m) => countries[m].label).join(', ')}</dd>
+            </div>
+          </dl>
+        </div>
+
+        <div class="chips">
+          {types.map((t) => <span class="chip">{powertrains[t]}</span>)}
+          {markets.map((m) => (
+            <a class="chip chip--link" href={`/catalog/${countries[m].slug}/`}>
+              Все автомобили {countries[m].genitive}
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--tight">
+      <div class="container">
+        <h2 class="block__title">{nameWithAlias} в наличии и под заказ</h2>
+        <ul class="cards">
+          {list.map((car, i) => (
+            <li><CarCard car={car} eager={i < 3} /></li>
+          ))}
+        </ul>
+      </div>
+    </section>
+
+    <section class="section section--tight">
+      <div class="container">
+        <h2 class="block__title">О марке</h2>
+        <div class="prose">
+          {brand.about.map((p) => <p>{p}</p>)}
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--tight">
+      <div class="container">
+        <h2 class="block__title">Частые вопросы о покупке {brand.name}</h2>
+        <div class="faq">
+          {faq.map((item, i) => (
+            <details class="faq__item" name="brand-faq" open={i === 0}>
+              <summary class="faq__q">
+                <span>{item.q}</span>
+                <span class="faq__mark" aria-hidden="true">↗</span>
+              </summary>
+              <p class="faq__a">{item.a}</p>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="request">
+      <div class="container">
+        <div class="card request">
+          <div>
+            <h2 class="request__title">Подобрать {brand.name} под ваш бюджет</h2>
+            <p class="request__text">
+              Скажите, какая модель и комплектация интересует — проверим доступные предложения
+              на площадках и пришлём расчёт стоимости под ключ. Если ещё выбираете, менеджер
+              сравнит несколько вариантов между собой.
+            </p>
+          </div>
+          <LeadForm
+            client:visible
+            namePlaceholder={finalOffer.namePlaceholder}
+            phonePlaceholder={finalOffer.phonePlaceholder}
+            cta={finalOffer.cta}
+            consent={finalOffer.consent}
+            success={finalOffer.success}
+            source={`Марка: ${brand.name}`}
+          />
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--tight">
+      <div class="container">
+        <h2 class="block__title">Другие марки</h2>
+        <ul class="brands">
+          {others.map((b) => (
+            <li>
+              <a class="brand" href={`/brand/${b.slug}/`}>
+                <span class="brand__name">{b.name}</span>
+                <span class="brand__count">{b.cars.length}</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+  <ModalHost
+    client:idle
+    quizTitle={quiz.title}
+    quizSteps={quiz.steps}
+    contactQuestion={quiz.contactStep.q}
+    channels={quiz.contactStep.channels}
+    consent={finalOffer.consent}
+    success={finalOffer.success}
+    videoPoster="/img/unsplash/service.jpg"
+  />
+</BaseLayout>
+
+<style>
+  .section--top { padding-block: clamp(1.5rem, 1rem + 2vw, 2.5rem); }
+  .section--tight { padding-block: clamp(2rem, 1.2rem + 3vw, 3rem); }
+  .block__title { margin-bottom: clamp(1.25rem, 1rem + 1vw, 2rem); }
+
+  .head { display: grid; gap: clamp(1.5rem, 1rem + 2vw, 2.5rem); }
+  @media (min-width: 1024px) { .head { grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); align-items: start; } }
+  .head h1 { margin-top: .875rem; }
+  .head__tagline { color: var(--c-text-2); margin-top: 1rem; font-size: 1.0625rem; max-width: 52ch; }
+
+  .facts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--gap); }
+  .fact {
+    background: var(--c-surface);
+    border: 1px solid var(--c-line);
+    border-radius: 12px;
+    padding: 1rem 1.125rem;
+  }
+  .fact dt { color: var(--c-text-3); font-size: .75rem; }
+  .fact dd { margin-top: .375rem; font-size: .9375rem; }
+  .fact--accent dd { font-family: var(--font-display); font-weight: 700; font-size: 1.375rem; color: var(--c-accent); }
+
+  .chips { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: clamp(1.5rem, 1rem + 2vw, 2rem); }
+  .chip {
+    padding: .5rem 1rem;
+    border: 1px solid var(--c-line);
+    border-radius: var(--r-pill);
+    color: var(--c-text-2);
+    font-size: .875rem;
+  }
+  .chip--link:hover { border-color: var(--c-accent); color: var(--c-text); }
+
+  .cards { display: grid; gap: var(--gap); }
+  @media (min-width: 640px) { .cards { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (min-width: 1024px) { .cards { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+  .cards li { display: grid; }
+
+  .prose { display: grid; gap: 1rem; max-width: 78ch; }
+  .prose p { color: var(--c-text-2); font-size: 1rem; line-height: 1.65; }
+
+  .faq { display: grid; gap: var(--gap); }
+  .faq__item {
+    background: var(--c-surface);
+    border: 1px solid var(--c-line);
+    border-radius: var(--r-card);
+    padding: clamp(1.25rem, 1rem + 1vw, 1.75rem);
+  }
+  .faq__q {
+    display: flex;
+    align-items: start;
+    justify-content: space-between;
+    gap: 1.5rem;
+    cursor: pointer;
+    list-style: none;
+    font-family: var(--font-display);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: -.01em;
+    font-size: clamp(1rem, .95rem + .4vw, 1.1875rem);
+    line-height: 1.25;
+  }
+  .faq__q::-webkit-details-marker { display: none; }
+  .faq__mark {
+    flex: none;
+    width: 2.5rem; height: 2.5rem;
+    display: grid; place-items: center;
+    border: 1px solid var(--c-line-strong);
+    border-radius: 8px;
+    color: var(--c-text-2);
+    transition: background .25s var(--ease), color .25s var(--ease), rotate .25s var(--ease);
+  }
+  .faq__item[open] .faq__mark { background: var(--c-accent); border-color: var(--c-accent); color: #fff; rotate: 90deg; }
+  .faq__a { color: var(--c-text-3); margin-top: 1.25rem; line-height: 1.6; max-width: 78ch; }
+
+  .request {
+    padding: clamp(1.75rem, 1rem + 2.5vw, 3rem);
+    background: var(--c-bg-alt);
+    display: grid;
+    gap: 2rem;
+    align-items: center;
+  }
+  @media (min-width: 1024px) { .request { grid-template-columns: minmax(0, 1fr) minmax(0, 27rem); gap: 3.5rem; } }
+  .request__title { font-size: clamp(1.5rem, 1.2rem + 1.4vw, 2.25rem); }
+  .request__text { color: var(--c-text-3); font-size: .9375rem; margin-top: 1rem; max-width: 56ch; }
+
+  .brands { display: grid; gap: var(--gap); grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  @media (min-width: 700px) { .brands { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+  .brand {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: .75rem;
+    padding: 1.125rem 1.25rem;
+    background: var(--c-surface);
+    border: 1px solid var(--c-line);
+    border-radius: var(--r-card);
+    transition: border-color .25s var(--ease);
+  }
+  .brand:hover { border-color: var(--c-accent); }
+  .brand__name { font-family: var(--font-display); font-weight: 700; text-transform: uppercase; font-size: 1rem; }
+  .brand__count { color: var(--c-text-3); font-size: .8125rem; font-variant-numeric: tabular-nums; }
+</style>

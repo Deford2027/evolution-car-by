@@ -13,6 +13,7 @@ import {
 } from '../../content/cars';
 import type { Car } from '../../content/cars';
 import { carMeta, carLd, breadcrumbsLd } from '../../lib/seo';
+import { brandSlug } from '../../content/brands';
 import { quiz, finalOffer, benefits, steps } from '../../content/home';
 
 export function getStaticPaths() {
@@ -26,7 +27,7 @@ const groups = specGroups(car);
 const crumbs = [
   { name: 'Главная', href: '/' },
   { name: 'Каталог автомобилей', href: '/catalog/' },
-  { name: countries[car.country].label, href: `/catalog/${countries[car.country].slug}/` },
+  { name: car.brand, href: `/brand/${brandSlug(car.brand)}/` },
   { name: car.title, href: `/car/${car.slug}/` },
 ];
 
@@ -94,6 +95,12 @@ const similar = cars
               <a class="btn" href="#request">Запросить расчёт</a>
               <button class="btn btn--ghost" type="button" data-open="quiz">Пройти опрос</button>
             </div>
+
+            <p class="intro__links">
+              <a href={`/brand/${brandSlug(car.brand)}/`}>Все автомобили {car.brand}</a>
+              <span aria-hidden="true">·</span>
+              <a href={`/catalog/${countries[car.country].slug}/`}>Автомобили {countries[car.country].genitive}</a>
+            </p>
 
             {car.note && <p class="intro__note">{car.note}</p>}
           </div>
@@ -237,6 +244,17 @@ const similar = cars
 
   .intro__title { margin-top: .875rem; }
   .intro__tagline { color: var(--c-text-2); margin-top: 1rem; font-size: 1rem; line-height: 1.55; }
+  .intro__links {
+    margin-top: 1.25rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: .625rem;
+    font-size: .875rem;
+    color: var(--c-text-3);
+  }
+  .intro__links a { color: var(--c-accent); }
+  .intro__links a:hover { color: var(--c-accent-hover); }
+
   .intro__note {
     margin-top: 1.25rem;
     padding-top: 1.25rem;
