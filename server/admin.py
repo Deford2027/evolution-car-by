@@ -25,7 +25,11 @@ from collections import defaultdict, deque
 
 import lead_handler as lead
 import admin_leads as leads
-from admin_ui import SITE_URL, _doc, _topbar, login_page, stub_page
+import page_seo
+from admin_ui import PAGE_CSS, SITE_URL, _doc, _topbar, login_page, stub_page
+
+# стили карточки страницы лежат рядом с её разметкой, в page_seo
+PAGE_CSS += page_seo.CSS
 
 ADMIN_PASSWORD = os.environ.get("ADMIN_PASSWORD", "").strip()
 SECRET = os.environ.get("ADMIN_SECRET", "").strip() or hashlib.sha256(
@@ -256,16 +260,16 @@ def _page_row(p, level=0):
     )
     desc = f'<span class="pdesc">{html.escape(p["desc"][:120])}</span>' if p["desc"] else ""
     cls = f" lvl{level}" if level else ""
-    # Карточка страницы с разбором SEO появится отдельным шагом; пока вся
-    # строка открывает живую страницу на сайте в новой вкладке.
-    live = f'{SITE_URL}{p["route"]}'
-    nw = 'target="_blank" rel="noopener"'
+    # вся строка ведёт в карточку страницы, кроме самой ссылки: по ней
+    # по-прежнему открывается живая страница на сайте
+    card = "/admin/page?route=" + urllib.parse.quote(p["route"])
     return (
         f'<div class="prow{cls}">'
-        f'<a class="pcard" href="{live}" {nw}>{img}</a>'
-        f'<a class="pcard ptitle" href="{live}" {nw}>{home}'
+        f'<a class="pcard" href="{card}">{img}</a>'
+        f'<a class="pcard ptitle" href="{card}">{home}'
         f'<div>{html.escape(p["title"])}{desc}</div></a>'
-        f'<a class="plink" href="{live}" {nw}>{html.escape(p["route"])}</a>'
+        f'<a class="plink" href="{SITE_URL}{p["route"]}" target="_blank" rel="noopener">'
+        f'{html.escape(p["route"])}</a>'
         f'<div class="pkind">{html.escape(p["kind"])}</div></div>'
     )
 
@@ -384,6 +388,22 @@ def handle(req) -> bool:
         if not row:
             return send(404, _doc("Не найдено", leads._leads_tools("", "board") + '<main><div class="empty">Заявка не найдена</div></main>'))
         return send(200, leads.lead_page(row, cmts))
+
+    if path == "/admin/page":
+        route = urllib.parse.parse_qs(urllib.parse.urlparse(req.path).query).get("route", [""])[0]
+        # ходим только внутрь выложенного сайта: адрес из запроса в путь к файлу
+        # попадает после нормализации, иначе ../ увёл бы за пределы SITE_ROOT
+        route = "/" + urllib.parse.unquote(route).strip("/")
+        route = route if route == "/" else route + "/"
+        if ".." in route or "\\" in route:
+            return send(400, _doc("Плохой адрес", _topbar("pages")
+                                  + '<main><div class="empty">Некорректный адрес страницы</div></main>'))
+        data = page_seo.read_page(SITE_ROOT, route)
+        if not data:
+            return send(404, _doc("Не найдено", _topbar("pages")
+                                  + '<main><div class="empty">Такой страницы на сайте нет</div></main>'))
+        return send(200, _doc(data["title"] or route,
+                              _topbar("pages") + page_seo.detail_body(data, SITE_URL)))
 
     if path == "/admin/export.csv":
         return send(200, leads.export_csv(), "text/csv; charset=utf-8",
