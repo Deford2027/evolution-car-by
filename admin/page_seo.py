@@ -1,6 +1,6 @@
 """Карточка страницы для админки: что реально стоит в SEO на выложенной странице.
 
-Всё читается из самого HTML в SITE_ROOT, ничего не берётся из отдельного
+Всё читается из самого HTML готовой сборки, ничего не берётся из отдельного
 списка — иначе карточка со временем разошлась бы с тем, что опубликовано.
 
 Частотности запросов и показы — внешние данные, из кода сайта их не взять.
@@ -88,16 +88,27 @@ def _ld_types(src: str):
 
 
 def _badge(route: str, shots) -> str:
-    """Та же плашка, что и в списке страниц: сначала фото самой модели,
-    потом любая картинка, кроме фона первого экрана."""
+    """Миниатюра страницы — одна и та же в списке и в карточке.
+
+    SVG пропускаем: это логотип в шапке и иконки, они одинаковы на всех
+    страницах, и список из одинаковых логотипов нечитаем. Дальше ищем фото
+    машины этой страницы — файлы названы «марка-модель», поэтому адрес
+    /catalog/geely/coolray/ узнаёт cars/geely-coolray.jpg по окончанию имени.
+    Не нашлось — первая фотография на странице."""
+    photos = [x for x in shots if not x.lower().endswith(".svg")]
     slug = route.strip("/").rsplit("/", 1)[-1]
-    return next(
-        (x for x in shots if slug and x.rsplit("/", 1)[-1].rsplit(".", 1)[0] == slug),
-        next((x for x in shots if "hero" not in x.rsplit("/", 1)[-1]), shots[0] if shots else ""),
-    )
+
+    def name(x):
+        return x.rsplit("/", 1)[-1].rsplit(".", 1)[0]
+
+    if slug:
+        own = next((x for x in photos if name(x) == slug or name(x).endswith("-" + slug)), None)
+        if own:
+            return own
+    return photos[0] if photos else ""
 
 
-# Разделы каталога и посадочные — те же списки, что в admin.py; здесь они
+# Разделы каталога и посадочные — те же списки, что в build.py; здесь они
 # нужны, чтобы назвать кластер запросов по адресу страницы.
 SECTION_NAMES = {
     "v-nalichii": "в наличии", "pod-zakaz": "под заказ", "s-probegom": "с пробегом",
@@ -293,7 +304,7 @@ def detail_body(p, site_url: str) -> str:
     chips = "".join(f'<span class="chip">{html.escape(k)}</span>' for k in p["keywords"])
 
     return f"""<main><div class="pd">
-<a class="back" href="/admin">← Все страницы сайта</a>
+<a class="back" href="/admin/">← Все страницы сайта</a>
 <div class="hero">{badge}
 <div><h1>{html.escape(p["title"] or p["route"])}</h1>
 <a class="url" href="{site_url}{p["route"]}" target="_blank" rel="noopener">{site_url}{p["route"]}</a>
