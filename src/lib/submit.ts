@@ -1,3 +1,5 @@
+import { trackLead } from './analytics';
+
 export interface Lead {
   name: string;
   phone: string;
@@ -56,6 +58,9 @@ export async function submitLead(lead: Lead): Promise<boolean> {
   if (!endpoint) {
     console.info('[lead]', payload);
     await new Promise((r) => setTimeout(r, 400));
+    // Событие уходит и здесь: Google Tag до приёмника заявок не подключаем
+    // (docs/google-ads.md), иначе конверсии считались бы по потерянным заявкам.
+    if (!lead.company) trackLead(lead.source);
     return true;
   }
 
@@ -65,6 +70,8 @@ export async function submitLead(lead: Lead): Promise<boolean> {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload),
     });
+    // заполненная ловушка — робот: приёмник ответит «ок», но конверсией это не считаем
+    if (res.ok && !lead.company) trackLead(lead.source);
     return res.ok;
   } catch {
     return false;

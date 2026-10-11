@@ -113,6 +113,27 @@ function trackLists() {
   });
 }
 
+/**
+ * Заявка отправлена — главная конверсия для Google Ads. С карточки товара
+ * ценность = цена машины и сама машина в items; с других форм (опрос, хабы)
+ * — без ценности. В GA4 у generate_lead нет параметра items, он его
+ * проигнорирует; машина нужна для тега Google Ads.
+ */
+export function trackLead(source: string) {
+  // Аналитика не должна ломать заявку: заявка уже принята, и ошибка здесь
+  // показала бы человеку «не удалось отправить» — он отправил бы её повторно.
+  try {
+    const product = pageProduct();
+    push('generate_lead', {
+      ...(product ? valueOf(product.currency, [product.item]) : {}),
+      lead_source: source.slice(0, 100),
+      ...(product ? { items: [product.item] } : {}),
+    });
+  } catch {
+    /* событие потеряно, заявка — нет */
+  }
+}
+
 let started = false;
 
 export function initAnalytics() {
