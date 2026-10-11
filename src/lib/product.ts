@@ -3,7 +3,7 @@
 // товара в событиях гарантированно совпадал с номером в фиде — без этого
 // динамический ремаркетинг не найдёт машину и покажет пустой баннер.
 import type { Car } from '../content/cars';
-import { cars, countries, powertrains, availabilities, formatUsd, carPath } from '../content/cars';
+import { cars, countries, powertrains, availabilities, formatUsd, carPath, slugify, modelSlug } from '../content/cars';
 import { abs } from './seo';
 
 /** Валюта как на сайте: цена в объявлении обязана совпадать с ценой на странице. */
@@ -99,6 +99,33 @@ export function productItem(car: Car): AdsItem {
     quantity: 1,
     google_business_vertical: 'custom',
   };
+}
+
+// ---------- Товар страницы ----------
+
+/**
+ * Какой товар показывает страница — по её адресу. Адреса строятся теми же
+ * правилами, что и сами страницы: основная карточка — carPath, версия Zeekr —
+ * как в src/pages/zeekr/catalog/[slug].astro (там только машины из Китая).
+ * Обе версии карточки дают один номер товара; страницы карточек не правятся.
+ */
+const BY_PATH: ReadonlyMap<string, Car> = new Map(
+  cars.flatMap((car) => {
+    const paths: [string, Car][] = [[carPath(car), car]];
+    if (car.countries.includes('china')) {
+      paths.push([`/zeekr/catalog/${slugify(car.brand)}-${modelSlug(car)}/`, car]);
+    }
+    return paths;
+  }),
+);
+
+export const productByPath = (path: string): Car | undefined =>
+  BY_PATH.get(path.endsWith('/') ? path : `${path}/`);
+
+/** Данные товара для страницы: встраиваются в HTML, браузер читает их в analytics.ts. */
+export function pageProductJson(car: Car): string {
+  // «<» экранируется, чтобы название никогда не закрыло тег <script>
+  return JSON.stringify({ currency: CURRENCY, item: productItem(car) }).replace(/</g, '\\u003c');
 }
 
 // ---------- Строка пользовательского фида ----------

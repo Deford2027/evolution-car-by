@@ -1,6 +1,7 @@
 ---
 import '../styles/base.css';
 import { site } from '../content/site';
+import { productByPath, pageProductJson } from '../lib/product';
 
 interface Props {
   theme: 'v1' | 'v2';
@@ -47,6 +48,18 @@ const organizationLd = {
 };
 
 const blocks = jsonLd ?? [organizationLd];
+
+// Карточка товара определяется по адресу страницы — сами страницы карточек
+// не правятся. Данные товара встраиваются в HTML для событий Google (analytics.ts).
+const product = productByPath(Astro.url.pathname);
+const productJson = product ? pageProductJson(product) : null;
+
+// Google Tag Manager подключается только с ID контейнера при сборке. Без него
+// на сайте нет тегов аналитики и рекламы Google — события лежат в dataLayer
+// (шрифты Google грузятся как и раньше). Пробелы и регистр в ID из секретов
+// workflow прощаются; всё, что не похоже на GTM-XXXX, отбрасывается.
+const gtmRaw = (import.meta.env.PUBLIC_GTM_ID ?? '').trim().toUpperCase();
+const gtmId = /^GTM-[A-Z0-9]+$/.test(gtmRaw) ? gtmRaw : null;
 ---
 
 <!doctype html>
@@ -54,6 +67,21 @@ const blocks = jsonLd ?? [organizationLd];
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    {
+      gtmId && (
+        <script is:inline define:vars={{ gtmId }}>
+          (function (w, d, s, l, i) {
+            w[l] = w[l] || [];
+            w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+            var f = d.getElementsByTagName(s)[0],
+              j = d.createElement(s);
+            j.async = true;
+            j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i;
+            f.parentNode.insertBefore(j, f);
+          })(window, document, 'script', 'dataLayer', gtmId);
+        </script>
+      )
+    }
     <title>{title}</title>
     <meta name="description" content={description} />
     {noindex && <meta name="robots" content="noindex, nofollow" />}
@@ -74,8 +102,25 @@ const blocks = jsonLd ?? [organizationLd];
     <link rel="stylesheet" href={`https://fonts.googleapis.com/css2?${fonts}&display=swap`} />
 
     {blocks.map((block) => <script type="application/ld+json" set:html={JSON.stringify(block)} />)}
+    {productJson && <script type="application/json" id="product-item" set:html={productJson} />}
   </head>
   <body>
+    {
+      gtmId && (
+        <noscript>
+          <iframe
+            src={`https://www.googletagmanager.com/ns.html?id=${gtmId}`}
+            height="0"
+            width="0"
+            style="display:none;visibility:hidden"
+          />
+        </noscript>
+      )
+    }
     <slot />
+    <script>
+      import { initAnalytics } from '../lib/analytics';
+      initAnalytics();
+    </script>
   </body>
 </html>
