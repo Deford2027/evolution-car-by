@@ -125,6 +125,13 @@ npm run build    # статика в dist/
 именем из H1. Сборщик запускается строго до `rebase-dist`: на сборке с
 префиксом подпапки он остановится с ошибкой.
 
+## Google Ads
+
+Товар как сущность для Google, события в dataLayer, пользовательский фид
+`/feeds/google-ads.csv` и чеклист запуска рекламы — в `docs/google-ads.md`.
+Номер товара строится только в `src/lib/product.ts`; Google Tag Manager
+включается переменной `PUBLIC_GTM_ID`, до приёмника заявок его не подключать.
+
 ## GitHub и публикация
 
 - Репозиторий: `github.com/tema-mail/evolution-car-by`, основная ветка `main`.
