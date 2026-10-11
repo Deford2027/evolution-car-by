@@ -2,9 +2,10 @@
 // интернет-магазина. Пишутся в window.dataLayer: пока Google Tag Manager не
 // подключён, они копятся в браузере и никуда не уходят — сайт от них не зависит.
 //
-// Модуль работает в браузере и не импортирует каталог: данные товара страница
-// получает готовыми из BaseLayout (<script id="product-item">), иначе в каждую
-// страницу уехали бы все 107 машин.
+// Модуль работает в браузере и не импортирует каталог: данные товара приходят
+// готовыми из разметки — товар карточки из BaseLayout (<script id="product-item">),
+// машины в сетках из CarCard (data-item). Иначе в каждую страницу уехали бы
+// все 107 машин.
 
 interface Item {
   item_id: string;
@@ -72,6 +73,46 @@ function trackProduct(product: PageProduct) {
   document.getElementById('request')?.addEventListener('focusin', intent);
 }
 
+/** Товар карточки в сетке — CarCard кладёт его в data-item. */
+function cardItem(card: HTMLElement): Item | null {
+  try {
+    return JSON.parse(card.dataset.item ?? '') as Item;
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * Списки машин: каталоги, хабы, «похожие» на карточке товара.
+ * view_item_list — какие машины человеку показали, select_item — по какой
+ * кликнул. Список называется по адресу страницы и её заголовку H1.
+ */
+function trackLists() {
+  const cards = Array.from(document.querySelectorAll<HTMLElement>('[data-item]'));
+  const items = cards
+    .map((card, index) => {
+      const item = cardItem(card);
+      return item ? { ...item, index } : null;
+    })
+    .filter((item): item is Item & { index: number } => item !== null);
+  if (!items.length) return;
+
+  const list = {
+    item_list_id: location.pathname,
+    item_list_name: (document.querySelector('h1')?.textContent ?? '').replace(/\s+/g, ' ').trim().slice(0, 100),
+  };
+  push('view_item_list', { ...list, items });
+
+  document.addEventListener('click', (e) => {
+    const target = e.target as Element | null;
+    if (!target?.closest?.('a')) return;
+    const card = target.closest<HTMLElement>('[data-item]');
+    const item = card && cardItem(card);
+    if (!card || !item) return;
+    push('select_item', { ...list, items: [{ ...item, index: cards.indexOf(card) }] });
+  });
+}
+
 let started = false;
 
 export function initAnalytics() {
@@ -79,4 +120,5 @@ export function initAnalytics() {
   started = true;
   const product = pageProduct();
   if (product) trackProduct(product);
+  trackLists();
 }

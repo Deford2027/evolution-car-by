@@ -1,6 +1,7 @@
 ---
 import type { Car } from '../../content/cars';
 import { countries, availabilities, formatUsd, highlights, powertrains, carPath } from '../../content/cars';
+import { productItem } from '../../lib/product';
 
 interface Props { car: Car; eager?: boolean }
 const { car, eager = false } = Astro.props;
@@ -10,7 +11,7 @@ const inStock = car.availability === 'in-stock';
 const specs = highlights(car);
 ---
 
-<article class="card">
+<article class="card" data-item={JSON.stringify(productItem(car))}>
   <a class="card__shot" href={href} tabindex="-1" aria-hidden="true">
     <img
       src={car.photo}
