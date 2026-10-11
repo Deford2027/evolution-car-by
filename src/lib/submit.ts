@@ -11,9 +11,17 @@ export interface Lead {
   company?: string;
 }
 
-/** Название машины для карточек каталога: /catalog/<марка>/<модель>/ и /zeekr/catalog/<слаг>/ */
+/**
+ * Название машины для карточек каталога. Адреса карточек в двух версиях
+ * сайта устроены по-разному: /catalog/<марка>/<модель>/ в основной и
+ * /zeekr/catalog/<слаг>/ в зеекровской — одним шаблоном из двух сегментов
+ * вторая не описывается. Разделы и страницы марок под это не подходят:
+ * там нет одной машины, и подставлять заголовок было бы неверно.
+ */
+const CAR_PAGE = /^\/(?:catalog\/[^/]+\/[^/]+|zeekr\/catalog\/[^/]+)\/?$/;
+
 function carFromPage(): string {
-  if (!/^\/(zeekr\/)?catalog\/[^/]+\/[^/]+\/?$/.test(location.pathname)) return '';
+  if (!CAR_PAGE.test(location.pathname)) return '';
   return document.querySelector('h1')?.textContent?.trim().slice(0, 120) ?? '';
 }
 

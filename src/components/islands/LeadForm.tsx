@@ -33,6 +33,12 @@ export default function LeadForm({
 
   const onSubmit = async (e: JSX.TargetedEvent<HTMLFormElement>) => {
     e.preventDefault();
+    // Имя сервер тоже требует: без этой проверки он отвечал отказом, а
+    // человек видел общее «не удалось отправить» и не понимал, что исправить.
+    if (!name.trim()) {
+      setError('Напишите, как к вам обращаться');
+      return;
+    }
     if (!phoneFilled(phone)) {
       setError('Укажите номер телефона полностью');
       return;
@@ -85,10 +91,14 @@ export default function LeadForm({
       </div>
 
       {/* Ловушка: поле убрано с экрана и из порядка обхода, заполнить его
-          может только робот, разбирающий разметку. Такая заявка отсеивается. */}
+          может только робот, разбирающий разметку. Такая заявка отсеивается.
+          Имя поля нарочно не «company» и не «organization»: по таким именам
+          браузер или менеджер паролей сам подставил бы значение, и живая
+          заявка молча ушла бы в отсев. autocomplete="off" — лишь просьба,
+          а не запрет, поэтому полагаться на него нельзя. */}
       <input
         type="text"
-        name="company"
+        name="lead-ref"
         tabIndex={-1}
         autocomplete="off"
         aria-hidden="true"
