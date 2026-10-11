@@ -1,7 +1,7 @@
-// Справочник марок для страниц /brand/<slug>/.
+// Справочник марок для страниц /catalog/<марка>/.
 // Русские написания («джили», «бид», «зикр») — не украшение: по данным keys.so
 // спрос идёт и латиницей, и кириллицей, страница должна отвечать на оба варианта.
-import { cars } from './cars';
+import { cars, slugify } from './cars';
 import type { Car } from './cars';
 
 export interface Brand {
@@ -159,8 +159,7 @@ const PLAIN: Record<string, { country: string; tagline: string }> = {
   mercedes: { country: 'Европа', tagline: 'Модели Mercedes-Benz с европейского рынка' },
 };
 
-export const brandSlug = (name: string) =>
-  name.toLowerCase().replace(/&/g, '-').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+export const brandSlug = (name: string) => slugify(name);
 
 /** Марки, по которым в каталоге есть хотя бы одна позиция. */
 export function allBrands(): (Brand & { cars: Car[] })[] {

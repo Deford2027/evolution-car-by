@@ -1,11 +1,11 @@
 ---
 import type { Car } from '../../content/cars';
-import { countries, availabilities, formatUsd, highlights, powertrains } from '../../content/cars';
+import { countries, availabilities, formatUsd, highlights, powertrains, carPath } from '../../content/cars';
 
 interface Props { car: Car; eager?: boolean }
 const { car, eager = false } = Astro.props;
 
-const href = `/car/${car.slug}/`;
+const href = carPath(car);
 const inStock = car.availability === 'in-stock';
 const specs = highlights(car);
 ---

@@ -1,22 +1,22 @@
 ---
-import '../../styles/theme-v1.css';
-import '../../styles/islands.css';
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import Header from '../../components/v1/Header.astro';
-import Footer from '../../components/v1/Footer.astro';
-import Breadcrumbs from '../../components/v1/Breadcrumbs.astro';
-import CarCard from '../../components/v1/CarCard.astro';
-import ModalHost from '../../components/islands/ModalHost';
-import LeadForm from '../../components/islands/LeadForm';
-import { allBrands, popularBrands } from '../../content/brands';
-import type { Brand } from '../../content/brands';
-import { countries, powertrains, formatUsd } from '../../content/cars';
-import type { Car } from '../../content/cars';
-import { breadcrumbsLd, abs } from '../../lib/seo';
-import { quiz, finalOffer } from '../../content/home';
+import '../../../styles/theme-v1.css';
+import '../../../styles/islands.css';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Header from '../../../components/v1/Header.astro';
+import Footer from '../../../components/v1/Footer.astro';
+import Breadcrumbs from '../../../components/v1/Breadcrumbs.astro';
+import CarCard from '../../../components/v1/CarCard.astro';
+import ModalHost from '../../../components/islands/ModalHost';
+import LeadForm from '../../../components/islands/LeadForm';
+import { allBrands, popularBrands } from '../../../content/brands';
+import type { Brand } from '../../../content/brands';
+import { countries, powertrains, formatUsd, carPath, brandPath } from '../../../content/cars';
+import type { Car } from '../../../content/cars';
+import { breadcrumbsLd, abs } from '../../../lib/seo';
+import { quiz, finalOffer } from '../../../content/home';
 
 export function getStaticPaths() {
-  return allBrands().map((brand) => ({ params: { slug: brand.slug }, props: { brand } }));
+  return allBrands().map((brand) => ({ params: { brand: brand.slug }, props: { brand } }));
 }
 
 const { brand } = Astro.props as { brand: Brand & { cars: Car[] } };
@@ -25,7 +25,7 @@ const list = brand.cars;
 const crumbs = [
   { name: 'Главная', href: '/' },
   { name: 'Каталог автомобилей', href: '/catalog/' },
-  { name: brand.name, href: `/brand/${brand.slug}/` },
+  { name: brand.name, href: brandPath(brand.name) },
 ];
 
 const prices = list.map((c) => c.priceUsd ?? Infinity).filter(Number.isFinite) as number[];
@@ -81,7 +81,7 @@ const others = popularBrands().filter((b) => b.slug !== brand.slug).slice(0, 8);
   theme="v1"
   title={title}
   description={description}
-  canonical={abs(`/brand/${brand.slug}/`)}
+  canonical={abs(brandPath(brand.name))}
   ogImage={list[0]?.photo}
   jsonLd={[breadcrumbsLd(crumbs), faqLd]}
 >
@@ -199,7 +199,7 @@ const others = popularBrands().filter((b) => b.slug !== brand.slug).slice(0, 8);
         <ul class="brands">
           {others.map((b) => (
             <li>
-              <a class="brand" href={`/brand/${b.slug}/`}>
+              <a class="brand" href={`/catalog/${b.slug}/`}>
                 <span class="brand__name">{b.name}</span>
                 <span class="brand__count">{b.cars.length}</span>
               </a>

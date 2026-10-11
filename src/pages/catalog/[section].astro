@@ -11,6 +11,7 @@ import { sections, carsOf } from '../../content/cars';
 import type { CatalogSection, Car } from '../../content/cars';
 import { breadcrumbsLd, catalogLd, abs } from '../../lib/seo';
 import { quiz, finalOffer, directions } from '../../content/home';
+import { evLanding } from '../../content/landing';
 
 export function getStaticPaths() {
   return sections.map((section) => ({
@@ -37,8 +38,23 @@ const hide: ('country' | 'powertrain' | 'availability')[] = section.slug.startsW
     ? ['powertrain']
     : ['availability'];
 
-const title = `${section.h1} — ${list.length} в каталоге | Evolution Car`;
-const description =
+// у раздела электромобилей — расширенный текст: это главный коммерческий кластер
+const ev = section.slug === 'elektromobili' ? evLanding : null;
+
+const faqLd = ev
+  ? {
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: ev.faq.map((item) => ({
+        '@type': 'Question',
+        name: item.q,
+        acceptedAnswer: { '@type': 'Answer', text: item.a },
+      })),
+    }
+  : null;
+
+const title = ev ? ev.seoTitle : `${section.h1} — ${list.length} в каталоге | Evolution Car`;
+const description = ev ? ev.seoDescription :
   `${section.lead} ${list.length} позиций в подборке` +
   (minPrice ? `, ориентир цены от ${minPrice.toLocaleString('ru-RU')} $ под ключ` : '') +
   '. Доставка в Минск, таможенное оформление и документы для постановки на учёт.';
@@ -49,7 +65,7 @@ const description =
   title={title}
   description={description}
   canonical={abs(`/catalog/${section.slug}/`)}
-  jsonLd={[breadcrumbsLd(crumbs), catalogLd(list)]}
+  jsonLd={faqLd ? [breadcrumbsLd(crumbs), catalogLd(list), faqLd] : [breadcrumbsLd(crumbs), catalogLd(list)]}
 >
   <Header />
   <Breadcrumbs crumbs={crumbs} />
@@ -64,6 +80,13 @@ const description =
             <p class="sec-head__lead">{section.lead}</p>
           </div>
         </div>
+
+        {ev && (
+          <div class="card answer">
+            <p class="answer__label">Коротко</p>
+            <p class="answer__text">{ev.answer}</p>
+          </div>
+        )}
 
         <nav class="chips" aria-label="Разделы каталога">
           <a class="chips__item" href="/catalog/">Все автомобили</a>
@@ -89,6 +112,50 @@ const description =
             </p>
             <button class="btn empty__cta" type="button" data-open="quiz">Подобрать автомобиль</button>
           </div>
+        )}
+
+        {ev && (
+          <>
+            <section class="extra">
+              <h2 class="extra__title">{ev.whyTitle}</h2>
+              <ul class="why">
+                {ev.why.map((item) => (
+                  <li class="card why__item">
+                    <span class="dot" aria-hidden="true"></span>
+                    <h3 class="why__t">{item.title}</h3>
+                    <p class="why__d">{item.text}</p>
+                  </li>
+                ))}
+              </ul>
+            </section>
+
+            <section class="extra">
+              <h2 class="extra__title">{ev.howTitle}</h2>
+              <dl class="how">
+                {ev.how.map((item) => (
+                  <div class="how__row">
+                    <dt>{item.q}</dt>
+                    <dd>{item.a}</dd>
+                  </div>
+                ))}
+              </dl>
+            </section>
+
+            <section class="extra">
+              <h2 class="extra__title">Частые вопросы об электромобилях</h2>
+              <div class="faq">
+                {ev.faq.map((item, i) => (
+                  <details class="faq__item" name="section-faq" open={i === 0}>
+                    <summary class="faq__q">
+                      <span>{item.q}</span>
+                      <span class="faq__mark" aria-hidden="true">↗</span>
+                    </summary>
+                    <p class="faq__a">{item.a}</p>
+                  </details>
+                ))}
+              </div>
+            </section>
+          </>
         )}
 
         <div class="card fallback">
@@ -158,6 +225,53 @@ const description =
     .fallback { grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 3rem; }
     .fallback__cta { justify-self: end; }
   }
+
+  .answer {
+    padding: clamp(1.5rem, 1rem + 2vw, 2rem);
+    background: var(--c-bg-alt);
+    display: grid;
+    gap: .75rem;
+    margin-bottom: clamp(1.5rem, 1rem + 2vw, 2rem);
+    max-width: 90ch;
+  }
+  .answer__label { font-size: .75rem; text-transform: uppercase; letter-spacing: .08em; color: var(--c-accent); }
+  .answer__text { color: var(--c-text-2); line-height: 1.6; }
+
+  .extra { margin-top: clamp(2.5rem, 1.5rem + 4vw, 4rem); }
+  .extra__title { margin-bottom: clamp(1.25rem, 1rem + 1vw, 1.75rem); }
+
+  .why { display: grid; gap: var(--gap); }
+  @media (min-width: 640px) { .why { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (min-width: 1024px) { .why { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+  .why__item { padding: clamp(1.25rem, 1rem + 1vw, 1.75rem); align-content: start; }
+  .dot { display: block; width: 6px; height: 6px; border-radius: 50%; background: var(--c-accent); margin-bottom: 1.25rem; }
+  .why__t { font-family: var(--font-body); font-weight: 400; text-transform: none; font-size: 1.125rem; margin-bottom: .5rem; line-height: 1.25; }
+  .why__d { color: var(--c-text-3); font-size: .875rem; line-height: 1.5; }
+
+  .how { display: grid; border-top: 1px solid var(--c-line); }
+  .how__row { padding-block: 1.25rem; border-bottom: 1px solid var(--c-line); display: grid; gap: .5rem; }
+  @media (min-width: 900px) { .how__row { grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: 2.5rem; } }
+  .how dt { font-size: 1.0625rem; }
+  .how dd { margin: 0; color: var(--c-text-3); line-height: 1.6; }
+
+  .faq { display: grid; gap: var(--gap); }
+  .faq__item { background: var(--c-surface); border: 1px solid var(--c-line); border-radius: var(--r-card); padding: clamp(1.25rem, 1rem + 1vw, 1.75rem); }
+  .faq__q {
+    display: flex; align-items: start; justify-content: space-between; gap: 1.5rem;
+    cursor: pointer; list-style: none;
+    font-family: var(--font-display); font-weight: 700; text-transform: uppercase;
+    font-size: clamp(1rem, .95rem + .4vw, 1.1875rem); line-height: 1.25;
+  }
+  .faq__q::-webkit-details-marker { display: none; }
+  .faq__mark {
+    flex: none; width: 2.5rem; height: 2.5rem;
+    display: grid; place-items: center;
+    border: 1px solid var(--c-line-strong); border-radius: 8px;
+    color: var(--c-text-2);
+    transition: background .25s var(--ease), color .25s var(--ease), rotate .25s var(--ease);
+  }
+  .faq__item[open] .faq__mark { background: var(--c-accent); border-color: var(--c-accent); color: #fff; rotate: 90deg; }
+  .faq__a { color: var(--c-text-3); margin-top: 1.25rem; line-height: 1.6; max-width: 80ch; }
 
   .note {
     margin-top: clamp(1.5rem, 1rem + 2vw, 2.25rem);

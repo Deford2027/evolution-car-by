@@ -30,7 +30,7 @@ import { popularBrands } from '../../content/brands';
         <p class="footer__col-title">Популярные марки:</p>
         <ul>
           {popularBrands().slice(0, 8).map((brand) => (
-            <li><a href={`/brand/${brand.slug}/`}>{brand.name}</a></li>
+            <li><a href={`/catalog/${brand.slug}/`}>{brand.name}</a></li>
           ))}
         </ul>
       </nav>

@@ -1,5 +1,5 @@
 import type { Car } from '../content/cars';
-import { countries, powertrains, availabilities } from '../content/cars';
+import { countries, powertrains, availabilities, carPath } from '../content/cars';
 import { site } from '../content/site';
 
 /** Домен подтверждается клиентом; до этого используется заглушка. */
@@ -23,7 +23,7 @@ export function carMeta(car: Car) {
       `${car.title} ${country}: ${powertrains[car.powertrain].toLowerCase()}, ` +
       `${availabilities[car.availability].toLowerCase()}. ${car.description} ` +
       `Доставка, страхование, таможенное оформление и документы для постановки на учёт — на нас.`,
-    canonical: abs(`/car/${car.slug}/`),
+    canonical: abs(carPath(car)),
   };
 }
 
@@ -51,7 +51,7 @@ export function carLd(car: Car) {
     name: car.title,
     description: car.description,
     image: [car.photo],
-    url: abs(`/car/${car.slug}/`),
+    url: abs(carPath(car)),
     brand: { '@type': 'Brand', name: car.brand },
     ...(year ? { vehicleModelDate: year } : {}),
     ...(find('Кузов') ? { bodyType: find('Кузов') } : {}),
@@ -70,7 +70,7 @@ export function carLd(car: Car) {
               car.availability === 'in-stock'
                 ? 'https://schema.org/InStock'
                 : 'https://schema.org/PreOrder',
-            url: abs(`/car/${car.slug}/`),
+            url: abs(carPath(car)),
             seller: {
               '@type': 'AutoDealer',
               name: site.brand,
@@ -97,7 +97,7 @@ export function catalogLd(list: Car[]) {
     itemListElement: list.slice(0, 50).map((car, i) => ({
       '@type': 'ListItem',
       position: i + 1,
-      url: abs(`/car/${car.slug}/`),
+      url: abs(carPath(car)),
       name: car.title,
     })),
   };

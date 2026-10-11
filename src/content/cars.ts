@@ -33,10 +33,10 @@ export interface Car {
 export const cars = data as Car[];
 
 export const countries: Record<Country, { label: string; genitive: string; slug: string }> = {
-  china: { label: 'Китай', genitive: 'из Китая', slug: 'from_china' },
-  korea: { label: 'Южная Корея', genitive: 'из Кореи', slug: 'from_korea' },
-  europe: { label: 'Европа', genitive: 'из Европы', slug: 'from_europe' },
-  usa: { label: 'США', genitive: 'из США', slug: 'from_usa' },
+  china: { label: 'Китай', genitive: 'из Китая', slug: 'iz-kitaya' },
+  korea: { label: 'Южная Корея', genitive: 'из Кореи', slug: 'iz-korei' },
+  europe: { label: 'Европа', genitive: 'из Европы', slug: 'iz-evropy' },
+  usa: { label: 'США', genitive: 'из США', slug: 'iz-ssha' },
 };
 
 export const powertrains: Record<Powertrain, string> = {
@@ -59,63 +59,75 @@ export interface CatalogSection {
   match: (car: Car) => boolean;
 }
 
-/** Разделы повторяют структуру каталога на тильде. */
+/** Признак автомобиля с пробегом — заполненная характеристика «Пробег». */
+export const isUsed = (car: Car) => car.specs.some((sp) => sp.label === 'Пробег' && sp.value);
+
+/** Свежие китайские модели: год содержит 2026 (в выгрузке бывает «2025/ 2026»). */
+export const isFreshChina = (car: Car) => car.country === 'china' && car.year.includes('2026');
+
 export const sections: CatalogSection[] = [
   {
-    slug: 'in_stock',
-    title: 'Автомобили в наличии',
+    slug: 'v-nalichii',
+    title: 'В наличии',
     h1: 'Автомобили в наличии',
-    lead: 'Машины, которые уже находятся у нас или в пути: сроки передачи короче, чем у поставки под заказ.',
+    lead: 'Машины, которые уже у нас или в пути: сроки передачи короче, чем у поставки под заказ, а цена зафиксирована.',
     match: (car) => car.availability === 'in-stock',
   },
   {
-    slug: 'made_to_order',
-    title: 'Автомобили под заказ',
-    h1: 'Автомобили под заказ',
-    lead: 'Подбираем и выкупаем автомобиль на зарубежной площадке под ваш запрос: модель, комплектация, год и бюджет.',
-    match: (car) => car.availability === 'on-order',
+    slug: 'pod-zakaz',
+    title: 'Под заказ',
+    h1: 'Автомобили из Китая 2026 года под заказ',
+    lead: 'Свежие модели китайского рынка: заказываем под ваш запрос — комплектация, цвет и срок согласуются до договора.',
+    match: isFreshChina,
   },
   {
-    slug: 'from_china',
-    title: 'Автомобили из Китая',
+    slug: 's-probegom',
+    title: 'С пробегом',
+    h1: 'Автомобили с пробегом под заказ',
+    lead: 'Проверенные автомобили с подтверждённым пробегом и историей обслуживания. Перед выкупом присылаем отчёт и фото с площадки.',
+    match: isUsed,
+  },
+  {
+    slug: 'elektromobili',
+    title: 'Электромобили',
+    h1: 'Электромобили под заказ',
+    lead: 'Полностью электрические модели: запас хода, ёмкость батареи и мощность указаны в карточке каждой позиции.',
+    match: (car) => car.powertrain === 'ev',
+  },
+  {
+    slug: 'gibridy',
+    title: 'Гибриды',
+    h1: 'Гибридные автомобили под заказ',
+    lead: 'Гибриды и модели с увеличенным запасом хода: подходят там, где зарядной инфраструктуры пока мало.',
+    match: (car) => car.powertrain === 'hybrid',
+  },
+  {
+    slug: 'iz-kitaya',
+    title: 'Из Китая',
     h1: 'Автомобили из Китая под заказ',
     lead: 'Электромобили, гибриды и модели с двигателями внутреннего сгорания с китайского рынка.',
     match: (car) => car.country === 'china',
   },
   {
-    slug: 'from_korea',
-    title: 'Автомобили из Кореи',
+    slug: 'iz-korei',
+    title: 'Из Кореи',
     h1: 'Автомобили из Южной Кореи под заказ',
     lead: 'Новые автомобили и автомобили с пробегом массового и премиального сегментов корейского рынка.',
     match: (car) => car.country === 'korea',
   },
   {
-    slug: 'from_europe',
-    title: 'Автомобили из Европы',
+    slug: 'iz-evropy',
+    title: 'Из Европы',
     h1: 'Автомобили из Европы под заказ',
     lead: 'Европейские автомобили с бензиновыми, дизельными и гибридными силовыми установками.',
     match: (car) => car.country === 'europe',
   },
   {
-    slug: 'from_usa',
-    title: 'Автомобили из США',
+    slug: 'iz-ssha',
+    title: 'Из США',
     h1: 'Автомобили из США под заказ',
     lead: 'Электромобили, автомобили с пробегом, премиальные и редкие модели с американского рынка.',
     match: (car) => car.country === 'usa',
-  },
-  {
-    slug: 'electro_car',
-    title: 'Электромобили',
-    h1: 'Электромобили под заказ',
-    lead: 'Полностью электрические модели: запас хода, батарея и мощность указаны в карточке каждой позиции.',
-    match: (car) => car.powertrain === 'ev',
-  },
-  {
-    slug: 'hybrid',
-    title: 'Гибридные автомобили',
-    h1: 'Гибридные автомобили под заказ',
-    lead: 'Гибриды и модели с увеличенным запасом хода: подходят там, где зарядной инфраструктуры пока мало.',
-    match: (car) => car.powertrain === 'hybrid',
   },
 ];
 
@@ -152,3 +164,26 @@ export function specGroups(car: Car): { group: string; rows: SpecRow[] }[] {
     }))
     .filter((g) => g.rows.length > 0);
 }
+
+const TRANSLIT: Record<string, string> = {
+  а: 'a', б: 'b', в: 'v', г: 'g', д: 'd', е: 'e', ё: 'e', ж: 'zh', з: 'z', и: 'i', й: 'i',
+  к: 'k', л: 'l', м: 'm', н: 'n', о: 'o', п: 'p', р: 'r', с: 's', т: 't', у: 'u', ф: 'f',
+  х: 'h', ц: 'c', ч: 'ch', ш: 'sh', щ: 'sch', ъ: '', ы: 'y', ь: '', э: 'e', ю: 'yu', я: 'ya',
+};
+
+export function slugify(text: string): string {
+  const out = [...text.toLowerCase().replace(/&/g, '-')].map((c) => TRANSLIT[c] ?? c).join('');
+  return out.replace(/[^a-z0-9]+/g, '-').replace(/-{2,}/g, '-').replace(/^-|-$/g, '');
+}
+
+/** Модельная часть адреса: slug позиции без префикса марки. */
+export function modelSlug(car: Car): string {
+  const b = slugify(car.brand);
+  return car.slug.startsWith(`${b}-`) ? car.slug.slice(b.length + 1) : car.slug;
+}
+
+/** Канонический адрес карточки: /catalog/<марка>/<модель>/ */
+export const carPath = (car: Car) => `/catalog/${slugify(car.brand)}/${modelSlug(car)}/`;
+
+/** Адрес страницы марки: /catalog/<марка>/ */
+export const brandPath = (brand: string) => `/catalog/${slugify(brand)}/`;

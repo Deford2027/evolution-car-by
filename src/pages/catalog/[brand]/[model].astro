@@ -1,23 +1,27 @@
 ---
-import '../../styles/theme-v1.css';
-import '../../styles/islands.css';
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import Header from '../../components/v1/Header.astro';
-import Footer from '../../components/v1/Footer.astro';
-import Breadcrumbs from '../../components/v1/Breadcrumbs.astro';
-import CarCard from '../../components/v1/CarCard.astro';
-import ModalHost from '../../components/islands/ModalHost';
-import LeadForm from '../../components/islands/LeadForm';
+import '../../../styles/theme-v1.css';
+import '../../../styles/islands.css';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Header from '../../../components/v1/Header.astro';
+import Footer from '../../../components/v1/Footer.astro';
+import Breadcrumbs from '../../../components/v1/Breadcrumbs.astro';
+import CarCard from '../../../components/v1/CarCard.astro';
+import ModalHost from '../../../components/islands/ModalHost';
+import LeadForm from '../../../components/islands/LeadForm';
 import {
   cars, countries, powertrains, availabilities, formatUsd, specGroups,
-} from '../../content/cars';
-import type { Car } from '../../content/cars';
-import { carMeta, carLd, breadcrumbsLd } from '../../lib/seo';
-import { brandSlug } from '../../content/brands';
-import { quiz, finalOffer, benefits, steps } from '../../content/home';
+  slugify, modelSlug, carPath, brandPath,
+} from '../../../content/cars';
+import type { Car } from '../../../content/cars';
+import { carMeta, carLd, breadcrumbsLd } from '../../../lib/seo';
+
+import { quiz, finalOffer, benefits, steps } from '../../../content/home';
 
 export function getStaticPaths() {
-  return cars.map((car) => ({ params: { slug: car.slug }, props: { car } }));
+  return cars.map((car) => ({
+    params: { brand: slugify(car.brand), model: modelSlug(car) },
+    props: { car },
+  }));
 }
 
 const { car } = Astro.props as { car: Car };
@@ -27,8 +31,8 @@ const groups = specGroups(car);
 const crumbs = [
   { name: 'Главная', href: '/' },
   { name: 'Каталог автомобилей', href: '/catalog/' },
-  { name: car.brand, href: `/brand/${brandSlug(car.brand)}/` },
-  { name: car.title, href: `/car/${car.slug}/` },
+  { name: car.brand, href: brandPath(car.brand) },
+  { name: car.title, href: carPath(car) },
 ];
 
 const facts = [
@@ -97,7 +101,7 @@ const similar = cars
             </div>
 
             <p class="intro__links">
-              <a href={`/brand/${brandSlug(car.brand)}/`}>Все автомобили {car.brand}</a>
+              <a href={brandPath(car.brand)}>Все автомобили {car.brand}</a>
               <span aria-hidden="true">·</span>
               <a href={`/catalog/${countries[car.country].slug}/`}>Автомобили {countries[car.country].genitive}</a>
             </p>
