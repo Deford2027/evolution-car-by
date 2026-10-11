@@ -24,15 +24,16 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
+      # Сайт отдаётся с корня домена ликсианг.рф (в punycode — так требуют
+      # GitHub Pages и браузеры), поэтому префикс подпапки больше не нужен.
       - run: npm run build
         env:
-          PUBLIC_SITE_URL: https://tema-mail.github.io/evolution-car-by
-      # Админка собирается из готовых страниц сайта, поэтому строго после
-      # сборки Astro и до префикса: rebase-dist проставит его и в админке.
+          PUBLIC_SITE_URL: https://xn--80agnajes3a.xn--p1ai
+      # Админка собирается из готовых страниц сайта, строго после сборки Astro.
       - name: Собрать админку из готовых страниц
         run: python3 admin/build.py dist
-      - name: Проставить префикс подпапки GitHub Pages
-        run: node scripts/rebase-dist.mjs /evolution-car-by
+        env:
+          SITE_URL: https://xn--80agnajes3a.xn--p1ai
       - name: Запретить Jekyll обрабатывать сборку
         run: touch dist/.nojekyll
       - uses: actions/upload-pages-artifact@v3
