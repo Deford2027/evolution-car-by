@@ -66,9 +66,8 @@ Price («24000.00 USD»), Formatted price (≤20), Contextual keywords, Final UR
 Image URL. Длинные названия сокращаются по словам, пояснение в скобках
 убирается первым.
 
-**Адрес фида с GitHub Pages в Google Ads не давать:** при сборке с подпапкой
-`abs()` теряет `/evolution-car-by`, и все ссылки фида отвечают 404 (старый
-баг адресов, исчезает на домене). Фид корректен только в сборке для домена.
+Адрес фида для Google Ads: `https://ликсианг.рф/feeds/google-ads.csv`
+(в punycode `https://xn--80agnajes3a.xn--p1ai/feeds/google-ads.csv`).
 
 ## Google Tag Manager
 
@@ -80,7 +79,7 @@ Image URL. Длинные названия сокращаются по слов�
 
 Делать по порядку — пункты зависят друг от друга.
 
-1. **Домен.** Сайт на ликсианг.рф (`xn--80agnajes3a.xn--p1ai`), `PUBLIC_SITE_URL`
+1. **Домен — сделано 12.10.2026.** Сайт на ликсианг.рф (`xn--80agnajes3a.xn--p1ai`), `PUBLIC_SITE_URL`
    в workflow указывает на него, шаг `rebase-dist` убран. От домена зависят
    Final URL и Image URL в фиде.
 2. **Приём заявок.** Сейчас на Pages заявка пишется только в консоль браузера.
