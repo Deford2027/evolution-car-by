@@ -1,5 +1,5 @@
 import type { APIRoute } from 'astro';
-import { cars, sections, carPath } from '../content/cars';
+import { cars, sections, carPath, slugify, modelSlug } from '../content/cars';
 import { directions } from '../content/directions';
 import { legalPages } from '../content/pages';
 import { cities } from '../content/cities';
@@ -20,6 +20,8 @@ const paths = [
   ...cars.map((c) => carPath(c)),
   ...legalPages.map((p) => `/${p.slug}/`),
   '/zeekr/',
+  '/zeekr/catalog/',
+  ...cars.filter((c) => c.countries.includes('china')).map((c) => `/zeekr/catalog/${slugify(c.brand)}-${modelSlug(c)}/`),
 ];
 
 export const GET: APIRoute = ({ site }) => {

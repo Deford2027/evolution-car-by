@@ -6,7 +6,7 @@ import MobileMenu from '../islands/MobileMenu.tsx';
 const home = '/zeekr/';
 const links = nav.map((l) => ({
   ...l,
-  href: l.href.startsWith('#') ? home + l.href : l.href.replace('/catalog/', '/zeekr/catalog/'),
+  href: l.href.startsWith('#') ? home + l.href : l.href.startsWith('/catalog/') ? '/zeekr/catalog/' : l.href,
 }));
 ---
 
@@ -39,7 +39,7 @@ const links = nav.map((l) => ({
     </nav>
 
     <div class="hdr__actions">
-      <a class="btn hdr__cta" href="#final">Подобрать автомобиль</a>
+      <a class="btn hdr__cta" href="/zeekr/catalog/">Каталог</a>
       <a class="btn btn--ghost hdr__cta" href="#service">Сервис</a>
     </div>
 

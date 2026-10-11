@@ -10,7 +10,7 @@ import ModalHost from '../../../components/islands/ModalHost';
 import LeadForm from '../../../components/islands/LeadForm';
 import {
   cars, countries, powertrains, availabilities, formatUsd, specGroups,
-  slugify, modelSlug, carPath, brandPath,
+  slugify, modelSlug, carPath, brandPath, noteRows,
 } from '../../../content/cars';
 import type { Car } from '../../../content/cars';
 import { carMeta, carLd, breadcrumbsLd } from '../../../lib/seo';
@@ -106,7 +106,20 @@ const similar = cars
               <a href={`/catalog/${countries[car.country].slug}/`}>Автомобили {countries[car.country].genitive}</a>
             </p>
 
-            {car.note && <p class="intro__note">{car.note}</p>}
+            {car.note && (
+              <dl class="intro__note">
+                {noteRows(car.note).map((row) => (
+                  <div>
+                    {row.label && <dt>{row.label}</dt>}
+                    <dd>
+                      {row.value.startsWith('http')
+                        ? <a href={row.value} target="_blank" rel="nofollow noopener">av.by</a>
+                        : row.value}
+                    </dd>
+                  </div>
+                ))}
+              </dl>
+            )}
           </div>
         </div>
       </section>
@@ -263,6 +276,11 @@ const similar = cars
   .intro__links a { color: var(--c-accent); }
   .intro__links a:hover { color: var(--c-accent-hover); }
 
+  .intro__note > div { display: flex; gap: .5rem; flex-wrap: wrap; padding-block: .25rem; }
+  .intro__note dt { color: var(--c-text-3); }
+  .intro__note dt::after { content: ':'; }
+  .intro__note dd { margin: 0; }
+  .intro__note dd a { color: var(--c-accent); }
   .intro__note {
     margin-top: 1.25rem;
     padding-top: 1.25rem;

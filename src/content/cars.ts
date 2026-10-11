@@ -16,6 +16,8 @@ export interface Car {
   brand: string;
   title: string;
   country: Country;
+  /** в выгрузке позиция может быть помечена сразу двумя рынками */
+  countries: Country[];
   categories: string[];
   availability: Availability;
   powertrain: Powertrain;
@@ -63,7 +65,7 @@ export interface CatalogSection {
 export const isUsed = (car: Car) => car.specs.some((sp) => sp.label === 'Пробег' && sp.value);
 
 /** Свежие китайские модели: год содержит 2026 (в выгрузке бывает «2025/ 2026»). */
-export const isFreshChina = (car: Car) => car.country === 'china' && car.year.includes('2026');
+export const isFreshChina = (car: Car) => car.countries.includes('china') && car.year.includes('2026');
 
 export const sections: CatalogSection[] = [
   {
@@ -106,28 +108,28 @@ export const sections: CatalogSection[] = [
     title: 'Из Китая',
     h1: 'Автомобили из Китая под заказ',
     lead: 'Электромобили, гибриды и модели с двигателями внутреннего сгорания с китайского рынка.',
-    match: (car) => car.country === 'china',
+    match: (car) => car.countries.includes('china'),
   },
   {
     slug: 'iz-korei',
     title: 'Из Кореи',
     h1: 'Автомобили из Южной Кореи под заказ',
     lead: 'Новые автомобили и автомобили с пробегом массового и премиального сегментов корейского рынка.',
-    match: (car) => car.country === 'korea',
+    match: (car) => car.countries.includes('korea'),
   },
   {
     slug: 'iz-evropy',
     title: 'Из Европы',
     h1: 'Автомобили из Европы под заказ',
     lead: 'Европейские автомобили с бензиновыми, дизельными и гибридными силовыми установками.',
-    match: (car) => car.country === 'europe',
+    match: (car) => car.countries.includes('europe'),
   },
   {
     slug: 'iz-ssha',
     title: 'Из США',
     h1: 'Автомобили из США под заказ',
     lead: 'Электромобили, автомобили с пробегом, премиальные и редкие модели с американского рынка.',
-    match: (car) => car.country === 'usa',
+    match: (car) => car.countries.includes('usa'),
   },
 ];
 
@@ -187,3 +189,21 @@ export const carPath = (car: Car) => `/catalog/${slugify(car.brand)}/${modelSlug
 
 /** Адрес страницы марки: /catalog/<марка>/ */
 export const brandPath = (brand: string) => `/catalog/${slugify(brand)}/`;
+
+/**
+ * В выгрузке Tilda поле Text слиплось в одну строку вида
+ * «Поколение: I Модификация: 103.0 kWh AWD Кузов: Лифтбек …».
+ * Разбиваем обратно на пары, чтобы примечание читалось.
+ */
+export function noteRows(note: string): { label: string; value: string }[] {
+  if (!note) return [];
+  const parts = note.split(/(?=(?:[А-ЯЁ][а-яё]+(?:\s+[а-яё]+)?|Encar|VIN):\s)/u).filter((p) => p.trim());
+  const rows = parts.map((part) => {
+    const at = part.indexOf(':');
+    return at > 0
+      ? { label: part.slice(0, at).trim(), value: part.slice(at + 1).trim() }
+      : { label: '', value: part.trim() };
+  });
+  // если разбить не получилось, отдаём одной строкой
+  return rows.length > 1 ? rows : [{ label: '', value: note }];
+}

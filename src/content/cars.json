@@ -52,6 +52,9 @@
     "label": "Кому подходит",
     "value": "Молодые семьи / городские водители"
    }
+  ],
+  "countries": [
+   "usa"
   ]
  },
  {
@@ -107,6 +110,9 @@
     "label": "Кому подходит",
     "value": "Семьи, водители с опытом"
    }
+  ],
+  "countries": [
+   "usa"
   ]
  },
  {
@@ -150,6 +156,9 @@
     "label": "Данные Encar",
     "value": "https://car.encar.com/list/car"
    }
+  ],
+  "countries": [
+   "korea"
   ]
  },
  {
@@ -205,6 +214,9 @@
     "label": "Кому подходит",
     "value": "Большие семьи, бизнес / VIP"
    }
+  ],
+  "countries": [
+   "usa"
   ]
  },
  {
@@ -260,6 +272,9 @@
     "label": "Кому подходит",
     "value": "Мужчины, коммерсанты, семейные"
    }
+  ],
+  "countries": [
+   "usa"
   ]
  },
  {
@@ -315,6 +330,9 @@
     "label": "Кому подходит",
     "value": "Бизнесмены, менеджеры, водители"
    }
+  ],
+  "countries": [
+   "usa"
   ]
  },
  {
@@ -370,6 +388,9 @@
     "label": "Кому подходит",
     "value": "Семьи, мужчины 30-45"
    }
+  ],
+  "countries": [
+   "usa"
   ]
  },
  {
@@ -425,6 +446,9 @@
     "label": "Кому подходит",
     "value": "Семьи с детьми, бизнес"
    }
+  ],
+  "countries": [
+   "usa"
   ]
  },
  {
@@ -480,6 +504,9 @@
     "label": "Кому подходит",
     "value": "Бизнесмены, профессионалы"
    }
+  ],
+  "countries": [
+   "usa"
   ]
  },
  {
@@ -535,6 +562,9 @@
     "label": "Кому подходит",
     "value": "Мужчины, имиджевые покупатели"
    }
+  ],
+  "countries": [
+   "usa"
   ]
  },
  {
@@ -578,6 +608,9 @@
     "label": "Данные Encar",
     "value": "https://car.encar.com/list/car?search=현대%20아이오닉5"
    }
+  ],
+  "countries": [
+   "korea"
   ]
  },
  {
@@ -633,6 +666,9 @@
     "label": "Кому подходит",
     "value": "Бизнес, молодые семьи"
    }
+  ],
+  "countries": [
+   "usa"
   ]
  },
  {
@@ -688,6 +724,9 @@
     "label": "Кому подходит",
     "value": "Имиджевые покупатели, молодежь"
    }
+  ],
+  "countries": [
+   "usa"
   ]
  },
  {
@@ -743,6 +782,9 @@
     "label": "Кому подходит",
     "value": "Молодёжь, городские"
    }
+  ],
+  "countries": [
+   "usa"
   ]
  },
  {
@@ -798,6 +840,9 @@
     "label": "Кому подходит",
     "value": "Семьи, женщины"
    }
+  ],
+  "countries": [
+   "usa"
   ]
  },
  {
@@ -853,6 +898,9 @@
     "label": "Кому подходит",
     "value": "Семьи, деловые"
    }
+  ],
+  "countries": [
+   "usa"
   ]
  },
  {
@@ -908,6 +956,9 @@
     "label": "Кому подходит",
     "value": "Семьи, женщины"
    }
+  ],
+  "countries": [
+   "usa"
   ]
  },
  {
@@ -963,6 +1014,9 @@
     "label": "Кому подходит",
     "value": "IT-специалисты, молодёжь"
    }
+  ],
+  "countries": [
+   "usa"
   ]
  },
  {
@@ -1015,6 +1069,10 @@
     "label": "Привод",
     "value": "Задний / полный"
    }
+  ],
+  "countries": [
+   "china",
+   "usa"
   ]
  },
  {
@@ -1070,6 +1128,9 @@
     "label": "Кому подходит",
     "value": "Семьи, деловые"
    }
+  ],
+  "countries": [
+   "usa"
   ]
  },
  {
@@ -1125,6 +1186,9 @@
     "label": "Кому подходит",
     "value": "Молодёжь, городские"
    }
+  ],
+  "countries": [
+   "usa"
   ]
  },
  {
@@ -1180,6 +1244,9 @@
     "label": "Кому подходит",
     "value": "Молодёжь, городские"
    }
+  ],
+  "countries": [
+   "usa"
   ]
  },
  {
@@ -1235,6 +1302,9 @@
     "label": "Кому подходит",
     "value": "Семьи, городские"
    }
+  ],
+  "countries": [
+   "usa"
   ]
  },
  {
@@ -1290,6 +1360,9 @@
     "label": "Кому подходит",
     "value": "Семьи, городские"
    }
+  ],
+  "countries": [
+   "usa"
   ]
  },
  {
@@ -1345,6 +1418,9 @@
     "label": "Кому подходит",
     "value": "Семьи с детьми"
    }
+  ],
+  "countries": [
+   "usa"
   ]
  },
  {
@@ -1400,6 +1476,9 @@
     "label": "Кому подходит",
     "value": "Семьи, городские"
    }
+  ],
+  "countries": [
+   "usa"
   ]
  },
  {
@@ -1455,6 +1534,9 @@
     "label": "Кому подходит",
     "value": "Имиджевые покупатели"
    }
+  ],
+  "countries": [
+   "usa"
   ]
  },
  {
@@ -1510,6 +1592,9 @@
     "label": "Кому подходит",
     "value": "Семьи, безопасность"
    }
+  ],
+  "countries": [
+   "usa"
   ]
  },
  {
@@ -1565,6 +1650,9 @@
     "label": "Кому подходит",
     "value": "Семьи, безопасность"
    }
+  ],
+  "countries": [
+   "usa"
   ]
  },
  {
@@ -1620,6 +1708,9 @@
     "label": "Кому подходит",
     "value": "Семьи, безопасность"
    }
+  ],
+  "countries": [
+   "usa"
   ]
  },
  {
@@ -1663,6 +1754,9 @@
     "label": "Данные Encar",
     "value": "https://car.encar.com/list/car"
    }
+  ],
+  "countries": [
+   "korea"
   ]
  },
  {
@@ -1706,6 +1800,9 @@
     "label": "Данные Encar",
     "value": "https://car.encar.com/list/car"
    }
+  ],
+  "countries": [
+   "korea"
   ]
  },
  {
@@ -1749,6 +1846,9 @@
     "label": "Данные Encar",
     "value": "https://car.encar.com/list/car"
    }
+  ],
+  "countries": [
+   "korea"
   ]
  },
  {
@@ -1792,6 +1892,9 @@
     "label": "Данные Encar",
     "value": "https://car.encar.com/list/car"
    }
+  ],
+  "countries": [
+   "korea"
   ]
  },
  {
@@ -1835,6 +1938,9 @@
     "label": "Данные Encar",
     "value": "Hyundai Palisade 2022 Encar"
    }
+  ],
+  "countries": [
+   "korea"
   ]
  },
  {
@@ -1878,6 +1984,9 @@
     "label": "Данные Encar",
     "value": "https://car.encar.com/list/car"
    }
+  ],
+  "countries": [
+   "korea"
   ]
  },
  {
@@ -1921,6 +2030,9 @@
     "label": "Данные Encar",
     "value": "https://car.encar.com/list/car"
    }
+  ],
+  "countries": [
+   "korea"
   ]
  },
  {
@@ -1964,6 +2076,9 @@
     "label": "Данные Encar",
     "value": "https://car.encar.com/list/car"
    }
+  ],
+  "countries": [
+   "korea"
   ]
  },
  {
@@ -2007,6 +2122,9 @@
     "label": "Данные Encar",
     "value": "https://car.encar.com/list/car"
    }
+  ],
+  "countries": [
+   "korea"
   ]
  },
  {
@@ -2050,6 +2168,9 @@
     "label": "Данные Encar",
     "value": "https://car.encar.com/list/car?search=기아%20셀토스"
    }
+  ],
+  "countries": [
+   "korea"
   ]
  },
  {
@@ -2093,6 +2214,9 @@
     "label": "Данные Encar",
     "value": "Hyundai Staria 2023 Encar"
    }
+  ],
+  "countries": [
+   "korea"
   ]
  },
  {
@@ -2136,6 +2260,9 @@
     "label": "Данные Encar",
     "value": "https://car.encar.com/list/car"
    }
+  ],
+  "countries": [
+   "korea"
   ]
  },
  {
@@ -2179,6 +2306,9 @@
     "label": "Данные Encar",
     "value": "https://car.encar.com/list/car"
    }
+  ],
+  "countries": [
+   "korea"
   ]
  },
  {
@@ -2222,6 +2352,9 @@
     "label": "Данные Encar",
     "value": "https://car.encar.com/list/car?search=제네시스%20GV70"
    }
+  ],
+  "countries": [
+   "korea"
   ]
  },
  {
@@ -2265,6 +2398,9 @@
     "label": "Данные Encar",
     "value": "https://car.encar.com/list/car?search=제네시스%20GV80"
    }
+  ],
+  "countries": [
+   "korea"
   ]
  },
  {
@@ -2308,6 +2444,9 @@
     "label": "Данные Encar",
     "value": "https://car.encar.com/list/car?search=현대%20아이오닉6"
    }
+  ],
+  "countries": [
+   "korea"
   ]
  },
  {
@@ -2351,6 +2490,9 @@
     "label": "Данные Encar",
     "value": "Kia K8 2023 Encar"
    }
+  ],
+  "countries": [
+   "korea"
   ]
  },
  {
@@ -2394,6 +2536,9 @@
     "label": "Данные Encar",
     "value": "Kia K9 2022 Encar"
    }
+  ],
+  "countries": [
+   "korea"
   ]
  },
  {
@@ -2437,6 +2582,9 @@
     "label": "Данные Encar",
     "value": "Kia Niro 2023 Encar"
    }
+  ],
+  "countries": [
+   "korea"
   ]
  },
  {
@@ -2480,6 +2628,9 @@
     "label": "Данные Encar",
     "value": "Kia EV3 2024 Encar"
    }
+  ],
+  "countries": [
+   "korea"
   ]
  },
  {
@@ -2523,6 +2674,9 @@
     "label": "Данные Encar",
     "value": "Kia EV9 2024 Encar"
    }
+  ],
+  "countries": [
+   "korea"
   ]
  },
  {
@@ -2566,6 +2720,9 @@
     "label": "Данные Encar",
     "value": "Genesis GV60 2023 Encar"
    }
+  ],
+  "countries": [
+   "korea"
   ]
  },
  {
@@ -2609,6 +2766,9 @@
     "label": "Данные Encar",
     "value": "Genesis G70 2022 Encar"
    }
+  ],
+  "countries": [
+   "korea"
   ]
  },
  {
@@ -2652,6 +2812,9 @@
     "label": "Данные Encar",
     "value": "KGM Torres 2023 Encar"
    }
+  ],
+  "countries": [
+   "korea"
   ]
  },
  {
@@ -2712,6 +2875,9 @@
     "label": "Привод",
     "value": "Постоянный полный"
    }
+  ],
+  "countries": [
+   "china"
   ]
  },
  {
@@ -2763,6 +2929,9 @@
     "label": "Привод",
     "value": "Полный"
    }
+  ],
+  "countries": [
+   "china"
   ]
  },
  {
@@ -2814,6 +2983,9 @@
     "label": "Привод",
     "value": "Полный"
    }
+  ],
+  "countries": [
+   "china"
   ]
  },
  {
@@ -2865,6 +3037,9 @@
     "label": "Привод",
     "value": "Полный"
    }
+  ],
+  "countries": [
+   "china"
   ]
  },
  {
@@ -2916,6 +3091,9 @@
     "label": "Привод",
     "value": "Полный"
    }
+  ],
+  "countries": [
+   "china"
   ]
  },
  {
@@ -2967,6 +3145,9 @@
     "label": "Привод",
     "value": "Полный"
    }
+  ],
+  "countries": [
+   "china"
   ]
  },
  {
@@ -3028,6 +3209,9 @@
     "label": "Привод",
     "value": "Постоянный полный"
    }
+  ],
+  "countries": [
+   "china"
   ]
  },
  {
@@ -3079,6 +3263,9 @@
     "label": "Привод",
     "value": "Полный"
    }
+  ],
+  "countries": [
+   "china"
   ]
  },
  {
@@ -3130,6 +3317,9 @@
     "label": "Привод",
     "value": "Полный"
    }
+  ],
+  "countries": [
+   "china"
   ]
  },
  {
@@ -3181,6 +3371,9 @@
     "label": "Привод",
     "value": "Полный"
    }
+  ],
+  "countries": [
+   "china"
   ]
  },
  {
@@ -3232,6 +3425,9 @@
     "label": "Привод",
     "value": "Полный"
    }
+  ],
+  "countries": [
+   "china"
   ]
  },
  {
@@ -3283,6 +3479,9 @@
     "label": "Привод",
     "value": "Задний"
    }
+  ],
+  "countries": [
+   "china"
   ]
  },
  {
@@ -3334,6 +3533,9 @@
     "label": "Привод",
     "value": "Задний"
    }
+  ],
+  "countries": [
+   "china"
   ]
  },
  {
@@ -3395,6 +3597,9 @@
     "label": "Привод",
     "value": "Передний"
    }
+  ],
+  "countries": [
+   "china"
   ]
  },
  {
@@ -3446,6 +3651,9 @@
     "label": "Привод",
     "value": "Передний / полный"
    }
+  ],
+  "countries": [
+   "china"
   ]
  },
  {
@@ -3497,6 +3705,9 @@
     "label": "Привод",
     "value": "Задний / полный"
    }
+  ],
+  "countries": [
+   "china"
   ]
  },
  {
@@ -3558,6 +3769,9 @@
     "label": "Привод",
     "value": "Передний"
    }
+  ],
+  "countries": [
+   "china"
   ]
  },
  {
@@ -3609,6 +3823,9 @@
     "label": "Привод",
     "value": "Полный"
    }
+  ],
+  "countries": [
+   "china"
   ]
  },
  {
@@ -3660,6 +3877,9 @@
     "label": "Привод",
     "value": "Задний / полный"
    }
+  ],
+  "countries": [
+   "china"
   ]
  },
  {
@@ -3711,6 +3931,9 @@
     "label": "Привод",
     "value": "Передний"
    }
+  ],
+  "countries": [
+   "china"
   ]
  },
  {
@@ -3762,6 +3985,9 @@
     "label": "Привод",
     "value": "Полный"
    }
+  ],
+  "countries": [
+   "china"
   ]
  },
  {
@@ -3813,6 +4039,9 @@
     "label": "Привод",
     "value": "Полный"
    }
+  ],
+  "countries": [
+   "china"
   ]
  },
  {
@@ -3864,6 +4093,9 @@
     "label": "Привод",
     "value": "Передний"
    }
+  ],
+  "countries": [
+   "china"
   ]
  },
  {
@@ -3915,6 +4147,9 @@
     "label": "Привод",
     "value": "Передний"
    }
+  ],
+  "countries": [
+   "china"
   ]
  },
  {
@@ -3966,6 +4201,9 @@
     "label": "Привод",
     "value": "Передний"
    }
+  ],
+  "countries": [
+   "china"
   ]
  },
  {
@@ -4017,6 +4255,9 @@
     "label": "Привод",
     "value": "Передний"
    }
+  ],
+  "countries": [
+   "china"
   ]
  },
  {
@@ -4068,6 +4309,9 @@
     "label": "Привод",
     "value": "Полный"
    }
+  ],
+  "countries": [
+   "china"
   ]
  },
  {
@@ -4119,6 +4363,9 @@
     "label": "Привод",
     "value": "Полный"
    }
+  ],
+  "countries": [
+   "china"
   ]
  },
  {
@@ -4170,6 +4417,9 @@
     "label": "Привод",
     "value": "Задний / Полный"
    }
+  ],
+  "countries": [
+   "china"
   ]
  },
  {
@@ -4221,6 +4471,9 @@
     "label": "Привод",
     "value": "Задний"
    }
+  ],
+  "countries": [
+   "china"
   ]
  },
  {
@@ -4272,6 +4525,9 @@
     "label": "Привод",
     "value": "Полный"
    }
+  ],
+  "countries": [
+   "china"
   ]
  },
  {
@@ -4323,6 +4579,9 @@
     "label": "Привод",
     "value": "Передний / полный"
    }
+  ],
+  "countries": [
+   "china"
   ]
  },
  {
@@ -4374,6 +4633,9 @@
     "label": "Привод",
     "value": "Полный"
    }
+  ],
+  "countries": [
+   "china"
   ]
  },
  {
@@ -4425,6 +4687,9 @@
     "label": "Привод",
     "value": "Задний / полный"
    }
+  ],
+  "countries": [
+   "china"
   ]
  },
  {
@@ -4476,6 +4741,9 @@
     "label": "Привод",
     "value": "Передний / полный"
    }
+  ],
+  "countries": [
+   "china"
   ]
  },
  {
@@ -4527,6 +4795,9 @@
     "label": "Привод",
     "value": "Задний / полный"
    }
+  ],
+  "countries": [
+   "china"
   ]
  },
  {
@@ -4578,6 +4849,9 @@
     "label": "Привод",
     "value": "Передний / полный"
    }
+  ],
+  "countries": [
+   "china"
   ]
  },
  {
@@ -4629,6 +4903,9 @@
     "label": "Привод",
     "value": "Задний / полный"
    }
+  ],
+  "countries": [
+   "china"
   ]
  },
  {
@@ -4680,6 +4957,9 @@
     "label": "Привод",
     "value": "Полный"
    }
+  ],
+  "countries": [
+   "china"
   ]
  },
  {
@@ -4731,6 +5011,9 @@
     "label": "Привод",
     "value": "Полный"
    }
+  ],
+  "countries": [
+   "china"
   ]
  },
  {
@@ -4782,6 +5065,9 @@
     "label": "Привод",
     "value": "Полный"
    }
+  ],
+  "countries": [
+   "china"
   ]
  },
  {
@@ -4843,6 +5129,9 @@
     "label": "Привод",
     "value": "Постоянный полный"
    }
+  ],
+  "countries": [
+   "china"
   ]
  },
  {
@@ -4900,6 +5189,9 @@
     "label": "Привод",
     "value": "Подключаемый полный"
    }
+  ],
+  "countries": [
+   "china"
   ]
  },
  {
@@ -4951,6 +5243,9 @@
     "label": "Привод",
     "value": "Задний"
    }
+  ],
+  "countries": [
+   "china"
   ]
  },
  {
@@ -5002,6 +5297,9 @@
     "label": "Привод",
     "value": "Задний"
    }
+  ],
+  "countries": [
+   "china"
   ]
  },
  {
@@ -5053,6 +5351,9 @@
     "label": "Привод",
     "value": "Полный"
    }
+  ],
+  "countries": [
+   "china"
   ]
  },
  {
@@ -5104,6 +5405,9 @@
     "label": "Привод",
     "value": "Полный"
    }
+  ],
+  "countries": [
+   "china"
   ]
  },
  {
@@ -5155,6 +5459,9 @@
     "label": "Привод",
     "value": "Передний"
    }
+  ],
+  "countries": [
+   "china"
   ]
  },
  {
@@ -5206,6 +5513,9 @@
     "label": "Привод",
     "value": "Задний"
    }
+  ],
+  "countries": [
+   "china"
   ]
  },
  {
@@ -5257,6 +5567,9 @@
     "label": "Привод",
     "value": "Передний"
    }
+  ],
+  "countries": [
+   "china"
   ]
  },
  {
@@ -5308,6 +5621,9 @@
     "label": "Привод",
     "value": "Задний"
    }
+  ],
+  "countries": [
+   "china"
   ]
  },
  {
@@ -5359,6 +5675,9 @@
     "label": "Привод",
     "value": "Передний / Полный"
    }
+  ],
+  "countries": [
+   "china"
   ]
  },
  {
@@ -5410,6 +5729,9 @@
     "label": "Привод",
     "value": "Передний"
    }
+  ],
+  "countries": [
+   "china"
   ]
  }
 ]
