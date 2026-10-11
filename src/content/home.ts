@@ -185,6 +185,14 @@ export const footer = {
       { label: 'Политика конфиденциальности', href: '/policy/' },
       { label: 'Согласие на обработку персональных данных', href: '/agreement/' },
     ] },
+    { title: 'Доставка по городам:', links: [
+      { label: 'Минск', href: '/minsk/' },
+      { label: 'Гомель', href: '/gomel/' },
+      { label: 'Витебск', href: '/vitebsk/' },
+      { label: 'Брест', href: '/brest/' },
+      { label: 'Гродно', href: '/grodno/' },
+      { label: 'Могилёв', href: '/mogilev/' },
+    ] },
     { title: 'Направления:', links: [
       { label: 'Китай', href: '/china/' },
       { label: 'Южная Корея', href: '/korea/' },

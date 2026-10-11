@@ -2,6 +2,7 @@ import type { APIRoute } from 'astro';
 import { cars, sections, carPath } from '../content/cars';
 import { directions } from '../content/directions';
 import { legalPages } from '../content/pages';
+import { cities } from '../content/cities';
 import { allBrands } from '../content/brands';
 
 const paths = [
@@ -12,6 +13,7 @@ const paths = [
   '/rew/',
   ...directions.map((d) => `/${d.slug}/`),
     '/dostavka-i-rastamozhka/',
+  ...cities.map((c) => `/${c.slug}/`),
   '/catalog/',
   ...allBrands().map((b) => `/catalog/${b.slug}/`),
   ...sections.map((s) => `/catalog/${s.slug}/`),
