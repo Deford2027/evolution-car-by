@@ -1,5 +1,6 @@
 import { useState } from 'preact/hooks';
 import { submitLead } from '../../lib/submit';
+import { handlePhoneInput, phoneFilled } from '../../lib/phone';
 
 interface Step { q: string; a: string[] }
 interface Props {
@@ -30,15 +31,25 @@ export default function Quiz({ title, steps, contactQuestion, channels, consent,
   };
 
   const send = async () => {
-    if (phone.replace(/\D/g, '').length < 11) return setError('Укажите номер телефона полностью');
+    if (!phoneFilled(phone)) return setError('Укажите номер телефона полностью');
     if (!agreed) return setError('Отметьте согласие на обработку данных');
     setError('');
     setState('sending');
-    await submitLead({
-      name: `Квиз: ${answers.join(' / ')}`,
-      phone: `${channel}: ${phone}`,
-      source: 'Опрос на расчёт стоимости',
+    // Телефон уходит без приписки канала: сервер принимает только номер,
+    // а удобный способ связи виден в источнике заявки.
+    const ok = await submitLead({
+      name: `Опрос: ${answers.join(' / ')}`,
+      phone,
+      source: `Опрос на расчёт стоимости · ${channel}`,
+      consent: agreed,
     });
+    // Отказ сервера нельзя показывать как успех: человек уйдёт, считая,
+    // что заявка принята, а её не будет ни в базе, ни в уведомлениях.
+    if (!ok) {
+      setState('idle');
+      setError('Не удалось отправить. Позвоните нам или попробуйте ещё раз.');
+      return;
+    }
     setState('done');
     onDone?.();
   };
@@ -85,7 +96,7 @@ export default function Quiz({ title, steps, contactQuestion, channels, consent,
             inputMode="tel"
             placeholder="+375 29 123-45-67"
             value={phone}
-            onInput={(e) => setPhone((e.target as HTMLInputElement).value)}
+            onInput={(e) => handlePhoneInput(e, setPhone)}
           />
           <label class="lead-form__consent">
             <input type="checkbox" checked={agreed} onChange={(e) => setAgreed((e.target as HTMLInputElement).checked)} />
