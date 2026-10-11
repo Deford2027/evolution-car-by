@@ -51,6 +51,18 @@ main{padding:18px 16px 60px}
 .pdesc{display:block;color:#8a938f;font-size:12px;margin-top:3px;line-height:1.4}
 .plink{font-size:13px;color:#005653;text-decoration:none;word-break:break-all}
 .pkind{font-size:12px;color:#77817e;text-align:right}
+.pname{display:block;font-size:14px;font-weight:600;line-height:1.35}
+.pcount{display:inline-block;margin-top:3px;font-size:12px;color:#005653;font-weight:500}
+.pseo{display:inline-block;margin-top:4px;font-size:12px;color:#005653;text-decoration:none}
+.pseo:hover{text-decoration:underline}
+details.pcat{border-top:1px solid #f0f3f2}
+details.pcat>summary{list-style:none;cursor:pointer;border-top:none}
+details.pcat>summary::-webkit-details-marker{display:none}
+details.pcat[open]>summary{background:#f7faf9}
+.caret{flex:0 0 auto;width:0;height:0;margin-top:5px;border-left:6px solid #55605d;
+ border-top:5px solid transparent;border-bottom:5px solid transparent;transition:transform .15s}
+details.pcat[open] .caret{transform:rotate(90deg)}
+.pcat-body{background:#fcfdfd}
 @media(max-width:900px){.phead,.prow{grid-template-columns:54px 1fr}.phead span:nth-child(n+3),.prow>:nth-child(n+3){display:none}}
 """
 

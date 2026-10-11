@@ -303,12 +303,26 @@ def detail_body(p, site_url: str) -> str:
 
     chips = "".join(f'<span class="chip">{html.escape(k)}</span>' for k in p["keywords"])
 
+    # Рабочее имя и сущность — как в списке: по ним о странице и говорят.
+    # Для каталога — сколько в нём товаров, для карточки — в каких каталогах она стоит.
+    name = p.get("name") or p["title"] or p["route"]
+    entity = p.get("entity", "")
+    extra = ""
+    if entity == "Каталог":
+        extra = f'<div class="kind">Товаров в каталоге: {p.get("members", 0)}</div>'
+    elif entity == "Карточка товара":
+        parents = p.get("parents") or []
+        chips_p = "".join(f'<span class="chip">{html.escape(x)}</span>' for x in parents)
+        extra = (f'<div class="kind">Стоит в каталогах ({len(parents)}):</div><div class="chips">{chips_p}</div>'
+                 if parents else '<div class="kind" style="color:#b3261e">Не входит ни в один каталог</div>')
+    url = html.escape(site_url + p["route"])
+
     return f"""<main><div class="pd">
 <a class="back" href="/admin/">← Все страницы сайта</a>
 <div class="hero">{badge}
-<div><h1>{html.escape(p["title"] or p["route"])}</h1>
-<a class="url" href="{site_url}{p["route"]}" target="_blank" rel="noopener">{site_url}{p["route"]}</a>
-<div class="kind">{p["words"]} слов на странице{" · закрыта от индексации" if p["noindex"] else ""}</div></div></div>
+<div><div class="kind">{html.escape(entity)}</div><h1>{html.escape(name)}</h1>
+<a class="url" href="{url}" target="_blank" rel="noopener">{url}</a>
+<div class="kind">{p["words"]} слов на странице{" · закрыта от индексации" if p["noindex"] else ""}</div>{extra}</div></div>
 
 <div class="panel"><h2>Что стоит в SEO</h2>
 {_fld("Тайтл", p["title"])}
