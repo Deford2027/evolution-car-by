@@ -153,10 +153,8 @@ const PLAIN: Record<string, { country: string; tagline: string }> = {
   aito: { country: 'Китай', tagline: 'Совместный проект Huawei и Seres' },
   yangwang: { country: 'Китай', tagline: 'Флагманское подразделение BYD: U8 и U9' },
   deepal: { country: 'Китай', tagline: 'Электрическое подразделение Changan' },
-  'li-auto': { country: 'Китай', tagline: 'Гибриды EREV с большим запасом хода' },
   'alfa-romeo': { country: 'Европа', tagline: 'Stelvio и Giulia' },
   kgm: { country: 'Южная Корея', tagline: 'Бывший SsangYong: Torres, Rexton' },
-  mercedes: { country: 'Европа', tagline: 'Модели Mercedes-Benz с европейского рынка' },
 };
 
 export const brandSlug = (name: string) => slugify(name);
