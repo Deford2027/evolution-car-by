@@ -84,6 +84,16 @@ class Handler(SimpleHTTPRequestHandler):
     def do_HEAD(self):
         if self._is_api():
             return lead.Handler.do_GET(self)
+        # Админка существует только как ответ сервера, файла под неё нет:
+        # без этой ветки HEAD по /admin уходил бы в поиск файла и отвечал
+        # 404 на работающий адрес. Тело для HEAD не собираем.
+        if admin and self.path.split("?")[0].rstrip("/").startswith("/admin"):
+            self.send_response(200)
+            self.send_header("Content-Type", "text/html; charset=utf-8")
+            self.send_header("X-Robots-Tag", "noindex, nofollow")
+            self.send_header("Cache-Control", "no-store")
+            self.end_headers()
+            return
         return super().do_HEAD()
 
     def send_error(self, code, message=None, explain=None):
