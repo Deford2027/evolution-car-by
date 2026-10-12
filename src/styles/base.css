@@ -122,3 +122,19 @@ p { text-wrap: pretty; }
 @media (min-width: 1024px) {
   .grid--4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 }
+
+/* Сетка товаров — единая для всех списков машин: каталоги, подборки, марки,
+   хабы, «Пригнали», «похожие». Стандарт владельца (12.10.2026): на телефоне
+   две карточки в ряд, с 1024 px — три. Узкая карточка сама становится
+   компактной (CarCard, container query). Новый список машин — только через
+   этот класс, своих сеток для карточек не заводить. */
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: .625rem;
+}
+.product-grid > li { display: grid; }
+/* иначе display: grid перебивает атрибут hidden, и фильтр каталога не прячет машины */
+.product-grid > li[hidden] { display: none; }
+@media (min-width: 640px) { .product-grid { gap: var(--gap); } }
+@media (min-width: 1024px) { .product-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
