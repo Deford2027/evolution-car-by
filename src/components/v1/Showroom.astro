@@ -19,14 +19,9 @@ import { salon } from '../../content/home';
     </ul>
   </div>
 
-  <div class="showroom__stage">
-    <span class="showroom__word" aria-hidden="true">EVOLUTION</span>
-    <img class="showroom__car" src="/img/image_467.png" alt="" loading="lazy" width="1680" height="617" />
-  </div>
 </section>
 
 <style>
-  .showroom { padding-bottom: 0; }
 
   .showroom__head { display: grid; gap: 1.5rem; }
   .showroom__lead { color: var(--c-text-2); font-size: 1rem; max-width: 56ch; }
@@ -58,30 +53,4 @@ import { salon } from '../../content/home';
     .showroom__card:nth-child(2) { margin-top: 1.25rem; }
   }
 
-  .showroom__stage {
-    position: relative;
-    margin-top: clamp(-1.5rem, -1rem - 1vw, 0rem);
-    display: grid;
-    place-items: center;
-    isolation: isolate;
-    overflow: hidden;
-  }
-  .showroom__word {
-    position: absolute;
-    inset-block: auto;
-    font-family: var(--font-display);
-    font-weight: 700;
-    font-size: clamp(4rem, -1rem + 22vw, 18rem);
-    line-height: .9;
-    letter-spacing: -.02em;
-    color: #0d1119;
-    white-space: nowrap;
-    z-index: -1;
-    user-select: none;
-  }
-  .showroom__car {
-    width: min(100%, 1400px);
-    height: auto;
-    object-fit: contain;
-  }
 </style>
