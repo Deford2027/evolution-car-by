@@ -1,6 +1,6 @@
-/* Стили Preact-островов. Работают в обеих темах — только семантические токены. */
+/* Стили Preact-островов. Работают в обеих темах – только семантические токены. */
 
-/* ——— мобильное меню ——— */
+/* ––– мобильное меню ––– */
 .mm { margin-left: auto; }
 .mm__burger {
   display: grid;
@@ -46,7 +46,7 @@
 
 @media (min-width: 1101px) { .mm { display: none; } }
 
-/* ——— слайдер ——— */
+/* ––– слайдер ––– */
 .slider { position: relative; }
 .slider__viewport {
   display: grid;
@@ -79,7 +79,7 @@
 @media (min-width: 768px) { .slider__viewport { grid-auto-columns: var(--slide-w-md, 46%); } }
 @media (min-width: 1024px) { .slider__viewport { grid-auto-columns: var(--slide-w-lg, 31%); } }
 
-/* ——— формы ——— */
+/* ––– формы ––– */
 .form { display: grid; gap: .75rem; }
 .form__field { display: grid; gap: .375rem; }
 .form__input {
@@ -104,7 +104,7 @@
 .form__consent input { margin-top: .2rem; accent-color: var(--c-accent); }
 .form__status { font-size: .875rem; color: var(--c-ok, var(--c-accent)); }
 
-/* ——— квиз и модалка ——— */
+/* ––– квиз и модалка ––– */
 .modal { border: 0; padding: 0; background: transparent; max-width: min(720px, 92vw); width: 100%; }
 .modal::backdrop { background: rgba(0, 0, 0, .72); backdrop-filter: blur(4px); }
 .modal__body {
@@ -130,7 +130,7 @@
 .quiz__option:hover, .quiz__option.is-active { border-color: var(--c-accent); background: var(--c-accent-soft); }
 .quiz__actions { display: flex; gap: .75rem; justify-content: space-between; }
 
-/* ——— форма заявки ——— */
+/* ––– форма заявки ––– */
 .lead-form { display: grid; gap: .875rem; }
 .lead-form__fields { display: grid; gap: .75rem; }
 .lead-form__input {
@@ -171,7 +171,7 @@
   .lead-form--wide .lead-form__submit { min-width: 15.5rem; }
 }
 
-/* ——— модальное окно ——— */
+/* ––– модальное окно ––– */
 .modal {
   width: min(100% - 2rem, 34rem);
   max-height: 86svh;
@@ -197,7 +197,7 @@
 .modal__video img { width: 100%; border-radius: var(--r-card); }
 .modal__video figcaption { color: var(--c-text-3); font-size: .8125rem; margin-top: .875rem; }
 
-/* ——— квиз ——— */
+/* ––– квиз ––– */
 .quiz { display: grid; gap: 1rem; }
 .quiz__title { font-family: var(--font-display); font-size: 1.25rem; line-height: 1.25; }
 .quiz__bar { height: 2px; background: var(--c-line-strong); border-radius: 2px; overflow: hidden; }
@@ -227,7 +227,7 @@
 .quiz__back { color: var(--c-text-3); font-size: .8125rem; justify-self: start; }
 .quiz__done { font-size: 1rem; padding: 1rem 0; }
 
-/* ——— фильтр каталога ——— */
+/* ––– фильтр каталога ––– */
 .filter {
   display: grid;
   gap: 1rem;

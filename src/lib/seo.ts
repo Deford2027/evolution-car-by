@@ -14,7 +14,7 @@ export interface Crumb {
 
 export function carMeta(car: Car) {
   const country = countries[car.country].genitive;
-  const price = car.priceUsd ? ` — ориентир от ${car.priceUsd.toLocaleString('ru-RU')} $` : '';
+  const price = car.priceUsd ? ` – ориентир от ${car.priceUsd.toLocaleString('ru-RU')} $` : '';
   const year = car.year ? ` ${car.year}` : '';
 
   return {
@@ -22,7 +22,7 @@ export function carMeta(car: Car) {
     description:
       `${car.title} ${country}: ${powertrains[car.powertrain].toLowerCase()}, ` +
       `${availabilities[car.availability].toLowerCase()}. ${car.description} ` +
-      `Доставка, страхование, таможенное оформление и документы для постановки на учёт — на нас.`,
+      `Доставка, страхование, таможенное оформление и документы для постановки на учёт – на нас.`,
     canonical: abs(carPath(car)),
   };
 }

@@ -85,7 +85,7 @@ export default function CatalogFilter({ facets, cars, total }: Props) {
       <div class="filter__foot">
         <p class="filter__count" role="status">
           {matches.length === 0
-            ? 'Под фильтр ничего не подошло — оставьте заявку, подберём под запрос'
+            ? 'Под фильтр ничего не подошло – оставьте заявку, подберём под запрос'
             : `Показано ${matches.length} из ${total}`}
         </p>
         {active && (

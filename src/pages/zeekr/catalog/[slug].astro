@@ -49,11 +49,11 @@ const similar = cars
   .filter((c, i, arr) => arr.findIndex((x) => x.slug === c.slug) === i)
   .slice(0, 3);
 
-const title = `${car.title}${car.year ? ` ${car.year}` : ''} из Китая под ключ${car.priceUsd ? ` — от ${car.priceUsd.toLocaleString('ru-RU')} $` : ''} | Evolution Car`;
+const title = `${car.title}${car.year ? ` ${car.year}` : ''} из Китая под ключ${car.priceUsd ? ` – от ${car.priceUsd.toLocaleString('ru-RU')} $` : ''} | Evolution Car`;
 const description =
   `${car.title} из Китая: ${powertrains[car.powertrain].toLowerCase()}, ` +
   `${availabilities[car.availability].toLowerCase()}. ${car.description} ` +
-  `Доставка, таможенное оформление и документы для постановки на учёт — на нас.`;
+  `Доставка, таможенное оформление и документы для постановки на учёт – на нас.`;
 ---
 
 <BaseLayout
@@ -74,7 +74,7 @@ const description =
           <figure class="shot">
             <img
               src={car.photo}
-              alt={`${car.title} — ${powertrains[car.powertrain].toLowerCase()}, поставка из Китая`}
+              alt={`${car.title} – ${powertrains[car.powertrain].toLowerCase()}, поставка из Китая`}
               width="900"
               height="563"
               fetchpriority="high"

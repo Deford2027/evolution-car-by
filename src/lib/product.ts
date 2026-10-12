@@ -1,6 +1,6 @@
 // Товар как сущность для Google: один номер и одни данные для фида Google Ads,
 // событий на страницах и карточек каталога. Всё строится здесь, чтобы номер
-// товара в событиях гарантированно совпадал с номером в фиде — без этого
+// товара в событиях гарантированно совпадал с номером в фиде – без этого
 // динамический ремаркетинг не найдёт машину и покажет пустой баннер.
 import type { Car } from '../content/cars';
 import { cars, countries, powertrains, availabilities, formatUsd, carPath, slugify, modelSlug } from '../content/cars';
@@ -14,7 +14,7 @@ export const CURRENCY = 'USD';
 const base = (slug: string) => slug.toLowerCase().replace(/[^a-z0-9]/g, '');
 
 /**
- * Номера, закреплённые вручную, — для позиций, у которых slug без дефисов
+ * Номера, закреплённые вручную, – для позиций, у которых slug без дефисов
  * совпал с чужим. В каталоге есть hongqi-e-qm5 и hongqi-eqm5 (две
  * комплектации одной модели): без дефисов оба дают hongqieqm5.
  *
@@ -27,7 +27,7 @@ const ID_OVERRIDES: Readonly<Record<string, string>> = {
 };
 
 /**
- * Номер товара. В пользовательском фиде Google Ads ID — только буквы и цифры,
+ * Номер товара. В пользовательском фиде Google Ads ID – только буквы и цифры,
  * поэтому дефисы из slug убираются: geely-coolray → geelycoolray. Номер
  * зависит только от slug (и закрепления выше), а не от остального каталога.
  */
@@ -42,7 +42,7 @@ export const feedId = (car: Car): string => ID_OVERRIDES[car.slug] ?? base(car.s
     const other = seen.get(id);
     if (other) {
       throw new Error(
-        `Номер товара ${id} у двух позиций — ${other} и ${car.slug}. ` +
+        `Номер товара ${id} у двух позиций – ${other} и ${car.slug}. ` +
           `Закрепите номер новой позиции в ID_OVERRIDES (src/lib/product.ts), старую не трогайте.`,
       );
     }
@@ -56,7 +56,7 @@ export const feedId = (car: Car): string => ID_OVERRIDES[car.slug] ?? base(car.s
  * В выгрузке Tilda у части позиций диапазон цены склеился в одно число:
  * «16 600–18 500» превратилось в 1 660 018 500. Такая цена в Google сломала бы
  * ценность конверсий и ставки, поэтому вне правдоподобных границ цена в фид
- * и события не идёт — позиция остаётся, но без цены, и попадает в список
+ * и события не идёт – позиция остаётся, но без цены, и попадает в список
  * на исправление (priceProblems).
  */
 const PRICE_MIN = 1_000;
@@ -104,8 +104,8 @@ export function productItem(car: Car): AdsItem {
 // ---------- Товар страницы ----------
 
 /**
- * Какой товар показывает страница — по её адресу. Адреса строятся теми же
- * правилами, что и сами страницы: основная карточка — carPath, версия Zeekr —
+ * Какой товар показывает страница – по её адресу. Адреса строятся теми же
+ * правилами, что и сами страницы: основная карточка – carPath, версия Zeekr –
  * как в src/pages/zeekr/catalog/[slug].astro (там только машины из Китая).
  * Обе версии карточки дают один номер товара; страницы карточек не правятся.
  */
@@ -157,11 +157,11 @@ export const FEED_COLUMNS = [
 
 export type FeedRow = Record<(typeof FEED_COLUMNS)[number], string>;
 
-/** Ограничения Google: название, подзаголовок и описание — до 25 символов, цена текстом — до 20. */
+/** Ограничения Google: название, подзаголовок и описание – до 25 символов, цена текстом – до 20. */
 const TITLE_MAX = 25;
 const FORMATTED_PRICE_MAX = 20;
 
-/** Первый вариант, который влезает в лимит; иначе — последний (самый
+/** Первый вариант, который влезает в лимит; иначе – последний (самый
  *  короткий) вариант, обрезанный по словам. */
 function fit(max: number, ...variants: string[]): string {
   const ok = variants.find((v) => v.length <= max);
@@ -186,7 +186,7 @@ export function feedRow(car: Car): FeedRow {
 
   return {
     ID: feedId(car),
-    // не влезает — сначала убираем пояснение в скобках, а не режем его посередине
+    // не влезает – сначала убираем пояснение в скобках, а не режем его посередине
     'Item title': fit(TITLE_MAX, car.title, car.title.replace(/\s*\([^)]*\)/g, '').trim()),
     'Item subtitle': fit(TITLE_MAX, `${car.year} · ${availability}`, availabilities[car.availability], car.year),
     'Item description': fit(TITLE_MAX, `${powertrain} · ${country.genitive}`, powertrain),

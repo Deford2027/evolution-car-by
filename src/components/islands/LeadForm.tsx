@@ -10,7 +10,7 @@ interface Props {
   cta: string;
   consent: string;
   success: string;
-  /** compact — поля в столбец (карточка шага), wide — в строку (финальный оффер) */
+  /** compact – поля в столбец (карточка шага), wide – в строку (финальный оффер) */
   layout?: 'compact' | 'wide';
   source: string;
 }
@@ -94,7 +94,7 @@ export default function LeadForm({
           может только робот, разбирающий разметку. Такая заявка отсеивается.
           Имя поля нарочно не «company» и не «organization»: по таким именам
           браузер или менеджер паролей сам подставил бы значение, и живая
-          заявка молча ушла бы в отсев. autocomplete="off" — лишь просьба,
+          заявка молча ушла бы в отсев. autocomplete="off" – лишь просьба,
           а не запрет, поэтому полагаться на него нельзя. */}
       <input
         type="text"

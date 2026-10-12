@@ -11,7 +11,7 @@ interface Props {
   ogImage?: string;
   /** пока сайт не запущен, страницы закрыты от индексации */
   noindex?: boolean;
-  /** блоки schema.org; по умолчанию — карточка организации */
+  /** блоки schema.org; по умолчанию – карточка организации */
   jsonLd?: unknown[];
 }
 
@@ -49,13 +49,13 @@ const organizationLd = {
 
 const blocks = jsonLd ?? [organizationLd];
 
-// Карточка товара определяется по адресу страницы — сами страницы карточек
+// Карточка товара определяется по адресу страницы – сами страницы карточек
 // не правятся. Данные товара встраиваются в HTML для событий Google (analytics.ts).
 const product = productByPath(Astro.url.pathname);
 const productJson = product ? pageProductJson(product) : null;
 
 // Google Tag Manager подключается только с ID контейнера при сборке. Без него
-// на сайте нет тегов аналитики и рекламы Google — события лежат в dataLayer
+// на сайте нет тегов аналитики и рекламы Google – события лежат в dataLayer
 // (шрифты Google грузятся как и раньше). Пробелы и регистр в ID из секретов
 // workflow прощаются; всё, что не похоже на GTM-XXXX, отбрасывается.
 const gtmRaw = (import.meta.env.PUBLIC_GTM_ID ?? '').trim().toUpperCase();

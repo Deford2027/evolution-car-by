@@ -95,7 +95,7 @@ const links = nav.map((l) => ({
   .hdr__nav a { color: var(--c-text-2); font-size: .9375rem; white-space: nowrap; transition: color .2s var(--ease); }
   .hdr__nav a:hover { color: var(--c-accent); }
 
-  /* Иконки связи — квадратные кнопки; на телефоне стоят рядом с меню */
+  /* Иконки связи – квадратные кнопки; на телефоне стоят рядом с меню */
   .hdr__icons { display: flex; gap: .5rem; margin-left: auto; }
   .hdr__icon {
     display: grid;
@@ -108,9 +108,9 @@ const links = nav.map((l) => ({
     transition: color .2s var(--ease), border-color .2s var(--ease);
   }
   .hdr__icon:hover, .hdr__icon:focus-visible { color: var(--c-accent); border-color: var(--c-accent); }
-  /* иконки уже прижаты вправо — меню встаёт сразу за ними, а не делит место пополам */
+  /* иконки уже прижаты вправо – меню встаёт сразу за ними, а не делит место пополам */
   .hdr__inner :global(.mm) { margin-left: 0; }
-  /* во второй версии полное меню влезает только с 1280 px — до этого нужен бургер,
+  /* во второй версии полное меню влезает только с 1280 px – до этого нужен бургер,
      а общее правило островов прячет его уже с 1101 px */
   @media (min-width: 1101px) and (max-width: 1279px) { .hdr__inner :global(.mm) { display: block; } }
   .hdr__inner :global(.mm__burger) { transition: border-color .2s var(--ease); }

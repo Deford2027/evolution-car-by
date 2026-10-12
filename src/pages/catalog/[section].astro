@@ -38,7 +38,7 @@ const hide: ('country' | 'powertrain' | 'availability')[] = section.slug.startsW
     ? ['powertrain']
     : ['availability'];
 
-// у раздела электромобилей — расширенный текст: это главный коммерческий кластер
+// у раздела электромобилей – расширенный текст: это главный коммерческий кластер
 const ev = section.slug === 'elektromobili' ? evLanding : null;
 
 const faqLd = ev
@@ -53,7 +53,7 @@ const faqLd = ev
     }
   : null;
 
-const title = ev ? ev.seoTitle : `${section.h1} — ${list.length} в каталоге | Evolution Car`;
+const title = ev ? ev.seoTitle : `${section.h1} – ${list.length} в каталоге | Evolution Car`;
 const description = ev ? ev.seoDescription :
   `${section.lead} ${list.length} позиций в подборке` +
   (minPrice ? `, ориентир цены от ${minPrice.toLocaleString('ru-RU')} $ под ключ` : '') +

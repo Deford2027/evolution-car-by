@@ -1,5 +1,5 @@
 ---
-// Образец «идеальной карточки товара» — Lixiang L9 по старому адресу
+// Образец «идеальной карточки товара» – Lixiang L9 по старому адресу
 // evolutioncar.by/lixiangl9: самая популярная страница живого сайта
 // (30 тыс. показов в Google за 3 месяца, топ-2 по «li 9 характеристики»).
 // Адрес сохранён, чтобы при переезде позиции не зависели от редиректа.
@@ -26,9 +26,9 @@ const crumbs = [
   { name: 'Lixiang L9', href: m.path },
 ];
 
-// Разметка товара для Google: Car — подтип Product, поэтому Google читает её
+// Разметка товара для Google: Car – подтип Product, поэтому Google читает её
 // как карточку товара (цена, наличие, состояние в сниппете). sku = номер товара
-// в фиде Google Ads и в событиях сайта — одна сущность.
+// в фиде Google Ads и в событиях сайта – одна сущность.
 const base = carLd(car) as Record<string, any>;
 const productLd = {
   ...base,
@@ -115,7 +115,7 @@ const similar = cars.filter((c) => c.brand === car.brand && c.slug !== car.slug)
             <img
               class="gallery__main"
               src={car.photo}
-              alt="Lixiang L9 (Li Auto L9) — шестиместный гибридный кроссовер, поставка из Китая"
+              alt="Lixiang L9 (Li Auto L9) – шестиместный гибридный кроссовер, поставка из Китая"
               width="900"
               height="563"
               fetchpriority="high"
@@ -203,7 +203,7 @@ const similar = cars.filter((c) => c.brand === car.brand && c.slug !== car.slug)
 
       <section class="section section--tight">
         <div class="container">
-          <h2 class="block__title">Li L9 — что умеет этот кроссовер</h2>
+          <h2 class="block__title">Li L9 – что умеет этот кроссовер</h2>
           <div class="about">
             {m.about.map((item) => (
               <div class="about__item">
@@ -228,7 +228,7 @@ const similar = cars.filter((c) => c.brand === car.brand && c.slug !== car.slug)
             ))}
           </ul>
           <p class="included__lead">
-            Сроки, маршруты и состав платежей — на странице
+            Сроки, маршруты и состав платежей – на странице
             <a href="/dostavka-i-rastamozhka/">доставки и растаможки</a>.
           </p>
         </div>

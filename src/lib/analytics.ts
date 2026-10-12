@@ -1,9 +1,9 @@
 // События для Google Analytics 4 и Google Ads в стандартном формате
 // интернет-магазина. Пишутся в window.dataLayer: пока Google Tag Manager не
-// подключён, они копятся в браузере и никуда не уходят — сайт от них не зависит.
+// подключён, они копятся в браузере и никуда не уходят – сайт от них не зависит.
 //
 // Модуль работает в браузере и не импортирует каталог: данные товара приходят
-// готовыми из разметки — товар карточки из BaseLayout (<script id="product-item">),
+// готовыми из разметки – товар карточки из BaseLayout (<script id="product-item">),
 // машины в сетках из CarCard (data-item). Иначе в каждую страницу уехали бы
 // все 107 машин.
 
@@ -24,7 +24,7 @@ declare global {
   }
 }
 
-/** ecommerce обнуляется перед каждым событием — так требует GA4, иначе
+/** ecommerce обнуляется перед каждым событием – так требует GA4, иначе
  *  товары прошлого события «прилипают» к следующему. */
 function push(event: string, ecommerce: Record<string, unknown>) {
   const dl = (window.dataLayer = window.dataLayer || []);
@@ -32,13 +32,13 @@ function push(event: string, ecommerce: Record<string, unknown>) {
   dl.push({ event, ecommerce });
 }
 
-/** Ценность для Google — цена машины; без цены событие уходит без value. */
+/** Ценность для Google – цена машины; без цены событие уходит без value. */
 function valueOf(currency: string, items: Item[]) {
   const value = items.reduce((sum, i) => sum + (i.price ?? 0), 0);
   return value > 0 ? { currency, value } : {};
 }
 
-/** Товар этой страницы — есть только на карточках товара. */
+/** Товар этой страницы – есть только на карточках товара. */
 function pageProduct(): PageProduct | null {
   const el = document.getElementById('product-item');
   if (!el?.textContent) return null;
@@ -52,7 +52,7 @@ function pageProduct(): PageProduct | null {
 /**
  * Карточка товара: просмотр и интерес к машине.
  *
- * Корзины на сайте нет. Самый сильный сигнал интереса — «Запросить расчёт»
+ * Корзины на сайте нет. Самый сильный сигнал интереса – «Запросить расчёт»
  * или начало заполнения формы заявки, поэтому для Google это add_to_cart:
  * по нему строится аудитория «хотел эту машину, но заявку не оставил».
  * Уходит один раз за просмотр страницы.
@@ -73,7 +73,7 @@ function trackProduct(product: PageProduct) {
   document.getElementById('request')?.addEventListener('focusin', intent);
 }
 
-/** Товар карточки в сетке — CarCard кладёт его в data-item. */
+/** Товар карточки в сетке – CarCard кладёт его в data-item. */
 function cardItem(card: HTMLElement): Item | null {
   try {
     return JSON.parse(card.dataset.item ?? '') as Item;
@@ -84,7 +84,7 @@ function cardItem(card: HTMLElement): Item | null {
 
 /**
  * Списки машин: каталоги, хабы, «похожие» на карточке товара.
- * view_item_list — какие машины человеку показали, select_item — по какой
+ * view_item_list – какие машины человеку показали, select_item – по какой
  * кликнул. Список называется по адресу страницы и её заголовку H1.
  */
 function trackLists() {
@@ -114,14 +114,14 @@ function trackLists() {
 }
 
 /**
- * Заявка отправлена — главная конверсия для Google Ads. С карточки товара
+ * Заявка отправлена – главная конверсия для Google Ads. С карточки товара
  * ценность = цена машины и сама машина в items; с других форм (опрос, хабы)
- * — без ценности. В GA4 у generate_lead нет параметра items, он его
+ * – без ценности. В GA4 у generate_lead нет параметра items, он его
  * проигнорирует; машина нужна для тега Google Ads.
  */
 export function trackLead(source: string) {
   // Аналитика не должна ломать заявку: заявка уже принята, и ошибка здесь
-  // показала бы человеку «не удалось отправить» — он отправил бы её повторно.
+  // показала бы человеку «не удалось отправить» – он отправил бы её повторно.
   try {
     const product = pageProduct();
     push('generate_lead', {
@@ -130,7 +130,7 @@ export function trackLead(source: string) {
       ...(product ? { items: [product.item] } : {}),
     });
   } catch {
-    /* событие потеряно, заявка — нет */
+    /* событие потеряно, заявка – нет */
   }
 }
 

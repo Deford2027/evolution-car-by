@@ -7,7 +7,7 @@ export const site = {
   phonePlain: '+375 29 135-88-88',
   phoneHref: 'tel:+375291358888',
   hoursShort: 'Ежедневно с 10 до 19',
-  hoursFull: 'Ежедневно, 9:00 — 20:00',
+  hoursFull: 'Ежедневно, 9:00 – 20:00',
   showroom: 'пр-т Машерова, 15/4',
   service: '4-й пер. Монтажников, 13',
   city: 'Минск',
@@ -16,7 +16,7 @@ export const site = {
   vk: 'https://vk.com/',
 } as const;
 
-// href, начинающийся с #, — якорь на главной: шапка добавляет к нему свой префикс
+// href, начинающийся с #, – якорь на главной: шапка добавляет к нему свой префикс
 export const nav: NavLink[] = [
   { label: 'Авто в наличии', href: '/catalog/v-nalichii/' },
   { label: 'Авто под заказ', href: '/catalog/pod-zakaz/' },

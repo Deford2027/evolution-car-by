@@ -1,9 +1,9 @@
 """Карточка страницы для админки: что реально стоит в SEO на выложенной странице.
 
 Всё читается из самого HTML готовой сборки, ничего не берётся из отдельного
-списка — иначе карточка со временем разошлась бы с тем, что опубликовано.
+списка – иначе карточка со временем разошлась бы с тем, что опубликовано.
 
-Частотности запросов и показы — внешние данные, из кода сайта их не взять.
+Частотности запросов и показы – внешние данные, из кода сайта их не взять.
 Колонки под них готовы, но остаются пустыми, пока нет доступов к
 Яндекс.Вебмастеру, Search Console и источнику частотностей по Беларуси.
 Пустая клетка здесь честнее нуля: ноль означал бы «спроса нет».
@@ -55,7 +55,7 @@ CSS = """
 
 
 def _text(s: str) -> str:
-    """Снимает теги и схлопывает пробелы — для заголовков, внутри которых
+    """Снимает теги и схлопывает пробелы – для заголовков, внутри которых
     попадаются <br> и вложенные span."""
     return re.sub(r"\s+", " ", html.unescape(re.sub(r"<[^>]+>", " ", s))).strip()
 
@@ -88,13 +88,13 @@ def _ld_types(src: str):
 
 
 def _badge(route: str, shots) -> str:
-    """Миниатюра страницы — одна и та же в списке и в карточке.
+    """Миниатюра страницы – одна и та же в списке и в карточке.
 
     SVG пропускаем: это логотип в шапке и иконки, они одинаковы на всех
     страницах, и список из одинаковых логотипов нечитаем. Дальше ищем фото
-    машины этой страницы — файлы названы «марка-модель», поэтому адрес
+    машины этой страницы – файлы названы «марка-модель», поэтому адрес
     /catalog/geely/coolray/ узнаёт cars/geely-coolray.jpg по окончанию имени.
-    Не нашлось — первая фотография на странице."""
+    Не нашлось – первая фотография на странице."""
     photos = [x for x in shots if not x.lower().endswith(".svg")]
     slug = route.strip("/").rsplit("/", 1)[-1]
 
@@ -108,7 +108,7 @@ def _badge(route: str, shots) -> str:
     return photos[0] if photos else ""
 
 
-# Разделы каталога и посадочные — те же списки, что в build.py; здесь они
+# Разделы каталога и посадочные – те же списки, что в build.py; здесь они
 # нужны, чтобы назвать кластер запросов по адресу страницы.
 SECTION_NAMES = {
     "v-nalichii": "в наличии", "pod-zakaz": "под заказ", "s-probegom": "с пробегом",
@@ -126,7 +126,7 @@ CITY_NAMES = {
 }
 
 # Основа названия без окончания: в тексте и заголовках город почти всегда
-# в косвенном падеже — «купить авто в Гомеле», «доставка до Могилёва».
+# в косвенном падеже – «купить авто в Гомеле», «доставка до Могилёва».
 # Поиск по полному названию давал ложный минус на таких страницах.
 CITY_STEMS = {
     "Минск": "минск", "Гомель": "гомел", "Витебск": "витебск",
@@ -136,7 +136,7 @@ LEGAL_SLUGS = {"policy", "agreement", "legal_data"}
 
 
 def cluster_of(route: str) -> str:
-    """Кластер — к какой группе запросов относится страница. Считается из
+    """Кластер – к какой группе запросов относится страница. Считается из
     адреса: структура раздела и есть структура кластеров."""
     parts = [p for p in route.split("/") if p]
     if route == "/":
@@ -144,13 +144,13 @@ def cluster_of(route: str) -> str:
     if not parts:
         return "Служебная страница"
     if parts[0] in LEGAL_SLUGS:
-        return "Юридические документы — вне поискового продвижения"
+        return "Юридические документы – вне поискового продвижения"
 
     if parts[0] == "zeekr":
         if len(parts) == 1:
-            return "Вторая версия главной — отдельного спроса не несёт"
+            return "Вторая версия главной – отдельного спроса не несёт"
         if len(parts) == 2:
-            return "Каталог во второй версии — дубль спроса основного каталога"
+            return "Каталог во второй версии – дубль спроса основного каталога"
         return f"Карточка {parts[2].replace('-', ' ').upper()} во второй версии каталога"
 
     if parts[0] == "catalog":
@@ -167,7 +167,7 @@ def cluster_of(route: str) -> str:
         return f"Направление «{DIRECTION_NAMES[parts[0]]}»: пригон, пошлины, сроки"
     if parts[0] in CITY_NAMES:
         return f"Город {CITY_NAMES[parts[0]]}: местный спрос на пригон авто"
-    return "Служебная страница — из поиска закрыта"
+    return "Служебная страница – из поиска закрыта"
 
 
 def read_page(site_root: str, route: str):
@@ -199,7 +199,7 @@ def read_page(site_root: str, route: str):
     body_text = _text(re.sub(r"<(script|style)\b.*?</\1>", " ", src, flags=re.S))
     low = body_text.lower()
 
-    # Попадание в AEO — то, из чего ИИ-поиск и блоки ответов собирают ответ.
+    # Попадание в AEO – то, из чего ИИ-поиск и блоки ответов собирают ответ.
     llms = (root / "llms.txt")
     in_llms = route in llms.read_text(encoding="utf-8", errors="ignore") if llms.is_file() else False
     idx = (root / "search-index.json")
@@ -225,9 +225,9 @@ def read_page(site_root: str, route: str):
         a = geo_ld.get("address") or {}
         addr = ", ".join(x for x in [a.get("addressLocality"), a.get("streetAddress")] if x)
 
-    # У городских посадочных проверяем их собственный город, у остальных —
+    # У городских посадочных проверяем их собственный город, у остальных –
     # Минск: офис там, и общий спрос идёт с ним. Проверять Минск на странице
-    # Гомеля было бы неверно — она отвечает за другой город.
+    # Гомеля было бы неверно – она отвечает за другой город.
     city_slug = route.strip("/").split("/")[0]
     city = CITY_NAMES.get(city_slug, "Минск")
     needle = CITY_STEMS[city]
@@ -273,7 +273,7 @@ def _checks(items) -> str:
         mark = "✓" if ok else "✕"
         li.append(
             f'<li class="{"yes" if ok else "no"}"><span>{mark}</span>{html.escape(name)}'
-            f' <span style="width:auto;color:#8a938f;font-weight:400;font-size:12px">— {html.escape(hint)}</span></li>'
+            f' <span style="width:auto;color:#8a938f;font-weight:400;font-size:12px">– {html.escape(hint)}</span></li>'
         )
     return f'<ul class="checks">{"".join(li)}</ul>'
 
@@ -288,23 +288,23 @@ def detail_body(p, site_url: str) -> str:
     alts = "".join(
         f'<span class="alt{"" if i["alt"] else " empty"}">'
         f'<img src="{html.escape(i["src"])}" alt="" loading="lazy">'
-        f'<span>{html.escape(i["alt"]) if i["alt"] else "без alt — декоративная"}</span></span>'
+        f'<span>{html.escape(i["alt"]) if i["alt"] else "без alt – декоративная"}</span></span>'
         for i in p["images"]
     ) or '<span class="chip warn">картинок на странице нет</span>'
     filled = sum(1 for i in p["images"] if i["alt"])
 
     kw_rows = "".join(
         f'<tr><td>{html.escape(k)}</td>'
-        f'<td class="num" title="Нужен источник частотностей по Беларуси">—</td>'
-        f'<td class="num" title="Нужен доступ к Яндекс.Вебмастеру">—</td>'
-        f'<td class="num" title="Нужен доступ к Google Search Console">—</td></tr>'
+        f'<td class="num" title="Нужен источник частотностей по Беларуси">–</td>'
+        f'<td class="num" title="Нужен доступ к Яндекс.Вебмастеру">–</td>'
+        f'<td class="num" title="Нужен доступ к Google Search Console">–</td></tr>'
         for k in p["keywords"]
     ) or '<tr><td colspan="4" style="color:#b3261e">Ключевые слова на странице не заданы</td></tr>'
 
     chips = "".join(f'<span class="chip">{html.escape(k)}</span>' for k in p["keywords"])
 
-    # Рабочее имя и сущность — как в списке: по ним о странице и говорят.
-    # Для каталога — сколько в нём товаров, для карточки — в каких каталогах она стоит.
+    # Рабочее имя и сущность – как в списке: по ним о странице и говорят.
+    # Для каталога – сколько в нём товаров, для карточки – в каких каталогах она стоит.
     name = p.get("name") or p["title"] or p["route"]
     entity = p.get("entity", "")
     extra = ""
@@ -331,7 +331,7 @@ def detail_body(p, site_url: str) -> str:
 <div class="fld"><div class="k">Ключевые слова ({len(p["keywords"])})</div>
 <div class="{"v" if chips else "v none"}"><div class="chips">{chips or "не заданы"}</div></div></div>
 <div class="fld"><div class="k">Структура заголовков</div>
-<div class="v">H2 — {len(p["h2"])}, H3 — {len(p["h3"])}</div></div>
+<div class="v">H2 – {len(p["h2"])}, H3 – {len(p["h3"])}</div></div>
 <div class="fld"><div class="k">Альт-теги картинок ({filled} из {len(p["images"])} заполнены)</div>
 <div class="v"><div class="alts">{alts}</div></div></div>
 </div>
@@ -341,7 +341,7 @@ def detail_body(p, site_url: str) -> str:
 {_checks(p["aeo"])}</div>
 
 <div class="panel"><h2>Попадание в GEO</h2>
-<p style="margin:0 0 10px;font-size:13px;color:#55605d">Привязка страницы к городу и стране — по ней нас находят по местным запросам.</p>
+<p style="margin:0 0 10px;font-size:13px;color:#55605d">Привязка страницы к городу и стране – по ней нас находят по местным запросам.</p>
 {_checks(p["geo"])}</div>
 
 <div class="panel"><h2>Кластер и запросы</h2>
@@ -351,8 +351,8 @@ def detail_body(p, site_url: str) -> str:
 <th>Показы в Яндексе,<br>за месяц</th><th>Показы в Google,<br>за месяц</th></tr>
 {kw_rows}</table>
 <p class="note">Частотности пока пустые: это внешние данные, из кода сайта их не взять.
-Спрос по Беларуси даёт Яндекс.Вордстат (или API Директа), показы — Яндекс.Вебмастер
+Спрос по Беларуси даёт Яндекс.Вордстат (или API Директа), показы – Яндекс.Вебмастер
 и Google Search Console. Пока домен не подключён и сайт закрыт от индексации, показов
-не существует в принципе. Как появится доступ, колонки заполнятся — разметка готова.</p>
+не существует в принципе. Как появится доступ, колонки заполнятся – разметка готова.</p>
 </div></div>
 </div></main>"""
