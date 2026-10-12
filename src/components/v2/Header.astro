@@ -38,12 +38,21 @@ const links = nav.map((l) => ({
       {links.map((l) => <a href={l.href}>{l.label}</a>)}
     </nav>
 
+    <div class="hdr__icons">
+      <a class="hdr__icon" href={site.phoneHref} aria-label={`Позвонить: ${site.phone}`}>
+        <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1z"/></svg>
+      </a>
+      <a class="hdr__icon" href={site.telegram} aria-label="Написать в Telegram" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M21.4 4.3 18.2 19.4c-.24 1.07-.87 1.33-1.77.83l-4.88-3.6-2.36 2.27c-.26.26-.48.48-.98.48l.35-4.97 9.05-8.18c.39-.35-.09-.54-.61-.2L5.83 13.08 1.02 11.57c-1.05-.33-1.07-1.05.22-1.55L19.98 2.8c.87-.32 1.63.2 1.42 1.5z"/></svg>
+      </a>
+    </div>
+
     <div class="hdr__actions">
       <a class="btn hdr__cta" href="/zeekr/catalog/">Каталог</a>
       <a class="btn btn--ghost hdr__cta" href="#service">Сервис</a>
     </div>
 
-    <MobileMenu client:media="(max-width: 1100px)" links={links} phone={site.phone} phoneHref={site.phoneHref} cta={ui.order} />
+    <MobileMenu client:media="(max-width: 1279px)" links={links} phone={site.phone} phoneHref={site.phoneHref} cta={ui.order} />
   </div>
 </header>
 
@@ -82,14 +91,36 @@ const links = nav.map((l) => ({
   }
   .hdr__logo img { height: 1.375rem; width: auto; }
 
-  .hdr__nav { display: none; gap: clamp(1rem, .4rem + 1.5vw, 1.75rem); }
-  .hdr__nav a { color: var(--c-text-2); font-size: .9375rem; transition: color .2s var(--ease); }
-  .hdr__nav a:hover { color: var(--c-text); }
+  .hdr__nav { display: none; gap: clamp(.75rem, .2rem + 1.2vw, 1.5rem); }
+  .hdr__nav a { color: var(--c-text-2); font-size: .9375rem; white-space: nowrap; transition: color .2s var(--ease); }
+  .hdr__nav a:hover { color: var(--c-accent); }
 
-  .hdr__actions { display: none; gap: .625rem; margin-left: auto; }
+  /* Иконки связи — квадратные кнопки; на телефоне стоят рядом с меню */
+  .hdr__icons { display: flex; gap: .5rem; margin-left: auto; }
+  .hdr__icon {
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border: 1px solid var(--c-line-strong, var(--c-line));
+    border-radius: var(--r-btn);
+    color: var(--c-text);
+    transition: color .2s var(--ease), border-color .2s var(--ease);
+  }
+  .hdr__icon:hover, .hdr__icon:focus-visible { color: var(--c-accent); border-color: var(--c-accent); }
+  /* иконки уже прижаты вправо — меню встаёт сразу за ними, а не делит место пополам */
+  .hdr__inner :global(.mm) { margin-left: 0; }
+  /* во второй версии полное меню влезает только с 1280 px — до этого нужен бургер,
+     а общее правило островов прячет его уже с 1101 px */
+  @media (min-width: 1101px) and (max-width: 1279px) { .hdr__inner :global(.mm) { display: block; } }
+  .hdr__inner :global(.mm__burger) { transition: border-color .2s var(--ease); }
+  .hdr__inner :global(.mm__burger:hover) { border-color: var(--c-accent); }
+  .hdr__inner :global(.mm__burger:hover .mm__bars i) { background: var(--c-accent); }
+
+  .hdr__actions { display: none; gap: .625rem; }
   .hdr__cta { white-space: nowrap; }
 
-  @media (min-width: 1101px) {
+  @media (min-width: 1280px) {
     .topbar__inner { display: flex; }
     .hdr__nav { display: flex; }
     .hdr__actions { display: flex; }
