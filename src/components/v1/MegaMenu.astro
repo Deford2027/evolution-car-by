@@ -1,0 +1,289 @@
+---
+/**
+ * Раскрывающееся меню по образцу evolutioncarservice.ru: слева акцентная
+ * карточка с заявкой, справа плитки разделов каталога с фото и счётчиками,
+ * ниже – остальные страницы. На телефоне то же столбиком, внизу закреплены
+ * «Позвонить» и «Оставить заявку».
+ *
+ * Сделано Astro-разметкой со скриптом, а не Preact-островом: содержимое
+ * статичное, ссылки должны быть в HTML для поисковиков, а скрипту нужно
+ * только открыть и закрыть панель. Панель – соседка <header>, а не его
+ * потомок: у шапки backdrop-filter, внутри неё fixed ведёт себя как absolute.
+ */
+import { site } from '../../content/site';
+import { cars, sections, carsOf } from '../../content/cars';
+
+const count = (slug: string) => {
+  const section = sections.find((s) => s.slug === slug);
+  return section ? carsOf(section).length : 0;
+};
+const brandsTotal = new Set(cars.map((c) => c.brand)).size;
+
+// «1 модель / 2 модели / 5 моделей», «1 марка / 2 марки / 5 марок»
+const plural = (n: number, one: string, few: string, many: string) => {
+  const m10 = n % 10, m100 = n % 100;
+  const word = m10 === 1 && m100 !== 11 ? one : m10 >= 2 && m10 <= 4 && (m100 < 12 || m100 > 14) ? few : many;
+  return `${n} ${word}`;
+};
+const models = (n: number) => plural(n, 'модель', 'модели', 'моделей');
+
+const tiles = [
+  { title: 'Авто в наличии', meta: `${models(count('v-nalichii'))} в шоуруме`, href: '/catalog/v-nalichii/', img: '/img/Rectangle_30754.png', pos: 'center 60%' },
+  { title: 'Авто под заказ', meta: `${models(count('pod-zakaz'))} – привезём`, href: '/catalog/pod-zakaz/', img: '/img/Frame_1171275437.png', pos: 'center 72%' },
+  { title: 'Электромобили', meta: models(count('elektromobili')), href: '/catalog/elektromobili/', img: '/img/Rectangle_30756.png', pos: 'center 65%' },
+  { title: 'Весь каталог', meta: `${plural(brandsTotal, 'марка', 'марки', 'марок')} · ${models(cars.length)}`, href: '/catalog/', img: '/img/Frame_1171275436.png', pos: 'center 72%', accent: true },
+];
+
+const links = [
+  { label: 'Доставка и растаможка', href: '/dostavka-i-rastamozhka/' },
+  { label: 'Пригнанные автомобили', href: '/portfolio/' },
+  { label: 'Отзывы', href: '/rew/' },
+  { label: 'О компании', href: '/about/' },
+  { label: 'Контакты и адрес', href: '/contact/' },
+];
+---
+
+<div class="mega" id="mega" hidden data-mega>
+  <div class="container mega__wrap">
+    <div class="mega__panel">
+      <div class="mega__lead">
+        <p class="mega__lead-title">Подберём автомобиль</p>
+        <p class="mega__lead-text">
+          Не знаете, что выбрать? Оставьте заявку – подберём под бюджет и рассчитаем стоимость под ключ.
+        </p>
+        <div class="mega__lead-actions">
+          <a class="mega__btn mega__btn--light" href="/#final" data-open="lead">Подобрать автомобиль</a>
+          <a class="mega__btn mega__btn--line" href={site.phoneHref}>Позвонить</a>
+        </div>
+      </div>
+
+      <ul class="mega__tiles">
+        {tiles.map((t) => (
+          <li>
+            <a class:list={['tile', { 'tile--accent': t.accent }]} href={t.href}>
+              <img src={t.img} alt="" loading="lazy" width="600" height="400" style={`object-position:${t.pos}`} />
+              <span class="tile__body">
+                <span class="tile__title">{t.title}</span>
+                <span class="tile__meta">{t.meta}</span>
+              </span>
+              <span class="tile__go" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="16" height="16"><path d="M7 17 17 7M9 7h8v8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /></svg>
+              </span>
+            </a>
+          </li>
+        ))}
+      </ul>
+
+      <nav class="mega__links" aria-label="Разделы сайта">
+        {links.map((l) => (
+          <a href={l.href}>
+            {l.label}
+            <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /></svg>
+          </a>
+        ))}
+      </nav>
+    </div>
+  </div>
+
+  <div class="mega__bar">
+    <a class="mega__btn mega__btn--line" href={site.phoneHref}>Позвонить</a>
+    <a class="mega__btn mega__btn--accent" href="/#final" data-open="lead">Оставить заявку</a>
+  </div>
+</div>
+
+<style>
+  .mega {
+    position: fixed;
+    inset: 0;
+    z-index: 55;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    padding-top: calc(var(--header-h) + .25rem);
+    background: var(--c-bg);
+  }
+  .mega[hidden] { display: none; }
+  .mega__wrap { padding-bottom: 1rem; }
+  .mega__panel { display: grid; gap: .75rem; }
+
+  /* акцентная карточка заявки – фирменный оранжевый вместо зелёного EV Service */
+  .mega__lead {
+    display: grid;
+    gap: .875rem;
+    align-content: start;
+    padding: 1.25rem;
+    border-radius: var(--r-card);
+    background: var(--c-accent);
+    color: var(--c-btn-text);
+  }
+  .mega__lead-title { font-family: var(--font-display); text-transform: uppercase; font-weight: 700; font-size: 1.625rem; line-height: 1.05; }
+  .mega__lead-text { font-size: .9375rem; line-height: 1.45; }
+  .mega__lead-actions { display: grid; gap: .5rem; margin-top: .25rem; }
+  /* на телефоне «Позвонить» уже закреплена внизу – в карточке не дублируем */
+  @media (max-width: 1023px) { .mega__lead .mega__btn--line { display: none; } }
+
+  .mega__btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 3rem;
+    padding: .75rem 1.25rem;
+    border-radius: var(--r-pill);
+    font-size: .9375rem;
+    font-weight: 600;
+    text-align: center;
+    transition: background .2s var(--ease), color .2s var(--ease), border-color .2s var(--ease);
+  }
+  .mega__btn--light { background: var(--c-surface-light); color: var(--c-text-on-light); }
+  .mega__btn--light:hover { background: var(--c-bg); color: var(--c-text); }
+  .mega__btn--line { border: 1px solid currentColor; }
+  .mega__btn--line:hover { background: rgba(255, 255, 255, .12); }
+  .mega__btn--accent { background: var(--c-accent); color: var(--c-btn-text); }
+  .mega__btn--accent:hover { background: var(--c-accent-hover); }
+
+  .mega__tiles { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .75rem; }
+  .tile {
+    position: relative;
+    display: grid;
+    align-items: end;
+    min-height: 9.5rem;
+    height: 100%;
+    border-radius: var(--r-card);
+    overflow: hidden;
+    isolation: isolate;
+    border: 1px solid var(--c-line);
+    background: var(--c-surface);
+  }
+  .tile img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -2;
+    transition: transform .5s var(--ease);
+  }
+  .tile::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: linear-gradient(0deg, rgba(0, 4, 12, .92) 0%, rgba(0, 4, 12, .35) 55%, rgba(0, 4, 12, .1) 100%);
+  }
+  .tile--accent { border-color: var(--c-accent); }
+  .tile--accent::after { background: linear-gradient(0deg, rgba(255, 81, 2, .92) 0%, rgba(255, 81, 2, .35) 55%, rgba(0, 4, 12, .05) 100%); }
+  .tile__body { display: grid; gap: .25rem; padding: .875rem; }
+  .tile__title { font-weight: 600; font-size: 1rem; line-height: 1.2; }
+  .tile__meta { color: var(--c-text-2); font-size: .75rem; }
+  .tile--accent .tile__meta { color: var(--c-text); }
+  .tile__go {
+    position: absolute;
+    top: .75rem;
+    right: .75rem;
+    display: grid;
+    place-items: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: var(--r-btn);
+    border: 1px solid rgba(255, 255, 255, .35);
+    background: rgba(0, 4, 12, .35);
+    transition: background .2s var(--ease), border-color .2s var(--ease);
+  }
+  .tile:hover img { transform: scale(1.05); }
+  .tile:hover .tile__go { background: var(--c-accent); border-color: var(--c-accent); }
+
+  .mega__links { display: grid; border-top: 1px solid var(--c-line); margin-top: .25rem; }
+  .mega__links a {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem .25rem;
+    border-bottom: 1px solid var(--c-line);
+    font-size: 1rem;
+    transition: color .2s var(--ease);
+  }
+  .mega__links a:hover { color: var(--c-accent); }
+
+  /* телефон: кнопки закреплены внизу экрана поверх прокрутки */
+  .mega__bar {
+    position: sticky;
+    bottom: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: .5rem;
+    padding: .75rem var(--gutter) calc(.75rem + env(safe-area-inset-bottom));
+    background: var(--c-bg);
+    border-top: 1px solid var(--c-line);
+  }
+
+  @media (min-width: 640px) {
+    .tile { min-height: 11rem; }
+    .tile__title { font-size: 1.125rem; }
+  }
+
+  /* Десктоп: панель выпадает под шапкой поверх страницы, как у EV Service –
+     заявка слева, плитки 2×2 справа, ссылки строкой снизу. */
+  @media (min-width: 1024px) {
+    .mega { background: rgba(0, 4, 12, .62); backdrop-filter: blur(6px); }
+    .mega__panel {
+      grid-template-columns: minmax(0, 20rem) minmax(0, 1fr);
+      gap: 1rem;
+      padding: 1rem;
+      border-radius: calc(var(--r-card) + 8px);
+      background: var(--c-surface);
+      border: 1px solid var(--c-line);
+      box-shadow: var(--shadow);
+    }
+    .mega__lead { padding: 1.75rem; gap: 1rem; }
+    .mega__lead-title { font-size: 2.25rem; }
+    .mega__lead-actions { margin-top: auto; }
+    .mega__lead { grid-template-rows: auto auto 1fr; }
+    .mega__tiles { gap: 1rem; }
+    .tile { min-height: 13.5rem; }
+    .tile__body { padding: 1.25rem; }
+    .tile__title { font-size: 1.375rem; }
+    .tile__meta { font-size: .8125rem; }
+    .tile__go { top: auto; bottom: 1.25rem; right: 1.25rem; width: 2.75rem; height: 2.75rem; }
+    .mega__links {
+      grid-column: 1 / -1;
+      display: flex;
+      flex-wrap: wrap;
+      gap: .5rem;
+      border-top: 0;
+      margin-top: 0;
+    }
+    .mega__links a {
+      gap: .5rem;
+      padding: .625rem 1rem;
+      border: 1px solid var(--c-line-strong);
+      border-radius: var(--r-pill);
+      font-size: .875rem;
+    }
+    .mega__links a:hover { border-color: var(--c-accent); }
+    .mega__bar { display: none; }
+  }
+</style>
+
+<script>
+  const mega = document.querySelector<HTMLElement>('[data-mega]');
+  const toggles = document.querySelectorAll<HTMLButtonElement>('[data-mega-toggle]');
+
+  const setOpen = (open: boolean) => {
+    if (!mega) return;
+    mega.hidden = !open;
+    document.documentElement.classList.toggle('is-mega-open', open);
+    document.body.style.overflow = open ? 'hidden' : '';
+    for (const t of toggles) {
+      t.setAttribute('aria-expanded', String(open));
+      t.setAttribute('aria-label', open ? 'Закрыть меню' : 'Открыть меню');
+    }
+  };
+
+  for (const t of toggles) t.addEventListener('click', () => setOpen(!!mega?.hidden));
+  addEventListener('keydown', (e) => e.key === 'Escape' && setOpen(false));
+  // клик по ссылке или кнопке заявки закрывает меню; клик по пустому полю
+  // вокруг панели на десктопе – тоже
+  mega?.addEventListener('click', (e) => {
+    const target = e.target as HTMLElement;
+    if (target.closest('a') || target === mega || target.classList.contains('mega__wrap')) setOpen(false);
+  });
+</script>

@@ -1,9 +1,11 @@
 ---
-import { site, nav, ui } from '../../content/site';
-import MobileMenu from '../islands/MobileMenu.tsx';
-
-// на внутренних страницах якоря ведут на главную
-const links = nav.map((l) => ({ ...l, href: l.href.startsWith('#') ? '/' + l.href : l.href }));
+/**
+ * Шапка по образцу evolutioncarservice.ru: без строки из восьми ссылок –
+ * логотип, телефон, квадратные иконки звонка и Telegram, кнопка заявки и
+ * «Меню», которое раскрывает MegaMenu. Все разделы – в нём.
+ */
+import { site } from '../../content/site';
+import MegaMenu from './MegaMenu.astro';
 ---
 
 <header class="hdr">
@@ -13,28 +15,31 @@ const links = nav.map((l) => ({ ...l, href: l.href.startsWith('#') ? '/' + l.hre
         <img src="/img/EVOLUTION_CARS_.svg" alt="" width="123" height="23" />
       </a>
 
-      <nav class="hdr__nav" aria-label="Основное меню">
-        {links.map((l) => <a href={l.href}>{l.label}</a>)}
-      </nav>
+      <a class="hdr__phone" href={site.phoneHref}>
+        <span class="hdr__phone-num">{site.phone}</span>
+        <span class="hdr__phone-hours">{site.hoursFull}</span>
+      </a>
 
-      <div class="hdr__side">
-        <a class="hdr__phone" href={site.phoneHref}>
-          <span class="hdr__phone-num">{site.phone}</span>
-          <span class="hdr__phone-hours">{site.hoursShort}</span>
+      <div class="hdr__icons">
+        <a class="hdr__icon" href={site.phoneHref} aria-label={`Позвонить: ${site.phone}`}>
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M6.6 10.8a15.2 15.2 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1l-2.3 2.2Z"/></svg>
         </a>
-        <a class="hdr__icon" href={site.telegram} aria-label="Telegram" target="_blank" rel="noopener">
+        <a class="hdr__icon" href={site.telegram} aria-label="Написать в Telegram" target="_blank" rel="noopener">
           <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M21.9 4.3 18.7 19c-.2 1-.9 1.3-1.8.8l-4.9-3.6-2.4 2.3c-.3.3-.5.5-1 .5l.4-5 9.1-8.2c.4-.3-.1-.5-.6-.2L6.3 12.7 1.5 11.2c-1-.3-1-1 .2-1.5l19-7.3c.9-.3 1.6.2 1.2 1.9Z"/></svg>
         </a>
-        <a class="hdr__icon" href={site.whatsapp} aria-label="WhatsApp" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.8 4.9-1.3A10 10 0 1 0 12 2Zm5.6 14.1c-.2.7-1.3 1.3-1.9 1.3-.5 0-1.1.2-3.6-.8-3-1.3-5-4.4-5.1-4.6-.2-.2-1.3-1.7-1.3-3.3 0-1.5.8-2.3 1.1-2.6.3-.3.6-.4.8-.4h.6c.2 0 .5-.1.7.5l1 2.4c.1.2.1.4 0 .6l-.4.6c-.1.2-.3.3-.1.6.1.3.7 1.2 1.5 1.9 1 .9 1.8 1.2 2.1 1.3.3.1.4.1.6-.1l.8-1c.2-.2.4-.2.6-.1l2.2 1c.2.1.4.2.5.3.1.2.1.6-.1 1.4Z"/></svg>
-        </a>
-        <a class="btn btn--ghost hdr__cta" href="#final">{ui.order}</a>
       </div>
 
-      <MobileMenu client:media="(max-width: 1100px)" links={links} phone={site.phone} phoneHref={site.phoneHref} cta={ui.order} />
+      <a class="hdr__cta" href="/#final" data-open="lead">Подобрать авто</a>
+
+      <button class="hdr__menu" type="button" aria-controls="mega" aria-expanded="false" aria-label="Открыть меню" data-mega-toggle>
+        <span class="hdr__menu-label">Меню</span>
+        <span class="hdr__bars" aria-hidden="true"><i></i><i></i><i></i></span>
+      </button>
     </div>
   </div>
 </header>
+
+<MegaMenu />
 
 <style>
   .hdr {
@@ -46,50 +51,72 @@ const links = nav.map((l) => ({ ...l, href: l.href.startsWith('#') ? '/' + l.hre
   .hdr__bar {
     display: flex;
     align-items: center;
-    gap: clamp(1rem, 2vw, 2.5rem);
-    padding: .875rem 1rem .875rem 1.75rem;
+    gap: .5rem;
+    padding: .625rem .625rem .625rem 1.25rem;
     border-radius: var(--r-pill);
     background: rgba(16, 20, 28, .82);
     backdrop-filter: blur(14px);
     border: 1px solid var(--c-line);
   }
-  .hdr__logo img { width: 123px; height: auto; }
-  .hdr__nav {
-    display: none;
-    gap: clamp(.75rem, 1.4vw, 1.5rem);
-    font-size: .8125rem;
-    color: var(--c-text-2);
-  }
-  .hdr__nav a { transition: color .2s var(--ease); white-space: nowrap; }
-  .hdr__nav a:hover { color: var(--c-accent); }
-  .hdr__side { display: none; align-items: center; gap: .625rem; margin-left: auto; }
-  .hdr__phone { display: grid; line-height: 1.25; text-align: right; margin-right: .5rem; }
-  .hdr__phone { white-space: nowrap; }
-  .hdr__phone-num { font-size: .8125rem; font-weight: 500; }
-  .hdr__phone-hours { font-size: .6875rem; color: var(--c-text-3); }
-  .hdr__icon {
+  .hdr__logo { flex: none; margin-right: auto; }
+  .hdr__logo img { width: 112px; height: auto; display: block; }
+
+  .hdr__phone { display: none; line-height: 1.25; white-space: nowrap; margin-right: .75rem; }
+  .hdr__phone-num { display: block; font-size: .9375rem; font-weight: 600; transition: color .2s var(--ease); }
+  .hdr__phone-hours { display: block; font-size: .75rem; color: var(--c-text-3); }
+  .hdr__phone:hover .hdr__phone-num { color: var(--c-accent); }
+
+  .hdr__icons { display: flex; gap: .5rem; }
+  .hdr__icon,
+  .hdr__menu {
     display: grid;
     place-items: center;
-    width: 44px; height: 44px;
-    border-radius: 50%;
+    height: 44px;
+    min-width: 44px;
+    border-radius: 10px;
     border: 1px solid var(--c-line-strong);
     color: var(--c-text);
-    transition: background .2s var(--ease), border-color .2s var(--ease);
+    transition: color .2s var(--ease), border-color .2s var(--ease), background .2s var(--ease);
   }
-  .hdr__icon:hover { background: var(--c-btn2-bg-hover); border-color: var(--c-accent); }
-  .hdr__cta {
-    padding: .75rem 1.5rem;
-    border-radius: var(--r-pill);
-    border-color: rgba(255, 255, 255, .5);
-    background: transparent;
-    text-transform: none;
-    letter-spacing: 0;
-    font-size: .875rem;
-    font-weight: 500;
-  }
-  .hdr__cta:hover { background: var(--c-accent); border-color: var(--c-accent); }
+  .hdr__icon:hover, .hdr__icon:focus-visible { color: var(--c-accent); border-color: var(--c-accent); }
 
-  @media (min-width: 1101px) {
-    .hdr__nav, .hdr__side { display: flex; }
+  .hdr__cta {
+    display: none;
+    align-items: center;
+    height: 44px;
+    padding-inline: 1.25rem;
+    border-radius: 10px;
+    background: var(--c-accent);
+    color: var(--c-btn-text);
+    font-size: .875rem;
+    font-weight: 600;
+    white-space: nowrap;
+    transition: background .2s var(--ease);
+  }
+  .hdr__cta:hover { background: var(--c-accent-hover); }
+
+  .hdr__menu { display: flex; gap: .625rem; padding-inline: .75rem; }
+  .hdr__menu-label { display: none; font-size: .875rem; font-weight: 600; }
+  .hdr__menu:hover, .hdr__menu[aria-expanded='true'] { color: var(--c-accent); border-color: var(--c-accent); }
+  .hdr__bars { display: grid; gap: 4px; width: 18px; }
+  .hdr__bars i {
+    display: block;
+    height: 1.5px;
+    background: currentColor;
+    transition: transform .25s var(--ease), opacity .25s var(--ease);
+  }
+  .hdr__menu[aria-expanded='true'] .hdr__bars i:nth-child(1) { transform: translateY(5.5px) rotate(45deg); }
+  .hdr__menu[aria-expanded='true'] .hdr__bars i:nth-child(2) { opacity: 0; }
+  .hdr__menu[aria-expanded='true'] .hdr__bars i:nth-child(3) { transform: translateY(-5.5px) rotate(-45deg); }
+
+  @media (min-width: 768px) {
+    .hdr__cta { display: inline-flex; }
+    .hdr__menu-label { display: inline; }
+    .hdr__menu { padding-inline: 1rem; }
+  }
+  @media (min-width: 1024px) {
+    .hdr__bar { padding-left: 1.75rem; gap: .625rem; }
+    .hdr__logo img { width: 123px; }
+    .hdr__phone { display: block; }
   }
 </style>
