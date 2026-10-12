@@ -19,6 +19,10 @@
   --c-accent: #ef7844;
   --c-accent-hover: #f68e60;
   --c-accent-soft: #ef784424;
+  /* фирменные цвета мессенджеров – для круглых кнопок с логотипами */
+  --c-telegram: #229ed9;
+  --c-whatsapp: #25d366;
+  --c-on-brand: #ffffff;
   --c-ok: #7bb79a;
   --c-ok-soft: #7bb79a21;
 

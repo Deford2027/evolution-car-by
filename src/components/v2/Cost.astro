@@ -22,17 +22,20 @@ import { site } from '../../content/site';
       <button class="btn btn--block" type="button" data-open="quiz">{calc.cta}</button>
 
       <div class="manager">
-        <img src="/img/IMG_7468_1.png" alt="" loading="lazy" width="840" height="970" />
-        <div>
-          <p class="manager__name">{calc.manager.name}</p>
-          <p class="manager__role">{calc.manager.role}</p>
+        <span class="manager__photo">
+          <img src="/img/IMG_7468_1.png" alt={`${calc.manager.name}, ${calc.manager.role.toLowerCase()}`} loading="lazy" width="840" height="970" />
+        </span>
+        <p class="manager__name">{calc.manager.name}</p>
+        <p class="manager__role">{calc.manager.role}</p>
+        <a class="manager__phone" href={site.phoneHref}>{site.phone}</a>
+        <div class="messengers">
+          <a class="messenger messenger--tg" href={site.telegram} target="_blank" rel="noopener" aria-label="Написать в Telegram">
+            <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path fill="currentColor" d="M21.4 4.3 18.2 19.4c-.24 1.07-.87 1.33-1.77.83l-4.88-3.6-2.36 2.27c-.26.26-.48.48-.98.48l.35-4.97 9.05-8.18c.39-.35-.09-.54-.61-.2L5.83 13.08 1.02 11.57c-1.05-.33-1.07-1.05.22-1.55L19.98 2.8c.87-.32 1.63.2 1.42 1.5z"/></svg>
+          </a>
+          <a class="messenger messenger--wa" href={site.whatsapp} target="_blank" rel="noopener" aria-label="Написать в WhatsApp">
+            <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path fill="currentColor" d="M12.04 2C6.55 2 2.1 6.45 2.1 11.94c0 1.75.46 3.46 1.33 4.97L2 22l5.22-1.37a9.9 9.9 0 0 0 4.82 1.23h.01c5.48 0 9.94-4.45 9.94-9.94A9.93 9.93 0 0 0 12.04 2zm5.8 14.03c-.24.68-1.42 1.3-1.96 1.34-.5.05-.97.22-3.28-.68-2.77-1.09-4.53-3.93-4.67-4.11-.13-.18-1.11-1.48-1.11-2.83 0-1.34.7-2 .95-2.28.25-.27.54-.34.72-.34h.52c.17 0 .4-.06.62.48.24.56.8 1.94.87 2.08.07.14.11.3.02.48-.09.18-.14.3-.27.46-.14.16-.29.36-.41.48-.14.14-.28.29-.12.56.16.27.71 1.18 1.53 1.91 1.05.94 1.94 1.23 2.21 1.37.27.14.43.12.59-.07.16-.18.68-.8.86-1.07.18-.27.36-.23.61-.14.25.09 1.59.75 1.86.89.27.14.45.2.52.32.07.11.07.66-.17 1.33z"/></svg>
+          </a>
         </div>
-      </div>
-
-      <div class="panel__links">
-        <a href={site.phoneHref}>{site.phone}</a>
-        <a href={site.telegram}>Telegram</a>
-        <a href={site.whatsapp}>WhatsApp</a>
       </div>
     </aside>
   </div>
@@ -83,26 +86,51 @@ import { site } from '../../content/site';
   .panel__title { font-family: var(--font-display); font-size: 1.25rem; }
   .panel__text { color: var(--c-text-2); font-size: .875rem; line-height: 1.5; }
 
+  /* Менеджер – по центру, как у эталона: фото, имя, должность, телефон
+     и круглые кнопки мессенджеров с их логотипами. */
   .manager {
-    display: flex;
-    align-items: center;
-    gap: .875rem;
-    padding-top: 1rem;
+    display: grid;
+    justify-items: center;
+    text-align: center;
+    gap: .25rem;
+    padding-top: 1.25rem;
     border-top: 1px solid var(--c-line);
   }
-  .manager img {
-    width: 3.25rem;
-    height: 3.25rem;
+  /* на исходном фото фигура в полный рост – в круге приближаем к лицу */
+  .manager__photo {
+    width: 6rem;
+    height: 6rem;
     border-radius: 50%;
-    object-fit: cover;
-    object-position: center 18%;
+    overflow: hidden;
+    margin-bottom: .5rem;
+    background: var(--c-surface);
   }
-  .manager__name { font-weight: 600; }
+  .manager__photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 50% 0;
+    transform: scale(1.8);
+    transform-origin: 50% 10%;
+  }
+  .manager__name { font-family: var(--font-display); font-size: 1.125rem; }
   .manager__role { color: var(--c-text-3); font-size: .8125rem; }
+  .manager__phone { color: var(--c-text); font-weight: 600; margin-top: .625rem; }
+  .manager__phone:hover { color: var(--c-accent); }
 
-  .panel__links { display: flex; flex-wrap: wrap; gap: 1rem; font-size: .875rem; }
-  .panel__links a { color: var(--c-accent); }
-  .panel__links a:hover { color: var(--c-accent-hover); }
+  .messengers { display: flex; gap: .75rem; margin-top: .75rem; }
+  .messenger {
+    display: grid;
+    place-items: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: 50%;
+    color: var(--c-on-brand);
+    transition: transform .2s var(--ease), filter .2s var(--ease);
+  }
+  .messenger:hover, .messenger:focus-visible { transform: translateY(-2px); filter: brightness(1.08); }
+  .messenger--tg { background: var(--c-telegram); }
+  .messenger--wa { background: var(--c-whatsapp); }
 
   @media (min-width: 1024px) {
     .cost__inner { grid-template-columns: minmax(0, 1fr) minmax(0, 25rem); gap: 4rem; }
