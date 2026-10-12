@@ -9,7 +9,7 @@ import { hero } from '../../content/home';
       <h1>{hero.title}</h1>
       <p class="hero__lead">{hero.lead}</p>
     </div>
-    <a class="btn hero__cta" href="#final">{hero.cta}</a>
+    <a class="btn hero__cta" href="#final" data-open="lead">{hero.cta}</a>
   </div>
 </section>
 
@@ -53,6 +53,27 @@ import { hero } from '../../content/home';
     font-size: 1.0625rem;
   }
   .hero__cta { justify-self: start; min-width: min(100%, 20rem); }
+
+  /* Телефон – как эталон на Tilda: картинка целиком под шапкой, без
+     растягивания на весь экран, текст и кнопка под ней, а не поверх машин. */
+  @media (max-width: 767px) {
+    .hero { min-height: 0; display: block; padding-top: calc(var(--header-h) + 1rem); }
+    .hero__bg {
+      position: relative;
+      inset: auto;
+      display: block;
+      height: auto;
+      aspect-ratio: 1448 / 1086;
+      object-position: center;
+    }
+    .hero::after {
+      background:
+        linear-gradient(180deg, rgba(0, 4, 12, .72) 0, rgba(0, 4, 12, 0) calc(var(--header-h) + 1rem)),
+        linear-gradient(180deg, transparent calc(var(--header-h) + 1rem + 48vw), var(--c-bg) calc(var(--header-h) + 1rem + 75vw));
+    }
+    .hero__inner { gap: 1.5rem; margin-top: -2rem; padding-bottom: 2rem; }
+    .hero__cta { justify-self: stretch; min-width: 0; }
+  }
 
   @media (min-width: 1024px) {
     .hero__inner {

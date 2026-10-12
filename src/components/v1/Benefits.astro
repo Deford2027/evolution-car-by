@@ -4,7 +4,7 @@ import { benefits } from '../../content/home';
 
 <section class="section benefits">
   <div class="container">
-    <ul class="grid grid--4">
+    <ul class="grid grid--4 benefits__list">
       {benefits.map((item) => (
         <li class="card benefit">
           <span class="benefit__dot" aria-hidden="true"></span>
@@ -18,6 +18,25 @@ import { benefits } from '../../content/home';
 
 <style>
   .benefits { padding-block: clamp(2rem, 1rem + 4vw, 4rem); }
+
+  /* телефон: буллеты слайдером вправо – следующая карточка выглядывает с края */
+  @media (max-width: 639px) {
+    .benefits__list {
+      grid-template-columns: none;
+      grid-auto-flow: column;
+      grid-auto-columns: 78%;
+      gap: .75rem;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: none;
+      margin-inline: calc(var(--gutter) * -1);
+      padding-inline: var(--gutter);
+      scroll-padding-inline: var(--gutter);
+    }
+    .benefits__list::-webkit-scrollbar { display: none; }
+    .benefits__list > li { scroll-snap-align: start; }
+    .benefit__dot { margin-bottom: 1.25rem; }
+  }
 
   .benefit {
     padding: clamp(1.5rem, 1rem + 1.5vw, 2rem);
