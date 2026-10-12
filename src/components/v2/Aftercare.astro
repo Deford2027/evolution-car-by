@@ -58,16 +58,32 @@ import { service } from '../../content/home';
   }
   .media__play:hover { background: var(--c-btn-bg); border-color: transparent; }
 
-  .list-wrap { display: grid; align-content: start; gap: 1.75rem; }
-  .list { display: grid; border-top: 1px solid var(--c-line); }
+  .list-wrap { display: grid; align-content: start; gap: 1.5rem; }
+  /* виды работ – плашками с оранжевой точкой, как у эталона на Tilda */
+  .list { display: grid; gap: .5rem; }
   .list__item {
-    padding-block: .9375rem;
-    border-bottom: 1px solid var(--c-line);
+    display: flex;
+    align-items: center;
+    gap: .75rem;
+    padding: .8125rem 1rem;
+    border: 1px solid var(--c-line);
+    border-radius: var(--r-btn);
+    background: var(--c-surface);
     color: var(--c-text-2);
     font-size: .9375rem;
+    line-height: 1.35;
+  }
+  .list__item::before {
+    content: '';
+    flex: none;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--c-accent);
   }
   @media (min-width: 560px) {
-    .list { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 2rem; }
+    .list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   }
-  .service__cta { justify-self: start; }
+  .service__cta { justify-content: center; }
+  @media (min-width: 560px) { .service__cta { justify-self: start; } }
 </style>
