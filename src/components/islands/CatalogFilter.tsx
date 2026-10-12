@@ -59,6 +59,14 @@ export default function CatalogFilter({ facets, cars, total }: Props) {
         <div class="filter__row" key={key}>
           <p class="filter__label">{LABELS[key]}</p>
           <div class="filter__chips">
+            <button
+              type="button"
+              class={picked[key] === null ? 'filter__chip is-active' : 'filter__chip'}
+              aria-pressed={picked[key] === null}
+              onClick={() => setPicked((prev) => ({ ...prev, [key]: null }))}
+            >
+              Все
+            </button>
             {facets[key].map((facet) => (
               <button
                 key={facet.value}
