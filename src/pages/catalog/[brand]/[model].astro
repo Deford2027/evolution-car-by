@@ -214,7 +214,7 @@ const similar = cars
         <section class="section section--tight">
           <div class="container">
             <h2 class="block__title">Похожие автомобили</h2>
-            <ul class="similar">
+            <ul class="product-grid">
               {similar.map((item) => <li><CarCard car={item} /></li>)}
             </ul>
           </div>
@@ -358,10 +358,6 @@ const similar = cars
   .request__title { font-size: clamp(1.5rem, 1.2rem + 1.4vw, 2.25rem); }
   .request__text { color: var(--c-text-3); font-size: .9375rem; margin-top: 1rem; max-width: 56ch; }
 
-  .similar { display: grid; gap: var(--gap); }
-  @media (min-width: 640px) { .similar { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-  @media (min-width: 1024px) { .similar { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
-  .similar li { display: grid; }
 
   .disclaimer {
     padding-bottom: clamp(2rem, 1.5rem + 2vw, 3rem);

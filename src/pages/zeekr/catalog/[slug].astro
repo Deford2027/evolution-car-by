@@ -187,7 +187,7 @@ const description =
         <section class="section section--tight">
           <div class="container">
             <h2 class="title">Похожие модели</h2>
-            <ul class="grid">
+            <ul class="product-grid">
               {similar.map((item) => <li><CarCard car={item} /></li>)}
             </ul>
           </div>
@@ -295,10 +295,6 @@ const description =
     padding: clamp(1.5rem, 1rem + 2vw, 2rem);
   }
 
-  .grid { display: grid; gap: var(--gap); }
-  @media (min-width: 640px) { .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-  @media (min-width: 1024px) { .grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
-  .grid li { display: grid; }
 
   .note {
     padding-bottom: clamp(2rem, 1.5rem + 2vw, 3rem);

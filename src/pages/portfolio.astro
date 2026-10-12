@@ -28,7 +28,7 @@ const delivered = cars.filter((c) => c.availability === 'in-stock');
     <section class="section" style="padding-top:0">
       <div class="container">
         {delivered.length > 0 && (
-          <ul class="cards">
+          <ul class="product-grid">
             {delivered.map((car) => <li><CarCard car={car} /></li>)}
           </ul>
         )}
@@ -49,10 +49,7 @@ const delivered = cars.filter((c) => c.availability === 'in-stock');
 </BaseLayout>
 
 <style>
-  .cards { display: grid; gap: var(--gap); margin-bottom: clamp(2rem, 1.2rem + 3vw, 3rem); }
-  @media (min-width: 640px) { .cards { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-  @media (min-width: 1024px) { .cards { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
-  .cards li { display: grid; }
+  .product-grid { margin-bottom: clamp(2rem, 1.2rem + 3vw, 3rem); }
 
   .note {
     padding: clamp(1.75rem, 1rem + 2.5vw, 3rem);
