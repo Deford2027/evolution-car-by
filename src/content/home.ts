@@ -177,6 +177,9 @@ export const footer = {
     ] },
     { title: 'Компания:', links: [
       { label: 'О компании', href: '/about/' },
+      { label: 'Для бизнеса', href: '/dlya-biznesa/' },
+      { label: 'Для таксопарков', href: '/dlya-taksoparkov/' },
+      { label: 'Партнёрам', href: '/partneram/' },
       { label: 'Доставка и растаможка', href: '/dostavka-i-rastamozhka/' },
       { label: 'Пригнанные авто', href: '/portfolio/' },
       { label: 'Отзывы', href: '/rew/' },
