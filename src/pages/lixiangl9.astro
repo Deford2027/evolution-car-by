@@ -289,7 +289,7 @@ const similar = cars.filter((c) => c.brand === car.brand && c.slug !== car.slug)
         <section class="section section--tight">
           <div class="container">
             <h2 class="block__title">Другие модели Lixiang</h2>
-            <ul class="similar">
+            <ul class="product-grid">
               {similar.map((item) => <li><CarCard car={item} /></li>)}
             </ul>
           </div>
@@ -408,10 +408,6 @@ const similar = cars.filter((c) => c.brand === car.brand && c.slug !== car.slug)
   .faq__q:focus-visible { outline: 2px solid var(--c-accent); outline-offset: 4px; }
   .faq__a { color: var(--c-text-2); margin-top: .625rem; line-height: 1.6; }
 
-  .similar { display: grid; gap: var(--gap); }
-  @media (min-width: 640px) { .similar { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-  @media (min-width: 1024px) { .similar { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
-  .similar li { display: grid; }
 
   .disclaimer { padding-bottom: clamp(2rem, 1.5rem + 2vw, 3rem); color: var(--c-text-3); font-size: .75rem; line-height: 1.5; max-width: 92ch; }
 </style>
