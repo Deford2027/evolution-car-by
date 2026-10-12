@@ -18,6 +18,7 @@ const paths = [
     '/dostavka-i-rastamozhka/',
   ...cities.map((c) => `/${c.slug}/`),
   '/catalog/',
+  '/catalog/lixiang/l9/konfigurator/',
   ...allBrands().map((b) => `/catalog/${b.slug}/`),
   ...sections.map((s) => `/catalog/${s.slug}/`),
   ...cars.map((c) => carPath(c)),
