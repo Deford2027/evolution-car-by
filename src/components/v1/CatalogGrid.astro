@@ -47,8 +47,9 @@ const facets = {
 </ul>
 
 <style>
-  .grid-cars { display: grid; gap: var(--gap); }
-  @media (min-width: 640px) { .grid-cars { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  /* на телефоне две карточки в ряд — карточка сама сжимается (CarCard, container query) */
+  .grid-cars { display: grid; gap: .625rem; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  @media (min-width: 640px) { .grid-cars { gap: var(--gap); } }
   @media (min-width: 1024px) { .grid-cars { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
   .grid-cars li { display: grid; }
   /* без этого display: grid выше перебивает атрибут hidden, и фильтр не прячет машины */

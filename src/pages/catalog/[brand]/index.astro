@@ -254,8 +254,9 @@ const others = popularBrands().filter((b) => b.slug !== brand.slug).slice(0, 8);
   }
   .chip--link:hover { border-color: var(--c-accent); color: var(--c-text); }
 
-  .cards { display: grid; gap: var(--gap); }
-  @media (min-width: 640px) { .cards { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  /* на телефоне две карточки в ряд — карточка сама сжимается (CarCard, container query) */
+  .cards { display: grid; gap: .625rem; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  @media (min-width: 640px) { .cards { gap: var(--gap); } }
   @media (min-width: 1024px) { .cards { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
   .cards li { display: grid; }
 
