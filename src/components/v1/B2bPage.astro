@@ -1,0 +1,271 @@
+---
+/**
+ * Шаблон страниц для корпоративных клиентов: «Для бизнеса», «Для
+ * таксопарков», «Партнёрам». Тексты перенесены со старого сайта
+ * (evolutioncar.by/malanka, /taxi, /invite2) и вычитаны. Общий каркас:
+ * первый экран с фото и кнопкой заявки → три шага/сценария → блок с
+ * пунктами (и машины из каталога, если они есть) → форма → контакты.
+ */
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from './Header.astro';
+import Footer from './Footer.astro';
+import Breadcrumbs from './Breadcrumbs.astro';
+import Contacts from './Contacts.astro';
+import CarCard from './CarCard.astro';
+import ModalHost from '../islands/ModalHost';
+import LeadForm from '../islands/LeadForm';
+import { getCar, type Car } from '../../content/cars';
+import { quiz, finalOffer } from '../../content/home';
+import { breadcrumbsLd, abs } from '../../lib/seo';
+
+export interface B2bContent {
+  path: string;
+  seoTitle: string;
+  seoDescription: string;
+  kicker: string;
+  h1: string;
+  lead: string;
+  cta: string;
+  image: string;
+  /** цепочка «кто → кто», как схема на старой странице партнёров */
+  chain?: { title: string; note: string }[];
+  steps: { title: string; items: { num: string; title: string; text: string }[] };
+  cars?: { title: string; text: string; slugs: string[]; note: string };
+  focus: { title: string; text: string; points: string[]; link?: { label: string; href: string } };
+  final: { title: string; text: string; source: string };
+}
+
+interface Props { page: B2bContent }
+const { page } = Astro.props;
+
+const crumbs = [
+  { name: 'Главная', href: '/' },
+  { name: page.kicker, href: page.path },
+];
+const cars = (page.cars?.slugs ?? []).map(getCar).filter((c): c is Car => Boolean(c));
+---
+
+<BaseLayout
+  theme="v1"
+  title={page.seoTitle}
+  description={page.seoDescription}
+  canonical={abs(page.path)}
+  jsonLd={[breadcrumbsLd(crumbs)]}
+>
+  <Header />
+  <Breadcrumbs crumbs={crumbs} />
+
+  <main>
+    <section class="section b2b-hero">
+      <div class="container b2b-hero__grid">
+        <div class="b2b-hero__copy">
+          <p class="kicker">[ {page.kicker} ]</p>
+          <h1>{page.h1}</h1>
+          <p class="b2b-hero__lead">{page.lead}</p>
+          <a class="btn b2b-hero__cta" href="#final" data-open="lead">{page.cta}</a>
+        </div>
+        <div class="b2b-hero__shot">
+          <img src={page.image} alt="" width="900" height="900" fetchpriority="high" />
+        </div>
+      </div>
+    </section>
+
+    {page.chain && (
+      <section class="section section--tight">
+        <div class="container">
+          <ol class="chain">
+            {page.chain.map((node, i) => (
+              <li class:list={['chain__node', { 'chain__node--accent': i === 1 }]}>
+                <span class="chain__title">{node.title}</span>
+                <span class="chain__note">{node.note}</span>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </section>
+    )}
+
+    {page.cars && cars.length > 0 && (
+      <section class="section">
+        <div class="container">
+          <div class="b2b-head">
+            <h2>{page.cars.title}</h2>
+            <p class="b2b-head__lead">{page.cars.text}</p>
+          </div>
+          <div class="product-grid b2b-cars">
+            {cars.map((car) => <CarCard car={car} />)}
+          </div>
+          <p class="b2b-note">{page.cars.note}</p>
+        </div>
+      </section>
+    )}
+
+    <section class="section">
+      <div class="container">
+        <div class="b2b-head">
+          <h2>{page.steps.title}</h2>
+        </div>
+        <ol class="b2b-steps">
+          {page.steps.items.map((item) => (
+            <li class="card b2b-step">
+              <span class="b2b-step__num">{item.num}</span>
+              <h3 class="b2b-step__title">{item.title}</h3>
+              <p class="b2b-step__text">{item.text}</p>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="card focus">
+          <div class="focus__copy">
+            <h2 class="focus__title">{page.focus.title}</h2>
+            <p class="focus__text">{page.focus.text}</p>
+            {page.focus.link && (
+              <a class="focus__link" href={page.focus.link.href}>{page.focus.link.label} <span aria-hidden="true">→</span></a>
+            )}
+          </div>
+          <ul class="focus__points">
+            {page.focus.points.map((point) => <li>{point}</li>)}
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="final">
+      <div class="container">
+        <div class="final">
+          <div class="final__head">
+            <h2 class="final__title">{page.final.title}</h2>
+            <p class="final__text">{page.final.text}</p>
+          </div>
+          <LeadForm
+            client:visible
+            namePlaceholder={finalOffer.namePlaceholder}
+            phonePlaceholder={finalOffer.phonePlaceholder}
+            cta={finalOffer.cta}
+            success={finalOffer.success}
+            layout="wide"
+            source={page.final.source}
+          />
+        </div>
+      </div>
+    </section>
+
+    <Contacts />
+  </main>
+
+  <Footer />
+  <ModalHost
+    client:idle
+    quizTitle={quiz.title}
+    quizSteps={quiz.steps}
+    contactQuestion={quiz.contactStep.q}
+    channels={quiz.contactStep.channels}
+    success={finalOffer.success}
+    videoPoster="/img/unsplash/service.jpg"
+  />
+</BaseLayout>
+
+<style>
+  .section--tight { padding-block: 0 clamp(1rem, .5rem + 2vw, 2rem); }
+
+  .b2b-hero { padding-block: clamp(1.5rem, 1rem + 2vw, 3rem) clamp(2.5rem, 1.5rem + 4vw, 5rem); }
+  .b2b-hero__grid { display: grid; gap: 2rem; align-items: center; }
+  .b2b-hero__copy { display: grid; gap: 1.25rem; justify-items: start; }
+  .b2b-hero__copy h1 { max-width: 18ch; }
+  .b2b-hero__lead { color: var(--c-text-2); font-size: 1.0625rem; line-height: 1.5; max-width: 54ch; }
+  .b2b-hero__cta { margin-top: .5rem; min-width: min(100%, 18rem); }
+  .b2b-hero__shot { border-radius: var(--r-card); overflow: hidden; border: 1px solid var(--c-line); }
+  .b2b-hero__shot img { display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
+  @media (max-width: 639px) { .b2b-hero__cta { justify-self: stretch; } }
+  @media (min-width: 1024px) {
+    .b2b-hero__grid { grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 4rem; }
+    .b2b-hero__shot img { aspect-ratio: 1 / 1; }
+  }
+
+  /* поставщик → Evolution Car → клиент */
+  .chain { display: grid; gap: .75rem; }
+  .chain__node {
+    display: grid;
+    gap: .25rem;
+    padding: 1.125rem 1.25rem;
+    border: 1px solid var(--c-line-strong);
+    border-radius: var(--r-card);
+    background: var(--c-surface);
+    position: relative;
+  }
+  .chain__node--accent { background: var(--c-accent); border-color: var(--c-accent); }
+  .chain__title { font-family: var(--font-display); font-weight: 700; text-transform: uppercase; font-size: 1.25rem; }
+  .chain__note { color: var(--c-text-2); font-size: .875rem; }
+  .chain__node--accent .chain__note { color: var(--c-text); }
+  @media (min-width: 768px) {
+    .chain { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 2.5rem; }
+    .chain__node + .chain__node::before {
+      content: '→';
+      position: absolute;
+      left: -1.75rem;
+      top: 50%;
+      translate: 0 -50%;
+      color: var(--c-accent);
+      font-size: 1.25rem;
+    }
+  }
+
+  .b2b-head { display: grid; gap: 1rem; margin-bottom: clamp(1.5rem, 1rem + 2vw, 2.5rem); }
+  .b2b-head h2 { max-width: 22ch; }
+  .b2b-head__lead { color: var(--c-text-2); font-size: 1rem; line-height: 1.5; max-width: 60ch; }
+  .b2b-note { color: var(--c-text-3); font-size: .8125rem; margin-top: 1rem; max-width: 70ch; }
+
+  .b2b-steps { display: grid; gap: var(--gap); }
+  .b2b-step { padding: clamp(1.25rem, 1rem + 1.2vw, 2rem); display: grid; gap: .75rem; align-content: start; }
+  .b2b-step__num { color: var(--c-accent); font-family: var(--font-display); font-weight: 700; font-size: 1.5rem; }
+  .b2b-step__title { font-size: clamp(1.25rem, 1.1rem + .6vw, 1.5rem); }
+  .b2b-step__text { color: var(--c-text-2); font-size: .9375rem; line-height: 1.5; }
+  @media (min-width: 900px) { .b2b-steps { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+
+  .focus { padding: clamp(1.5rem, 1rem + 2.5vw, 3rem); display: grid; gap: 1.75rem; background: var(--c-bg-alt); }
+  .focus__copy { display: grid; gap: 1rem; justify-items: start; }
+  .focus__title { max-width: 22ch; }
+  .focus__text { color: var(--c-text-2); font-size: 1rem; line-height: 1.55; max-width: 58ch; }
+  .focus__link { color: var(--c-accent); font-weight: 600; font-size: .9375rem; }
+  .focus__link:hover { color: var(--c-accent-hover); }
+  .focus__points { display: grid; gap: .5rem; align-content: start; }
+  .focus__points li {
+    display: flex;
+    align-items: center;
+    gap: .75rem;
+    padding: .875rem 1rem;
+    border: 1px solid var(--c-line-strong);
+    border-radius: var(--r-btn);
+    font-size: .9375rem;
+  }
+  .focus__points li::before {
+    content: '';
+    flex: none;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--c-accent);
+  }
+  @media (min-width: 1024px) {
+    .focus { grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 4rem; align-items: center; }
+  }
+
+  .final {
+    display: grid;
+    gap: 1.75rem;
+    padding: clamp(1.5rem, 1rem + 2.5vw, 3rem);
+    border-radius: var(--r-card);
+    border: 1px solid var(--c-line);
+    background: linear-gradient(135deg, var(--c-surface-2), var(--c-bg-alt));
+  }
+  .final__head { display: grid; gap: 1rem; }
+  .final__title { max-width: 22ch; }
+  .final__text { color: var(--c-text-2); font-size: 1rem; line-height: 1.5; max-width: 56ch; }
+  @media (min-width: 1024px) {
+    .final__head { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 3rem; align-items: end; }
+  }
+</style>
