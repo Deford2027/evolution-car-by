@@ -237,6 +237,9 @@
   border: 1px solid var(--c-line-strong);
   color: var(--c-text-2);
 }
+.lead-modal { display: grid; gap: 1rem; }
+.lead-modal__title { font-family: var(--font-display); font-size: clamp(1.25rem, 1.1rem + .6vw, 1.5rem); line-height: 1.2; }
+.lead-modal__text { color: var(--c-text-2); font-size: .875rem; line-height: 1.5; margin-bottom: .25rem; }
 .modal__video img { width: 100%; border-radius: var(--r-card); }
 .modal__video figcaption { color: var(--c-text-3); font-size: .8125rem; margin-top: .875rem; }
 

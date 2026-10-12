@@ -1,14 +1,14 @@
 import { useEffect, useRef, useState } from 'preact/hooks';
 import Quiz from './Quiz';
+import LeadForm from './LeadForm';
 
-type Kind = 'quiz' | 'video' | null;
+type Kind = 'quiz' | 'video' | 'lead' | null;
 
 interface Props {
   quizTitle: string;
   quizSteps: { q: string; a: string[] }[];
   contactQuestion: string;
   channels: string[];
-  consent: string;
   success: string;
   videoPoster: string;
 }
@@ -19,11 +19,12 @@ export default function ModalHost({
   quizSteps,
   contactQuestion,
   channels,
-  consent,
   success,
   videoPoster,
 }: Props) {
   const [kind, setKind] = useState<Kind>(null);
+  // текст нажатой кнопки: заголовок окна и источник заявки в админке
+  const [action, setAction] = useState('');
   const ref = useRef<HTMLDialogElement>(null);
 
   useEffect(() => {
@@ -31,8 +32,9 @@ export default function ModalHost({
       const trigger = (e.target as HTMLElement).closest<HTMLElement>('[data-open]');
       if (!trigger) return;
       const value = trigger.dataset.open;
-      if (value === 'quiz' || value === 'video') {
+      if (value === 'quiz' || value === 'video' || value === 'lead') {
         e.preventDefault();
+        setAction(trigger.textContent?.trim().slice(0, 60) || 'Оставить заявку');
         setKind(value);
       }
     };
@@ -60,9 +62,28 @@ export default function ModalHost({
           steps={quizSteps}
           contactQuestion={contactQuestion}
           channels={channels}
-          consent={consent}
           success={success}
         />
+      )}
+
+      {/* Кнопки, которые никуда не ведут, открывают отдельную заявку:
+          человек остаётся там, где нажал, а не уезжает к форме в конце
+          страницы. В разметке у них href="#final" – без скриптов сработает
+          обычный переход к форме. */}
+      {kind === 'lead' && (
+        <div class="lead-modal">
+          <p class="lead-modal__title">{action}</p>
+          <p class="lead-modal__text">
+            Оставьте контактные данные – менеджер свяжется с вами и ответит на вопросы.
+          </p>
+          <LeadForm
+            namePlaceholder="Ваше имя"
+            phonePlaceholder="Ваш номер телефона"
+            cta="Отправить заявку"
+            success={success}
+            source={`Окно заявки: ${action}`}
+          />
+        </div>
       )}
 
       {kind === 'video' && (
