@@ -15,16 +15,15 @@ import { directions } from '../../content/home';
     <ul class="dirs">
       {directions.items.map((item) => (
         <li class="dir">
+          <div class="dir__body">
+            <h3 class="dir__title">{item.title}</h3>
+            <p class="dir__text">{item.text}</p>
+          </div>
           <div class="dir__shot">
             <img src={item.img} alt="" loading="lazy" width="854" height="950" />
             <span class="badge"><i aria-hidden="true"></i>Под заказ</span>
           </div>
-          <div class="dir__body">
-            <p class="dir__cat">Направление поставок</p>
-            <h3 class="dir__title">{item.title}</h3>
-            <p class="dir__text">{item.text}</p>
-            <a class="dir__link" href="/zeekr/catalog/">{item.cta} <span aria-hidden="true">→</span></a>
-          </div>
+          <a class="btn dir__cta" href="/zeekr/catalog/">{item.cta}</a>
         </li>
       ))}
     </ul>
@@ -52,16 +51,21 @@ import { directions } from '../../content/home';
   @media (min-width: 640px) { .dirs { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
   @media (min-width: 1024px) { .dirs { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
 
+  /* Как у эталона на Tilda: крупный заголовок и текст, под ними картинка,
+     кнопка – под картинкой и никогда на неё не заходит. */
   .dir {
     background: var(--c-surface);
     border-radius: var(--r-card);
     overflow: hidden;
     display: grid;
-    grid-template-rows: auto 1fr;
+    grid-template-rows: auto 1fr auto;
   }
-  .dir__shot { position: relative; }
+  .dir__body { padding: 1.5rem 1.25rem 1.25rem; display: grid; gap: .75rem; align-content: start; }
+  .dir__title { font-size: clamp(1.5rem, 1.2rem + 1.1vw, 1.875rem); line-height: 1.15; }
+  .dir__text { color: var(--c-text-2); font-size: .9375rem; line-height: 1.5; }
+  .dir__shot { position: relative; align-self: end; }
   /* исходники вертикальные: кадрируем по нижней трети, где стоит автомобиль */
-  .dir__shot img { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; object-position: center 72%; }
+  .dir__shot img { display: block; width: 100%; aspect-ratio: 16 / 10; object-fit: cover; object-position: center 72%; }
   .badge {
     position: absolute;
     top: .75rem;
@@ -77,25 +81,12 @@ import { directions } from '../../content/home';
     font-size: .75rem;
   }
   .badge i { width: 6px; height: 6px; border-radius: 50%; background: var(--c-ok); }
-
-  .dir__body {
-    padding: 1.25rem;
-    display: grid;
-    grid-template-rows: auto auto 1fr auto;
-    gap: .5rem;
+  .dir__cta { margin: 1.25rem; justify-content: center; text-align: center; }
+  /* в ряду карточки делят общие строки: картинки и кнопки встают в одну линию,
+     даже когда тексты разной длины */
+  @media (min-width: 640px) {
+    .dir { grid-row: span 3; grid-template-rows: subgrid; row-gap: 0; }
   }
-  .dir__cat { color: var(--c-text-3); font-size: .8125rem; }
-  .dir__title { font-size: 1.125rem; line-height: 1.25; }
-  .dir__text { color: var(--c-text-2); font-size: .875rem; line-height: 1.45; }
-  .dir__link {
-    margin-top: .75rem;
-    padding-top: .875rem;
-    border-top: 1px solid var(--c-line);
-    color: var(--c-accent);
-    font-size: .875rem;
-    font-weight: 600;
-  }
-  .dir__link:hover { color: var(--c-accent-hover); }
 
   .fallback {
     margin-top: clamp(2rem, 1.2rem + 3vw, 3rem);
