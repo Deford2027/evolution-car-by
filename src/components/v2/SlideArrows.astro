@@ -1,14 +1,17 @@
 ---
+const { always = false } = Astro.props as { always?: boolean };
 /**
  * Стрелки мобильного слайдера, как у эталона на Tilda: «назад» – тёмная,
  * «вперёд» – оранжевая. Работают с ближайшим [data-slider], листают его
  * [data-track] на одну карточку. Ленту делает класс .mtrack: на телефоне
  * карточки идут в ряд со свайпом, с 640 px – обычная сетка блока, стрелки
  * скрыты. Без скриптов лента всё равно листается пальцем.
+ * always – стрелки на любой ширине: для лент, которые листаются и на
+ * десктопе (направления на главной).
  */
 ---
 
-<div class="arrows" data-arrows>
+<div class:list={['arrows', { 'arrows--always': always }]} data-arrows>
   <button class="arrow" type="button" data-dir="-1" aria-label="Предыдущая карточка" disabled>
     <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /></svg>
   </button>
@@ -29,9 +32,9 @@
     color: var(--c-text);
     transition: opacity .2s var(--ease), background .2s var(--ease);
   }
-  .arrow--next { background: var(--c-accent); border-color: var(--c-accent); color: var(--c-on-brand); }
+  .arrow--next { background: var(--c-accent); border-color: var(--c-accent); color: var(--c-on-brand, var(--c-btn-text)); }
   .arrow:disabled { opacity: .35; cursor: default; }
-  @media (min-width: 640px) { .arrows { display: none; } }
+  @media (min-width: 640px) { .arrows:not(.arrows--always) { display: none; } }
 </style>
 
 <style is:global>

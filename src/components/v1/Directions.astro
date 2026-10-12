@@ -1,26 +1,32 @@
 ---
 import { directions } from '../../content/home';
+import SlideArrows from '../v2/SlideArrows.astro';
 ---
 
-<section class="section directions" id="directions">
+<section class="section directions" id="directions" data-slider>
   <div class="container">
     <div class="sec-head">
       <p class="kicker">[ {directions.kicker} ]</p>
       <div class="sec-head__main">
         <h2>{directions.title}</h2>
-        <p class="sec-head__lead">{directions.lead}</p>
+        <div class="sec-head__aside">
+          <p class="sec-head__lead">{directions.lead}</p>
+          <SlideArrows always />
+        </div>
       </div>
     </div>
   </div>
 
-  <ul class="dir-track" role="list">
+  <ul class="dir-track" role="list" data-track>
     {directions.items.map((item) => (
       <li class="dir-card">
         <div class="dir-card__copy">
           <h3 class="dir-card__title">{item.title}</h3>
           <p class="dir-card__text">{item.text}</p>
         </div>
-        <img class="dir-card__img" src={item.img} alt="" loading="lazy" width="854" height="950" />
+        <div class="dir-card__shot">
+          <img class="dir-card__img" src={item.img} alt="" loading="lazy" width="854" height="950" />
+        </div>
         <a class="btn dir-card__cta" href="/catalog/">{item.cta}</a>
       </li>
     ))}
@@ -32,7 +38,7 @@ import { directions } from '../../content/home';
         <h3 class="dir-fallback__title">{directions.fallback.title}</h3>
         <p class="dir-fallback__text">{directions.fallback.text}</p>
       </div>
-      <a class="btn dir-fallback__cta" href="#final">{directions.fallback.cta}</a>
+      <a class="btn dir-fallback__cta" href="#final" data-open="lead">{directions.fallback.cta}</a>
     </div>
   </div>
 </section>
@@ -45,6 +51,8 @@ import { directions } from '../../content/home';
     margin-top: 1.5rem;
     font-size: 1rem;
   }
+  .sec-head__aside { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-top: 1.5rem; }
+  .sec-head__aside .sec-head__lead { margin-top: 0; }
   @media (min-width: 1024px) {
     .sec-head { grid-template-columns: minmax(0, 18rem) minmax(0, 1fr); gap: 2rem; }
     .sec-head__main { max-width: 56rem; }
@@ -58,49 +66,30 @@ import { directions } from '../../content/home';
     overflow-x: auto;
     scroll-snap-type: x mandatory;
     padding-inline: var(--gutter);
+    /* без этого прилипание прижимало первую карточку к краю экрана */
+    scroll-padding-inline: var(--gutter);
     padding-bottom: 1rem;
     scrollbar-width: thin;
     scrollbar-color: var(--c-line-strong) transparent;
   }
+  /* Как у эталона на Tilda: крупный заголовок и текст, под ними картинка,
+     кнопка – под картинкой и на неё не заходит. */
   .dir-card {
-    position: relative;
     scroll-snap-align: start;
     display: grid;
-    align-content: start;
-    gap: 1rem;
-    min-height: min(104vw, 29.75rem);
-    padding: clamp(1.25rem, 1rem + 1.2vw, 1.75rem);
     grid-template-rows: auto 1fr auto;
     border-radius: var(--r-card);
     background: var(--c-bg-alt);
     border: 1px solid var(--c-line);
     overflow: hidden;
-    isolation: isolate;
   }
-  .dir-card__img {
-    position: absolute;
-    inset: auto 0 0 0;
-    width: 100%;
-    height: 62%;
-    object-fit: cover;
-    z-index: -1;
-  }
-  .dir-card::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    z-index: -1;
-    background: linear-gradient(180deg, var(--c-bg-alt) 22%, rgba(2, 5, 11, .25) 55%, rgba(2, 5, 11, .65) 100%);
-  }
-  .dir-card__copy { display: grid; gap: .75rem; }
-  .dir-card__title { font-size: clamp(1.125rem, 1rem + .6vw, 1.4375rem); }
-  .dir-card__text { color: var(--c-text-2); font-size: .875rem; line-height: 1.45; }
-  .dir-card__cta {
-    align-self: end;
-    margin-top: auto;
-    width: 100%;
-    font-size: .75rem;
-  }
+  .dir-card__copy { display: grid; gap: .75rem; align-content: start; padding: clamp(1.25rem, 1rem + 1.2vw, 1.75rem) clamp(1.25rem, 1rem + 1.2vw, 1.75rem) 1.25rem; }
+  .dir-card__title { font-size: clamp(1.5rem, 1.2rem + 1.1vw, 1.875rem); line-height: 1.08; }
+  .dir-card__text { color: var(--c-text-2); font-size: .9375rem; line-height: 1.45; }
+  .dir-card__shot { align-self: end; }
+  /* исходники вертикальные: кадрируем по нижней части, где стоит автомобиль */
+  .dir-card__img { display: block; width: 100%; aspect-ratio: 16 / 11; object-fit: cover; object-position: center 72%; }
+  .dir-card__cta { margin: 1.25rem clamp(1.25rem, 1rem + 1.2vw, 1.75rem) clamp(1.25rem, 1rem + 1.2vw, 1.75rem); font-size: .75rem; }
 
   .dir-fallback {
     margin-top: clamp(2rem, 1rem + 3vw, 3.5rem);
