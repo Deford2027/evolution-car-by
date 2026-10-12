@@ -4,7 +4,9 @@ import { site } from '../../content/site';
 ---
 
 <section class="hero">
-  <img class="hero__bg" src="/img/hero-evolution-hd-v2.jpg" alt="" fetchpriority="high" width="1448" height="1086" />
+  <div class="hero__media">
+    <img class="hero__bg" src="/img/hero-evolution-hd-v2.jpg" alt="" fetchpriority="high" width="1448" height="1086" />
+  </div>
   <div class="container hero__inner">
     <h1 class="hero__title">{hero.title}</h1>
     <p class="hero__lead">
@@ -20,9 +22,10 @@ import { site } from '../../content/site';
 </section>
 
 <section class="section section--tight">
-  <div class="container hero__facts">
+  <div class="container hero__facts" role="list" aria-label="Почему с нами выгодно">
     {benefits.map((item) => (
-      <article class="fact">
+      <article class="fact" role="listitem">
+        <span class="fact__dot" aria-hidden="true"></span>
         <h2 class="fact__title">{item.title}</h2>
         <p class="fact__text">{item.text}</p>
       </article>
@@ -31,46 +34,66 @@ import { site } from '../../content/site';
 </section>
 
 <style>
-  .hero {
-    position: relative;
-    min-height: min(84svh, 46rem);
-    display: grid;
-    align-items: end;
-    isolation: isolate;
-    overflow: hidden;
-  }
-  .hero__bg {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center 40%;
-    z-index: -2;
-  }
-  .hero::after {
+  /* Телефон: картинка целиком сверху, текст под ней (как эталон на Tilda) –
+     текст не лежит на машинах. С 768 px – полноэкранная картинка, текст внизу. */
+  .hero { position: relative; isolation: isolate; }
+  .hero__media { position: relative; }
+  .hero__bg { display: block; width: 100%; height: auto; aspect-ratio: 1448 / 1086; object-fit: cover; }
+  .hero__media::after {
     content: '';
     position: absolute;
     inset: 0;
-    z-index: -1;
-    background:
-      linear-gradient(90deg, rgba(26, 30, 32, .88) 0%, rgba(26, 30, 32, .35) 62%, rgba(26, 30, 32, .1) 100%),
-      linear-gradient(0deg, var(--c-bg) 1%, rgba(26, 30, 32, 0) 42%);
+    background: linear-gradient(0deg, var(--c-bg) 2%, rgba(26, 30, 32, 0) 38%);
   }
-  .hero__inner { padding-block: clamp(3rem, 1.5rem + 6vw, 6rem); display: grid; gap: 1.5rem; }
+  .hero__inner { padding-block: 0 clamp(2rem, 1.5rem + 3vw, 3rem); display: grid; gap: 1.25rem; margin-top: -1.5rem; position: relative; }
   .hero__title { max-width: 18ch; }
   .hero__lead { color: var(--c-text-2); max-width: 52ch; }
-  .hero__actions { display: flex; flex-wrap: wrap; gap: .625rem; margin-top: .75rem; }
+  .hero__actions { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .625rem; margin-top: .5rem; }
+  .hero__actions .btn:first-child { grid-column: 1 / -1; }
+  /* нечётная последняя кнопка не остаётся одна в половину ширины */
+  .hero__actions .btn:last-child:nth-child(even) { grid-column: 1 / -1; }
 
-  .section--tight { padding-block: clamp(2rem, 1.2rem + 3vw, 3.25rem); }
-  .hero__facts { display: grid; gap: clamp(1.5rem, 1rem + 2vw, 2.5rem); }
-  /* как у эталона: не карточки, а колонки текста на фоне страницы */
-  .fact__title {
-    font-size: clamp(1.0625rem, 1rem + .35vw, 1.25rem);
-    margin-bottom: .625rem;
+  @media (min-width: 768px) {
+    .hero { min-height: min(84svh, 46rem); display: grid; align-items: end; overflow: hidden; }
+    .hero__media { position: absolute; inset: 0; z-index: -1; }
+    .hero__bg { height: 100%; aspect-ratio: auto; object-position: center 40%; }
+    .hero__media::after {
+      background:
+        linear-gradient(90deg, rgba(26, 30, 32, .88) 0%, rgba(26, 30, 32, .35) 62%, rgba(26, 30, 32, .1) 100%),
+        linear-gradient(0deg, var(--c-bg) 1%, rgba(26, 30, 32, 0) 42%);
+    }
+    .hero__inner { padding-block: clamp(3rem, 1.5rem + 6vw, 6rem); gap: 1.5rem; margin-top: 0; }
+    .hero__actions { display: flex; flex-wrap: wrap; margin-top: .75rem; }
   }
+
+  .section--tight { padding-block: clamp(1.5rem, 1rem + 3vw, 3.25rem); }
+
+  /* Буллеты: на телефоне – слайдер вправо (следующая карточка выглядывает
+     с края), с 1024 px – четыре колонки. */
+  .hero__facts {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 78%;
+    gap: .75rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    padding-bottom: .25rem;
+  }
+  .hero__facts::-webkit-scrollbar { display: none; }
+  .fact {
+    scroll-snap-align: start;
+    background: var(--c-surface);
+    border: 1px solid var(--c-line);
+    border-radius: var(--r-card);
+    padding: 1.25rem;
+  }
+  .fact__dot { display: block; width: 7px; height: 7px; border-radius: 50%; background: var(--c-accent); margin-bottom: 1.25rem; }
+  .fact__title { font-size: clamp(1.0625rem, 1rem + .35vw, 1.25rem); margin-bottom: .625rem; }
   .fact__text { color: var(--c-text-2); font-size: .9375rem; line-height: 1.5; }
 
-  @media (min-width: 640px) { .hero__facts { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-  @media (min-width: 1024px) { .hero__facts { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+  @media (min-width: 640px) { .hero__facts { grid-auto-columns: 46%; } }
+  @media (min-width: 1024px) {
+    .hero__facts { grid-auto-flow: row; grid-template-columns: repeat(4, minmax(0, 1fr)); overflow: visible; }
+  }
 </style>
