@@ -1,0 +1,417 @@
+---
+// Образец «идеальной карточки товара» — Lixiang L9 по старому адресу
+// evolutioncar.by/lixiangl9: самая популярная страница живого сайта
+// (30 тыс. показов в Google за 3 месяца, топ-2 по «li 9 характеристики»).
+// Адрес сохранён, чтобы при переезде позиции не зависели от редиректа.
+import '../styles/theme-v1.css';
+import '../styles/islands.css';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/v1/Header.astro';
+import Footer from '../components/v1/Footer.astro';
+import Breadcrumbs from '../components/v1/Breadcrumbs.astro';
+import CarCard from '../components/v1/CarCard.astro';
+import ModalHost from '../components/islands/ModalHost';
+import LeadForm from '../components/islands/LeadForm';
+import { cars, formatUsd, brandPath, countries } from '../content/cars';
+import { quiz, finalOffer, benefits, steps } from '../content/home';
+import { lixiangL9 as m } from '../content/models/lixiang-l9';
+import { carLd, breadcrumbsLd, abs } from '../lib/seo';
+import { feedId } from '../lib/product';
+
+const car = cars.find((c) => c.slug === m.slug)!;
+const crumbs = [
+  { name: 'Главная', href: '/' },
+  { name: 'Каталог автомобилей', href: '/catalog/' },
+  { name: car.brand, href: brandPath(car.brand) },
+  { name: 'Lixiang L9', href: m.path },
+];
+
+// Разметка товара для Google: Car — подтип Product, поэтому Google читает её
+// как карточку товара (цена, наличие, состояние в сниппете). sku = номер товара
+// в фиде Google Ads и в событиях сайта — одна сущность.
+const base = carLd(car) as Record<string, any>;
+const productLd = {
+  ...base,
+  '@type': ['Car', 'Product'],
+  name: 'Lixiang L9 (Li Auto L9)',
+  alternateName: ['Li Auto L9', 'Li L9', 'Ли 9', 'Лисян Л9'],
+  description: m.lead,
+  image: [abs(car.photo)],
+  url: abs(m.path),
+  sku: feedId(car),
+  model: 'L9',
+  vehicleSeatingCapacity: 6,
+  numberOfDoors: 5,
+  bodyType: 'Кроссовер',
+  driveWheelConfiguration: 'https://schema.org/AllWheelDriveConfiguration',
+  accelerationTime: { '@type': 'QuantitativeValue', value: 5.3, unitCode: 'SEC' },
+  speed: { '@type': 'QuantitativeValue', maxValue: 180, unitCode: 'KMH' },
+  wheelbase: { '@type': 'QuantitativeValue', value: 3105, unitCode: 'MMT' },
+  depth: { '@type': 'QuantitativeValue', value: 5218, unitCode: 'MMT' },
+  width: { '@type': 'QuantitativeValue', value: 1998, unitCode: 'MMT' },
+  height: { '@type': 'QuantitativeValue', value: 1800, unitCode: 'MMT' },
+  weightTotal: { '@type': 'QuantitativeValue', value: 2520, unitCode: 'KGM' },
+  fuelCapacity: { '@type': 'QuantitativeValue', value: 65, unitCode: 'LTR' },
+  vehicleEngine: {
+    '@type': 'EngineSpecification',
+    enginePower: { '@type': 'QuantitativeValue', value: 449, unitCode: 'BHP' },
+    torque: { '@type': 'QuantitativeValue', value: 620, unitCode: 'NU' },
+  },
+  additionalProperty: m.specs.flatMap((g) =>
+    g.rows.map((r) => ({ '@type': 'PropertyValue', name: r.label, value: r.value })),
+  ),
+  ...(base.offers
+    ? {
+        offers: {
+          ...base.offers,
+          url: abs(m.path),
+          itemCondition: m.offer.condition === 'С пробегом'
+            ? 'https://schema.org/UsedCondition'
+            : 'https://schema.org/NewCondition',
+          priceValidUntil: `${new Date().getFullYear()}-12-31`,
+        },
+      }
+    : {}),
+};
+
+const faqLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: m.faq.map((f) => ({
+    '@type': 'Question',
+    name: f.q,
+    acceptedAnswer: { '@type': 'Answer', text: f.a },
+  })),
+};
+
+const facts = [
+  { label: 'Ориентир под ключ', value: car.priceUsd ? `от ${formatUsd(car.priceUsd)}` : 'по запросу', accent: true },
+  ...(car.priceByn ? [{ label: 'В белорусских рублях', value: `≈ ${car.priceByn.toLocaleString('ru-RU')} BYN` }] : []),
+  { label: 'Комплектация', value: `${m.offer.trim} · ${m.offer.year}` },
+  { label: 'Состояние', value: m.offer.condition },
+  { label: 'Наличие', value: m.offer.availability },
+  { label: 'Поставка', value: countries[car.country].genitive },
+];
+
+const similar = cars.filter((c) => c.brand === car.brand && c.slug !== car.slug).slice(0, 3);
+---
+
+<BaseLayout
+  theme="v1"
+  title={m.seoTitle}
+  description={m.seoDescription}
+  canonical={abs(m.path)}
+  ogImage={car.photo}
+  jsonLd={[breadcrumbsLd(crumbs), productLd, faqLd]}
+>
+  <Header />
+  <Breadcrumbs crumbs={crumbs} />
+
+  <main>
+    <article>
+      <section class="section section--top">
+        <div class="container top">
+          <div class="gallery">
+            <img
+              class="gallery__main"
+              src={car.photo}
+              alt="Lixiang L9 (Li Auto L9) — шестиместный гибридный кроссовер, поставка из Китая"
+              width="900"
+              height="563"
+              fetchpriority="high"
+            />
+            <ul class="highlights">
+              {m.highlights.map((h) => (
+                <li class="highlight">
+                  <span class="highlight__value">{h.value}</span>
+                  <span class="highlight__label">{h.label}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div class="intro">
+            <p class="kicker">[ Китай · {m.offer.availability} · гибрид EREV ]</p>
+            <h1 class="intro__title">{m.h1}</h1>
+            <p class="intro__tagline">{m.lead}</p>
+            <p class="intro__aliases">{m.aliases}</p>
+
+            <dl class="facts">
+              {facts.map((fact) => (
+                <div class={fact.accent ? 'fact fact--accent' : 'fact'}>
+                  <dt>{fact.label}</dt>
+                  <dd>{fact.value}</dd>
+                </div>
+              ))}
+            </dl>
+
+            <div class="intro__actions">
+              <a class="btn" href="#request">Заказать Lixiang L9</a>
+              <a class="btn btn--ghost" href="#specs">Все характеристики</a>
+            </div>
+            <p class="intro__lead-time">{m.offer.leadTime}</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--tight" id="specs">
+        <div class="container">
+          <h2 class="block__title">{m.specsTitle}</h2>
+          <p class="block__lead">{m.specsLead}</p>
+          <div class="specs">
+            {m.specs.map((group) => (
+              <div class="card specs__group">
+                <h3 class="specs__title">{group.group}</h3>
+                <dl>
+                  {group.rows.map((row) => (
+                    <div class="specs__row">
+                      <dt>{row.label}</dt>
+                      <dd>{row.value}</dd>
+                    </div>
+                  ))}
+                </dl>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--tight">
+        <div class="container">
+          <h2 class="block__title">{m.trimsTitle}</h2>
+          <div class="trims-scroll">
+            <table class="trims">
+              <thead>
+                <tr>
+                  <th scope="col">Параметр</th>
+                  {m.trimHeads.map((h, i) => <th scope="col" class={i === 2 ? 'is-offer' : ''}>{h}</th>)}
+                </tr>
+              </thead>
+              <tbody>
+                {m.trims.map((row) => (
+                  <tr>
+                    <th scope="row">{row.label}</th>
+                    {row.values.map((v, i) => <td class={i === 2 ? 'is-offer' : ''}>{v}</td>)}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <p class="trims__note">{m.trimsNote}</p>
+        </div>
+      </section>
+
+      <section class="section section--tight">
+        <div class="container">
+          <h2 class="block__title">Li L9 — что умеет этот кроссовер</h2>
+          <div class="about">
+            {m.about.map((item) => (
+              <div class="about__item">
+                <h3 class="about__title">{item.title}</h3>
+                <p class="about__text">{item.text}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--tight">
+        <div class="container">
+          <h2 class="block__title">{m.buyTitle}</h2>
+          <ul class="included">
+            {[...m.buy, ...benefits.slice(0, 1)].map((item) => (
+              <li class="card included__item">
+                <span class="included__dot" aria-hidden="true"></span>
+                <h3 class="included__title">{item.title}</h3>
+                <p class="included__text">{item.text}</p>
+              </li>
+            ))}
+          </ul>
+          <p class="included__lead">
+            Сроки, маршруты и состав платежей — на странице
+            <a href="/dostavka-i-rastamozhka/">доставки и растаможки</a>.
+          </p>
+        </div>
+      </section>
+
+      <section class="section section--tight">
+        <div class="container">
+          <h2 class="block__title">Как проходит покупка</h2>
+          <ol class="flow">
+            {steps.items.map((step, i) => (
+              <li class="flow__step">
+                <p class="flow__num">{String(i + 1).padStart(2, '0')}</p>
+                <h3 class="flow__title">{step.title}</h3>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </section>
+
+      <section class="section" id="request">
+        <div class="container">
+          <div class="card request">
+            <div>
+              <h2 class="request__title">Заказать Lixiang L9 с расчётом под ключ</h2>
+              <p class="request__text">
+                Менеджер уточнит комплектацию, год и состояние, подберёт лоты на площадках Китая
+                и пришлёт стоимость с доставкой, таможенным оформлением и документами для учёта.
+              </p>
+            </div>
+            <LeadForm
+              client:visible
+              namePlaceholder={finalOffer.namePlaceholder}
+              phonePlaceholder={finalOffer.phonePlaceholder}
+              cta={finalOffer.cta}
+              consent={finalOffer.consent}
+              success={finalOffer.success}
+              source="Карточка: Lixiang L9"
+            />
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--tight">
+        <div class="container">
+          <h2 class="block__title">Частые вопросы о Lixiang L9</h2>
+          <div class="faq">
+            {m.faq.map((f) => (
+              <details class="faq__item">
+                <summary class="faq__q">{f.q}</summary>
+                <p class="faq__a">{f.a}</p>
+              </details>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {similar.length > 0 && (
+        <section class="section section--tight">
+          <div class="container">
+            <h2 class="block__title">Другие модели Lixiang</h2>
+            <ul class="similar">
+              {similar.map((item) => <li><CarCard car={item} /></li>)}
+            </ul>
+          </div>
+        </section>
+      )}
+
+      <div class="container">
+        <p class="disclaimer">
+          Цена указана ориентировочно под ключ и не является публичной офертой. Итоговая
+          стоимость зависит от курса валют, комплектации, состояния автомобиля, ставки
+          на аукционе, маршрута доставки и обязательных платежей на дату сделки.
+        </p>
+      </div>
+    </article>
+  </main>
+
+  <Footer />
+  <ModalHost
+    client:idle
+    quizTitle={quiz.title}
+    quizSteps={quiz.steps}
+    contactQuestion={quiz.contactStep.q}
+    channels={quiz.contactStep.channels}
+    consent={finalOffer.consent}
+    success={finalOffer.success}
+    videoPoster="/img/unsplash/service.jpg"
+  />
+</BaseLayout>
+
+<style>
+  .section--top { padding-block: clamp(1.5rem, 1rem + 2vw, 2.5rem); }
+  .section--tight { padding-block: clamp(2rem, 1.2rem + 3vw, 3rem); }
+  .block__title { margin-bottom: clamp(1rem, .8rem + 1vw, 1.5rem); }
+  .block__lead { color: var(--c-text-3); font-size: .9375rem; margin-bottom: 1.5rem; max-width: 70ch; }
+
+  .top { display: grid; gap: clamp(1.5rem, 1rem + 2vw, 3rem); }
+  @media (min-width: 1024px) {
+    .top { grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); align-items: start; }
+  }
+
+  .gallery__main {
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+    border-radius: var(--r-card);
+    background: var(--c-bg-alt);
+  }
+  .highlights { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--gap); margin-top: var(--gap); }
+  @media (min-width: 640px) { .highlights { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+  .highlight { border-top: 2px solid var(--c-accent); padding-top: .75rem; display: grid; gap: .25rem; }
+  .highlight__value { font-family: var(--font-display); font-weight: 700; font-size: clamp(1.125rem, 1rem + .6vw, 1.5rem); }
+  .highlight__label { color: var(--c-text-3); font-size: .8125rem; line-height: 1.35; }
+
+  .intro__title { margin-top: .875rem; text-wrap: balance; }
+  .intro__tagline { color: var(--c-text-2); margin-top: 1rem; font-size: 1rem; line-height: 1.55; }
+  .intro__aliases { color: var(--c-text-3); margin-top: .625rem; font-size: .875rem; }
+  .intro__lead-time { color: var(--c-text-3); font-size: .8125rem; margin-top: .875rem; }
+
+  .facts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--gap); margin-top: 1.75rem; }
+  .fact { background: var(--c-surface); border: 1px solid var(--c-line); border-radius: 12px; padding: 1rem 1.125rem; }
+  .fact dt { color: var(--c-text-3); font-size: .75rem; }
+  .fact dd { margin-top: .375rem; font-size: .9375rem; }
+  .fact--accent dd { font-family: var(--font-display); font-weight: 700; font-size: 1.375rem; color: var(--c-accent); }
+
+  .intro__actions { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 1.5rem; }
+
+  .specs { display: grid; gap: var(--gap); }
+  @media (min-width: 768px) { .specs { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+  .specs__group { padding: clamp(1.25rem, 1rem + 1vw, 1.75rem); align-content: start; }
+  .specs__title { font-size: 1rem; margin-bottom: 1rem; }
+  .specs__row { display: flex; justify-content: space-between; gap: 1rem; padding-block: .625rem; border-bottom: 1px solid var(--c-line); font-size: .875rem; }
+  .specs__row:last-child { border-bottom: 0; }
+  .specs__row dt { color: var(--c-text-3); flex: none; max-width: 45%; }
+  .specs__row dd { text-align: right; min-width: 0; }
+
+  .trims-scroll { overflow-x: auto; border: 1px solid var(--c-line); border-radius: var(--r-card); background: var(--c-surface); }
+  .trims { width: 100%; min-width: 640px; border-collapse: collapse; font-size: .875rem; }
+  .trims th, .trims td { text-align: left; padding: .875rem 1rem; border-bottom: 1px solid var(--c-line); vertical-align: top; }
+  .trims tbody tr:last-child th, .trims tbody tr:last-child td { border-bottom: 0; }
+  .trims thead th { font-family: var(--font-display); font-weight: 600; font-size: .875rem; background: var(--c-bg-alt); }
+  .trims tbody th { color: var(--c-text-3); font-weight: 400; width: 26%; }
+  .trims .is-offer { color: var(--c-accent); }
+  .trims thead .is-offer { color: var(--c-accent); }
+  .trims__note { color: var(--c-text-3); font-size: .8125rem; margin-top: .875rem; max-width: 80ch; }
+
+  .about { display: grid; gap: var(--gap); }
+  @media (min-width: 900px) { .about { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+  .about__item { padding-top: 1rem; border-top: 1px solid var(--c-line); }
+  .about__title { font-family: var(--font-body); font-weight: 600; text-transform: none; font-size: 1.125rem; }
+  .about__text { color: var(--c-text-2); font-size: .9375rem; line-height: 1.6; margin-top: .5rem; }
+
+  .included__lead { color: var(--c-text-3); font-size: .9375rem; margin-top: 1.25rem; max-width: 70ch; }
+  .included__lead a { color: var(--c-accent); }
+  .included { display: grid; gap: var(--gap); }
+  @media (min-width: 640px) { .included { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (min-width: 1024px) { .included { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+  .included__item { padding: clamp(1.25rem, 1rem + 1vw, 1.75rem); align-content: start; }
+  .included__dot { display: block; width: 6px; height: 6px; border-radius: 50%; background: var(--c-accent); margin-bottom: 1.5rem; }
+  .included__title { font-family: var(--font-body); font-weight: 400; text-transform: none; font-size: 1.125rem; margin-bottom: .5rem; }
+  .included__text { color: var(--c-text-3); font-size: .875rem; line-height: 1.5; }
+
+  .flow { display: grid; gap: var(--gap); }
+  @media (min-width: 640px) { .flow { grid-template-columns: repeat(5, minmax(0, 1fr)); } }
+  .flow__step { padding-top: 1rem; border-top: 2px solid var(--c-accent); }
+  .flow__num { font-family: var(--font-display); font-weight: 700; color: var(--c-accent); font-size: 1.125rem; }
+  .flow__title { font-family: var(--font-body); font-weight: 400; text-transform: none; font-size: .9375rem; margin-top: .375rem; line-height: 1.35; }
+
+  .request { padding: clamp(1.75rem, 1rem + 2.5vw, 3rem); background: var(--c-bg-alt); display: grid; gap: 2rem; align-items: center; }
+  @media (min-width: 1024px) { .request { grid-template-columns: minmax(0, 1fr) minmax(0, 27rem); gap: 3.5rem; } }
+  .request__title { font-size: clamp(1.5rem, 1.2rem + 1.4vw, 2.25rem); }
+  .request__text { color: var(--c-text-3); font-size: .9375rem; margin-top: 1rem; max-width: 56ch; }
+
+  .faq { display: grid; gap: .5rem; max-width: 80ch; }
+  .faq__item { border-bottom: 1px solid var(--c-line); padding-block: .875rem; }
+  .faq__q { cursor: pointer; font-size: 1rem; font-weight: 600; list-style-position: outside; }
+  .faq__q:focus-visible { outline: 2px solid var(--c-accent); outline-offset: 4px; }
+  .faq__a { color: var(--c-text-2); margin-top: .625rem; line-height: 1.6; }
+
+  .similar { display: grid; gap: var(--gap); }
+  @media (min-width: 640px) { .similar { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (min-width: 1024px) { .similar { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+  .similar li { display: grid; }
+
+  .disclaimer { padding-bottom: clamp(2rem, 1.5rem + 2vw, 3rem); color: var(--c-text-3); font-size: .75rem; line-height: 1.5; max-width: 92ch; }
+</style>

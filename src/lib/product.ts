@@ -119,8 +119,19 @@ const BY_PATH: ReadonlyMap<string, Car> = new Map(
   }),
 );
 
-export const productByPath = (path: string): Car | undefined =>
-  BY_PATH.get(path.endsWith('/') ? path : `${path}/`);
+/**
+ * Расширенные карточки по адресам старого сайта (evolutioncar.by/lixiangl9):
+ * адрес сохранён ради позиций, а товар тот же, что в каталоге.
+ */
+const LEGACY_PATHS: Readonly<Record<string, string>> = {
+  '/lixiangl9/': 'lixiang-l9',
+};
+
+export const productByPath = (path: string): Car | undefined => {
+  const p = path.endsWith('/') ? path : `${path}/`;
+  const legacy = LEGACY_PATHS[p];
+  return legacy ? cars.find((c) => c.slug === legacy) : BY_PATH.get(p);
+};
 
 /** Данные товара для страницы: встраиваются в HTML, браузер читает их в analytics.ts. */
 export function pageProductJson(car: Car): string {
