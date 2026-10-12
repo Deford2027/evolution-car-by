@@ -49,8 +49,11 @@ import { site } from '../../content/site';
     padding-block: clamp(2.5rem, 1.5rem + 4vw, 4rem) 2rem;
     background: var(--c-bg-alt);
   }
-  .ftr__cols { display: grid; gap: 2.5rem; }
-  @media (min-width: 768px) { .ftr__cols { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  /* на телефоне колонки ссылок – по две в ряд, как у эталона, а не одной
+     длинной лентой; описание компании – на всю ширину */
+  .ftr__cols { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2rem 1.25rem; }
+  .ftr__brand { grid-column: 1 / -1; }
+  @media (min-width: 1024px) { .ftr__brand { grid-column: auto; } }
   @media (min-width: 1024px) { .ftr__cols { grid-template-columns: minmax(0, 1.5fr) repeat(4, minmax(0, 1fr)); gap: 2rem; } }
 
   .ftr__brand img { height: 1.375rem; width: auto; margin-bottom: 1.25rem; }
