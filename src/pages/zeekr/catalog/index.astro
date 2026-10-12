@@ -71,7 +71,7 @@ const description =
           ))}
         </div>
 
-        <ul class="grid">
+        <ul class="product-grid">
           {list.map((car, i) => (
             <li><CarCard car={car} eager={i < 3} /></li>
           ))}
@@ -135,11 +135,6 @@ const description =
   }
   .type__n { color: var(--c-text); font-family: var(--font-display); font-size: 1.0625rem; }
 
-  /* на телефоне две карточки в ряд — карточка сама сжимается (CarCard, container query) */
-  .grid { display: grid; gap: .625rem; grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  @media (min-width: 640px) { .grid { gap: var(--gap); } }
-  @media (min-width: 1024px) { .grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
-  .grid li { display: grid; }
 
   .note {
     margin-top: clamp(1.5rem, 1rem + 2vw, 2.25rem);

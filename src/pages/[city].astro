@@ -169,7 +169,7 @@ const others = cities.filter((c) => c.slug !== city.slug);
     <section class="section section--tight">
       <div class="container">
         <h2 class="block__title">Что привозим {city.in}</h2>
-        <ul class="cards">
+        <ul class="product-grid">
           {picks.map((car, i) => <li><CarCard car={car} eager={i < 3} /></li>)}
         </ul>
         <nav class="chips" aria-label="Разделы каталога">
@@ -303,10 +303,6 @@ const others = cities.filter((c) => c.slug !== city.slug);
   .local__facts dt { color: var(--c-text-3); font-size: .875rem; }
   .local__facts dd { margin: 0; font-size: .9375rem; }
 
-  .cards { display: grid; gap: var(--gap); }
-  @media (min-width: 640px) { .cards { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-  @media (min-width: 1024px) { .cards { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
-  .cards li { display: grid; }
 
   .chips { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: clamp(1.5rem, 1rem + 2vw, 2rem); }
   .chip {
