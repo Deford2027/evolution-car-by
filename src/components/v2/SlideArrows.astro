@@ -1,0 +1,76 @@
+---
+/**
+ * Стрелки мобильного слайдера, как у эталона на Tilda: «назад» – тёмная,
+ * «вперёд» – оранжевая. Работают с ближайшим [data-slider], листают его
+ * [data-track] на одну карточку. Ленту делает класс .mtrack: на телефоне
+ * карточки идут в ряд со свайпом, с 640 px – обычная сетка блока, стрелки
+ * скрыты. Без скриптов лента всё равно листается пальцем.
+ */
+---
+
+<div class="arrows" data-arrows>
+  <button class="arrow" type="button" data-dir="-1" aria-label="Предыдущая карточка" disabled>
+    <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /></svg>
+  </button>
+  <button class="arrow arrow--next" type="button" data-dir="1" aria-label="Следующая карточка">
+    <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /></svg>
+  </button>
+</div>
+
+<style>
+  .arrows { display: flex; gap: .5rem; flex: none; }
+  .arrow {
+    display: grid;
+    place-items: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: var(--r-btn);
+    border: 1px solid var(--c-line-strong);
+    color: var(--c-text);
+    transition: opacity .2s var(--ease), background .2s var(--ease);
+  }
+  .arrow--next { background: var(--c-accent); border-color: var(--c-accent); color: var(--c-on-brand); }
+  .arrow:disabled { opacity: .35; cursor: default; }
+  @media (min-width: 640px) { .arrows { display: none; } }
+</style>
+
+<style is:global>
+  @media (max-width: 639px) {
+    .mtrack {
+      display: grid;
+      grid-auto-flow: column;
+      grid-auto-columns: 85%;
+      grid-template-columns: none;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: none;
+      margin-inline: calc(var(--gutter) * -1);
+      padding-inline: var(--gutter);
+      scroll-padding-inline: var(--gutter);
+    }
+    .mtrack::-webkit-scrollbar { display: none; }
+    .mtrack > * { scroll-snap-align: start; }
+  }
+</style>
+
+<script>
+  for (const arrows of document.querySelectorAll<HTMLElement>('[data-arrows]')) {
+    const track = arrows.closest('[data-slider]')?.querySelector<HTMLElement>('[data-track]');
+    if (!track) continue;
+    const [prev, next] = arrows.querySelectorAll('button');
+    const sync = () => {
+      prev.disabled = track.scrollLeft < 4;
+      next.disabled = track.scrollLeft + track.clientWidth > track.scrollWidth - 4;
+    };
+    for (const btn of [prev, next]) {
+      btn.addEventListener('click', () => {
+        const card = track.firstElementChild as HTMLElement | null;
+        const gap = parseFloat(getComputedStyle(track).columnGap) || 0;
+        track.scrollBy({ left: Number(btn.dataset.dir) * ((card?.offsetWidth ?? track.clientWidth) + gap), behavior: 'smooth' });
+      });
+    }
+    track.addEventListener('scroll', sync, { passive: true });
+    addEventListener('resize', sync);
+    sync();
+  }
+</script>
