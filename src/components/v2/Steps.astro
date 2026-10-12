@@ -1,18 +1,22 @@
 ---
 import { steps } from '../../content/home';
+import SlideArrows from './SlideArrows.astro';
 ---
 
-<section class="section" id="steps">
+<section class="section" id="steps" data-slider>
   <div class="container">
     <div class="head">
       <div>
         <p class="kicker">{steps.kicker}</p>
         <h2 class="head__title">{steps.title}</h2>
       </div>
-      <a class="btn head__cta" href="#final" data-open="lead">Оставить заявку</a>
+      <div class="head__aside">
+        <a class="btn head__cta" href="#final" data-open="lead">Оставить заявку</a>
+        <SlideArrows />
+      </div>
     </div>
 
-    <ol class="flow">
+    <ol class="flow mtrack" data-track>
       {steps.items.map((step, i) => (
         <li class="step">
           <p class="step__num">{String(i + 1).padStart(2, '0')}</p>
@@ -27,10 +31,9 @@ import { steps } from '../../content/home';
 <style>
   .head { display: grid; gap: 1.5rem; margin-bottom: clamp(2rem, 1.2rem + 3vw, 3rem); }
   .head__title { margin-top: .875rem; max-width: 22ch; }
-  .head__cta { justify-self: start; }
+  .head__aside { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
   @media (min-width: 1024px) {
     .head { grid-template-columns: minmax(0, 1fr) auto; align-items: end; gap: 3rem; }
-    .head__cta { justify-self: end; }
   }
 
   /* лента 01–05: приём из Figma-концепта вместо карусели карточек */
@@ -54,6 +57,17 @@ import { steps } from '../../content/home';
   }
   .step__title { font-size: clamp(1.0625rem, 1rem + .4vw, 1.1875rem); line-height: 1.3; }
   .step__text { color: var(--c-text-2); font-size: .875rem; line-height: 1.5; }
+
+  /* телефон: шаги – карточками в ленте со стрелками, как у эталона */
+  @media (max-width: 639px) {
+    .flow { gap: .75rem; border-top: 0; }
+    .step {
+      padding: 1.25rem;
+      border: 1px solid var(--c-line);
+      border-radius: var(--r-card);
+      background: var(--c-surface);
+    }
+  }
 
   @media (min-width: 768px) {
     .flow { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 1.5rem; }

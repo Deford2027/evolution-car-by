@@ -1,17 +1,19 @@
 ---
 import { reviews } from '../../content/home';
+import SlideArrows from './SlideArrows.astro';
 ---
 
-<section class="section" id="reviews">
+<section class="section" id="reviews" data-slider>
   <div class="container">
     <div class="bar">
       <p class="kicker">{reviews.kicker}</p>
       <p class="bar__rating"><span class="bar__stars" aria-hidden="true">★★★★★</span> 5,0</p>
       <p class="bar__count">{reviews.lead}</p>
       <a class="bar__link" href="#contacts">{reviews.cta} <span aria-hidden="true">→</span></a>
+      <SlideArrows />
     </div>
 
-    <ul class="cards">
+    <ul class="cards mtrack" data-track>
       {reviews.items.map((item) => (
         <li class="rev">
           <div class="rev__head">
