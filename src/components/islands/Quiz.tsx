@@ -1,6 +1,7 @@
 import { useState } from 'preact/hooks';
 import { submitLead } from '../../lib/submit';
-import { handlePhoneInput, phoneFilled } from '../../lib/phone';
+import { fullPhone, nationalFilled } from '../../lib/phone';
+import { Consent, PhoneField } from './LeadForm';
 
 interface Step { q: string; a: string[] }
 interface Props {
@@ -8,17 +9,17 @@ interface Props {
   steps: Step[];
   contactQuestion: string;
   channels: string[];
-  consent: string;
   success: string;
   onDone?: () => void;
 }
 
-export default function Quiz({ title, steps, contactQuestion, channels, consent, success, onDone }: Props) {
+export default function Quiz({ title, steps, contactQuestion, channels, success, onDone }: Props) {
   const total = steps.length + 1;
   const [step, setStep] = useState(0);
   const [answers, setAnswers] = useState<string[]>([]);
   const [channel, setChannel] = useState(channels[0]);
   const [phone, setPhone] = useState('');
+  const [country, setCountry] = useState('BY');
   const [agreed, setAgreed] = useState(false);
   const [state, setState] = useState<'idle' | 'sending' | 'done'>('idle');
   const [error, setError] = useState('');
@@ -31,7 +32,7 @@ export default function Quiz({ title, steps, contactQuestion, channels, consent,
   };
 
   const send = async () => {
-    if (!phoneFilled(phone)) return setError('Укажите номер телефона полностью');
+    if (!nationalFilled(phone, country)) return setError('Укажите номер телефона полностью');
     if (!agreed) return setError('Отметьте согласие на обработку данных');
     setError('');
     setState('sending');
@@ -39,7 +40,7 @@ export default function Quiz({ title, steps, contactQuestion, channels, consent,
     // а удобный способ связи виден в источнике заявки.
     const ok = await submitLead({
       name: `Опрос: ${answers.join(' / ')}`,
-      phone,
+      phone: fullPhone(phone, country),
       source: `Опрос на расчёт стоимости · ${channel}`,
       consent: agreed,
     });
@@ -90,19 +91,22 @@ export default function Quiz({ title, steps, contactQuestion, channels, consent,
               </button>
             ))}
           </div>
-          <input
-            class="lead-form__input"
-            type="tel"
-            inputMode="tel"
-            placeholder="+375 29 123-45-67"
-            value={phone}
-            onInput={(e) => handlePhoneInput(e, setPhone)}
+          <PhoneField
+            label="Ваш номер телефона"
+            country={country}
+            national={phone}
+            onChange={(iso, national) => {
+              setCountry(iso);
+              setPhone(national);
+            }}
           />
-          <label class="lead-form__consent">
-            <input type="checkbox" checked={agreed} onChange={(e) => setAgreed((e.target as HTMLInputElement).checked)} />
-            <span>{consent}</span>
-          </label>
-          <button class="btn btn--block" type="button" onClick={send} disabled={state === 'sending'}>
+          <Consent agreed={agreed} onChange={setAgreed} />
+          <button
+            class={`btn btn--block${agreed ? '' : ' is-locked'}`}
+            type="button"
+            onClick={send}
+            disabled={state === 'sending'}
+          >
             {state === 'sending' ? 'Отправляем…' : 'Получить расчёт'}
           </button>
         </>

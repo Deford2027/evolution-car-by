@@ -1,6 +1,13 @@
-import { useState } from 'preact/hooks';
+import { useEffect, useState } from 'preact/hooks';
 import type { JSX } from 'preact';
-import { handlePhoneInput, phoneFilled } from '../../lib/phone';
+import {
+  COUNTRIES,
+  detectCountry,
+  fullPhone,
+  maskNational,
+  nationalFilled,
+  parsePhoneInput,
+} from '../../lib/phone';
 
 type Status = 'idle' | 'sending' | 'done' | 'error';
 
@@ -8,7 +15,6 @@ interface Props {
   namePlaceholder: string;
   phonePlaceholder: string;
   cta: string;
-  consent: string;
   success: string;
   /** compact – поля в столбец (карточка шага), wide – в строку (финальный оффер) */
   layout?: 'compact' | 'wide';
@@ -19,13 +25,13 @@ export default function LeadForm({
   namePlaceholder,
   phonePlaceholder,
   cta,
-  consent,
   success,
   layout = 'compact',
   source,
 }: Props) {
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
+  const [country, setCountry] = useState('BY');
   const [company, setCompany] = useState(''); // ловушка для роботов, человек её не видит
   const [agreed, setAgreed] = useState(false);
   const [status, setStatus] = useState<Status>('idle');
@@ -39,7 +45,7 @@ export default function LeadForm({
       setError('Напишите, как к вам обращаться');
       return;
     }
-    if (!phoneFilled(phone)) {
+    if (!nationalFilled(phone, country)) {
       setError('Укажите номер телефона полностью');
       return;
     }
@@ -50,7 +56,13 @@ export default function LeadForm({
     setError('');
     setStatus('sending');
     const { submitLead } = await import('../../lib/submit');
-    const ok = await submitLead({ name, phone, source, consent: agreed, company });
+    const ok = await submitLead({
+      name,
+      phone: fullPhone(phone, country),
+      source,
+      consent: agreed,
+      company,
+    });
     setStatus(ok ? 'done' : 'error');
   };
 
@@ -74,18 +86,20 @@ export default function LeadForm({
           value={name}
           onInput={(e) => setName((e.target as HTMLInputElement).value)}
         />
-        <input
-          class="lead-form__input"
-          type="tel"
-          name="phone"
-          autocomplete="tel"
-          inputMode="tel"
-          placeholder={phonePlaceholder}
-          value={phone}
-          onInput={(e) => handlePhoneInput(e, setPhone)}
-          required
+        <PhoneField
+          label={phonePlaceholder}
+          country={country}
+          national={phone}
+          onChange={(iso, national) => {
+            setCountry(iso);
+            setPhone(national);
+          }}
         />
-        <button class="btn lead-form__submit" type="submit" disabled={status === 'sending'}>
+        <button
+          class={`btn lead-form__submit${agreed ? '' : ' is-locked'}`}
+          type="submit"
+          disabled={status === 'sending'}
+        >
           {status === 'sending' ? 'Отправляем…' : cta}
         </button>
       </div>
@@ -107,14 +121,7 @@ export default function LeadForm({
         style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0"
       />
 
-      <label class="lead-form__consent">
-        <input
-          type="checkbox"
-          checked={agreed}
-          onChange={(e) => setAgreed((e.target as HTMLInputElement).checked)}
-        />
-        <span>{consent}</span>
-      </label>
+      <Consent agreed={agreed} onChange={setAgreed} />
 
       {error && (
         <p class="lead-form__error" role="alert">
@@ -127,5 +134,106 @@ export default function LeadForm({
         </p>
       )}
     </form>
+  );
+}
+
+interface PhoneFieldProps {
+  label: string;
+  country: string;
+  national: string;
+  onChange: (iso: string, national: string) => void;
+}
+
+/**
+ * Телефон с выбором страны. Страна подставляется по устройству посетителя
+ * (detectCountry), человек может сменить её списком, а маска берётся у
+ * выбранной страны. Определение – в эффекте, а не в начальном значении:
+ * на сервере браузера нет, и разметка разошлась бы с той, что в HTML.
+ */
+export function PhoneField({ label, country, national, onChange }: PhoneFieldProps) {
+  useEffect(() => {
+    if (!national) onChange(detectCountry(), '');
+  }, []);
+
+  const c = COUNTRIES.find((x) => x.iso === country) ?? COUNTRIES[0];
+
+  const onInput = (e: Event) => {
+    const el = e.target as HTMLInputElement;
+    const { iso, national: masked } = parsePhoneInput(el.value, country);
+    // значение пишем и в поле: маска могла выбросить символ, а состояние
+    // при этом не поменялось бы – и Preact оставил бы его на экране
+    el.value = masked;
+    onChange(iso, masked);
+  };
+
+  return (
+    <div class="phone-field">
+      <label class="phone-field__country">
+        <span aria-hidden="true">
+          {c.flag} {c.dial ? `+${c.dial}` : '+'}
+        </span>
+        <select
+          aria-label="Страна номера телефона"
+          value={country}
+          onChange={(e) => {
+            const iso = (e.target as HTMLSelectElement).value;
+            const next = COUNTRIES.find((x) => x.iso === iso) ?? c;
+            onChange(iso, maskNational(national, next));
+          }}
+        >
+          {COUNTRIES.map((x) => (
+            <option value={x.iso} key={x.iso}>
+              {x.flag} {x.name}{x.dial ? ` +${x.dial}` : ''}
+            </option>
+          ))}
+        </select>
+      </label>
+      <input
+        class="lead-form__input phone-field__input"
+        type="tel"
+        name="phone"
+        autocomplete="tel"
+        inputMode="tel"
+        aria-label={label}
+        placeholder={c.mask ? c.mask.replace(/#/g, '0') : 'Номер с кодом страны'}
+        value={national}
+        onInput={onInput}
+        required
+      />
+    </div>
+  );
+}
+
+/**
+ * Согласие на обработку персональных данных по Закону РБ № 99-З.
+ * Галочка не стоит заранее и ставится только рукой (ст. 5: согласие –
+ * свободное, однозначное). До согласия человеку называют оператора, цель
+ * и состав данных, а условия и права – в документах по ссылкам. Согласие
+ * и ознакомление с политикой – разные вещи, поэтому и фразы две.
+ * Ссылки открываются в новой вкладке: иначе заполненная форма пропадёт.
+ * Оператор – по юридическим данным действующего сайта evolutioncar.by.
+ */
+export function Consent({ agreed, onChange }: { agreed: boolean; onChange: (v: boolean) => void }) {
+  return (
+    <label class="lead-form__consent">
+      <input
+        type="checkbox"
+        name="consent"
+        checked={agreed}
+        onChange={(e) => onChange((e.target as HTMLInputElement).checked)}
+      />
+      <span>
+        Даю согласие ООО «Тренд Экспресс Авто» на обработку имени и номера телефона, чтобы со
+        мной связались по заявке, на условиях{' '}
+        <a href="/agreement/" target="_blank" rel="noopener">
+          Согласия на обработку персональных данных
+        </a>
+        . С{' '}
+        <a href="/policy/" target="_blank" rel="noopener">
+          Политикой конфиденциальности
+        </a>{' '}
+        ознакомлен(а).
+      </span>
+    </label>
   );
 }
