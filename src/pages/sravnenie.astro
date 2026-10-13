@@ -1,0 +1,191 @@
+---
+/**
+ * Страница сравнения. Список машин – в браузере посетителя (localStorage),
+ * поэтому страница статичная: данные всех сравниваемых машин встроены в
+ * HTML, а скрипт рисует выбранные колонки и прячет одинаковые строки по
+ * галочке «Показать только отличия».
+ */
+import '../styles/theme-v1.css';
+import '../styles/islands.css';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/v1/Header.astro';
+import Footer from '../components/v1/Footer.astro';
+import Breadcrumbs from '../components/v1/Breadcrumbs.astro';
+import ModalHost from '../components/islands/ModalHost';
+import { cars, carPath } from '../content/cars';
+import { quiz, finalOffer } from '../content/home';
+import { compareText as t, compareRows, COMPARE_SLUGS, COMPARE_LIMIT, COMPARE_PATH } from '../content/compare';
+import { abs } from '../lib/seo';
+
+const data = cars
+  .filter((c) => COMPARE_SLUGS.includes(c.slug))
+  .map((c) => ({
+    slug: c.slug,
+    title: c.title,
+    photo: c.photo,
+    href: carPath(c),
+    price: compareRows[0].value(c),
+    sub: [compareRows[4].value(c), compareRows[6].value(c), compareRows[7].value(c)].filter(Boolean).join(' · '),
+    rows: compareRows.map((r) => r.value(c) || '–'),
+  }));
+const crumbs = [
+  { name: 'Главная', href: '/' },
+  { name: t.title, href: COMPARE_PATH },
+];
+---
+
+<BaseLayout theme="v1" title={`${t.title} автомобилей – Evolution Car`} description="Сравнение выбранных автомобилей по цене и характеристикам." canonical={abs(COMPARE_PATH)}>
+  <Header />
+  <Breadcrumbs crumbs={crumbs} />
+  <main class="section cmp" data-compare>
+    <div class="container">
+      <h1 class="cmp__title">{t.title}</h1>
+      <p class="cmp__count" data-cmp-count></p>
+
+      <div class="cmp__empty" data-cmp-empty hidden>
+        <p>{t.empty}</p>
+        <a class="btn" href="/catalog/">{t.emptyCta}</a>
+      </div>
+
+      <div class="cmp__scroll" data-cmp-body hidden>
+        <div class="cmp__grid" data-cmp-cards></div>
+
+        <label class="cmp__toggle">
+          <input type="checkbox" data-cmp-diff />
+          <span class="cmp__switch" aria-hidden="true"></span>
+          {t.onlyDiff}
+        </label>
+
+        <h2 class="cmp__h2">{t.dataTitle}</h2>
+        <div data-cmp-rows></div>
+        <p class="cmp__nodiff" data-cmp-nodiff hidden>{t.noDiff}</p>
+      </div>
+    </div>
+  </main>
+  <Footer />
+  <ModalHost client:idle quizTitle={quiz.title} quizSteps={quiz.steps} contactQuestion={quiz.contactStep.q} channels={quiz.contactStep.channels} success={finalOffer.success} videoPoster="/img/unsplash/service.jpg" />
+</BaseLayout>
+
+<script is:inline define:vars={{ data, labels: compareRows.map((r) => r.label), t, limit: COMPARE_LIMIT }}>
+  (() => {
+    const root = document.querySelector('[data-compare]');
+    const read = () => { try { return JSON.parse(localStorage.getItem('ev-compare') || '[]'); } catch (e) { return []; } };
+    const write = (v) => { try { localStorage.setItem('ev-compare', JSON.stringify(v)); } catch (e) {} };
+    const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]);
+    const norm = (v) => String(v).toLowerCase().replace(/\s+/g, '').replace(/л\/с|л\.с\./g, 'лс').replace(/\./g, ',');
+    const word = (n) => (n % 10 === 1 && n % 100 !== 11 ? 'автомобиль' : n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % 100 > 14) ? 'автомобиля' : 'автомобилей');
+
+    const render = () => {
+      const list = read().map((s) => data.find((d) => d.slug === s)).filter(Boolean);
+      root.querySelector('[data-cmp-count]').textContent = list.length ? `${list.length} ${word(list.length)}` : '';
+      root.querySelector('[data-cmp-empty]').hidden = list.length > 0;
+      root.querySelector('[data-cmp-body]').hidden = list.length === 0;
+      if (!list.length) return;
+      const left = limit - list.length;
+      root.style.setProperty('--cols', String(list.length + (left > 0 ? 1 : 0)));
+
+      root.querySelector('[data-cmp-cards]').innerHTML =
+        list.map((c) => `
+          <article class="cmp__card">
+            <a class="cmp__shot" href="${esc(c.href)}"><img src="${esc(c.photo)}" alt="" loading="lazy" /></a>
+            <button class="cmp__remove" type="button" data-remove="${esc(c.slug)}" aria-label="${esc(t.remove)}">✕</button>
+            <p class="cmp__price">${esc(c.price || '–')}</p>
+            <a class="cmp__name" href="${esc(c.href)}">${esc(c.title)}</a>
+            <p class="cmp__sub">${esc(c.sub)}</p>
+          </article>`).join('') +
+        (left > 0
+          ? `<a class="cmp__more" href="/catalog/lixiang/"><span class="cmp__plus" aria-hidden="true">+</span><span>${esc(t.findMore)}</span><small>${esc(t.findMoreHint.replace('{left}', left))}</small></a>`
+          : '');
+
+      const onlyDiff = root.querySelector('[data-cmp-diff]').checked;
+      let shown = 0;
+      root.querySelector('[data-cmp-rows]').innerHTML = labels.map((label, i) => {
+        const vals = list.map((c) => c.rows[i]);
+        const same = vals.every((v) => norm(v) === norm(vals[0]));
+        if (vals.every((v) => v === '–')) return '';
+        if (onlyDiff && (same || list.length < 2)) return '';
+        shown++;
+        return `<div class="cmp__row${same ? '' : ' is-diff'}">
+          <p class="cmp__label">${esc(label)}</p>
+          <div class="cmp__grid">${vals.map((v) => `<p class="cmp__val">${esc(v)}</p>`).join('')}</div>
+        </div>`;
+      }).join('');
+      root.querySelector('[data-cmp-nodiff]').hidden = !(onlyDiff && shown === 0);
+    };
+
+    root.addEventListener('click', (e) => {
+      const btn = e.target.closest('[data-remove]');
+      if (!btn) return;
+      write(read().filter((s) => s !== btn.dataset.remove));
+      render();
+    });
+    root.querySelector('[data-cmp-diff]').addEventListener('change', render);
+    render();
+  })();
+</script>
+
+<style is:global>
+  .cmp { padding-top: clamp(1rem, .5rem + 2vw, 2rem); }
+  .cmp__title { margin-bottom: .25rem; }
+  .cmp__count { color: var(--c-text-2); margin-bottom: clamp(1.25rem, 1rem + 1.5vw, 2rem); }
+  .cmp__empty { display: grid; gap: 1rem; justify-items: start; color: var(--c-text-2); }
+  .cmp__empty[hidden], .cmp__scroll[hidden], .cmp__nodiff[hidden] { display: none; }
+
+  /* колонки одной ширины у карточек и у значений – таблица читается сверху вниз;
+     на телефоне всё вместе листается вбок */
+  .cmp__scroll { overflow-x: auto; scrollbar-width: thin; padding-bottom: .5rem; }
+  .cmp__grid { display: grid; grid-template-columns: repeat(var(--cols, 3), minmax(13rem, 1fr)); gap: clamp(.75rem, .5rem + 1vw, 1.5rem); }
+  .cmp__scroll > .cmp__grid, .cmp__row .cmp__grid { min-width: calc(var(--cols, 3) * 13.75rem); }
+
+  .cmp__card { position: relative; display: grid; gap: .375rem; align-content: start; }
+  .cmp__shot { display: block; border-radius: var(--r-card); overflow: hidden; margin-bottom: .5rem; }
+  .cmp__shot img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; display: block; transition: transform .4s var(--ease); }
+  .cmp__shot:hover img { transform: scale(1.03); }
+  .cmp__remove {
+    position: absolute;
+    top: .5rem;
+    right: .5rem;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    background: rgba(0, 4, 12, .6);
+    color: var(--c-text);
+    font-size: .8125rem;
+  }
+  .cmp__remove:hover { background: var(--c-accent); }
+  .cmp__price { font-family: var(--font-display); font-weight: 650; font-size: clamp(1.25rem, 1.1rem + .6vw, 1.625rem); letter-spacing: -.02em; }
+  .cmp__name { font-size: 1rem; }
+  .cmp__name:hover { color: var(--c-accent); }
+  .cmp__sub { color: var(--c-text-3); font-size: .8125rem; }
+
+  .cmp__more {
+    display: grid;
+    place-content: center;
+    justify-items: center;
+    gap: .5rem;
+    aspect-ratio: 4 / 3;
+    border-radius: var(--r-card);
+    background: var(--c-surface);
+    border: 1px dashed var(--c-line-strong);
+    text-align: center;
+    transition: border-color .2s var(--ease);
+  }
+  .cmp__more:hover { border-color: var(--c-accent); }
+  .cmp__plus { display: grid; place-items: center; width: 2.25rem; height: 2.25rem; border-radius: 50%; background: var(--c-text); color: var(--c-bg); font-size: 1.375rem; line-height: 1; }
+  .cmp__more small { color: var(--c-text-3); font-size: .8125rem; }
+
+  .cmp__toggle { display: inline-flex; align-items: center; gap: .75rem; margin-top: clamp(2rem, 1.5rem + 2vw, 3rem); cursor: pointer; font-size: 1rem; }
+  .cmp__toggle input { position: absolute; opacity: 0; pointer-events: none; }
+  .cmp__switch { position: relative; width: 2.75rem; height: 1.5rem; border-radius: var(--r-pill); background: var(--c-line-strong); transition: background .2s var(--ease); flex: none; }
+  .cmp__switch::after { content: ''; position: absolute; top: .1875rem; left: .1875rem; width: 1.125rem; height: 1.125rem; border-radius: 50%; background: var(--c-text); transition: transform .2s var(--ease); }
+  .cmp__toggle input:checked + .cmp__switch { background: var(--c-accent); }
+  .cmp__toggle input:checked + .cmp__switch::after { transform: translateX(1.25rem); }
+  .cmp__toggle input:focus-visible + .cmp__switch { outline: 2px solid var(--c-accent); outline-offset: 2px; }
+
+  .cmp__h2 { margin: clamp(1.5rem, 1rem + 1.5vw, 2.25rem) 0 1rem; font-size: clamp(1.5rem, 1.2rem + 1vw, 2.125rem); }
+  .cmp__row { padding-block: .75rem; border-bottom: 1px solid var(--c-line); }
+  .cmp__label { color: var(--c-text-3); font-size: .8125rem; margin-bottom: .375rem; }
+  .cmp__val { font-size: .9375rem; }
+  .cmp__row.is-diff .cmp__val { color: var(--c-text); }
+  .cmp__nodiff { color: var(--c-text-2); padding-block: 1rem; }
+</style>
