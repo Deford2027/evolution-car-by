@@ -1,6 +1,6 @@
 /* Тема V1 – копия текущей тильды evcars-by.tilda.ws.
    Значения сняты с живой страницы: фон #00040c, акцент #ff5102,
-   заголовки Oswald 700 uppercase ls -1.2px, текст – гротеск 16-18px. */
+   заголовки – Inter как на evolutioncar.by (ветка preview), текст – гротеск 16-18px. */
 :root[data-theme="v1"] {
   --c-bg: #00040c;
   --c-bg-alt: #02050b;
@@ -25,7 +25,8 @@
   --c-btn2-bg-hover: rgba(255, 255, 255, .12);
 
   --font-body: "Golos Text", system-ui, sans-serif;
-  --font-display: "Oswald", "Arial Narrow", Arial, sans-serif;
+  /* заголовки – как на evolutioncar.by: Inter, полужирный, плотный трекинг, без капса */
+  --font-display: "Inter", -apple-system, "Segoe UI", Arial, sans-serif;
 
   --fs-h1: clamp(2.25rem, 1.1rem + 4.9vw, 3.75rem);
   --fs-h2: clamp(1.75rem, .95rem + 3.4vw, 2.75rem);
@@ -35,10 +36,10 @@
   --fs-kicker: .9375rem;
   --fs-btn: .8125rem;
 
-  --heading-weight: 700;
-  --heading-transform: uppercase;
-  --heading-ls: -.02em;
-  --heading-lh: 1.06;
+  --heading-weight: 620;
+  --heading-transform: none;
+  --heading-ls: -.05em;
+  --heading-lh: 1.04;
 
   --kicker-transform: none;
   --kicker-ls: 0;
