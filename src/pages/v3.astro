@@ -1,0 +1,403 @@
+---
+/**
+ * Вариант главной v3 в стилистике Community Dealer (по мотивам bork.ru).
+ * Только ветка preview; если владелец не согласует – удалить (см. AGENTS.md).
+ * Тексты – с текущей главной (src/content/home.ts), данные машин – каталог.
+ */
+import '../styles/theme-v1.css';
+import '../styles/islands.css';
+import '../styles/v3.css';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import MegaMenu from '../components/v1/MegaMenu.astro';
+import ModalHost from '../components/islands/ModalHost';
+import LeadForm from '../components/islands/LeadForm';
+import { site } from '../content/site';
+import { hero, benefits, directions, salon, calc, steps, reviews, faq, finalOffer, quiz } from '../content/home';
+import { cars, sections, carsOf, carPath, brandPath, formatUsd, powertrains, countries } from '../content/cars';
+
+const inStock = carsOf(sections.find((s) => s.slug === 'v-nalichii')!);
+const picks = inStock.slice(0, 6);
+const brandCounts = Object.entries(
+  cars.reduce<Record<string, number>>((acc, c) => ((acc[c.brand] = (acc[c.brand] ?? 0) + 1), acc), {}),
+)
+  .sort((a, b) => b[1] - a[1])
+  .slice(0, 9);
+const dirLinks = ['/catalog/iz-kitaya/', '/catalog/iz-korei/', '/catalog/iz-evropy/', '/catalog/iz-ssha/'];
+const slides = ['Evolution Car', 'Под ключ', 'Сервис'];
+const plural = (n: number) => (n % 10 === 1 && n % 100 !== 11 ? 'автомобиль' : n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % 100 > 14) ? 'автомобиля' : 'автомобилей');
+const arrow = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
+---
+
+<BaseLayout theme="v1" title="Evolution Car – автомобили из Китая, Кореи, США и Европы под ключ" description="Вариант главной страницы Evolution Car.">
+  <div class="v3">
+    <header class="v3-hdr" data-v3-hdr>
+      <div class="v3-wrap">
+        <div class="v3-hdr__top">
+          <p class="v3-hdr__place">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 21s7-6.2 7-11.5A7 7 0 0 0 5 9.5C5 14.8 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.5"/></svg>
+            <span>{site.city}, {site.showroom}</span>
+          </p>
+          <a class="v3-hdr__logo" href="/v3/" aria-label={site.brand}><picture><source media="(min-width: 1024px)" srcset="/img/logo-evolution-car.png" width="939" height="48" /><img src="/img/logo-ev.png" alt="" width="197" height="57" /></picture></a>
+          <div class="v3-hdr__right">
+            <a class="v3-hdr__phone" href={site.phoneHref}>{site.phone}</a>
+            <a class="v3-ic" href={site.phoneHref} aria-label="Позвонить"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8a15.2 15.2 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1l-2.3 2.2Z"/></svg></a>
+            <a class="v3-ic" href={site.telegram} target="_blank" rel="noopener" aria-label="Telegram"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M21.9 4.3 18.7 19c-.2 1-.9 1.3-1.8.8l-4.9-3.6-2.4 2.3c-.3.3-.5.5-1 .5l.4-5 9.1-8.2c.4-.3-.1-.5-.6-.2L6.3 12.7 1.5 11.2c-1-.3-1-1 .2-1.5l19-7.3c.9-.3 1.6.2 1.2 1.9Z"/></svg></a>
+            <button class="v3-ic v3-hdr__menu" type="button" aria-controls="mega" aria-expanded="false" aria-label="Открыть меню" data-mega-toggle>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 8h16M4 16h16"/></svg>
+            </button>
+          </div>
+        </div>
+        <nav class="v3-hdr__nav" aria-label="Основное меню">
+          <a href="/catalog/">Каталог</a>
+          <a href="/catalog/v-nalichii/">В наличии</a>
+          <a href="/catalog/pod-zakaz/">Под заказ</a>
+          <a href="#directions">Направления</a>
+          <a href="/dostavka-i-rastamozhka/">Доставка</a>
+          <a href="#contacts">Контакты</a>
+          <a class="v3-hdr__lead" href="#final" data-open="lead">Оставить заявку</a>
+        </nav>
+      </div>
+    </header>
+    <MegaMenu />
+
+    <main>
+      <section class="v3-hero" data-v3-hero aria-roledescription="carousel" aria-label={site.brand}>
+        <div class="v3-slide is-active">
+          <video class="v3-slide__media" autoplay muted loop playsinline preload="auto" poster="/img/hero-poster.webp" aria-hidden="true">
+            <source media="(max-width: 620px)" src="/video/hero-m.mp4" type="video/mp4" />
+            <source src="/video/hero.mp4" type="video/mp4" />
+          </video>
+          <div class="v3-slide__shade" style="background:rgba(11,12,12,.72)"></div>
+          <div class="v3-mark__glow"></div>
+          <div class="v3-mark">
+            <span class="v3-mark__word" role="img" aria-label="Evolution Car"></span>
+            <p class="v3-caps v3-mark__sub">Автосалон · {site.city}</p>
+            <p class="v3-mark__title">Ваш автомобиль. <span class="v3-muted">Наша ответственность.</span></p>
+          </div>
+        </div>
+
+        <div class="v3-slide">
+          <img class="v3-slide__media" src="/img/hero-evolution-hd-v2.jpg" alt="" loading="eager" />
+          <div class="v3-slide__shade"></div>
+          <div class="v3-wrap v3-slide__inner">
+            <p class="v3-caps v3-hero__eyebrow"><span class="v3-dot"></span>Китай · Южная Корея · США · Европа</p>
+            <h1 class="v3-hero__title">{hero.title}</h1>
+            <p class="v3-hero__text">{hero.lead}. {benefits.slice(1).map((b) => b.title).join(' · ')}.</p>
+            <div class="v3-hero__cta">
+              <a class="btn" href="#final" data-open="lead">{hero.cta}</a>
+              <a class="v3-btn-line" href="/catalog/">Смотреть каталог</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="v3-slide">
+          <img class="v3-slide__media" src="/img/unsplash/service.jpg" alt="" loading="lazy" />
+          <div class="v3-slide__shade"></div>
+          <div class="v3-wrap v3-slide__inner">
+            <p class="v3-caps v3-hero__eyebrow"><span class="v3-dot"></span>{site.showroom} · {site.service}</p>
+            <h2 class="v3-hero__title">Обслуживаем <span class="v3-chrome">и после покупки</span></h2>
+            <p class="v3-hero__text">{salon.cards[2].text} Диагностика, ТО и ремонт электромобилей, гибридов и машин с ДВС.</p>
+            <div class="v3-hero__cta">
+              <a class="btn" href="#final" data-open="lead">Записаться на сервис</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="v3-hero__ui">
+          <div class="v3-wrap">
+            <div class="v3-bars">
+              {slides.map((label, i) => (
+                <button type="button" class:list={['v3-bar', { 'is-active': i === 0 }]} data-bar={i} aria-label={`Слайд ${i + 1}: ${label}`}>
+                  <span class="v3-bar__num">{String(i + 1).padStart(2, '0')}</span>
+                  <span class="v3-bar__label">{label}</span>
+                  <span class="v3-bar__track"><i></i></span>
+                </button>
+              ))}
+            </div>
+            <div class="v3-arrows">
+              <button class="v3-ic" type="button" data-go="-1" aria-label="Предыдущий слайд"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M15 5l-7 7 7 7"/></svg></button>
+              <button class="v3-ic" type="button" data-pause aria-label="Пауза"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 5h3v14H7zM14 5h3v14h-3z"/></svg></button>
+              <button class="v3-ic" type="button" data-go="1" aria-label="Следующий слайд"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 5l7 7-7 7"/></svg></button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="v3-sec">
+        <div class="v3-wrap v3-svc">
+          <div class="v3-reveal">
+            <p class="v3-caps v3-eyebrow">Как мы работаем</p>
+            <h2 class="v3-h2">{salon.title}</h2>
+            <p class="v3-svc__text">{salon.lead}</p>
+            <div class="v3-svc__proof">
+              <span class="v3-svc__num v3-chrome">800+</span>
+              <span class="v3-muted">автомобилей привезли<br />для клиентов Evolution Car</span>
+            </div>
+          </div>
+          <ol class="v3-svc__list">
+            {benefits.map((b, i) => (
+              <li class="v3-svc__item v3-reveal" style={`transition-delay:${i * 80}ms`}>
+                <span class="v3-caps v3-muted">{String(i + 1).padStart(2, '0')}</span>
+                <h3>{b.title}</h3>
+                <p>{b.text}</p>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </section>
+
+      <section class="v3-sec v3-sec--line" id="directions">
+        <div class="v3-wrap">
+          <div class="v3-head v3-reveal">
+            <div>
+              <p class="v3-caps v3-eyebrow">{directions.kicker} · каталог {cars.length} {plural(cars.length)}</p>
+              <h2 class="v3-h2">Привезём из четырёх стран</h2>
+            </div>
+            <a class="v3-link v3-caps" href="/catalog/">Весь каталог</a>
+          </div>
+          <div class="v3-tiles">
+            {directions.items.map((d, i) => (
+              <a class="v3-tile v3-reveal" href={dirLinks[i]} style={`transition-delay:${i * 70}ms`}>
+                <img src={d.img} alt="" loading="lazy" />
+                <span class="v3-tile__text">
+                  <span class="v3-tile__title">{d.title.replace(' под заказ', '')}</span>
+                  <span class="v3-tile__sub">{d.text}</span>
+                </span>
+                <span class="v3-tile__arrow" set:html={arrow} />
+              </a>
+            ))}
+          </div>
+          <div class="v3-chips v3-reveal">
+            {brandCounts.map(([brand, n]) => (
+              <a class="v3-chip" href={brandPath(brand)}>{brand}<i>{n}</i></a>
+            ))}
+          </div>
+
+          <div class="v3-cars">
+            {picks.map((c, i) => (
+              <a class="v3-car v3-reveal" href={carPath(c)} style={`transition-delay:${(i % 3) * 70}ms`}>
+                <span class="v3-car__shot">
+                  <img src={c.photo} alt={c.title} loading="lazy" />
+                  <span class="v3-car__badge">В наличии</span>
+                </span>
+                <span class="v3-car__title">{c.title}</span>
+                <span class="v3-car__sub">{c.year} · {powertrains[c.powertrain].toLowerCase()} · {countries[c.country].label}</span>
+                {c.priceUsd && <span class="v3-car__price">от {formatUsd(c.priceUsd)}</span>}
+              </a>
+            ))}
+          </div>
+          <div class="v3-more"><a class="v3-btn-line" href="/catalog/v-nalichii/">Все {inStock.length} {plural(inStock.length)} в наличии</a></div>
+        </div>
+      </section>
+
+      <section class="v3-sec v3-sec--line">
+        <div class="v3-wrap">
+          <div class="v3-head v3-reveal">
+            <div>
+              <p class="v3-caps v3-eyebrow">{steps.kicker}</p>
+              <h2 class="v3-h2">{steps.title}</h2>
+            </div>
+          </div>
+          <ol class="v3-steps">
+            {steps.items.map((s, i) => (
+              <li class="v3-step v3-reveal" style={`transition-delay:${i * 70}ms`}>
+                <span class="v3-step__n">{String(i + 1).padStart(2, '0')}</span>
+                <h3>{s.title}</h3>
+                <p>{s.text}</p>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </section>
+
+      <section class="v3-sec">
+        <div class="v3-wrap">
+          <div class="v3-calc v3-reveal">
+            <div>
+              <p class="v3-caps v3-eyebrow">{calc.kicker}</p>
+              <h2 class="v3-h2">{calc.title}</h2>
+              <p class="v3-calc__text">{calc.lead}</p>
+              <div class="v3-calc__cta">
+                <button class="btn" type="button" data-open="quiz">{calc.cta}</button>
+                <a class="v3-btn-line" href={site.whatsapp} target="_blank" rel="noopener">Написать в WhatsApp</a>
+              </div>
+            </div>
+            <div class="v3-mgr">
+              <span class="v3-mgr__photo"><img src="/img/IMG_7468_1.png" alt="" loading="lazy" /></span>
+              <span>
+                <span class="v3-mgr__name" style="display:block">{calc.manager.name}</span>
+                <span class="v3-muted" style="font-size:13px">{calc.manager.role}</span>
+              </span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="v3-sec v3-sec--line">
+        <div class="v3-wrap">
+          <div class="v3-head v3-reveal">
+            <div>
+              <p class="v3-caps v3-eyebrow">{reviews.kicker}</p>
+              <h2 class="v3-h2">{reviews.title}</h2>
+            </div>
+            <a class="v3-link v3-caps" href="/rew/">{reviews.cta}</a>
+          </div>
+          <div class="v3-revs">
+            {reviews.items.map((r, i) => (
+              <article class="v3-rev v3-reveal" style={`transition-delay:${i * 80}ms`}>
+                <p class="v3-rev__text">«{r.text}»</p>
+                <p class="v3-rev__name">{r.name}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section class="v3-sec v3-sec--line">
+        <div class="v3-wrap v3-faq">
+          <div class="v3-reveal">
+            <p class="v3-caps v3-eyebrow">{faq.kicker}</p>
+            <h2 class="v3-h2">{faq.title}</h2>
+          </div>
+          <div>
+            {faq.items.map((q) => (
+              <details class="v3-qa">
+                <summary>{q.q}</summary>
+                <p>{q.a}</p>
+              </details>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section class="v3-sec v3-sec--line" id="final">
+        <div class="v3-wrap v3-final">
+          <div class="v3-reveal">
+            <p class="v3-caps v3-eyebrow">Заявка</p>
+            <h2 class="v3-h2">{finalOffer.title}</h2>
+            <p class="v3-final__text">{finalOffer.lead}</p>
+          </div>
+          <LeadForm
+            client:visible
+            namePlaceholder={finalOffer.namePlaceholder}
+            phonePlaceholder={finalOffer.phonePlaceholder}
+            cta={finalOffer.cta}
+            success={finalOffer.success}
+            source="Главная v3"
+          />
+        </div>
+      </section>
+
+      <section class="v3-contact" id="contacts">
+        <div class="v3-wrap">
+          <a class="v3-contact__phone" href={site.phoneHref}>{site.phone}</a>
+          <p class="v3-contact__sub">{site.hoursFull} · {site.city}, {site.showroom}</p>
+          <div class="v3-contact__btns">
+            <a class="v3-btn-line" href={site.telegram} target="_blank" rel="noopener">Telegram</a>
+            <a class="v3-btn-line" href={site.whatsapp} target="_blank" rel="noopener">WhatsApp</a>
+            <a class="v3-btn-line" href="/contact/">Как добраться</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="v3-foot">
+      <div class="v3-wrap">
+        <div class="v3-foot__cols">
+          <div>
+            <p class="v3-foot__title">Каталог</p>
+            <a href="/catalog/">Все автомобили</a>
+            <a href="/catalog/v-nalichii/">В наличии</a>
+            <a href="/catalog/pod-zakaz/">Под заказ</a>
+            <a href="/catalog/elektromobili/">Электромобили</a>
+          </div>
+          <div>
+            <p class="v3-foot__title">Направления</p>
+            {dirLinks.map((href, i) => <a href={href}>{directions.items[i].title.replace(' под заказ', '')}</a>)}
+          </div>
+          <div>
+            <p class="v3-foot__title">Компания</p>
+            <a href="/about/">О компании</a>
+            <a href="/dlya-biznesa/">Для бизнеса</a>
+            <a href="/partneram/">Партнёрам</a>
+            <a href="/contact/">Контакты</a>
+          </div>
+          <div>
+            <p class="v3-foot__title">Шоурум</p>
+            <p>{site.city}, {site.showroom}</p>
+            <p>Сервис: {site.service}</p>
+            <p>{site.hoursFull}</p>
+          </div>
+        </div>
+        <div class="v3-foot__bottom">
+          <img src="/img/logo-evolution-car.png" alt={site.brand} width="939" height="48" />
+          <span><a href="/policy/">Политика конфиденциальности</a> · Цены ориентировочные, не оферта</span>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <ModalHost client:idle quizTitle={quiz.title} quizSteps={quiz.steps} contactQuestion={quiz.contactStep.q} channels={quiz.contactStep.channels} success={finalOffer.success} videoPoster="/img/unsplash/service.jpg" />
+</BaseLayout>
+
+<script>
+  // шапка темнеет после первого экрана
+  const hdr = document.querySelector<HTMLElement>('[data-v3-hdr]');
+  const onScroll = () => hdr?.classList.toggle('is-solid', scrollY > 40);
+  addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  // первый экран: автолистание с полосками прогресса, пауза, стрелки, свайп
+  const hero = document.querySelector<HTMLElement>('[data-v3-hero]');
+  if (hero) {
+    const slides = [...hero.querySelectorAll<HTMLElement>('.v3-slide')];
+    const bars = [...hero.querySelectorAll<HTMLElement>('.v3-bar')];
+    const pauseBtn = hero.querySelector<HTMLButtonElement>('[data-pause]')!;
+    const DUR = 7000;
+    let cur = 0;
+    let paused = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let timer = 0;
+    const go = (i: number) => {
+      cur = (i + slides.length) % slides.length;
+      slides.forEach((s, k) => s.classList.toggle('is-active', k === cur));
+      bars.forEach((b, k) => {
+        b.classList.toggle('is-done', k < cur);
+        b.classList.remove('is-active');
+        void b.offsetWidth; // перезапуск анимации полоски
+        b.classList.toggle('is-active', k === cur);
+      });
+      schedule();
+    };
+    const schedule = () => {
+      clearTimeout(timer);
+      hero.style.setProperty('--play', paused ? 'paused' : 'running');
+      hero.style.setProperty('--dur', `${DUR}ms`);
+      if (!paused) timer = window.setTimeout(() => go(cur + 1), DUR);
+    };
+    bars.forEach((b, k) => b.addEventListener('click', () => go(k)));
+    hero.querySelectorAll<HTMLButtonElement>('[data-go]').forEach((b) => b.addEventListener('click', () => go(cur + Number(b.dataset.go))));
+    pauseBtn.addEventListener('click', () => {
+      paused = !paused;
+      pauseBtn.setAttribute('aria-label', paused ? 'Продолжить' : 'Пауза');
+      pauseBtn.innerHTML = paused
+        ? '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>'
+        : '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 5h3v14H7zM14 5h3v14h-3z"/></svg>';
+      if (!paused) go(cur); else schedule();
+    });
+    let x0: number | null = null;
+    hero.addEventListener('touchstart', (e) => (x0 = e.touches[0].clientX), { passive: true });
+    hero.addEventListener('touchend', (e) => {
+      if (x0 === null) return;
+      const dx = e.changedTouches[0].clientX - x0;
+      if (Math.abs(dx) > 50) go(cur + (dx < 0 ? 1 : -1));
+      x0 = null;
+    });
+    schedule();
+  }
+
+  // плавное появление блоков при прокрутке
+  const io = new IntersectionObserver((entries) => {
+    for (const e of entries) if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); }
+  }, { rootMargin: '0px 0px -8% 0px' });
+  document.querySelectorAll('.v3-reveal').forEach((el) => io.observe(el));
+</script>
