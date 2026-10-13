@@ -780,5 +780,460 @@
     "alt": "вид сзади"
    }
   ]
+ },
+ "byd-han": {
+  "source": "https://www.byd.com/en/car/han",
+  "generation": "BYD Han EV, рестайлинг 2022+ (экспортная версия; внешне соответствует Han 2025)",
+  "shots": [
+   {
+    "src": "/img/gallery/byd-han/01-front-34.webp",
+    "thumb": "/img/gallery/byd-han/01-front-34-t.webp",
+    "alt": "вид спереди сбоку"
+   },
+   {
+    "src": "/img/gallery/byd-han/02-side.webp",
+    "thumb": "/img/gallery/byd-han/02-side-t.webp",
+    "alt": "вид сбоку"
+   },
+   {
+    "src": "/img/gallery/byd-han/03-rear-34.webp",
+    "thumb": "/img/gallery/byd-han/03-rear-34-t.webp",
+    "alt": "вид сзади сбоку"
+   },
+   {
+    "src": "/img/gallery/byd-han/04-exterior.webp",
+    "thumb": "/img/gallery/byd-han/04-exterior-t.webp",
+    "alt": "вид спереди сбоку на улице"
+   },
+   {
+    "src": "/img/gallery/byd-han/05-dashboard.webp",
+    "thumb": "/img/gallery/byd-han/05-dashboard-t.webp",
+    "alt": "салон, место водителя"
+   },
+   {
+    "src": "/img/gallery/byd-han/06-cabin.webp",
+    "thumb": "/img/gallery/byd-han/06-cabin-t.webp",
+    "alt": "салон, вид сбоку"
+   },
+   {
+    "src": "/img/gallery/byd-han/07-rear-seats.webp",
+    "thumb": "/img/gallery/byd-han/07-rear-seats-t.webp",
+    "alt": "задний ряд"
+   },
+   {
+    "src": "/img/gallery/byd-han/08-front-seats.webp",
+    "thumb": "/img/gallery/byd-han/08-front-seats-t.webp",
+    "alt": "передние сиденья"
+   }
+  ]
+ },
+ "byd-seal": {
+  "source": "https://www.byd.com/en-ae/car/seal",
+  "generation": "BYD Seal EV (кузов 2022+, рестайлинг 2025 / EU MY2026)",
+  "shots": [
+   {
+    "src": "/img/gallery/byd-seal/01-front-34.webp",
+    "thumb": "/img/gallery/byd-seal/01-front-34-t.webp",
+    "alt": "вид спереди сбоку"
+   },
+   {
+    "src": "/img/gallery/byd-seal/02-side.webp",
+    "thumb": "/img/gallery/byd-seal/02-side-t.webp",
+    "alt": "вид сбоку"
+   },
+   {
+    "src": "/img/gallery/byd-seal/03-rear-34.webp",
+    "thumb": "/img/gallery/byd-seal/03-rear-34-t.webp",
+    "alt": "вид сзади сбоку"
+   },
+   {
+    "src": "/img/gallery/byd-seal/04-detail.webp",
+    "thumb": "/img/gallery/byd-seal/04-detail-t.webp",
+    "alt": "задние фонари"
+   },
+   {
+    "src": "/img/gallery/byd-seal/05-dashboard.webp",
+    "thumb": "/img/gallery/byd-seal/05-dashboard-t.webp",
+    "alt": "салон, место водителя"
+   },
+   {
+    "src": "/img/gallery/byd-seal/06-cabin.webp",
+    "thumb": "/img/gallery/byd-seal/06-cabin-t.webp",
+    "alt": "салон целиком"
+   },
+   {
+    "src": "/img/gallery/byd-seal/07-front-seats.webp",
+    "thumb": "/img/gallery/byd-seal/07-front-seats-t.webp",
+    "alt": "передние сиденья"
+   },
+   {
+    "src": "/img/gallery/byd-seal/08-exterior.webp",
+    "thumb": "/img/gallery/byd-seal/08-exterior-t.webp",
+    "alt": "в движении"
+   }
+  ]
+ },
+ "byd-tang": {
+  "source": "https://www.byd.com/fr/voitures-electriques/tang",
+  "generation": "BYD Tang EV, рестайлинг 2022+ (Tang 2024)",
+  "shots": [
+   {
+    "src": "/img/gallery/byd-tang/01-front-34.webp",
+    "thumb": "/img/gallery/byd-tang/01-front-34-t.webp",
+    "alt": "вид спереди сбоку"
+   },
+   {
+    "src": "/img/gallery/byd-tang/02-side.webp",
+    "thumb": "/img/gallery/byd-tang/02-side-t.webp",
+    "alt": "вид сбоку"
+   },
+   {
+    "src": "/img/gallery/byd-tang/03-rear-34.webp",
+    "thumb": "/img/gallery/byd-tang/03-rear-34-t.webp",
+    "alt": "вид сзади сбоку"
+   },
+   {
+    "src": "/img/gallery/byd-tang/04-exterior.webp",
+    "thumb": "/img/gallery/byd-tang/04-exterior-t.webp",
+    "alt": "вид спереди сбоку на улице"
+   },
+   {
+    "src": "/img/gallery/byd-tang/05-dashboard.webp",
+    "thumb": "/img/gallery/byd-tang/05-dashboard-t.webp",
+    "alt": "салон, место водителя"
+   },
+   {
+    "src": "/img/gallery/byd-tang/06-cabin.webp",
+    "thumb": "/img/gallery/byd-tang/06-cabin-t.webp",
+    "alt": "салон, вид сзади на передние сиденья"
+   },
+   {
+    "src": "/img/gallery/byd-tang/07-exterior.webp",
+    "thumb": "/img/gallery/byd-tang/07-exterior-t.webp",
+    "alt": "на набережной"
+   },
+   {
+    "src": "/img/gallery/byd-tang/08-exterior.webp",
+    "thumb": "/img/gallery/byd-tang/08-exterior-t.webp",
+    "alt": "на зарядке, вид сбоку"
+   }
+  ]
+ },
+ "byd-song-plus-ev": {
+  "source": "https://www.byd.com/ru-uz/car/song-plus-ev",
+  "generation": "BYD Song Plus EV (кузов 2023+, экспортное имя Seal U EV)",
+  "shots": [
+   {
+    "src": "/img/gallery/byd-song-plus-ev/01-front-34.webp",
+    "thumb": "/img/gallery/byd-song-plus-ev/01-front-34-t.webp",
+    "alt": "вид спереди сбоку"
+   },
+   {
+    "src": "/img/gallery/byd-song-plus-ev/02-side.webp",
+    "thumb": "/img/gallery/byd-song-plus-ev/02-side-t.webp",
+    "alt": "вид сбоку"
+   },
+   {
+    "src": "/img/gallery/byd-song-plus-ev/03-rear-34.webp",
+    "thumb": "/img/gallery/byd-song-plus-ev/03-rear-34-t.webp",
+    "alt": "вид сзади сбоку"
+   },
+   {
+    "src": "/img/gallery/byd-song-plus-ev/04-front.webp",
+    "thumb": "/img/gallery/byd-song-plus-ev/04-front-t.webp",
+    "alt": "вид спереди"
+   },
+   {
+    "src": "/img/gallery/byd-song-plus-ev/05-dashboard.webp",
+    "thumb": "/img/gallery/byd-song-plus-ev/05-dashboard-t.webp",
+    "alt": "салон, место водителя"
+   },
+   {
+    "src": "/img/gallery/byd-song-plus-ev/06-cabin.webp",
+    "thumb": "/img/gallery/byd-song-plus-ev/06-cabin-t.webp",
+    "alt": "салон, панорамная крыша"
+   },
+   {
+    "src": "/img/gallery/byd-song-plus-ev/07-exterior.webp",
+    "thumb": "/img/gallery/byd-song-plus-ev/07-exterior-t.webp",
+    "alt": "вид сбоку на побережье"
+   },
+   {
+    "src": "/img/gallery/byd-song-plus-ev/08-exterior.webp",
+    "thumb": "/img/gallery/byd-song-plus-ev/08-exterior-t.webp",
+    "alt": "в движении"
+   }
+  ]
+ },
+ "byd-yuan-plus-chapmion-edition": {
+  "source": "https://www.byd.com/en/car/atto3",
+  "generation": "BYD Atto 3 / Yuan Plus первого поколения (кузов 2022+, Champion Edition внешне тот же)",
+  "shots": [
+   {
+    "src": "/img/gallery/byd-yuan-plus-chapmion-edition/01-front-34.webp",
+    "thumb": "/img/gallery/byd-yuan-plus-chapmion-edition/01-front-34-t.webp",
+    "alt": "вид спереди сбоку"
+   },
+   {
+    "src": "/img/gallery/byd-yuan-plus-chapmion-edition/02-side.webp",
+    "thumb": "/img/gallery/byd-yuan-plus-chapmion-edition/02-side-t.webp",
+    "alt": "вид сбоку"
+   },
+   {
+    "src": "/img/gallery/byd-yuan-plus-chapmion-edition/03-rear-34.webp",
+    "thumb": "/img/gallery/byd-yuan-plus-chapmion-edition/03-rear-34-t.webp",
+    "alt": "вид сзади сбоку"
+   },
+   {
+    "src": "/img/gallery/byd-yuan-plus-chapmion-edition/04-detail.webp",
+    "thumb": "/img/gallery/byd-yuan-plus-chapmion-edition/04-detail-t.webp",
+    "alt": "колесо и передняя часть кузова"
+   },
+   {
+    "src": "/img/gallery/byd-yuan-plus-chapmion-edition/05-dashboard.webp",
+    "thumb": "/img/gallery/byd-yuan-plus-chapmion-edition/05-dashboard-t.webp",
+    "alt": "салон, место водителя"
+   },
+   {
+    "src": "/img/gallery/byd-yuan-plus-chapmion-edition/06-multimedia.webp",
+    "thumb": "/img/gallery/byd-yuan-plus-chapmion-edition/06-multimedia-t.webp",
+    "alt": "экран мультимедиа"
+   },
+   {
+    "src": "/img/gallery/byd-yuan-plus-chapmion-edition/07-cabin.webp",
+    "thumb": "/img/gallery/byd-yuan-plus-chapmion-edition/07-cabin-t.webp",
+    "alt": "салон, светлая отделка"
+   },
+   {
+    "src": "/img/gallery/byd-yuan-plus-chapmion-edition/08-exterior.webp",
+    "thumb": "/img/gallery/byd-yuan-plus-chapmion-edition/08-exterior-t.webp",
+    "alt": "вид сверху спереди"
+   }
+  ]
+ },
+ "byd-sea-lion-07": {
+  "source": "https://www.byd.com/nl/electric-cars/sealion-7",
+  "generation": "BYD Sea Lion 07 EV (экспортное имя Sealion 7, 2024+)",
+  "shots": [
+   {
+    "src": "/img/gallery/byd-sea-lion-07/01-front-34.webp",
+    "thumb": "/img/gallery/byd-sea-lion-07/01-front-34-t.webp",
+    "alt": "вид спереди сбоку"
+   },
+   {
+    "src": "/img/gallery/byd-sea-lion-07/02-side.webp",
+    "thumb": "/img/gallery/byd-sea-lion-07/02-side-t.webp",
+    "alt": "вид сбоку"
+   },
+   {
+    "src": "/img/gallery/byd-sea-lion-07/03-rear-34.webp",
+    "thumb": "/img/gallery/byd-sea-lion-07/03-rear-34-t.webp",
+    "alt": "вид сзади"
+   },
+   {
+    "src": "/img/gallery/byd-sea-lion-07/04-front.webp",
+    "thumb": "/img/gallery/byd-sea-lion-07/04-front-t.webp",
+    "alt": "вид спереди"
+   },
+   {
+    "src": "/img/gallery/byd-sea-lion-07/05-dashboard.webp",
+    "thumb": "/img/gallery/byd-sea-lion-07/05-dashboard-t.webp",
+    "alt": "салон, место водителя"
+   },
+   {
+    "src": "/img/gallery/byd-sea-lion-07/06-multimedia.webp",
+    "thumb": "/img/gallery/byd-sea-lion-07/06-multimedia-t.webp",
+    "alt": "экран мультимедиа"
+   },
+   {
+    "src": "/img/gallery/byd-sea-lion-07/07-rear-seats.webp",
+    "thumb": "/img/gallery/byd-sea-lion-07/07-rear-seats-t.webp",
+    "alt": "задний ряд"
+   },
+   {
+    "src": "/img/gallery/byd-sea-lion-07/08-cabin.webp",
+    "thumb": "/img/gallery/byd-sea-lion-07/08-cabin-t.webp",
+    "alt": "передние сиденья"
+   }
+  ]
+ },
+ "byd-sea-lion-06": {
+  "source": "https://www.byd.com/cn/ocean-home/models/haishi/26-haishi-06-ev",
+  "generation": "BYD Sea Lion 06 EV 2026 модельного года (2026款海狮06EV)",
+  "shots": [
+   {
+    "src": "/img/gallery/byd-sea-lion-06/01-front-34.webp",
+    "thumb": "/img/gallery/byd-sea-lion-06/01-front-34-t.webp",
+    "alt": "вид спереди сбоку"
+   },
+   {
+    "src": "/img/gallery/byd-sea-lion-06/02-side.webp",
+    "thumb": "/img/gallery/byd-sea-lion-06/02-side-t.webp",
+    "alt": "вид сбоку"
+   },
+   {
+    "src": "/img/gallery/byd-sea-lion-06/03-rear-34.webp",
+    "thumb": "/img/gallery/byd-sea-lion-06/03-rear-34-t.webp",
+    "alt": "вид сзади сбоку"
+   },
+   {
+    "src": "/img/gallery/byd-sea-lion-06/04-detail.webp",
+    "thumb": "/img/gallery/byd-sea-lion-06/04-detail-t.webp",
+    "alt": "передняя оптика"
+   },
+   {
+    "src": "/img/gallery/byd-sea-lion-06/05-dashboard.webp",
+    "thumb": "/img/gallery/byd-sea-lion-06/05-dashboard-t.webp",
+    "alt": "салон, место водителя"
+   },
+   {
+    "src": "/img/gallery/byd-sea-lion-06/06-multimedia.webp",
+    "thumb": "/img/gallery/byd-sea-lion-06/06-multimedia-t.webp",
+    "alt": "экран мультимедиа"
+   },
+   {
+    "src": "/img/gallery/byd-sea-lion-06/07-detail.webp",
+    "thumb": "/img/gallery/byd-sea-lion-06/07-detail-t.webp",
+    "alt": "задние фонари"
+   },
+   {
+    "src": "/img/gallery/byd-sea-lion-06/08-exterior.webp",
+    "thumb": "/img/gallery/byd-sea-lion-06/08-exterior-t.webp",
+    "alt": "вид спереди сбоку на фоне гор"
+   }
+  ]
+ },
+ "byd-song-l": {
+  "source": "https://www.byd.com/cn/dynasty-home/models/song/song-l-ev-zhijia",
+  "generation": "BYD Song L EV (宋L EV, кузов 2024; страница 智驾版 2025)",
+  "shots": [
+   {
+    "src": "/img/gallery/byd-song-l/01-front-34.webp",
+    "thumb": "/img/gallery/byd-song-l/01-front-34-t.webp",
+    "alt": "вид спереди сбоку"
+   },
+   {
+    "src": "/img/gallery/byd-song-l/02-rear-34.webp",
+    "thumb": "/img/gallery/byd-song-l/02-rear-34-t.webp",
+    "alt": "вид сзади сбоку"
+   },
+   {
+    "src": "/img/gallery/byd-song-l/03-dashboard.webp",
+    "thumb": "/img/gallery/byd-song-l/03-dashboard-t.webp",
+    "alt": "салон, место водителя"
+   },
+   {
+    "src": "/img/gallery/byd-song-l/04-multimedia.webp",
+    "thumb": "/img/gallery/byd-song-l/04-multimedia-t.webp",
+    "alt": "экран мультимедиа"
+   },
+   {
+    "src": "/img/gallery/byd-song-l/05-rear-seats.webp",
+    "thumb": "/img/gallery/byd-song-l/05-rear-seats-t.webp",
+    "alt": "задний ряд"
+   },
+   {
+    "src": "/img/gallery/byd-song-l/06-cabin.webp",
+    "thumb": "/img/gallery/byd-song-l/06-cabin-t.webp",
+    "alt": "салон, коричневая отделка"
+   },
+   {
+    "src": "/img/gallery/byd-song-l/07-exterior.webp",
+    "thumb": "/img/gallery/byd-song-l/07-exterior-t.webp",
+    "alt": "в движении"
+   }
+  ]
+ },
+ "denza-n9": {
+  "source": "https://www.tengshiauto.com/product-detail/N9-2026.html",
+  "generation": "Denza N9 2026 (腾势N9 闪充版)",
+  "shots": [
+   {
+    "src": "/img/gallery/denza-n9/01-front-34.webp",
+    "thumb": "/img/gallery/denza-n9/01-front-34-t.webp",
+    "alt": "вид спереди сбоку"
+   },
+   {
+    "src": "/img/gallery/denza-n9/02-side.webp",
+    "thumb": "/img/gallery/denza-n9/02-side-t.webp",
+    "alt": "вид сбоку"
+   },
+   {
+    "src": "/img/gallery/denza-n9/03-rear-34.webp",
+    "thumb": "/img/gallery/denza-n9/03-rear-34-t.webp",
+    "alt": "вид сзади сбоку"
+   },
+   {
+    "src": "/img/gallery/denza-n9/04-exterior.webp",
+    "thumb": "/img/gallery/denza-n9/04-exterior-t.webp",
+    "alt": "вид спереди сбоку у моря"
+   },
+   {
+    "src": "/img/gallery/denza-n9/05-dashboard.webp",
+    "thumb": "/img/gallery/denza-n9/05-dashboard-t.webp",
+    "alt": "салон, место водителя"
+   },
+   {
+    "src": "/img/gallery/denza-n9/06-cabin.webp",
+    "thumb": "/img/gallery/denza-n9/06-cabin-t.webp",
+    "alt": "салон, красная отделка"
+   },
+   {
+    "src": "/img/gallery/denza-n9/07-rear-seats.webp",
+    "thumb": "/img/gallery/denza-n9/07-rear-seats-t.webp",
+    "alt": "задний ряд"
+   },
+   {
+    "src": "/img/gallery/denza-n9/08-exterior.webp",
+    "thumb": "/img/gallery/denza-n9/08-exterior-t.webp",
+    "alt": "вид спереди сбоку, вечер"
+   }
+  ]
+ },
+ "yangwang-u8": {
+  "source": "https://www.yangwangauto.com/u8.html",
+  "generation": "Yangwang U8 (кузов 2023+; страница сайта – 2026款)",
+  "shots": [
+   {
+    "src": "/img/gallery/yangwang-u8/01-front-34.webp",
+    "thumb": "/img/gallery/yangwang-u8/01-front-34-t.webp",
+    "alt": "вид спереди сбоку"
+   },
+   {
+    "src": "/img/gallery/yangwang-u8/02-side.webp",
+    "thumb": "/img/gallery/yangwang-u8/02-side-t.webp",
+    "alt": "вид сбоку"
+   },
+   {
+    "src": "/img/gallery/yangwang-u8/03-rear-34.webp",
+    "thumb": "/img/gallery/yangwang-u8/03-rear-34-t.webp",
+    "alt": "вид сзади сбоку"
+   },
+   {
+    "src": "/img/gallery/yangwang-u8/04-detail.webp",
+    "thumb": "/img/gallery/yangwang-u8/04-detail-t.webp",
+    "alt": "колесо и боковина"
+   },
+   {
+    "src": "/img/gallery/yangwang-u8/05-dashboard.webp",
+    "thumb": "/img/gallery/yangwang-u8/05-dashboard-t.webp",
+    "alt": "салон, место водителя"
+   },
+   {
+    "src": "/img/gallery/yangwang-u8/06-multimedia.webp",
+    "thumb": "/img/gallery/yangwang-u8/06-multimedia-t.webp",
+    "alt": "экран мультимедиа"
+   },
+   {
+    "src": "/img/gallery/yangwang-u8/07-rear-seats.webp",
+    "thumb": "/img/gallery/yangwang-u8/07-rear-seats-t.webp",
+    "alt": "задний ряд"
+   },
+   {
+    "src": "/img/gallery/yangwang-u8/08-exterior.webp",
+    "thumb": "/img/gallery/yangwang-u8/08-exterior-t.webp",
+    "alt": "вид спереди сбоку в городе"
+   }
+  ]
  }
 }
