@@ -4,7 +4,9 @@
 // • lixiang.com/configuration.html?carModel=L9 – список вариантов, в какой
 //   версии что доступно и доплаты в юанях;
 // • API продуктов Li Auto – розничные цены версий в Китае;
-// • lixiang.com/l9 – фото по цветам (блок «每一种颜色，都高级») и фото салона.
+// • конфигуратор заказа lixiang.com/mall (мобильная версия) – официальные
+//   студийные рендеры каждой сборки: кузов в трёх ракурсах для каждой пары
+//   «цвет × диски» и салон в двух ракурсах для каждого цвета отделки.
 // Названия переведены с китайского. Это новая L9 2026 года – не те
 // поколения Pro/Max/Ultra 2023–2025, что описаны в карточке lixiang-l9.ts.
 // Цены здесь – китайские розничные; цену под ключ в Минске считает менеджер.
@@ -61,7 +63,24 @@ export const commonSpecs = [
   { label: 'Салон', value: '6 мест, схема 2-2-2' },
 ];
 
-export const paints: (Option & { photo: { desktop: string; mobile: string }; swatch: string })[] = [
+const render = (name: string) => `/img/lixiang-l9/render/${name}.webp`;
+
+/** Кадры сцены: три ракурса кузова и два салона – рендеры зависят от выбора */
+export const shots = [
+  { id: 'side', label: 'Сбоку', kind: 'exterior' },
+  { id: 'front', label: 'Спереди', kind: 'exterior' },
+  { id: 'rear', label: 'Сзади', kind: 'exterior' },
+  { id: 'dash', label: 'Салон', kind: 'interior' },
+  { id: 'rear-seats', label: 'Второй ряд', kind: 'interior' },
+] as const;
+
+/** Шаблон пути к рендеру; {paint} {wheel} {trim} {interior} {shot} подставляет остров */
+export const renderPaths = {
+  exterior: render('{paint}--{wheel}--{shot}'),
+  interior: render('{trim}--{interior}--{shot}'),
+};
+
+export const paints: (Option & { swatch: string })[] = [
   ['pearl-white', 'Жемчужно-белый', 'металлик', both],
   ['polar-grey', 'Полярный серый', 'холодный блеск', both],
   ['diamond-black', 'Бриллиантовый чёрный', 'металлик', both],
@@ -78,7 +97,6 @@ export const paints: (Option & { photo: { desktop: string; mobile: string }; swa
   name: name as string,
   note: note as string,
   avail: avail as Avail,
-  photo: { desktop: opt('colors', id as string), mobile: opt('colors', `${id}-m`) },
   swatch: opt('options', `paint-${id}`),
 }));
 
@@ -96,13 +114,6 @@ export const interiors: (Option & { swatch: string })[] = [
   { id: 'brown-white', name: 'Коричневый с белым', avail: both },
 ].map((t) => ({ ...t, swatch: opt('options', `trim-${t.id}`) }));
 
-/** Фото салона на сайте Li Auto – одного варианта отделки, по цветам их нет */
-export const interiorPhotos = ['lounge', 'front-seats', 'dashboard', 'second-row', 'ambient', 'top-view'].map((id) => ({
-  id,
-  desktop: opt('interior', id),
-  mobile: opt('interior', `${id}-m`),
-}));
-
 export const l9Config = {
   path: '/catalog/lixiang/l9/konfigurator/',
   seoTitle: 'Конфигуратор нового Lixiang L9 2026: цвета, диски, салон | Evolution Car',
@@ -113,8 +124,6 @@ export const l9Config = {
   lead: 'Выберите версию, цвет, диски и салон – менеджер подберёт автомобиль под вашу конфигурацию и пришлёт расчёт под ключ.',
   cardLink: { label: 'Характеристики Lixiang L9', href: '/lixiangl9/' },
   ui: {
-    exterior: 'Кузов',
-    interior: 'Салон',
     trimTitle: 'Версия',
     paintTitle: 'Цвет кузова',
     wheelTitle: 'Диски',
@@ -137,7 +146,7 @@ export const l9Config = {
     leadSource: 'Конфигуратор нового L9',
     next: 'Следующий кадр',
     photoNote:
-      'Фото – официальные изображения Li Auto. Салон на фото – в одном из вариантов отделки. ' +
+      'Изображения – официальные рендеры Li Auto для выбранной сборки. ' +
       'Цены – розничные цены Li Auto в Китае на 13.10.2026; доступность вариантов у конкретного автомобиля ' +
       'менеджер подтвердит до договора.',
   },
