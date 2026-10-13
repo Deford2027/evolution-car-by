@@ -20,6 +20,8 @@ import { galleryFor } from '../content/galleries';
 const crew = team.items.slice(0, 5);
 // популярные модели – только машины с официальными фото (живые кадры, не студия)
 const withPhotos = cars.filter((c) => galleryFor(c.slug, c.title));
+// второй кадр при наведении: по умолчанию салон, у отдельных моделей – лучший ракурс
+const HOVER: Record<string, string> = { 'zeekr-001': 'detail-rear' };
 const lineups = [
   { title: 'Все', cars: withPhotos.slice(0, 6) },
   { title: 'Электромобили', cars: withPhotos.filter((c) => c.powertrain === 'ev').slice(0, 6) },
@@ -123,19 +125,20 @@ const arrow = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke
             <div class="v3-models" data-shelf={t} hidden={t !== 0}>
               {l.cars.map((c) => {
                 const g = galleryFor(c.slug, c.title) ?? [];
+                const hover = g.find((x) => x.src.includes(HOVER[c.slug] ?? 'dashboard')) ?? g[0];
                 const power = c.specs.find((x) => x.label === 'Мощность')?.value;
                 return (
-                  <a class="v3-model" href={carPath(c)} data-car>
-                    {[g[0], g[1], g[4]].filter(Boolean).map((im, k) => <img class:list={[{ 'is-on': k === 0 }]} src={im.src} alt={k === 0 ? c.title : ''} loading="lazy" />)}
-                    <span class="v3-car__zones" aria-hidden="true"><i></i><i></i><i></i></span>
-                    <span class="v3-model__badge">{availabilities[c.availability]}</span>
-                    <span class="v3-model__info">
-                      <span class="v3-model__name">{c.title}</span>
-                      <span class="v3-model__meta">{[c.year, powertrains[c.powertrain], power].filter(Boolean).join(' · ')}</span>
-                      <span class="v3-model__row">
-                        {c.priceUsd && <span class="v3-model__price">от {formatUsd(c.priceUsd)}</span>}
-                        <span class="v3-model__go" set:html={arrow} />
-                      </span>
+                  <a class="v3-model" href={carPath(c)}>
+                    <span class="v3-model__shot">
+                      <img src={c.photo} alt={c.title} loading="lazy" width="900" height="900" />
+                      {hover && <img src={hover.src} alt="" loading="lazy" />}
+                      <span class="v3-model__badge">{availabilities[c.availability]}</span>
+                    </span>
+                    <span class="v3-model__name">{c.title}</span>
+                    <span class="v3-model__meta">{[c.year, powertrains[c.powertrain], power].filter(Boolean).join(' · ')}</span>
+                    <span class="v3-model__row">
+                      {c.priceUsd && <span class="v3-model__price">от {formatUsd(c.priceUsd)}</span>}
+                      <span class="v3-model__go" set:html={arrow} />
                     </span>
                   </a>
                 );
@@ -192,9 +195,9 @@ const arrow = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke
 
       <section class="v3-sec v3-sec--line">
         <div class="v3-wrap">
+          <p class="v3-caps v3-eyebrow">{calc.kicker}</p>
           <div class="v3-quick">
             <div class="v3-quick__copy v3-reveal">
-              <p class="v3-caps v3-eyebrow">{calc.kicker}</p>
               <h2 class="v3-h2">{calc.title}</h2>
               <p class="v3-quick__text">{calc.lead}</p>
               <p class="v3-quick__q">{quiz.steps[0].q}</p>
@@ -204,7 +207,6 @@ const arrow = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke
               <p class="v3-quick__note v3-muted">{calc.note}</p>
             </div>
             <div class="v3-quick__media v3-reveal">
-              <img src="/img/gallery/voyah-dreamer/01-front-34.webp" alt="" loading="lazy" />
           <div class="v3-mcard">
             <span class="v3-mcard__photo"><img src="/img/IMG_7468_1.png" alt={calc.manager.name} loading="lazy" /></span>
             <span class="v3-calc__online"><i></i>На связи сейчас</span>
