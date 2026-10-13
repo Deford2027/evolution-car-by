@@ -3,7 +3,13 @@ import { hero } from '../../content/home';
 ---
 
 <section class="hero">
-  <img class="hero__bg" src="/img/hero-evolution-hd-v2.jpg" alt="" fetchpriority="high" width="1448" height="1086" />
+  {/* Видео первого экрана – как на evolutioncar.by: на телефоне вертикальная
+      версия, на десктопе 16:9. Без звука и по кругу – иначе браузер не даст
+      запустить его сам. Пока грузится, виден постер. */}
+  <video class="hero__bg" autoplay muted loop playsinline preload="auto" poster="/img/hero-poster.webp" aria-hidden="true" data-hero-video>
+    <source media="(max-width: 620px)" src="/video/hero-m.mp4" type="video/mp4" />
+    <source src="/video/hero.mp4" type="video/mp4" />
+  </video>
   <div class="container hero__inner">
     <div class="hero__copy">
       <h1>{hero.title}</h1>
@@ -24,6 +30,7 @@ import { hero } from '../../content/home';
     overflow: hidden;
   }
   .hero__bg {
+    display: block;
     position: absolute;
     inset: 0;
     width: 100%;
@@ -54,24 +61,10 @@ import { hero } from '../../content/home';
   }
   .hero__cta { justify-self: start; min-width: min(100%, 20rem); }
 
-  /* Телефон – как эталон на Tilda: картинка целиком под шапкой, без
-     растягивания на весь экран, текст и кнопка под ней, а не поверх машин. */
+  /* Телефон: вертикальное видео во весь экран, машина сверху, текст и кнопка
+     – на тёмной дороге внизу кадра */
   @media (max-width: 767px) {
-    .hero { min-height: 0; display: block; padding-top: calc(var(--header-h) + 1rem); }
-    .hero__bg {
-      position: relative;
-      inset: auto;
-      display: block;
-      height: auto;
-      aspect-ratio: 1448 / 1086;
-      object-position: center;
-    }
-    .hero::after {
-      background:
-        linear-gradient(180deg, rgba(0, 4, 12, .72) 0, rgba(0, 4, 12, 0) calc(var(--header-h) + 1rem)),
-        linear-gradient(180deg, transparent calc(var(--header-h) + 1rem + 48vw), var(--c-bg) calc(var(--header-h) + 1rem + 75vw));
-    }
-    .hero__inner { gap: 1.5rem; margin-top: -2rem; padding-bottom: 2rem; }
+    .hero__inner { gap: 1.5rem; padding-bottom: 2rem; }
     .hero__cta { justify-self: stretch; min-width: 0; }
   }
 
@@ -85,3 +78,12 @@ import { hero } from '../../content/home';
     .hero__cta { justify-self: end; min-width: 20rem; padding-block: 1.5rem; }
   }
 </style>
+
+<script>
+  // кто просит меньше движения – останавливаем видео на первом кадре
+  const video = document.querySelector<HTMLVideoElement>('[data-hero-video]');
+  if (video && matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    video.removeAttribute('autoplay');
+    video.pause();
+  }
+</script>
