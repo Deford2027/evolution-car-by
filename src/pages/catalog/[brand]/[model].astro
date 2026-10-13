@@ -60,8 +60,9 @@ import { galleryFor } from '../../../content/galleries';
 const alt = `${car.title} – ${powertrains[car.powertrain].toLowerCase()}, поставка ${countries[car.country].genitive}`;
 // галерея – только у машин, для которых есть набор фото (пока Zeekr 7X)
 const extra = galleryFor(car.slug, car.title);
-// галерея – у всех машин: фото каталога, официальные фото (если есть) и закрытый кадр
-const gallery = [{ src: car.photo, thumb: car.photo, alt }, ...(extra ?? [])];
+// галерея с закрытым кадром – только у машин с официальными фото (galleries.json);
+// раскатка на весь каталог остановлена владельцем 13.10.2026, см. AGENTS.md
+const gallery = extra ? [{ src: car.photo, thumb: car.photo, alt }, ...extra] : null;
 ---
 
 <BaseLayout
