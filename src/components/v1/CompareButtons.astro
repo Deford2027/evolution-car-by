@@ -1,0 +1,146 @@
+---
+/**
+ * «В избранное» и «Сравнить» на карточке машины + всплывающая плашка снизу
+ * («Добавлено в сравнение · в списке N авто · Перейти»), по образцу Авито.
+ * Список хранится в браузере посетителя (localStorage): сервера нет, и для
+ * сравнения он не нужен. Лимит сравнения – COMPARE_LIMIT.
+ */
+import type { Car } from '../../content/cars';
+import { compareText as t, COMPARE_LIMIT, COMPARE_PATH } from '../../content/compare';
+
+interface Props { car: Car }
+const { car } = Astro.props;
+---
+
+<div class="cmpb" data-cmp-car={car.slug} data-cmp-title={car.title} data-cmp-photo={car.photo}>
+  <button class="cmpb__btn" type="button" data-cmp-fav aria-pressed="false">
+    <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" /></svg>
+    <span data-off={t.favAdd} data-on={t.favOn}>{t.favAdd}</span>
+  </button>
+  <button class="cmpb__btn" type="button" data-cmp-add aria-pressed="false">
+    <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M4 7h10M4 12h7M4 17h10M17 9l2 2 3-3M17 16l2 2 3-3" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" /></svg>
+    <span data-off={t.cmpAdd} data-on={t.cmpOn}>{t.cmpAdd}</span>
+  </button>
+</div>
+
+<div class="cmpt" data-cmp-toast hidden role="status" aria-live="polite">
+  <img class="cmpt__img" src={car.photo} alt="" width="96" height="60" />
+  <div class="cmpt__text">
+    <p class="cmpt__title" data-cmp-toast-title></p>
+    <p class="cmpt__sub" data-cmp-toast-sub></p>
+  </div>
+  <a class="cmpt__go" href={COMPARE_PATH} data-cmp-toast-go>{t.go}</a>
+</div>
+
+<script is:inline define:vars={{ t, limit: COMPARE_LIMIT }}>
+  (() => {
+    const root = document.querySelector('[data-cmp-car]');
+    if (!root) return;
+    const slug = root.dataset.cmpCar;
+    const read = (k) => { try { return JSON.parse(localStorage.getItem(k) || '[]'); } catch (e) { return []; } };
+    const write = (k, v) => { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} };
+    const fill = (s, n) => s.replace('{n}', n).replace('{left}', limit - n).replace('{limit}', limit);
+    const favBtn = root.querySelector('[data-cmp-fav]');
+    const cmpBtn = root.querySelector('[data-cmp-add]');
+    const toast = document.querySelector('[data-cmp-toast]');
+    let timer;
+
+    const paint = () => {
+      for (const [btn, key] of [[favBtn, 'ev-fav'], [cmpBtn, 'ev-compare']]) {
+        const on = read(key).includes(slug);
+        btn.setAttribute('aria-pressed', String(on));
+        btn.classList.toggle('is-on', on);
+        const span = btn.querySelector('span');
+        span.textContent = on ? span.dataset.on : span.dataset.off;
+      }
+    };
+    const show = (title, sub, go) => {
+      toast.querySelector('[data-cmp-toast-title]').textContent = title;
+      toast.querySelector('[data-cmp-toast-sub]').textContent = sub;
+      toast.querySelector('[data-cmp-toast-go]').hidden = !go;
+      toast.hidden = false;
+      requestAnimationFrame(() => toast.classList.add('is-shown'));
+      clearTimeout(timer);
+      timer = setTimeout(() => { toast.classList.remove('is-shown'); setTimeout(() => (toast.hidden = true), 300); }, 4500);
+    };
+
+    favBtn.addEventListener('click', () => {
+      const list = read('ev-fav');
+      const on = list.includes(slug);
+      write('ev-fav', on ? list.filter((s) => s !== slug) : [...list, slug]);
+      paint();
+      show(on ? t.favRemoved : t.favAdded, '', false);
+    });
+    cmpBtn.addEventListener('click', () => {
+      const list = read('ev-compare');
+      if (list.includes(slug)) {
+        const next = list.filter((s) => s !== slug);
+        write('ev-compare', next);
+        paint();
+        return show(t.removed, fill(next.length >= limit ? t.countFull : t.count, next.length), next.length > 0);
+      }
+      if (list.length >= limit) return show(fill(t.full, list.length), t.fullHint, true);
+      const next = [...list, slug];
+      write('ev-compare', next);
+      paint();
+      show(t.added, fill(next.length >= limit ? t.countFull : t.count, next.length), true);
+    });
+    paint();
+  })();
+</script>
+
+<style>
+  .cmpb { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: 1rem; }
+  .cmpb__btn {
+    display: inline-flex;
+    align-items: center;
+    gap: .5rem;
+    padding: .625rem 1rem;
+    border-radius: var(--r-btn);
+    background: var(--c-surface);
+    border: 1px solid var(--c-line);
+    color: var(--c-text-2);
+    font-size: .875rem;
+    transition: color .2s var(--ease), border-color .2s var(--ease);
+  }
+  .cmpb__btn:hover { color: var(--c-text); border-color: var(--c-line-strong); }
+  .cmpb__btn.is-on { color: var(--c-text); border-color: var(--c-accent); }
+  .cmpb__btn.is-on svg path { stroke: var(--c-accent); }
+  .cmpb__btn[data-cmp-fav].is-on svg path { fill: var(--c-accent); }
+
+  /* плашка снизу экрана, как у Авито */
+  .cmpt {
+    position: fixed;
+    left: 50%;
+    bottom: 1rem;
+    z-index: 90;
+    width: min(100% - 2rem, 36rem);
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: center;
+    gap: .875rem;
+    padding: .625rem .625rem .625rem .625rem;
+    border-radius: calc(var(--r-card) + 4px);
+    background: var(--c-surface-2);
+    border: 1px solid var(--c-line-strong);
+    box-shadow: var(--shadow);
+    transform: translate(-50%, 140%);
+    transition: transform .35s var(--ease);
+  }
+  .cmpt.is-shown { transform: translate(-50%, 0); }
+  .cmpt[hidden] { display: none; }
+  .cmpt__img { width: 4.5rem; height: 3rem; object-fit: cover; border-radius: var(--r-btn); }
+  .cmpt__title { font-weight: 600; font-size: .9375rem; }
+  .cmpt__sub { color: var(--c-text-3); font-size: .8125rem; margin-top: .125rem; }
+  .cmpt__sub:empty { display: none; }
+  .cmpt__go {
+    padding: .625rem 1rem;
+    border-radius: var(--r-btn);
+    background: var(--c-surface);
+    border: 1px solid var(--c-line-strong);
+    font-size: .875rem;
+    font-weight: 600;
+  }
+  .cmpt__go:hover { border-color: var(--c-accent); }
+  .cmpt__go[hidden] { display: none; }
+</style>

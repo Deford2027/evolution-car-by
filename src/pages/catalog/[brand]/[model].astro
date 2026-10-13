@@ -53,6 +53,8 @@ const similar = cars
   .concat(cars.filter((c) => c.slug !== car.slug && c.country === car.country && c.powertrain === car.powertrain))
   .filter((c, i, arr) => arr.findIndex((x) => x.slug === c.slug) === i)
   .slice(0, 3);
+import CompareButtons from '../../../components/v1/CompareButtons.astro';
+import { COMPARE_SLUGS } from '../../../content/compare';
 import CarGallery from '../../../components/v1/CarGallery.astro';
 import { galleryFor } from '../../../content/galleries';
 const alt = `${car.title} – ${powertrains[car.powertrain].toLowerCase()}, поставка ${countries[car.country].genitive}`;
@@ -108,6 +110,7 @@ const gallery = [{ src: car.photo, thumb: car.photo, alt }, ...(extra ?? [])];
               <a class="btn btn--ghost" href="#specs">Характеристики</a>
               {configurator && <a class="btn btn--ghost" href={configurator}>Конфигуратор</a>}
             </div>
+            {COMPARE_SLUGS.includes(car.slug) && <CompareButtons car={car} />}
           </div>
 
           <div class="intro-extra">
