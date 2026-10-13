@@ -22,4 +22,9 @@ export function galleryFor(slug: string, title: string): GalleryShot[] | null {
 export const galleryLabels = {
   prev: 'Предыдущее фото',
   next: 'Следующее фото',
+  // последний «закрытый» кадр галереи – приглашение получить живые фото
+  lockTitle: 'Ещё 15 живых фото',
+  lockText: 'Оставьте контакты – менеджер пришлёт живые фото и видео этого автомобиля в наличии и под заказ, во всех комплектациях.',
+  lockCta: 'Получить',
+  lockThumb: 'Живые фото – по запросу',
 };

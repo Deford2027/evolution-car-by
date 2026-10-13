@@ -58,7 +58,8 @@ import { galleryFor } from '../../../content/galleries';
 const alt = `${car.title} – ${powertrains[car.powertrain].toLowerCase()}, поставка ${countries[car.country].genitive}`;
 // галерея – только у машин, для которых есть набор фото (пока Zeekr 7X)
 const extra = galleryFor(car.slug, car.title);
-const gallery = extra ? [{ src: car.photo, thumb: car.photo, alt }, ...extra] : null;
+// галерея – у всех машин: фото каталога, официальные фото (если есть) и закрытый кадр
+const gallery = [{ src: car.photo, thumb: car.photo, alt }, ...(extra ?? [])];
 ---
 
 <BaseLayout
