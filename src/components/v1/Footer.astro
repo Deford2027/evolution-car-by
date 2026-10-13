@@ -8,7 +8,7 @@ import { popularBrands } from '../../content/brands';
   <div class="container">
     <div class="footer__top">
       <a class="footer__logo" href="/">
-        <img src="/img/EVOLUTION_CARS_.svg" alt={site.brand} width="206" height="40" />
+        <img src="/img/logo-evolution-car.png" alt={site.brand} width="939" height="48" />
       </a>
       <div class="footer__contact">
         <a class="footer__phone" href={site.phoneHref}>{site.phone}</a>
@@ -71,7 +71,7 @@ import { popularBrands } from '../../content/brands';
     padding-bottom: clamp(1.5rem, 1rem + 2vw, 2.5rem);
     border-bottom: 1px solid var(--c-line);
   }
-  .footer__logo img { height: 2rem; width: auto; }
+  .footer__logo img { width: min(100%, 22rem); height: auto; display: block; }
   .footer__phone { font-weight: 600; font-size: .9375rem; }
   .footer__hours { color: var(--c-text-3); font-size: .8125rem; }
   .footer__social { display: flex; gap: .625rem; }
