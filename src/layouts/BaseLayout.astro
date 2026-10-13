@@ -1,6 +1,7 @@
 ---
 import '../styles/base.css';
 import { site } from '../content/site';
+import Intro from '../components/v1/Intro.astro';
 import { productByPath, pageProductJson } from '../lib/product';
 
 interface Props {
@@ -119,6 +120,7 @@ const gtmId = /^GTM-[A-Z0-9]+$/.test(gtmRaw) ? gtmRaw : null;
         </noscript>
       )
     }
+    {theme === 'v1' && <Intro />}
     <slot />
     <script>
       import { initAnalytics } from '../lib/analytics';
