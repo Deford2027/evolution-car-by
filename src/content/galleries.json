@@ -44,5 +44,741 @@
     "alt": "салон, вид назад"
    }
   ]
+ },
+ "zeekr-001": {
+  "source": "https://www.zeekrlife.com/global/vehicles/001",
+  "generation": "Zeekr 001 (обновлённый, All New 001, 2025+)",
+  "shots": [
+   {
+    "src": "/img/gallery/zeekr-001/01-front-34.webp",
+    "thumb": "/img/gallery/zeekr-001/01-front-34-t.webp",
+    "alt": "вид спереди сбоку"
+   },
+   {
+    "src": "/img/gallery/zeekr-001/02-side.webp",
+    "thumb": "/img/gallery/zeekr-001/02-side-t.webp",
+    "alt": "вид сбоку"
+   },
+   {
+    "src": "/img/gallery/zeekr-001/03-exterior.webp",
+    "thumb": "/img/gallery/zeekr-001/03-exterior-t.webp",
+    "alt": "в движении"
+   },
+   {
+    "src": "/img/gallery/zeekr-001/04-detail.webp",
+    "thumb": "/img/gallery/zeekr-001/04-detail-t.webp",
+    "alt": "фара и передний бампер"
+   },
+   {
+    "src": "/img/gallery/zeekr-001/05-detail-rear.webp",
+    "thumb": "/img/gallery/zeekr-001/05-detail-rear-t.webp",
+    "alt": "задние фонари"
+   },
+   {
+    "src": "/img/gallery/zeekr-001/06-dashboard.webp",
+    "thumb": "/img/gallery/zeekr-001/06-dashboard-t.webp",
+    "alt": "салон, место водителя"
+   },
+   {
+    "src": "/img/gallery/zeekr-001/07-multimedia.webp",
+    "thumb": "/img/gallery/zeekr-001/07-multimedia-t.webp",
+    "alt": "экран мультимедиа"
+   },
+   {
+    "src": "/img/gallery/zeekr-001/08-detail-door.webp",
+    "thumb": "/img/gallery/zeekr-001/08-detail-door-t.webp",
+    "alt": "безрамочная дверь"
+   }
+  ]
+ },
+ "zeekr-x": {
+  "source": "https://www.zeekrlife.com/global/vehicles/x",
+  "generation": "Zeekr X (2023+, текущая версия глобального сайта)",
+  "shots": [
+   {
+    "src": "/img/gallery/zeekr-x/01-front-34.webp",
+    "thumb": "/img/gallery/zeekr-x/01-front-34-t.webp",
+    "alt": "вид спереди сбоку"
+   },
+   {
+    "src": "/img/gallery/zeekr-x/02-side.webp",
+    "thumb": "/img/gallery/zeekr-x/02-side-t.webp",
+    "alt": "вид сбоку"
+   },
+   {
+    "src": "/img/gallery/zeekr-x/03-exterior.webp",
+    "thumb": "/img/gallery/zeekr-x/03-exterior-t.webp",
+    "alt": "вид спереди сбоку на закате"
+   },
+   {
+    "src": "/img/gallery/zeekr-x/04-detail.webp",
+    "thumb": "/img/gallery/zeekr-x/04-detail-t.webp",
+    "alt": "задние фонари"
+   },
+   {
+    "src": "/img/gallery/zeekr-x/05-dashboard.webp",
+    "thumb": "/img/gallery/zeekr-x/05-dashboard-t.webp",
+    "alt": "салон, место водителя"
+   },
+   {
+    "src": "/img/gallery/zeekr-x/06-multimedia.webp",
+    "thumb": "/img/gallery/zeekr-x/06-multimedia-t.webp",
+    "alt": "экран мультимедиа"
+   },
+   {
+    "src": "/img/gallery/zeekr-x/07-cabin.webp",
+    "thumb": "/img/gallery/zeekr-x/07-cabin-t.webp",
+    "alt": "салон целиком"
+   },
+   {
+    "src": "/img/gallery/zeekr-x/08-rear-seats.webp",
+    "thumb": "/img/gallery/zeekr-x/08-rear-seats-t.webp",
+    "alt": "салон сверху, задний ряд"
+   }
+  ]
+ },
+ "zeekr-007": {
+  "source": "https://www.zeekrlife.com/global/vehicles/007",
+  "generation": "Zeekr 007 (седан, 2023+)",
+  "shots": [
+   {
+    "src": "/img/gallery/zeekr-007/01-front-34.webp",
+    "thumb": "/img/gallery/zeekr-007/01-front-34-t.webp",
+    "alt": "вид спереди сбоку"
+   },
+   {
+    "src": "/img/gallery/zeekr-007/02-side.webp",
+    "thumb": "/img/gallery/zeekr-007/02-side-t.webp",
+    "alt": "вид сбоку"
+   },
+   {
+    "src": "/img/gallery/zeekr-007/03-rear-34.webp",
+    "thumb": "/img/gallery/zeekr-007/03-rear-34-t.webp",
+    "alt": "вид сзади сбоку"
+   },
+   {
+    "src": "/img/gallery/zeekr-007/04-detail.webp",
+    "thumb": "/img/gallery/zeekr-007/04-detail-t.webp",
+    "alt": "вид спереди, светодиодная оптика"
+   },
+   {
+    "src": "/img/gallery/zeekr-007/05-dashboard.webp",
+    "thumb": "/img/gallery/zeekr-007/05-dashboard-t.webp",
+    "alt": "салон, место водителя"
+   },
+   {
+    "src": "/img/gallery/zeekr-007/06-multimedia.webp",
+    "thumb": "/img/gallery/zeekr-007/06-multimedia-t.webp",
+    "alt": "экран мультимедиа"
+   },
+   {
+    "src": "/img/gallery/zeekr-007/07-rear-seats.webp",
+    "thumb": "/img/gallery/zeekr-007/07-rear-seats-t.webp",
+    "alt": "задний ряд"
+   },
+   {
+    "src": "/img/gallery/zeekr-007/08-cabin.webp",
+    "thumb": "/img/gallery/zeekr-007/08-cabin-t.webp",
+    "alt": "салон и панорамная крыша"
+   }
+  ]
+ },
+ "zeekr-009": {
+  "source": "https://www.zeekrlife.com/global/vehicles/009",
+  "generation": "Zeekr 009 (минивэн, 2024+)",
+  "shots": [
+   {
+    "src": "/img/gallery/zeekr-009/01-front-34.webp",
+    "thumb": "/img/gallery/zeekr-009/01-front-34-t.webp",
+    "alt": "вид спереди сбоку"
+   },
+   {
+    "src": "/img/gallery/zeekr-009/02-side.webp",
+    "thumb": "/img/gallery/zeekr-009/02-side-t.webp",
+    "alt": "вид сбоку"
+   },
+   {
+    "src": "/img/gallery/zeekr-009/03-rear-34.webp",
+    "thumb": "/img/gallery/zeekr-009/03-rear-34-t.webp",
+    "alt": "вид сзади сбоку"
+   },
+   {
+    "src": "/img/gallery/zeekr-009/04-detail.webp",
+    "thumb": "/img/gallery/zeekr-009/04-detail-t.webp",
+    "alt": "вид спереди, решётка радиатора"
+   },
+   {
+    "src": "/img/gallery/zeekr-009/05-dashboard.webp",
+    "thumb": "/img/gallery/zeekr-009/05-dashboard-t.webp",
+    "alt": "салон, место водителя"
+   },
+   {
+    "src": "/img/gallery/zeekr-009/06-multimedia.webp",
+    "thumb": "/img/gallery/zeekr-009/06-multimedia-t.webp",
+    "alt": "потолочный экран для пассажиров"
+   },
+   {
+    "src": "/img/gallery/zeekr-009/07-rear-seats.webp",
+    "thumb": "/img/gallery/zeekr-009/07-rear-seats-t.webp",
+    "alt": "второй ряд"
+   },
+   {
+    "src": "/img/gallery/zeekr-009/08-cabin.webp",
+    "thumb": "/img/gallery/zeekr-009/08-cabin-t.webp",
+    "alt": "салон целиком"
+   }
+  ]
+ },
+ "lixiang-l8": {
+  "source": "https://www.lixiang.com/l8",
+  "generation": "Li Auto L8 нового поколения (全新理想L8, Livis/Ultra, 2026)",
+  "shots": [
+   {
+    "src": "/img/gallery/lixiang-l8/01-front-34.webp",
+    "thumb": "/img/gallery/lixiang-l8/01-front-34-t.webp",
+    "alt": "вид спереди сбоку"
+   },
+   {
+    "src": "/img/gallery/lixiang-l8/02-side.webp",
+    "thumb": "/img/gallery/lixiang-l8/02-side-t.webp",
+    "alt": "вид сбоку"
+   },
+   {
+    "src": "/img/gallery/lixiang-l8/03-rear-34.webp",
+    "thumb": "/img/gallery/lixiang-l8/03-rear-34-t.webp",
+    "alt": "вид сзади сбоку"
+   },
+   {
+    "src": "/img/gallery/lixiang-l8/04-front-34-studio.webp",
+    "thumb": "/img/gallery/lixiang-l8/04-front-34-studio-t.webp",
+    "alt": "вид спереди сбоку, студия"
+   },
+   {
+    "src": "/img/gallery/lixiang-l8/05-dashboard.webp",
+    "thumb": "/img/gallery/lixiang-l8/05-dashboard-t.webp",
+    "alt": "салон, место водителя"
+   },
+   {
+    "src": "/img/gallery/lixiang-l8/06-multimedia.webp",
+    "thumb": "/img/gallery/lixiang-l8/06-multimedia-t.webp",
+    "alt": "экран мультимедиа"
+   },
+   {
+    "src": "/img/gallery/lixiang-l8/07-rear-seats.webp",
+    "thumb": "/img/gallery/lixiang-l8/07-rear-seats-t.webp",
+    "alt": "второй и третий ряд"
+   },
+   {
+    "src": "/img/gallery/lixiang-l8/08-cabin.webp",
+    "thumb": "/img/gallery/lixiang-l8/08-cabin-t.webp",
+    "alt": "салон сбоку при открытых дверях"
+   }
+  ]
+ },
+ "lixiang-l6": {
+  "source": "https://www.liauto.com/L6",
+  "generation": "Li Auto L6 (первое поколение, 2024–2025, Pro/Max)",
+  "shots": [
+   {
+    "src": "/img/gallery/lixiang-l6/01-front-34.webp",
+    "thumb": "/img/gallery/lixiang-l6/01-front-34-t.webp",
+    "alt": "вид спереди сбоку"
+   },
+   {
+    "src": "/img/gallery/lixiang-l6/02-side.webp",
+    "thumb": "/img/gallery/lixiang-l6/02-side-t.webp",
+    "alt": "вид сбоку"
+   },
+   {
+    "src": "/img/gallery/lixiang-l6/03-rear-34.webp",
+    "thumb": "/img/gallery/lixiang-l6/03-rear-34-t.webp",
+    "alt": "вид сзади сбоку"
+   },
+   {
+    "src": "/img/gallery/lixiang-l6/04-exterior.webp",
+    "thumb": "/img/gallery/lixiang-l6/04-exterior-t.webp",
+    "alt": "вид спереди сбоку, вечер"
+   },
+   {
+    "src": "/img/gallery/lixiang-l6/05-dashboard.webp",
+    "thumb": "/img/gallery/lixiang-l6/05-dashboard-t.webp",
+    "alt": "салон, место водителя"
+   },
+   {
+    "src": "/img/gallery/lixiang-l6/06-multimedia.webp",
+    "thumb": "/img/gallery/lixiang-l6/06-multimedia-t.webp",
+    "alt": "экран мультимедиа"
+   },
+   {
+    "src": "/img/gallery/lixiang-l6/07-rear-seats.webp",
+    "thumb": "/img/gallery/lixiang-l6/07-rear-seats-t.webp",
+    "alt": "задний ряд"
+   },
+   {
+    "src": "/img/gallery/lixiang-l6/08-cabin.webp",
+    "thumb": "/img/gallery/lixiang-l6/08-cabin-t.webp",
+    "alt": "салон сбоку при открытых дверях"
+   }
+  ]
+ },
+ "lixiang-l7": {
+  "source": "https://www.liauto.com/L7",
+  "generation": "Li Auto L7 (первое поколение, версия 2025 – последняя в продаже)",
+  "shots": [
+   {
+    "src": "/img/gallery/lixiang-l7/01-front-34.webp",
+    "thumb": "/img/gallery/lixiang-l7/01-front-34-t.webp",
+    "alt": "вид спереди сбоку"
+   },
+   {
+    "src": "/img/gallery/lixiang-l7/02-side.webp",
+    "thumb": "/img/gallery/lixiang-l7/02-side-t.webp",
+    "alt": "вид сбоку"
+   },
+   {
+    "src": "/img/gallery/lixiang-l7/03-rear-34.webp",
+    "thumb": "/img/gallery/lixiang-l7/03-rear-34-t.webp",
+    "alt": "вид сзади сбоку"
+   },
+   {
+    "src": "/img/gallery/lixiang-l7/04-detail.webp",
+    "thumb": "/img/gallery/lixiang-l7/04-detail-t.webp",
+    "alt": "передний бампер и колесо"
+   },
+   {
+    "src": "/img/gallery/lixiang-l7/05-dashboard.webp",
+    "thumb": "/img/gallery/lixiang-l7/05-dashboard-t.webp",
+    "alt": "салон, место водителя"
+   },
+   {
+    "src": "/img/gallery/lixiang-l7/06-multimedia.webp",
+    "thumb": "/img/gallery/lixiang-l7/06-multimedia-t.webp",
+    "alt": "экран мультимедиа"
+   },
+   {
+    "src": "/img/gallery/lixiang-l7/07-rear-seats.webp",
+    "thumb": "/img/gallery/lixiang-l7/07-rear-seats-t.webp",
+    "alt": "задний ряд"
+   },
+   {
+    "src": "/img/gallery/lixiang-l7/08-cabin.webp",
+    "thumb": "/img/gallery/lixiang-l7/08-cabin-t.webp",
+    "alt": "салон целиком"
+   }
+  ]
+ },
+ "lynk-co-900-lynk-co-09": {
+  "source": "https://www.lynkco.com.cn/cars/900",
+  "generation": "Lynk & Co 900 (2025, флагманский 6-местный PHEV)",
+  "shots": [
+   {
+    "src": "/img/gallery/lynk-co-900-lynk-co-09/01-front-34.webp",
+    "thumb": "/img/gallery/lynk-co-900-lynk-co-09/01-front-34-t.webp",
+    "alt": "вид спереди сбоку"
+   },
+   {
+    "src": "/img/gallery/lynk-co-900-lynk-co-09/02-side.webp",
+    "thumb": "/img/gallery/lynk-co-900-lynk-co-09/02-side-t.webp",
+    "alt": "вид сбоку"
+   },
+   {
+    "src": "/img/gallery/lynk-co-900-lynk-co-09/03-exterior.webp",
+    "thumb": "/img/gallery/lynk-co-900-lynk-co-09/03-exterior-t.webp",
+    "alt": "вид спереди сбоку на природе"
+   },
+   {
+    "src": "/img/gallery/lynk-co-900-lynk-co-09/04-dashboard.webp",
+    "thumb": "/img/gallery/lynk-co-900-lynk-co-09/04-dashboard-t.webp",
+    "alt": "салон, место водителя"
+   },
+   {
+    "src": "/img/gallery/lynk-co-900-lynk-co-09/05-multimedia.webp",
+    "thumb": "/img/gallery/lynk-co-900-lynk-co-09/05-multimedia-t.webp",
+    "alt": "экран мультимедиа"
+   },
+   {
+    "src": "/img/gallery/lynk-co-900-lynk-co-09/06-rear-screen.webp",
+    "thumb": "/img/gallery/lynk-co-900-lynk-co-09/06-rear-screen-t.webp",
+    "alt": "потолочный экран для задних пассажиров"
+   },
+   {
+    "src": "/img/gallery/lynk-co-900-lynk-co-09/07-rear-seats.webp",
+    "thumb": "/img/gallery/lynk-co-900-lynk-co-09/07-rear-seats-t.webp",
+    "alt": "второй и третий ряд"
+   },
+   {
+    "src": "/img/gallery/lynk-co-900-lynk-co-09/08-cabin.webp",
+    "thumb": "/img/gallery/lynk-co-900-lynk-co-09/08-cabin-t.webp",
+    "alt": "салон сбоку, три ряда"
+   }
+  ]
+ },
+ "voyah-free": {
+  "source": "https://www.voyah.com.cn/free.html",
+  "generation": "Voyah FREE 318 (обновлённый Free 2025–2026, полный привод – 259 км EV)",
+  "shots": [
+   {
+    "src": "/img/gallery/voyah-free/01-front-34.webp",
+    "thumb": "/img/gallery/voyah-free/01-front-34-t.webp",
+    "alt": "вид спереди сбоку"
+   },
+   {
+    "src": "/img/gallery/voyah-free/02-side.webp",
+    "thumb": "/img/gallery/voyah-free/02-side-t.webp",
+    "alt": "вид сбоку"
+   },
+   {
+    "src": "/img/gallery/voyah-free/03-exterior.webp",
+    "thumb": "/img/gallery/voyah-free/03-exterior-t.webp",
+    "alt": "в движении"
+   },
+   {
+    "src": "/img/gallery/voyah-free/04-detail.webp",
+    "thumb": "/img/gallery/voyah-free/04-detail-t.webp",
+    "alt": "решётка радиатора и фары"
+   },
+   {
+    "src": "/img/gallery/voyah-free/05-dashboard.webp",
+    "thumb": "/img/gallery/voyah-free/05-dashboard-t.webp",
+    "alt": "салон, место водителя"
+   },
+   {
+    "src": "/img/gallery/voyah-free/06-multimedia.webp",
+    "thumb": "/img/gallery/voyah-free/06-multimedia-t.webp",
+    "alt": "экраны мультимедиа"
+   },
+   {
+    "src": "/img/gallery/voyah-free/07-rear-seats.webp",
+    "thumb": "/img/gallery/voyah-free/07-rear-seats-t.webp",
+    "alt": "задний ряд"
+   },
+   {
+    "src": "/img/gallery/voyah-free/08-cabin.webp",
+    "thumb": "/img/gallery/voyah-free/08-cabin-t.webp",
+    "alt": "салон целиком"
+   }
+  ]
+ },
+ "voyah-dreamer": {
+  "source": "https://www.voyah.com.cn/newDreamer26.html",
+  "generation": "Voyah Dreamer 2026 (26款岚图梦想家)",
+  "shots": [
+   {
+    "src": "/img/gallery/voyah-dreamer/01-front-34.webp",
+    "thumb": "/img/gallery/voyah-dreamer/01-front-34-t.webp",
+    "alt": "вид спереди сбоку"
+   },
+   {
+    "src": "/img/gallery/voyah-dreamer/02-side.webp",
+    "thumb": "/img/gallery/voyah-dreamer/02-side-t.webp",
+    "alt": "вид сбоку"
+   },
+   {
+    "src": "/img/gallery/voyah-dreamer/03-exterior.webp",
+    "thumb": "/img/gallery/voyah-dreamer/03-exterior-t.webp",
+    "alt": "вид спереди сбоку на природе"
+   },
+   {
+    "src": "/img/gallery/voyah-dreamer/04-detail.webp",
+    "thumb": "/img/gallery/voyah-dreamer/04-detail-t.webp",
+    "alt": "решётка радиатора и фары"
+   },
+   {
+    "src": "/img/gallery/voyah-dreamer/05-dashboard.webp",
+    "thumb": "/img/gallery/voyah-dreamer/05-dashboard-t.webp",
+    "alt": "салон, место водителя"
+   },
+   {
+    "src": "/img/gallery/voyah-dreamer/06-multimedia.webp",
+    "thumb": "/img/gallery/voyah-dreamer/06-multimedia-t.webp",
+    "alt": "экран мультимедиа"
+   },
+   {
+    "src": "/img/gallery/voyah-dreamer/07-rear-seats.webp",
+    "thumb": "/img/gallery/voyah-dreamer/07-rear-seats-t.webp",
+    "alt": "второй ряд, капитанские кресла"
+   },
+   {
+    "src": "/img/gallery/voyah-dreamer/08-cabin.webp",
+    "thumb": "/img/gallery/voyah-dreamer/08-cabin-t.webp",
+    "alt": "передняя панель"
+   }
+  ]
+ },
+ "voyah-passion": {
+  "source": "https://www.voyah.com.cn/passion.html",
+  "generation": "Voyah Passion / 追光 PHEV (2024–2025)",
+  "shots": [
+   {
+    "src": "/img/gallery/voyah-passion/01-front-34.webp",
+    "thumb": "/img/gallery/voyah-passion/01-front-34-t.webp",
+    "alt": "вид спереди сбоку"
+   },
+   {
+    "src": "/img/gallery/voyah-passion/02-side.webp",
+    "thumb": "/img/gallery/voyah-passion/02-side-t.webp",
+    "alt": "вид сбоку"
+   },
+   {
+    "src": "/img/gallery/voyah-passion/03-rear.webp",
+    "thumb": "/img/gallery/voyah-passion/03-rear-t.webp",
+    "alt": "вид сзади, задние фонари"
+   },
+   {
+    "src": "/img/gallery/voyah-passion/04-detail.webp",
+    "thumb": "/img/gallery/voyah-passion/04-detail-t.webp",
+    "alt": "решётка и фара"
+   },
+   {
+    "src": "/img/gallery/voyah-passion/05-dashboard.webp",
+    "thumb": "/img/gallery/voyah-passion/05-dashboard-t.webp",
+    "alt": "салон, место водителя"
+   },
+   {
+    "src": "/img/gallery/voyah-passion/06-multimedia.webp",
+    "thumb": "/img/gallery/voyah-passion/06-multimedia-t.webp",
+    "alt": "экран мультимедиа"
+   },
+   {
+    "src": "/img/gallery/voyah-passion/07-rear-seats.webp",
+    "thumb": "/img/gallery/voyah-passion/07-rear-seats-t.webp",
+    "alt": "задний ряд"
+   },
+   {
+    "src": "/img/gallery/voyah-passion/08-cabin.webp",
+    "thumb": "/img/gallery/voyah-passion/08-cabin-t.webp",
+    "alt": "салон сбоку при открытых дверях"
+   }
+  ]
+ },
+ "geely-coolray": {
+  "source": "https://www.geely-motors.com/model/geely-coolray-2023/",
+  "generation": "Geely Coolray 2023 (рестайлинг SX11, рынок РФ 2023–2024)",
+  "shots": [
+   {
+    "src": "/img/gallery/geely-coolray/01-front-34.webp",
+    "thumb": "/img/gallery/geely-coolray/01-front-34-t.webp",
+    "alt": "вид спереди сбоку"
+   },
+   {
+    "src": "/img/gallery/geely-coolray/02-exterior.webp",
+    "thumb": "/img/gallery/geely-coolray/02-exterior-t.webp",
+    "alt": "вид спереди сбоку, студия"
+   },
+   {
+    "src": "/img/gallery/geely-coolray/03-rear-34.webp",
+    "thumb": "/img/gallery/geely-coolray/03-rear-34-t.webp",
+    "alt": "вид сзади сбоку"
+   },
+   {
+    "src": "/img/gallery/geely-coolray/04-detail.webp",
+    "thumb": "/img/gallery/geely-coolray/04-detail-t.webp",
+    "alt": "решётка радиатора и фара"
+   },
+   {
+    "src": "/img/gallery/geely-coolray/05-dashboard.webp",
+    "thumb": "/img/gallery/geely-coolray/05-dashboard-t.webp",
+    "alt": "салон, место водителя"
+   },
+   {
+    "src": "/img/gallery/geely-coolray/06-multimedia.webp",
+    "thumb": "/img/gallery/geely-coolray/06-multimedia-t.webp",
+    "alt": "экран мультимедиа"
+   },
+   {
+    "src": "/img/gallery/geely-coolray/07-rear-seats.webp",
+    "thumb": "/img/gallery/geely-coolray/07-rear-seats-t.webp",
+    "alt": "задний ряд"
+   },
+   {
+    "src": "/img/gallery/geely-coolray/08-cabin.webp",
+    "thumb": "/img/gallery/geely-coolray/08-cabin-t.webp",
+    "alt": "салон и панорамная крыша"
+   }
+  ]
+ },
+ "geely-monjaro": {
+  "source": "https://global.geely.com/en/models/monjaro",
+  "generation": "Geely Monjaro / Xingyue L до рестайлинга (2021–2024)",
+  "shots": [
+   {
+    "src": "/img/gallery/geely-monjaro/01-front-34.webp",
+    "thumb": "/img/gallery/geely-monjaro/01-front-34-t.webp",
+    "alt": "вид спереди сбоку"
+   },
+   {
+    "src": "/img/gallery/geely-monjaro/02-exterior.webp",
+    "thumb": "/img/gallery/geely-monjaro/02-exterior-t.webp",
+    "alt": "в движении"
+   },
+   {
+    "src": "/img/gallery/geely-monjaro/03-exterior-2.webp",
+    "thumb": "/img/gallery/geely-monjaro/03-exterior-2-t.webp",
+    "alt": "вид спереди сбоку на природе"
+   },
+   {
+    "src": "/img/gallery/geely-monjaro/04-front.webp",
+    "thumb": "/img/gallery/geely-monjaro/04-front-t.webp",
+    "alt": "вид спереди"
+   },
+   {
+    "src": "/img/gallery/geely-monjaro/05-detail.webp",
+    "thumb": "/img/gallery/geely-monjaro/05-detail-t.webp",
+    "alt": "фара"
+   },
+   {
+    "src": "/img/gallery/geely-monjaro/06-detail-rear.webp",
+    "thumb": "/img/gallery/geely-monjaro/06-detail-rear-t.webp",
+    "alt": "задние фонари"
+   },
+   {
+    "src": "/img/gallery/geely-monjaro/07-dashboard.webp",
+    "thumb": "/img/gallery/geely-monjaro/07-dashboard-t.webp",
+    "alt": "салон, место водителя и экраны"
+   },
+   {
+    "src": "/img/gallery/geely-monjaro/08-cabin.webp",
+    "thumb": "/img/gallery/geely-monjaro/08-cabin-t.webp",
+    "alt": "салон целиком, тёмная отделка"
+   }
+  ]
+ },
+ "geely-boyue-l": {
+  "source": "https://boyue.geely.com/quanxindisidaiboyuel",
+  "generation": "Geely Boyue L четвёртого поколения (全新第四代博越L, 2025–2026)",
+  "shots": [
+   {
+    "src": "/img/gallery/geely-boyue-l/01-front-34.webp",
+    "thumb": "/img/gallery/geely-boyue-l/01-front-34-t.webp",
+    "alt": "вид спереди сбоку"
+   },
+   {
+    "src": "/img/gallery/geely-boyue-l/02-side.webp",
+    "thumb": "/img/gallery/geely-boyue-l/02-side-t.webp",
+    "alt": "вид сбоку"
+   },
+   {
+    "src": "/img/gallery/geely-boyue-l/03-exterior.webp",
+    "thumb": "/img/gallery/geely-boyue-l/03-exterior-t.webp",
+    "alt": "вид спереди сбоку в лесу"
+   },
+   {
+    "src": "/img/gallery/geely-boyue-l/04-detail.webp",
+    "thumb": "/img/gallery/geely-boyue-l/04-detail-t.webp",
+    "alt": "задние фонари"
+   },
+   {
+    "src": "/img/gallery/geely-boyue-l/05-front.webp",
+    "thumb": "/img/gallery/geely-boyue-l/05-front-t.webp",
+    "alt": "вид спереди"
+   },
+   {
+    "src": "/img/gallery/geely-boyue-l/06-dashboard.webp",
+    "thumb": "/img/gallery/geely-boyue-l/06-dashboard-t.webp",
+    "alt": "салон, место водителя"
+   },
+   {
+    "src": "/img/gallery/geely-boyue-l/07-multimedia.webp",
+    "thumb": "/img/gallery/geely-boyue-l/07-multimedia-t.webp",
+    "alt": "экран мультимедиа"
+   },
+   {
+    "src": "/img/gallery/geely-boyue-l/08-cabin.webp",
+    "thumb": "/img/gallery/geely-boyue-l/08-cabin-t.webp",
+    "alt": "салон, светлая отделка"
+   }
+  ]
+ },
+ "geely-boyue": {
+  "source": "https://boyue.geely.com/quanxinboyue",
+  "generation": "Geely Boyue нового поколения (全新博越, 2025–2026)",
+  "shots": [
+   {
+    "src": "/img/gallery/geely-boyue/01-front-34.webp",
+    "thumb": "/img/gallery/geely-boyue/01-front-34-t.webp",
+    "alt": "вид спереди сбоку"
+   },
+   {
+    "src": "/img/gallery/geely-boyue/02-exterior.webp",
+    "thumb": "/img/gallery/geely-boyue/02-exterior-t.webp",
+    "alt": "вид спереди сбоку на лужайке"
+   },
+   {
+    "src": "/img/gallery/geely-boyue/03-dashboard.webp",
+    "thumb": "/img/gallery/geely-boyue/03-dashboard-t.webp",
+    "alt": "салон, место водителя"
+   },
+   {
+    "src": "/img/gallery/geely-boyue/04-multimedia.webp",
+    "thumb": "/img/gallery/geely-boyue/04-multimedia-t.webp",
+    "alt": "экран мультимедиа и передняя панель"
+   },
+   {
+    "src": "/img/gallery/geely-boyue/05-rear-seats.webp",
+    "thumb": "/img/gallery/geely-boyue/05-rear-seats-t.webp",
+    "alt": "задний ряд"
+   },
+   {
+    "src": "/img/gallery/geely-boyue/06-cabin.webp",
+    "thumb": "/img/gallery/geely-boyue/06-cabin-t.webp",
+    "alt": "передние кресла"
+   },
+   {
+    "src": "/img/gallery/geely-boyue/07-cabin-2.webp",
+    "thumb": "/img/gallery/geely-boyue/07-cabin-2-t.webp",
+    "alt": "салон, рыжая отделка"
+   },
+   {
+    "src": "/img/gallery/geely-boyue/08-detail.webp",
+    "thumb": "/img/gallery/geely-boyue/08-detail-t.webp",
+    "alt": "центральный тоннель и селектор"
+   }
+  ]
+ },
+ "geely-xingyue-l": {
+  "source": "https://xingyue.geely.com/xingyuel",
+  "generation": "Geely Xingyue L 2025–2026 (星越L 东方曜, рестайлинг с двойным экраном Flyme)",
+  "shots": [
+   {
+    "src": "/img/gallery/geely-xingyue-l/01-front-34.webp",
+    "thumb": "/img/gallery/geely-xingyue-l/01-front-34-t.webp",
+    "alt": "вид спереди сбоку"
+   },
+   {
+    "src": "/img/gallery/geely-xingyue-l/02-rear-34.webp",
+    "thumb": "/img/gallery/geely-xingyue-l/02-rear-34-t.webp",
+    "alt": "вид сзади сбоку"
+   },
+   {
+    "src": "/img/gallery/geely-xingyue-l/03-exterior.webp",
+    "thumb": "/img/gallery/geely-xingyue-l/03-exterior-t.webp",
+    "alt": "вид спереди сбоку, серебристый"
+   },
+   {
+    "src": "/img/gallery/geely-xingyue-l/04-detail.webp",
+    "thumb": "/img/gallery/geely-xingyue-l/04-detail-t.webp",
+    "alt": "решётка радиатора и фары"
+   },
+   {
+    "src": "/img/gallery/geely-xingyue-l/05-dashboard.webp",
+    "thumb": "/img/gallery/geely-xingyue-l/05-dashboard-t.webp",
+    "alt": "салон, место водителя"
+   },
+   {
+    "src": "/img/gallery/geely-xingyue-l/06-multimedia.webp",
+    "thumb": "/img/gallery/geely-xingyue-l/06-multimedia-t.webp",
+    "alt": "экраны мультимедиа"
+   },
+   {
+    "src": "/img/gallery/geely-xingyue-l/07-cabin.webp",
+    "thumb": "/img/gallery/geely-xingyue-l/07-cabin-t.webp",
+    "alt": "салон, тёмная отделка"
+   },
+   {
+    "src": "/img/gallery/geely-xingyue-l/08-rear.webp",
+    "thumb": "/img/gallery/geely-xingyue-l/08-rear-t.webp",
+    "alt": "вид сзади"
+   }
+  ]
  }
 }
