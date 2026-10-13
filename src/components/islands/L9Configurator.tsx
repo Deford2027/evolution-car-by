@@ -3,8 +3,8 @@ import LeadForm from './LeadForm';
 
 type TrimId = 'ultra' | 'livis';
 type Avail = Record<TrimId, number | null>;
-interface Photo { desktop: string; mobile: string }
-interface Paint { id: string; name: string; note?: string; avail: Avail; photo: Photo; swatch: string }
+interface Paint { id: string; name: string; note?: string; avail: Avail; swatch: string }
+interface Shot { id: string; label: string; kind: 'exterior' | 'interior' }
 interface Wheel { id: string; name: string; note?: string; avail: Avail; image: string }
 interface Interior { id: string; name: string; avail: Avail; swatch: string }
 interface Trim { id: TrimId; name: string; priceCny: number; rows: { label: string; value: string }[] }
@@ -13,22 +13,24 @@ interface Props {
   paints: Paint[];
   wheels: Wheel[];
   interiors: Interior[];
-  interiorPhotos: (Photo & { id: string })[];
+  shots: readonly Shot[];
+  renderPaths: { exterior: string; interior: string };
   commonSpecs: { label: string; value: string }[];
   ui: Record<string, string>;
   form: { namePlaceholder: string; phonePlaceholder: string; cta: string; success: string };
 }
 
 const cny = (n: number) => `${n.toLocaleString('ru-RU')} ¥`;
-const isDesktop = () => matchMedia('(min-width: 768px)').matches;
 const firstFor = <T extends { avail: Avail }>(list: T[], trim: TrimId) => list.find((o) => o.avail[trim] !== null)!;
 
 /**
  * Конфигуратор нового L9 на официальных фото. Вариант, которого нет в
  * текущей версии, не прячется: при выборе версия переключается сама, а
  * несовместимые с ней варианты заменяются первыми доступными – так нельзя
- * собрать машину, которой не бывает. Смена кадра плавная: под новым кадром
- * лежит последний полностью показанный, без пустого фона.
+ * собрать машину, которой не бывает. Кадры – официальные рендеры именно
+ * выбранной сборки: диски меняются на машине, салон – в выбранном цвете.
+ * Смена кадра плавная: под новым кадром лежит последний полностью
+ * показанный, без пустого фона.
  */
 export default function L9Configurator(p: Props) {
   const { ui } = p;
@@ -36,8 +38,7 @@ export default function L9Configurator(p: Props) {
   const [paintId, setPaintId] = useState(p.paints[0].id);
   const [wheelId, setWheelId] = useState(p.wheels[0].id);
   const [interiorId, setInteriorId] = useState(p.interiors[0].id);
-  const [view, setView] = useState<'exterior' | 'interior'>('exterior');
-  const [photoIdx, setPhotoIdx] = useState(0);
+  const [shotIdx, setShotIdx] = useState(0);
   const [hint, setHint] = useState('');
   // кадр проявляется только после загрузки фото, иначе подложка уйдёт раньше
   const [loadedKey, setLoadedKey] = useState('');
@@ -49,11 +50,21 @@ export default function L9Configurator(p: Props) {
   const wheel = p.wheels.find((o) => o.id === wheelId)!;
   const interior = p.interiors.find((o) => o.id === interiorId)!;
 
-  // кадр на сцене: в «Кузове» – фото выбранного цвета, в «Салоне» – галерея
-  const frame =
-    view === 'exterior'
-      ? { key: `e-${paint.id}`, ...paint.photo, title: paint.name, sub: paint.note ?? '' }
-      : { key: `i-${photoIdx}`, ...p.interiorPhotos[photoIdx], title: ui.interior, sub: `${photoIdx + 1} / ${p.interiorPhotos.length}` };
+  /** Путь к рендеру кадра для текущей (или переданной) сборки */
+  const srcOf = (shot: Shot, cfg = { trimId, paintId, wheelId, interiorId }) =>
+    (shot.kind === 'exterior' ? p.renderPaths.exterior : p.renderPaths.interior)
+      .replace('{paint}', cfg.paintId)
+      .replace('{wheel}', cfg.wheelId)
+      .replace('{trim}', cfg.trimId)
+      .replace('{interior}', cfg.interiorId)
+      .replace('{shot}', shot.id);
+  const shot = p.shots[shotIdx];
+  const frame = {
+    key: srcOf(shot),
+    src: srcOf(shot),
+    title: shot.kind === 'exterior' ? paint.name : interior.name,
+    sub: shot.label,
+  };
   const [shown, setShown] = useState(frame);
   const under = shown.key !== frame.key ? shown : null;
 
@@ -77,32 +88,29 @@ export default function L9Configurator(p: Props) {
     } else setHint('');
     set();
   };
+  // цвет кузова смотрим снаружи, диски – сбоку, салон – со второго ряда
   const choosePaint = (o: Paint) => {
-    setView('exterior');
+    if (shot.kind === 'interior') setShotIdx(0);
     choose(o.avail, () => setPaintId(o.id));
+  };
+  const chooseWheel = (o: Wheel) => {
+    setShotIdx(0);
+    choose(o.avail, () => setWheelId(o.id));
+  };
+  const chooseInterior = (o: Interior) => {
+    setShotIdx(p.shots.length - 1);
+    choose(o.avail, () => setInteriorId(o.id));
   };
 
   const step = (dir: 1 | -1) => {
     setHint('');
-    if (view === 'interior') {
-      setPhotoIdx((photoIdx + dir + p.interiorPhotos.length) % p.interiorPhotos.length);
-      return;
-    }
-    // листаем только цвета, доступные в выбранной версии
-    const list = p.paints.filter((o) => o.avail[trimId] !== null);
-    const i = list.findIndex((o) => o.id === paintId);
-    setPaintId(list[(i + dir + list.length) % list.length].id);
+    setShotIdx((shotIdx + dir + p.shots.length) % p.shots.length);
   };
 
-  // соседние кадры грузим заранее – листание стрелками и свайпом без ожидания
+  // все кадры текущей сборки грузим заранее – листание и миниатюры без ожидания
   useEffect(() => {
-    const list = view === 'exterior' ? p.paints.filter((o) => o.avail[trimId] !== null).map((o) => o.photo) : p.interiorPhotos;
-    const i = view === 'exterior' ? p.paints.filter((o) => o.avail[trimId] !== null).findIndex((o) => o.id === paintId) : photoIdx;
-    for (const d of [1, -1]) {
-      const ph = list[(i + d + list.length) % list.length];
-      if (ph) new Image().src = isDesktop() ? ph.desktop : ph.mobile;
-    }
-  }, [view, trimId, paintId, photoIdx]);
+    for (const sh of p.shots) new Image().src = srcOf(sh);
+  }, [trimId, paintId, wheelId, interiorId]);
 
   const onShotLoad = () => {
     setLoadedKey(frame.key);
@@ -158,26 +166,21 @@ export default function L9Configurator(p: Props) {
           onKeyDown={onKey}
         >
           {under && (
-            <picture class="l9c__shot l9c__shot--under" key={`u-${under.key}`}>
-              <source media="(min-width: 768px)" srcset={under.desktop} />
-              <img src={under.mobile} alt="" />
-            </picture>
+            <div class="l9c__shot l9c__shot--under" key={`u-${under.key}`}>
+              <img src={under.src} alt="" />
+            </div>
           )}
-          <picture
+          <div
             class={`l9c__shot${waiting ? ' l9c__shot--wait' : under ? ' l9c__shot--in' : ''}`}
             key={frame.key}
             onAnimationEnd={() => setShown(frame)}
           >
-            <source media="(min-width: 768px)" srcset={frame.desktop} />
-            <img src={frame.mobile} alt={view === 'exterior' ? `${ui.altPaint} «${paint.name}»` : ui.altInterior} onLoad={onShotLoad} />
-          </picture>
-
-          <div class="l9c__tabs" role="group" aria-label={ui.viewLabel}>
-            {(['exterior', 'interior'] as const).map((v) => (
-              <button type="button" key={v} aria-pressed={view === v} class={`l9c__tab${view === v ? ' is-active' : ''}`} onClick={() => setView(v)}>
-                {ui[v]}
-              </button>
-            ))}
+            <img
+              src={frame.src}
+              alt={shot.kind === 'exterior' ? `${ui.altPaint} «${paint.name}», ${shot.label.toLowerCase()}` : `${ui.altInterior}: ${interior.name.toLowerCase()}`}
+              onLoad={onShotLoad}
+              onError={onShotLoad}
+            />
           </div>
 
           <div class="l9c__caption" aria-live="polite">
@@ -196,6 +199,24 @@ export default function L9Configurator(p: Props) {
               <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /></svg>
             </button>
           </div>
+        </div>
+
+        <div class="l9c__thumbs" role="group" aria-label={ui.viewLabel}>
+          {p.shots.map((sh, i) => (
+            <button
+              type="button"
+              key={sh.id}
+              aria-pressed={i === shotIdx}
+              class={`l9c__thumb${i === shotIdx ? ' is-active' : ''}`}
+              onClick={() => {
+                setHint('');
+                setShotIdx(i);
+              }}
+            >
+              <img src={srcOf(sh)} alt="" width="160" height="120" loading="lazy" />
+              <span>{sh.label}</span>
+            </button>
+          ))}
         </div>
       </div>
 
@@ -230,7 +251,6 @@ export default function L9Configurator(p: Props) {
                 title={`${o.name} – ${price(o.avail)}`}
                 class={`l9c__swatch${o.id === paintId ? ' is-active' : ''}${o.avail[trimId] === null ? ' is-other' : ''}`}
                 onClick={() => choosePaint(o)}
-                onPointerEnter={() => (new Image().src = isDesktop() ? o.photo.desktop : o.photo.mobile)}
               >
                 <img src={o.swatch} alt="" width="96" height="96" />
               </button>
@@ -248,7 +268,7 @@ export default function L9Configurator(p: Props) {
                 key={o.id}
                 aria-pressed={o.id === wheelId}
                 class={`l9c__option${o.id === wheelId ? ' is-active' : ''}${o.avail[trimId] === null ? ' is-other' : ''}`}
-                onClick={() => choose(o.avail, () => setWheelId(o.id))}
+                onClick={() => chooseWheel(o)}
               >
                 <img src={o.image} alt="" width="56" height="56" />
                 <span class="l9c__option-text">
@@ -272,10 +292,7 @@ export default function L9Configurator(p: Props) {
                 aria-label={o.name}
                 title={o.name}
                 class={`l9c__swatch${o.id === interiorId ? ' is-active' : ''}`}
-                onClick={() => {
-                  setView('interior');
-                  choose(o.avail, () => setInteriorId(o.id));
-                }}
+                onClick={() => chooseInterior(o)}
               >
                 <img src={o.swatch} alt="" width="96" height="96" />
               </button>

@@ -8,7 +8,7 @@ import Breadcrumbs from '../../../../components/v1/Breadcrumbs.astro';
 import Contacts from '../../../../components/v1/Contacts.astro';
 import ModalHost from '../../../../components/islands/ModalHost';
 import L9Configurator from '../../../../components/islands/L9Configurator';
-import { configTrims, paints, wheels, interiors, interiorPhotos, commonSpecs, l9Config } from '../../../../content/models/lixiang-l9-config';
+import { configTrims, paints, wheels, interiors, shots, renderPaths, commonSpecs, l9Config } from '../../../../content/models/lixiang-l9-config';
 import { quiz, finalOffer } from '../../../../content/home';
 import { breadcrumbsLd, abs } from '../../../../lib/seo';
 
@@ -50,7 +50,8 @@ const crumbs = [
           paints={paints}
           wheels={wheels}
           interiors={interiors}
-          interiorPhotos={interiorPhotos}
+          shots={shots}
+          renderPaths={renderPaths}
           commonSpecs={commonSpecs}
           ui={l9Config.ui}
           form={{
