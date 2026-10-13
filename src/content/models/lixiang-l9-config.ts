@@ -1,83 +1,144 @@
-// Конфигуратор Lixiang L9: цвета кузова и комплектации.
+// Конфигуратор нового Lixiang L9 (2026): версии, цвета, диски и салон.
 //
-// Фото и образцы цветов – официальные изображения Li Auto со страницы
-// lixiang.com/l9 (блок «每一种颜色，都高级»: 11 цветов, из них 4
-// двухцветных – только для версии Livis). Названия переведены с китайского.
-// Комплектации и цены – из нашей карточки L9 (lixiang-l9.ts), чтобы цифры
-// на двух страницах не разошлись.
-import { lixiangL9 } from './lixiang-l9';
+// Источник – официальный сайт Li Auto (снято 13.10.2026):
+// • lixiang.com/configuration.html?carModel=L9 – список вариантов, в какой
+//   версии что доступно и доплаты в юанях;
+// • API продуктов Li Auto – розничные цены версий в Китае;
+// • lixiang.com/l9 – фото по цветам (блок «每一种颜色，都高级») и фото салона.
+// Названия переведены с китайского. Это новая L9 2026 года – не те
+// поколения Pro/Max/Ultra 2023–2025, что описаны в карточке lixiang-l9.ts.
+// Цены здесь – китайские розничные; цену под ключ в Минске считает менеджер.
 
-export interface PaintColor {
+export type TrimId = 'ultra' | 'livis';
+
+/** Доплата в юанях для каждой версии; null – в этой версии варианта нет */
+export type Avail = Record<TrimId, number | null>;
+
+export interface Option {
   id: string;
   name: string;
-  /** Подпись под названием: тип покраски или ограничение */
-  note: string;
-  group: 'paint' | 'livis';
+  note?: string;
+  avail: Avail;
 }
 
-const dir = '/img/lixiang-l9/colors';
-export const colorImage = (id: string) => ({
-  desktop: `${dir}/${id}.webp`,
-  mobile: `${dir}/${id}-m.webp`,
-  swatch: `${dir}/${id}-swatch.webp`,
-});
-
-export const paintColors: PaintColor[] = [
-  { id: 'pearl-white', name: 'Жемчужно-белый', note: 'металлик', group: 'paint' },
-  { id: 'polar-grey', name: 'Полярный серый', note: 'холодный блеск', group: 'paint' },
-  { id: 'diamond-black', name: 'Бриллиантовый чёрный', note: 'металлик', group: 'paint' },
-  { id: 'titanium-gold', name: 'Титановое золото', note: 'металлик', group: 'paint' },
-  { id: 'emerald', name: 'Изумрудный', note: 'перламутр, особая серия', group: 'paint' },
-  { id: 'truffle-gold', name: 'Трюфельное золото', note: 'перламутр, особая серия', group: 'paint' },
-  { id: 'night-purple', name: 'Ночной фиолетовый', note: 'перламутр, особая серия', group: 'paint' },
-  { id: 'livis-brown', name: 'Коричневый с золотом', note: 'двухцветный, только Livis', group: 'livis' },
-  { id: 'livis-black', name: 'Чёрный с золотом', note: 'двухцветный, только Livis', group: 'livis' },
-  { id: 'livis-green', name: 'Зелёный с золотом', note: 'двухцветный, только Livis', group: 'livis' },
-  { id: 'livis-purple', name: 'Фиолетовый с золотом', note: 'двухцветный, только Livis', group: 'livis' },
-];
+const both: Avail = { ultra: 0, livis: 0 };
+const opt = (dir: string, id: string) => `/img/lixiang-l9/${dir}/${id}.webp`;
 
 export interface ConfigTrim {
-  id: string;
+  id: TrimId;
   name: string;
-  years: string;
-  /** Цена под ключ, $; null – цену подтверждает менеджер под конкретный лот */
-  priceUsd: number | null;
+  priceCny: number;
   rows: { label: string; value: string }[];
 }
 
-// Строки сравнения берём из таблицы комплектаций карточки L9 по индексу
-// колонки: 0 – Pro, 1 – Max, 2 – Ultra.
-const rowsFor = (col: 0 | 1 | 2) =>
-  lixiangL9.trims
-    .filter((r) => ['Батарея', 'Запас хода на электричестве', 'Общий запас хода', 'Лидар'].includes(r.label))
-    .map((r) => ({ label: r.label, value: r.values[col] }));
-
 export const configTrims: ConfigTrim[] = [
-  { id: 'pro', name: 'L9 Pro', years: '2023–2024', priceUsd: null, rows: rowsFor(0) },
-  { id: 'max', name: 'L9 Max', years: '2023–2024', priceUsd: null, rows: rowsFor(1) },
-  { id: 'ultra', name: 'L9 Ultra', years: '2025', priceUsd: 65000, rows: rowsFor(2) },
+  {
+    id: 'ultra',
+    name: 'L9 Ultra',
+    priceCny: 459800,
+    rows: [
+      { label: 'Подвеска', value: 'Пневматическая «Magic Carpet» 3-го поколения' },
+      { label: 'Тормоза', value: 'Электрогидравлические (EHB)' },
+      { label: 'Ассистенты', value: '1280 TOPS, передний лидар' },
+    ],
+  },
+  {
+    id: 'livis',
+    name: 'L9 Livis',
+    priceCny: 509800,
+    rows: [
+      { label: 'Подвеска', value: 'Активная, 800 В' },
+      { label: 'Тормоза', value: 'Электромеханические (EMB)' },
+      { label: 'Ассистенты', value: '2560 TOPS, четыре лидара' },
+    ],
+  },
 ];
+
+/** Одинаково у обеих версий */
+export const commonSpecs = [
+  { label: 'Батарея', value: '72,7 кВт·ч, зарядка 10–80% за 10 мин' },
+  { label: 'Запас хода', value: '420 км на электричестве, 1650 км общий (CLTC)' },
+  { label: 'Салон', value: '6 мест, схема 2-2-2' },
+];
+
+export const paints: (Option & { photo: { desktop: string; mobile: string }; swatch: string })[] = [
+  ['pearl-white', 'Жемчужно-белый', 'металлик', both],
+  ['polar-grey', 'Полярный серый', 'холодный блеск', both],
+  ['diamond-black', 'Бриллиантовый чёрный', 'металлик', both],
+  ['titanium-gold', 'Титановое золото', 'металлик', both],
+  ['emerald', 'Изумрудный', 'перламутр, особая серия', { ultra: 10000, livis: 10000 }],
+  ['truffle-gold', 'Трюфельное золото', 'перламутр, особая серия', { ultra: 10000, livis: 10000 }],
+  ['night-purple', 'Ночной фиолетовый', 'перламутр, особая серия', { ultra: 10000, livis: 10000 }],
+  ['livis-brown', 'Коричневый с золотом', 'двухцветный кузов Livis', { ultra: null, livis: 20000 }],
+  ['livis-black', 'Чёрный с золотом', 'двухцветный кузов Livis', { ultra: null, livis: 20000 }],
+  ['livis-green', 'Зелёный с золотом', 'двухцветный кузов Livis', { ultra: null, livis: 20000 }],
+  ['livis-purple', 'Фиолетовый с золотом', 'двухцветный кузов Livis', { ultra: null, livis: 20000 }],
+].map(([id, name, note, avail]) => ({
+  id: id as string,
+  name: name as string,
+  note: note as string,
+  avail: avail as Avail,
+  photo: { desktop: opt('colors', id as string), mobile: opt('colors', `${id}-m`) },
+  swatch: opt('options', `paint-${id}`),
+}));
+
+export const wheels: (Option & { image: string })[] = [
+  { id: '21-black', name: '21″ чёрные', note: 'шины Michelin 285/45 R21', avail: both },
+  { id: '21-silver', name: '21″ серебристые', note: 'шины Michelin 285/45 R21', avail: both },
+  { id: '22-silver', name: '22″ серебристые', note: 'только Ultra, шины 285/40 R22', avail: { ultra: 10000, livis: null } },
+  { id: '22-grey', name: '22″ «кристальный графит»', note: 'только Livis, шины 285/40 R22', avail: { ultra: null, livis: 10000 } },
+].map((w) => ({ ...w, image: opt('options', `wheel-${w.id}`) }));
+
+export const interiors: (Option & { swatch: string })[] = [
+  { id: 'green-white', name: 'Зелёный с белым', avail: both },
+  { id: 'brown-coffee', name: 'Коричневый с кофейным', avail: both },
+  { id: 'grey-purple', name: 'Серый с фиолетовым', avail: both },
+  { id: 'brown-white', name: 'Коричневый с белым', avail: both },
+].map((t) => ({ ...t, swatch: opt('options', `trim-${t.id}`) }));
+
+/** Фото салона на сайте Li Auto – одного варианта отделки, по цветам их нет */
+export const interiorPhotos = ['lounge', 'front-seats', 'dashboard', 'second-row', 'ambient', 'top-view'].map((id) => ({
+  id,
+  desktop: opt('interior', id),
+  mobile: opt('interior', `${id}-m`),
+}));
 
 export const l9Config = {
   path: '/catalog/lixiang/l9/konfigurator/',
-  seoTitle: 'Конфигуратор Lixiang L9 (Li Auto L9): цвета и комплектации | Evolution Car',
+  seoTitle: 'Конфигуратор нового Lixiang L9 2026: цвета, диски, салон | Evolution Car',
   seoDescription:
-    'Соберите свой Lixiang L9: 11 цветов кузова, включая двухцветные Livis, комплектации Pro, Max и Ultra. ' +
-    'Цена под ключ в Минске и расчёт под вашу конфигурацию.',
-  h1: 'Конфигуратор Lixiang L9',
-  lead: 'Выберите цвет и комплектацию – менеджер подберёт лот под вашу конфигурацию и пришлёт расчёт под ключ.',
-  colorsTitle: 'Цвет кузова',
-  paintGroup: 'Цвета',
-  livisGroup: 'Двухцветные Livis',
-  trimTitle: 'Комплектация',
-  summaryTitle: 'Ваш Lixiang L9',
-  priceFrom: 'от',
-  priceOnRequest: 'Цену под конкретный лот подтвердит менеджер',
-  bynRate: 3,
-  livisNote: 'цвет только для версии Livis – уточнить у менеджера',
-  formTitle: 'Получить расчёт с этой конфигурацией',
-  photoNote:
-    'Фото – официальные изображения Li Auto. Оттенок, доступность цвета и комплектацию конкретного ' +
-    'автомобиля менеджер подтвердит до договора.',
-  cardLink: { label: 'Характеристики Lixiang L9', href: lixiangL9.path },
+    'Соберите новый Lixiang L9 2026: версии Ultra и Livis, 11 цветов кузова, диски 21″ и 22″, четыре варианта салона. ' +
+    'Цены Li Auto в Китае и расчёт под ключ в Минске.',
+  h1: 'Конфигуратор нового Lixiang L9',
+  lead: 'Выберите версию, цвет, диски и салон – менеджер подберёт автомобиль под вашу конфигурацию и пришлёт расчёт под ключ.',
+  cardLink: { label: 'Характеристики Lixiang L9', href: '/lixiangl9/' },
+  ui: {
+    exterior: 'Кузов',
+    interior: 'Салон',
+    trimTitle: 'Версия',
+    paintTitle: 'Цвет кузова',
+    wheelTitle: 'Диски',
+    interiorTitle: 'Цвет салона',
+    commonTitle: 'У обеих версий',
+    summaryTitle: 'Ваш новый Lixiang L9',
+    chinaPrice: 'Цена Li Auto в Китае',
+    turnkey: 'Под ключ в Минске – рассчитаем под вашу конфигурацию',
+    included: 'входит',
+    unavailable: 'не для этой версии',
+    switched: 'Этот вариант есть только у версии',
+    formTitle: 'Получить расчёт под ключ',
+    prev: 'Предыдущий кадр',
+    stageLabel: 'Новый Lixiang L9',
+    viewLabel: 'Вид',
+    altPaint: 'Lixiang L9, цвет',
+    altInterior: 'Салон Lixiang L9',
+    wheelsWord: 'диски',
+    interiorWord: 'салон',
+    leadSource: 'Конфигуратор нового L9',
+    next: 'Следующий кадр',
+    photoNote:
+      'Фото – официальные изображения Li Auto. Салон на фото – в одном из вариантов отделки. ' +
+      'Цены – розничные цены Li Auto в Китае на 13.10.2026; доступность вариантов у конкретного автомобиля ' +
+      'менеджер подтвердит до договора.',
+  },
 };
