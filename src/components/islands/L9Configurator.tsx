@@ -1,83 +1,113 @@
 import { useEffect, useRef, useState } from 'preact/hooks';
 import LeadForm from './LeadForm';
 
-interface Color {
-  id: string;
-  name: string;
-  note: string;
-  group: 'paint' | 'livis';
-  desktop: string;
-  mobile: string;
-  swatch: string;
-}
-interface Trim {
-  id: string;
-  name: string;
-  years: string;
-  priceUsd: number | null;
-  rows: { label: string; value: string }[];
-}
-interface Texts {
-  colorsTitle: string;
-  paintGroup: string;
-  livisGroup: string;
-  trimTitle: string;
-  summaryTitle: string;
-  priceFrom: string;
-  priceOnRequest: string;
-  bynRate: number;
-  formTitle: string;
-  photoNote: string;
-  livisNote: string;
-  prev: string;
-  next: string;
-}
+type TrimId = 'ultra' | 'livis';
+type Avail = Record<TrimId, number | null>;
+interface Photo { desktop: string; mobile: string }
+interface Paint { id: string; name: string; note?: string; avail: Avail; photo: Photo; swatch: string }
+interface Wheel { id: string; name: string; note?: string; avail: Avail; image: string }
+interface Interior { id: string; name: string; avail: Avail; swatch: string }
+interface Trim { id: TrimId; name: string; priceCny: number; rows: { label: string; value: string }[] }
 interface Props {
-  colors: Color[];
   trims: Trim[];
-  texts: Texts;
+  paints: Paint[];
+  wheels: Wheel[];
+  interiors: Interior[];
+  interiorPhotos: (Photo & { id: string })[];
+  commonSpecs: { label: string; value: string }[];
+  ui: Record<string, string>;
   form: { namePlaceholder: string; phonePlaceholder: string; cta: string; success: string };
 }
 
-const money = (n: number) => n.toLocaleString('ru-RU');
+const cny = (n: number) => `${n.toLocaleString('ru-RU')} ¥`;
+const isDesktop = () => matchMedia('(min-width: 768px)').matches;
+const firstFor = <T extends { avail: Avail }>(list: T[], trim: TrimId) => list.find((o) => o.avail[trim] !== null)!;
 
 /**
- * Конфигуратор L9 на официальных фото по цветам. Смена цвета – плавная:
- * новое фото проявляется поверх прежнего, прежнее остаётся подложкой, так
- * что между кадрами нет пустого фона. Фото чуть смещается за мышью, на
- * телефоне цвет листается свайпом, с клавиатуры – стрелками.
+ * Конфигуратор нового L9 на официальных фото. Вариант, которого нет в
+ * текущей версии, не прячется: при выборе версия переключается сама, а
+ * несовместимые с ней варианты заменяются первыми доступными – так нельзя
+ * собрать машину, которой не бывает. Смена кадра плавная: под новым кадром
+ * лежит последний полностью показанный, без пустого фона.
  */
-export default function L9Configurator({ colors, trims, texts, form }: Props) {
-  const [colorId, setColorId] = useState(colors[0].id);
-  // последний полностью проявленный кадр – подложка под новым; меняется
-  // по концу анимации, а не по клику, иначе при быстром листании
-  // подложкой становится полупрозрачный или ещё не загруженный кадр
-  const [shownId, setShownId] = useState(colors[0].id);
-  const [trimId, setTrimId] = useState(trims[trims.length - 1].id);
+export default function L9Configurator(p: Props) {
+  const { ui } = p;
+  const [trimId, setTrimId] = useState<TrimId>('ultra');
+  const [paintId, setPaintId] = useState(p.paints[0].id);
+  const [wheelId, setWheelId] = useState(p.wheels[0].id);
+  const [interiorId, setInteriorId] = useState(p.interiors[0].id);
+  const [view, setView] = useState<'exterior' | 'interior'>('exterior');
+  const [photoIdx, setPhotoIdx] = useState(0);
+  const [hint, setHint] = useState('');
+  // кадр проявляется только после загрузки фото, иначе подложка уйдёт раньше
+  const [loadedKey, setLoadedKey] = useState('');
   const stage = useRef<HTMLDivElement>(null);
   const swipeX = useRef<number | null>(null);
 
-  const index = colors.findIndex((c) => c.id === colorId);
-  const color = colors[index];
-  const under = shownId !== colorId ? colors.find((c) => c.id === shownId) : null;
-  const trim = trims.find((t) => t.id === trimId)!;
+  const trim = p.trims.find((t) => t.id === trimId)!;
+  const paint = p.paints.find((o) => o.id === paintId)!;
+  const wheel = p.wheels.find((o) => o.id === wheelId)!;
+  const interior = p.interiors.find((o) => o.id === interiorId)!;
 
-  const pick = (id: string) => {
-    if (id !== colorId) setColorId(id);
+  // кадр на сцене: в «Кузове» – фото выбранного цвета, в «Салоне» – галерея
+  const frame =
+    view === 'exterior'
+      ? { key: `e-${paint.id}`, ...paint.photo, title: paint.name, sub: paint.note ?? '' }
+      : { key: `i-${photoIdx}`, ...p.interiorPhotos[photoIdx], title: ui.interior, sub: `${photoIdx + 1} / ${p.interiorPhotos.length}` };
+  const [shown, setShown] = useState(frame);
+  const under = shown.key !== frame.key ? shown : null;
+
+  /** Переключить версию и заменить несовместимые варианты */
+  const applyTrim = (t: TrimId) => {
+    setTrimId(t);
+    if (paint.avail[t] === null) setPaintId(firstFor(p.paints, t).id);
+    if (wheel.avail[t] === null) setWheelId(firstFor(p.wheels, t).id);
+    if (interior.avail[t] === null) setInteriorId(firstFor(p.interiors, t).id);
   };
-  const step = (dir: 1 | -1) => pick(colors[(index + dir + colors.length) % colors.length].id);
+  const chooseTrim = (t: TrimId) => {
+    setHint('');
+    applyTrim(t);
+  };
+  /** Выбрать вариант; если его нет в текущей версии – перейти в ту, где он есть */
+  const choose = (avail: Avail, set: () => void) => {
+    if (avail[trimId] === null) {
+      const other = (Object.keys(avail) as TrimId[]).find((t) => avail[t] !== null)!;
+      applyTrim(other);
+      setHint(`${ui.switched} ${p.trims.find((t) => t.id === other)!.name}`);
+    } else setHint('');
+    set();
+  };
+  const choosePaint = (o: Paint) => {
+    setView('exterior');
+    choose(o.avail, () => setPaintId(o.id));
+  };
 
-  // соседние фото грузим заранее, чтобы листание было без задержки
-  useEffect(() => {
-    const desktop = matchMedia('(min-width: 768px)').matches;
-    for (const d of [1, -1]) {
-      const c = colors[(index + d + colors.length) % colors.length];
-      new Image().src = desktop ? c.desktop : c.mobile;
+  const step = (dir: 1 | -1) => {
+    setHint('');
+    if (view === 'interior') {
+      setPhotoIdx((photoIdx + dir + p.interiorPhotos.length) % p.interiorPhotos.length);
+      return;
     }
-  }, [index]);
+    // листаем только цвета, доступные в выбранной версии
+    const list = p.paints.filter((o) => o.avail[trimId] !== null);
+    const i = list.findIndex((o) => o.id === paintId);
+    setPaintId(list[(i + dir + list.length) % list.length].id);
+  };
 
-  const preload = (c: Color) => {
-    new Image().src = matchMedia('(min-width: 768px)').matches ? c.desktop : c.mobile;
+  // соседние кадры грузим заранее – листание стрелками и свайпом без ожидания
+  useEffect(() => {
+    const list = view === 'exterior' ? p.paints.filter((o) => o.avail[trimId] !== null).map((o) => o.photo) : p.interiorPhotos;
+    const i = view === 'exterior' ? p.paints.filter((o) => o.avail[trimId] !== null).findIndex((o) => o.id === paintId) : photoIdx;
+    for (const d of [1, -1]) {
+      const ph = list[(i + d + list.length) % list.length];
+      if (ph) new Image().src = isDesktop() ? ph.desktop : ph.mobile;
+    }
+  }, [view, trimId, paintId, photoIdx]);
+
+  const onShotLoad = () => {
+    setLoadedKey(frame.key);
+    // без анимации (reduced motion) animationend не придёт – подложку убираем сразу
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) setShown(frame);
   };
 
   const onMove = (e: PointerEvent) => {
@@ -105,137 +135,179 @@ export default function L9Configurator({ colors, trims, texts, form }: Props) {
     if (e.key === 'ArrowLeft') step(-1);
   };
 
-  const groups: [string, Color[]][] = [
-    [texts.paintGroup, colors.filter((c) => c.group === 'paint')],
-    [texts.livisGroup, colors.filter((c) => c.group === 'livis')],
-  ];
-  // двухцветные кузова бывают только у версии Livis, которой нет в выборе
-  // комплектаций, – это видно и в итоге, и в заявке менеджеру
-  const livis = color.group === 'livis';
-  const summary = `${trim.name} ${trim.years}, ${color.name.toLowerCase()}${livis ? ` (${texts.livisNote})` : ''}`;
+  const extra = (a: Avail) => a[trimId] ?? 0;
+  const total = trim.priceCny + extra(paint.avail) + extra(wheel.avail) + extra(interior.avail);
+  const price = (a: Avail) => (a[trimId] === null ? ui.unavailable : a[trimId] ? `+${cny(a[trimId]!)}` : ui.included);
+  const summary = `${trim.name}: ${paint.name.toLowerCase()}, ${ui.wheelsWord} ${wheel.name}, ${ui.interiorWord} ${interior.name.toLowerCase()}`;
+  const waiting = under && loadedKey !== frame.key;
 
   return (
     <div class="l9c">
-      <div
-        class="l9c__stage"
-        ref={stage}
-        tabIndex={0}
-        aria-roledescription="галерея цветов"
-        role="region"
-        aria-label="Lixiang L9 в выбранном цвете"
-        onPointerMove={onMove}
-        onPointerLeave={onLeave}
-        onPointerDown={onDown}
-        onPointerUp={onUp}
-        onPointerCancel={() => (swipeX.current = null)}
-        onKeyDown={onKey}
-      >
-        {under && (
-          <picture class="l9c__shot l9c__shot--under" key={`u-${under.id}`}>
-            <source media="(min-width: 768px)" srcset={under.desktop} />
-            <img src={under.mobile} alt="" />
-          </picture>
-        )}
-        <picture
-          class={`l9c__shot${under ? ' l9c__shot--in' : ''}`}
-          key={color.id}
-          onAnimationEnd={() => setShownId(color.id)}
+      <div class="l9c__stage-wrap">
+        <div
+          class="l9c__stage"
+          ref={stage}
+          tabIndex={0}
+          role="region"
+          aria-label={ui.stageLabel}
+          onPointerMove={onMove}
+          onPointerLeave={onLeave}
+          onPointerDown={onDown}
+          onPointerUp={onUp}
+          onPointerCancel={() => (swipeX.current = null)}
+          onKeyDown={onKey}
         >
-          <source media="(min-width: 768px)" srcset={color.desktop} />
-          <img src={color.mobile} alt={`Lixiang L9, цвет «${color.name}»`} />
-        </picture>
+          {under && (
+            <picture class="l9c__shot l9c__shot--under" key={`u-${under.key}`}>
+              <source media="(min-width: 768px)" srcset={under.desktop} />
+              <img src={under.mobile} alt="" />
+            </picture>
+          )}
+          <picture
+            class={`l9c__shot${waiting ? ' l9c__shot--wait' : under ? ' l9c__shot--in' : ''}`}
+            key={frame.key}
+            onAnimationEnd={() => setShown(frame)}
+          >
+            <source media="(min-width: 768px)" srcset={frame.desktop} />
+            <img src={frame.mobile} alt={view === 'exterior' ? `${ui.altPaint} «${paint.name}»` : ui.altInterior} onLoad={onShotLoad} />
+          </picture>
 
-        <div class="l9c__caption" aria-live="polite">
-          <span class="l9c__count">
-            {String(index + 1).padStart(2, '0')} / {String(colors.length).padStart(2, '0')}
-          </span>
-          <span class="l9c__name">{color.name}</span>
-          <span class="l9c__note">{color.note}</span>
-        </div>
-        <div class="l9c__arrows">
-          <button type="button" class="l9c__arrow" onClick={() => step(-1)} aria-label={texts.prev}>
-            <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /></svg>
-          </button>
-          <button type="button" class="l9c__arrow l9c__arrow--next" onClick={() => step(1)} aria-label={texts.next}>
-            <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /></svg>
-          </button>
+          <div class="l9c__tabs" role="group" aria-label={ui.viewLabel}>
+            {(['exterior', 'interior'] as const).map((v) => (
+              <button type="button" key={v} aria-pressed={view === v} class={`l9c__tab${view === v ? ' is-active' : ''}`} onClick={() => setView(v)}>
+                {ui[v]}
+              </button>
+            ))}
+          </div>
+
+          <div class="l9c__caption" aria-live="polite">
+            <span class="l9c__name">{frame.title}</span>
+            <span class="l9c__note">{frame.sub}</span>
+            <span class="l9c__chips">
+              <span class="l9c__chip"><img src={wheel.image} alt="" width="24" height="24" />{wheel.name}</span>
+              <span class="l9c__chip"><img src={interior.swatch} alt="" width="24" height="24" />{interior.name}</span>
+            </span>
+          </div>
+          <div class="l9c__arrows">
+            <button type="button" class="l9c__arrow" onClick={() => step(-1)} aria-label={ui.prev}>
+              <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /></svg>
+            </button>
+            <button type="button" class="l9c__arrow l9c__arrow--next" onClick={() => step(1)} aria-label={ui.next}>
+              <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /></svg>
+            </button>
+          </div>
         </div>
       </div>
 
       <div class="l9c__panel">
         <section class="l9c__block">
-          <h2 class="l9c__title">{texts.colorsTitle}</h2>
-          {groups.map(([label, list]) => (
-            <div class="l9c__group" key={label}>
-              <p class="l9c__group-label">{label}</p>
-              <div class="l9c__swatches" role="group" aria-label={label}>
-                {list.map((c) => (
-                  <button
-                    type="button"
-                    aria-pressed={c.id === colorId}
-                    aria-label={`${c.name}, ${c.note}`}
-                    title={c.name}
-                    class={`l9c__swatch${c.id === colorId ? ' is-active' : ''}`}
-                    key={c.id}
-                    onClick={() => pick(c.id)}
-                    onPointerEnter={() => preload(c)}
-                    onFocus={() => preload(c)}
-                  >
-                    <img src={c.swatch} alt="" width="107" height="70" />
-                  </button>
-                ))}
-              </div>
-            </div>
-          ))}
-        </section>
-
-        <section class="l9c__block">
-          <h2 class="l9c__title">{texts.trimTitle}</h2>
-          <div class="l9c__trims" role="group" aria-label={texts.trimTitle}>
-            {trims.map((t) => (
-              <button
-                type="button"
-                aria-pressed={t.id === trimId}
-                class={`l9c__trim${t.id === trimId ? ' is-active' : ''}`}
-                key={t.id}
-                onClick={() => setTrimId(t.id)}
-              >
+          <h2 class="l9c__title">{ui.trimTitle}</h2>
+          <div class="l9c__trims" role="group" aria-label={ui.trimTitle}>
+            {p.trims.map((t) => (
+              <button type="button" key={t.id} aria-pressed={t.id === trimId} class={`l9c__trim${t.id === trimId ? ' is-active' : ''}`} onClick={() => chooseTrim(t.id)}>
                 <span class="l9c__trim-name">{t.name}</span>
-                <span class="l9c__trim-years">{t.years}</span>
+                <span class="l9c__trim-years">{cny(t.priceCny)}</span>
               </button>
             ))}
           </div>
           <dl class="l9c__rows">
             {trim.rows.map((r) => (
-              <div class="l9c__row" key={r.label}>
-                <dt>{r.label}</dt>
-                <dd>{r.value}</dd>
-              </div>
+              <div class="l9c__row" key={r.label}><dt>{r.label}</dt><dd>{r.value}</dd></div>
+            ))}
+          </dl>
+          {hint && <p class="l9c__hint" role="status">{hint}</p>}
+        </section>
+
+        <section class="l9c__block">
+          <div class="l9c__head"><h2 class="l9c__title">{ui.paintTitle}</h2><span class="l9c__picked">{paint.name}</span></div>
+          <div class="l9c__swatches" role="group" aria-label={ui.paintTitle}>
+            {p.paints.map((o) => (
+              <button
+                type="button"
+                key={o.id}
+                aria-pressed={o.id === paintId}
+                aria-label={`${o.name}, ${o.note}, ${price(o.avail)}`}
+                title={`${o.name} – ${price(o.avail)}`}
+                class={`l9c__swatch${o.id === paintId ? ' is-active' : ''}${o.avail[trimId] === null ? ' is-other' : ''}`}
+                onClick={() => choosePaint(o)}
+                onPointerEnter={() => (new Image().src = isDesktop() ? o.photo.desktop : o.photo.mobile)}
+              >
+                <img src={o.swatch} alt="" width="96" height="96" />
+              </button>
+            ))}
+          </div>
+          <p class="l9c__opt-note">{paint.note} · {price(paint.avail)}</p>
+        </section>
+
+        <section class="l9c__block">
+          <h2 class="l9c__title">{ui.wheelTitle}</h2>
+          <div class="l9c__options" role="group" aria-label={ui.wheelTitle}>
+            {p.wheels.map((o) => (
+              <button
+                type="button"
+                key={o.id}
+                aria-pressed={o.id === wheelId}
+                class={`l9c__option${o.id === wheelId ? ' is-active' : ''}${o.avail[trimId] === null ? ' is-other' : ''}`}
+                onClick={() => choose(o.avail, () => setWheelId(o.id))}
+              >
+                <img src={o.image} alt="" width="56" height="56" />
+                <span class="l9c__option-text">
+                  <span class="l9c__option-name">{o.name}</span>
+                  <span class="l9c__option-note">{o.note}</span>
+                </span>
+                <span class="l9c__option-price">{price(o.avail)}</span>
+              </button>
+            ))}
+          </div>
+        </section>
+
+        <section class="l9c__block">
+          <div class="l9c__head"><h2 class="l9c__title">{ui.interiorTitle}</h2><span class="l9c__picked">{interior.name}</span></div>
+          <div class="l9c__swatches" role="group" aria-label={ui.interiorTitle}>
+            {p.interiors.map((o) => (
+              <button
+                type="button"
+                key={o.id}
+                aria-pressed={o.id === interiorId}
+                aria-label={o.name}
+                title={o.name}
+                class={`l9c__swatch${o.id === interiorId ? ' is-active' : ''}`}
+                onClick={() => {
+                  setView('interior');
+                  choose(o.avail, () => setInteriorId(o.id));
+                }}
+              >
+                <img src={o.swatch} alt="" width="96" height="96" />
+              </button>
+            ))}
+          </div>
+        </section>
+
+        <section class="l9c__block">
+          <h2 class="l9c__title">{ui.commonTitle}</h2>
+          <dl class="l9c__rows">
+            {p.commonSpecs.map((r) => (
+              <div class="l9c__row" key={r.label}><dt>{r.label}</dt><dd>{r.value}</dd></div>
             ))}
           </dl>
         </section>
 
         <section class="l9c__block l9c__summary">
-          <p class="l9c__summary-title">{texts.summaryTitle}</p>
+          <p class="l9c__summary-title">{ui.summaryTitle}</p>
           <p class="l9c__summary-config">{summary}</p>
-          {trim.priceUsd ? (
-            <p class="l9c__price">
-              {texts.priceFrom} {money(trim.priceUsd)} $
-              <span> ≈ {money(trim.priceUsd * texts.bynRate)} BYN</span>
-            </p>
-          ) : (
-            <p class="l9c__price l9c__price--ask">{texts.priceOnRequest}</p>
-          )}
-          <p class="l9c__form-title">{texts.formTitle}</p>
+          <p class="l9c__summary-label">{ui.chinaPrice}</p>
+          <p class="l9c__price">{cny(total)}</p>
+          <p class="l9c__price--ask">{ui.turnkey}</p>
+          <p class="l9c__form-title">{ui.formTitle}</p>
           <LeadForm
-            namePlaceholder={form.namePlaceholder}
-            phonePlaceholder={form.phonePlaceholder}
-            cta={form.cta}
-            success={form.success}
-            source={`Конфигуратор L9: ${summary}`}
+            namePlaceholder={p.form.namePlaceholder}
+            phonePlaceholder={p.form.phonePlaceholder}
+            cta={p.form.cta}
+            success={p.form.success}
+            source={`${ui.leadSource} – ${summary}; ${ui.chinaPrice.toLowerCase()} ${cny(total)}`}
           />
         </section>
-        <p class="l9c__photo-note">{texts.photoNote}</p>
+        <p class="l9c__photo-note">{ui.photoNote}</p>
       </div>
     </div>
   );

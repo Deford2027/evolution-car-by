@@ -8,7 +8,7 @@ import Breadcrumbs from '../../../../components/v1/Breadcrumbs.astro';
 import Contacts from '../../../../components/v1/Contacts.astro';
 import ModalHost from '../../../../components/islands/ModalHost';
 import L9Configurator from '../../../../components/islands/L9Configurator';
-import { paintColors, colorImage, configTrims, l9Config } from '../../../../content/models/lixiang-l9-config';
+import { configTrims, paints, wheels, interiors, interiorPhotos, commonSpecs, l9Config } from '../../../../content/models/lixiang-l9-config';
 import { quiz, finalOffer } from '../../../../content/home';
 import { breadcrumbsLd, abs } from '../../../../lib/seo';
 
@@ -19,9 +19,6 @@ const crumbs = [
   { name: 'L9', href: '/catalog/lixiang/l9/' },
   { name: 'Конфигуратор L9', href: l9Config.path },
 ];
-const colors = paintColors.map((c) => ({ ...c, ...colorImage(c.id) }));
-// в остров – только подписи интерфейса, без SEO-текстов страницы
-const { seoTitle, seoDescription, h1, lead, path, cardLink, ...uiTexts } = l9Config;
 ---
 
 <BaseLayout
@@ -49,9 +46,13 @@ const { seoTitle, seoDescription, h1, lead, path, cardLink, ...uiTexts } = l9Con
       <div class="container">
         <L9Configurator
           client:load
-          colors={colors}
           trims={configTrims}
-          texts={{ ...uiTexts, prev: 'Предыдущий цвет', next: 'Следующий цвет' }}
+          paints={paints}
+          wheels={wheels}
+          interiors={interiors}
+          interiorPhotos={interiorPhotos}
+          commonSpecs={commonSpecs}
+          ui={l9Config.ui}
           form={{
             namePlaceholder: finalOffer.namePlaceholder,
             phonePlaceholder: finalOffer.phonePlaceholder,
