@@ -28,6 +28,10 @@ const { car } = Astro.props as { car: Car };
 const meta = carMeta(car);
 const groups = specGroups(car);
 
+// Модели, у которых есть конфигуратор, – кнопка рядом с «Характеристиками»
+const CONFIGURATORS: Record<string, string> = { 'lixiang-l9': '/catalog/lixiang/l9/konfigurator/' };
+const configurator = CONFIGURATORS[car.slug];
+
 const crumbs = [
   { name: 'Главная', href: '/' },
   { name: 'Каталог автомобилей', href: '/catalog/' },
@@ -96,8 +100,9 @@ const similar = cars
             </dl>
 
             <div class="intro__actions">
-              <a class="btn" href="#request">Запросить расчёт</a>
-              <button class="btn btn--ghost" type="button" data-open="quiz">Пройти опрос</button>
+              <a class="btn" href="#request" data-open="lead">Заказать</a>
+              <a class="btn btn--ghost" href="#specs">Характеристики</a>
+              {configurator && <a class="btn btn--ghost" href={configurator}>Конфигуратор</a>}
             </div>
 
             <p class="intro__links">
@@ -125,7 +130,7 @@ const similar = cars
       </section>
 
       {groups.length > 0 && (
-        <section class="section section--tight">
+        <section class="section section--tight" id="specs">
           <div class="container">
             <h2 class="block__title">Характеристики</h2>
             <div class="specs">
