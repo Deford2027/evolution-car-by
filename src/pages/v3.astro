@@ -16,10 +16,27 @@ import { hero, benefits, directions, salon, calc, steps, reviews, team, faq, fin
 import { cars, sections, carsOf, carPath, formatUsd, formatByn, powertrains } from '../content/cars';
 import { galleryFor } from '../content/galleries';
 
-const inStock = carsOf(sections.find((s) => s.slug === 'v-nalichii')!);
-const picks = inStock.slice(0, 6);
 // в данных команды последние карточки повторяют одно имя – берём первых пятерых
+const slides = ['Evolution Car', 'Под ключ', 'Сервис'];
 const crew = team.items.slice(0, 5);
+// ленты машин по вкладкам – вместо чипов марок
+const shelf = (title: string, slug: string, href: string) => {
+  const list = carsOf(sections.find((x) => x.slug === slug)!);
+  return { title, href, total: list.length, cars: list.slice(0, 8) };
+};
+const shelves = [
+  shelf('В наличии', 'v-nalichii', '/catalog/v-nalichii/'),
+  shelf('Под заказ', 'pod-zakaz', '/catalog/pod-zakaz/'),
+  shelf('Электромобили', 'elektromobili', '/catalog/elektromobili/'),
+  shelf('Гибриды', 'gibridy', '/catalog/gibridy/'),
+];
+const stepPhotos = [
+  '/img/gallery/lixiang-l8/06-multimedia.webp',
+  '/img/gallery/zeekr-001/03-exterior.webp',
+  '/img/gallery/lixiang-l8/02-side.webp',
+  '/img/hero-evolution-hd-v2.jpg',
+  '/img/gallery/voyah-dreamer/03-exterior.webp',
+];
 const dirLinks = ['/catalog/iz-kitaya/', '/catalog/iz-korei/', '/catalog/iz-evropy/', '/catalog/iz-ssha/'];
 const plural = (n: number) => (n % 10 === 1 && n % 100 !== 11 ? 'автомобиль' : n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % 100 > 14) ? 'автомобиля' : 'автомобилей');
 const arrow = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
@@ -58,19 +75,64 @@ const arrow = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke
     <MegaMenu />
 
     <main>
-      <section class="v3-hero">
-        <video class="v3-hero__video" autoplay muted loop playsinline preload="auto" poster="/img/hero-poster.webp" aria-hidden="true" data-hero-video>
-          <source media="(max-width: 620px)" src="/video/hero-m.mp4" type="video/mp4" />
-          <source src="/video/hero.mp4" type="video/mp4" />
-        </video>
-        <div class="v3-hero__shade"></div>
-        <div class="v3-wrap v3-hero__inner">
-          <p class="v3-caps v3-hero__eyebrow"><span class="v3-dot"></span>Китай · Южная Корея · США · Европа</p>
-          <h1 class="v3-hero__title">{hero.title}</h1>
-          <p class="v3-hero__text">{hero.lead}</p>
-          <div class="v3-hero__cta">
-            <a class="btn" href="#final" data-open="lead">{hero.cta}</a>
-            <a class="v3-btn-line" href="/catalog/">Смотреть каталог</a>
+      <section class="v3-hero" data-v3-hero aria-roledescription="carousel" aria-label={site.brand}>
+        <div class="v3-slide is-active">
+          <video class="v3-slide__media" autoplay muted loop playsinline preload="auto" poster="/img/hero-poster.webp" aria-hidden="true">
+            <source media="(max-width: 620px)" src="/video/hero-m.mp4" type="video/mp4" />
+            <source src="/video/hero.mp4" type="video/mp4" />
+          </video>
+          <div class="v3-slide__shade" style="background:rgba(11,12,12,.72)"></div>
+          <div class="v3-mark__glow"></div>
+          <div class="v3-mark">
+            <span class="v3-mark__word" role="img" aria-label="Evolution Car"></span>
+            <p class="v3-caps v3-mark__sub">Автосалон · {site.city}</p>
+            <p class="v3-mark__title">Ваш автомобиль. <span class="v3-muted">Наша ответственность.</span></p>
+          </div>
+        </div>
+
+        <div class="v3-slide">
+          <img class="v3-slide__media" src="/img/hero-evolution-hd-v2.jpg" alt="" loading="eager" />
+          <div class="v3-slide__shade"></div>
+          <div class="v3-wrap v3-slide__inner">
+            <p class="v3-caps v3-hero__eyebrow"><span class="v3-dot"></span>Китай · Южная Корея · США · Европа</p>
+            <h1 class="v3-hero__title">{hero.title}</h1>
+            <p class="v3-hero__text">{hero.lead}. {benefits.slice(1).map((b) => b.title).join(' · ')}.</p>
+            <div class="v3-hero__cta">
+              <a class="btn" href="#final" data-open="lead">{hero.cta}</a>
+              <a class="v3-btn-line" href="/catalog/">Смотреть каталог</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="v3-slide">
+          <img class="v3-slide__media" src="/img/unsplash/service.jpg" alt="" loading="lazy" />
+          <div class="v3-slide__shade"></div>
+          <div class="v3-wrap v3-slide__inner">
+            <p class="v3-caps v3-hero__eyebrow"><span class="v3-dot"></span>{site.showroom} · {site.service}</p>
+            <h2 class="v3-hero__title">Обслуживаем <span class="v3-chrome">и после покупки</span></h2>
+            <p class="v3-hero__text">{salon.cards[2].text} Диагностика, ТО и ремонт электромобилей, гибридов и машин с ДВС.</p>
+            <div class="v3-hero__cta">
+              <a class="btn" href="#final" data-open="lead">Записаться на сервис</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="v3-hero__ui">
+          <div class="v3-wrap">
+            <div class="v3-bars">
+              {slides.map((label, i) => (
+                <button type="button" class:list={['v3-bar', { 'is-active': i === 0 }]} data-bar={i} aria-label={`Слайд ${i + 1}: ${label}`}>
+                  <span class="v3-bar__num">{String(i + 1).padStart(2, '0')}</span>
+                  <span class="v3-bar__label">{label}</span>
+                  <span class="v3-bar__track"><i></i></span>
+                </button>
+              ))}
+            </div>
+            <div class="v3-arrows">
+              <button class="v3-ic" type="button" data-go="-1" aria-label="Предыдущий слайд"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M15 5l-7 7 7 7"/></svg></button>
+              <button class="v3-ic" type="button" data-pause aria-label="Пауза"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 5h3v14H7zM14 5h3v14h-3z"/></svg></button>
+              <button class="v3-ic" type="button" data-go="1" aria-label="Следующий слайд"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 5l7 7-7 7"/></svg></button>
+            </div>
           </div>
         </div>
       </section>
@@ -122,134 +184,130 @@ const arrow = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke
         </div>
       </section>
 
-      <section class="v3-sec v3-sec--line" id="stock">
+      <section class="v3-sec v3-sec--line" id="stock" data-v3-slider data-v3-tabs>
         <div class="v3-wrap">
           <div class="v3-head v3-reveal">
             <div>
-              <p class="v3-caps v3-eyebrow">Каталог · {inStock.length} {plural(inStock.length)} в наличии</p>
-              <h2 class="v3-h2">В наличии в Минске</h2>
+              <p class="v3-caps v3-eyebrow">Каталог · {cars.length} {plural(cars.length)}</p>
+              <h2 class="v3-h2">Автомобили Evolution Car</h2>
             </div>
-            <a class="v3-link v3-caps" href="/catalog/v-nalichii/">Все в наличии</a>
+            <div class="v3-arrows"><button class="v3-ic" type="button" data-prev aria-label="Назад"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M15 5l-7 7 7 7"/></svg></button><button class="v3-ic" type="button" data-next aria-label="Вперёд"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 5l7 7-7 7"/></svg></button></div>
           </div>
-          <div class="v3-cars">
-            {picks.map((c, i) => {
+          <div class="v3-tabs" role="tablist">
+            {shelves.map((sh, i) => (
+              <button class:list={['v3-tab', { 'is-on': i === 0 }]} type="button" role="tab" aria-selected={i === 0 ? 'true' : 'false'} data-tab={i}>
+                {sh.title}<i>{sh.total}</i>
+              </button>
+            ))}
+          </div>
+        </div>
+        {shelves.map((sh, t) => (
+          <div class="v3-shelf" data-track data-shelf={t} hidden={t !== 0}>
+            {sh.cars.map((c) => {
               const shots = [c.photo, ...(galleryFor(c.slug, c.title) ?? []).slice(0, 3).map((g) => g.src)];
-              const power = c.specs.find((s) => s.label === 'Мощность')?.value;
-              const range = c.specs.find((s) => s.label === 'Запас хода')?.value;
-              const trim = c.specs.find((s) => s.label === 'Комплектация')?.value;
+              const power = c.specs.find((x) => x.label === 'Мощность')?.value;
               return (
-                <a class="v3-car v3-reveal" href={carPath(c)} style={`transition-delay:${(i % 3) * 70}ms`} data-car>
-                  <span class="v3-car__shot">
+                <a class="v3-prod" href={carPath(c)} data-car>
+                  <span class="v3-prod__shot">
                     {shots.map((src, k) => <img class:list={[{ 'is-on': k === 0 }]} src={src} alt={k === 0 ? c.title : ''} loading="lazy" />)}
-                    <span class="v3-car__badge">В наличии</span>
-                    {shots.length > 1 && (
-                      <span class="v3-car__zones" aria-hidden="true">{shots.map(() => <i></i>)}</span>
-                    )}
-                    {shots.length > 1 && (
-                      <span class="v3-car__dots" aria-hidden="true">{shots.map((_, k) => <i class:list={[{ 'is-on': k === 0 }]}></i>)}</span>
-                    )}
+                    {shots.length > 1 && <span class="v3-car__zones" aria-hidden="true">{shots.map(() => <i></i>)}</span>}
+                    {shots.length > 1 && <span class="v3-car__dots" aria-hidden="true">{shots.map((_, k) => <i class:list={[{ 'is-on': k === 0 }]}></i>)}</span>}
                   </span>
-                  <span class="v3-car__body">
-                    <span class="v3-car__title">{c.title}</span>
-                    {trim && <span class="v3-car__trim">{trim}</span>}
-                    <span class="v3-car__specs">
-                      <span>{c.year}</span>
-                      <span>{powertrains[c.powertrain]}</span>
-                      {power && <span>{power}</span>}
-                      {range && <span>{range.split('/')[0].trim()}</span>}
-                    </span>
-                    <span class="v3-car__foot">
-                      <span>
-                        {c.priceUsd && <span class="v3-car__price">от {formatUsd(c.priceUsd)}</span>}
-                        {c.priceByn && <span class="v3-car__byn">≈ {formatByn(c.priceByn)}</span>}
-                      </span>
-                      <span class="v3-car__go" set:html={arrow} />
-                    </span>
-                  </span>
+                  <span class="v3-prod__name">{c.title}</span>
+                  <span class="v3-prod__meta">{[c.year, powertrains[c.powertrain], power].filter(Boolean).join(' · ')}</span>
+                  {c.priceUsd && <span class="v3-prod__price">от {formatUsd(c.priceUsd)}<small>≈ {c.priceByn ? formatByn(c.priceByn) : ''}</small></span>}
                 </a>
               );
             })}
+            <a class="v3-prod v3-prod--all" href={sh.href}>
+              <span class="v3-prod__shot"><span>Смотреть все<br /><b>{sh.total}</b></span></span>
+            </a>
           </div>
-          <div class="v3-more"><a class="v3-btn-line" href="/catalog/v-nalichii/">Смотреть все {inStock.length} {plural(inStock.length)}</a></div>
-        </div>
+        ))}
       </section>
 
-      <section class="v3-sec v3-sec--line">
+      <section class="v3-sec v3-sec--line v3-flow">
         <div class="v3-wrap">
           <div class="v3-head v3-reveal">
             <div>
               <p class="v3-caps v3-eyebrow">{steps.kicker}</p>
               <h2 class="v3-h2">{steps.title}</h2>
             </div>
-            <a class="v3-link v3-caps" href="#final" data-open="lead">Начать с заявки</a>
           </div>
-          <ol class="v3-steps">
-            {steps.items.map((st, i) => (
-              <li class="v3-step v3-reveal" style={`transition-delay:${i * 70}ms`}>
-                <span class="v3-step__n">{String(i + 1).padStart(2, '0')}</span>
-                <h3 class="v3-step__title">{st.title}</h3>
-                <p class="v3-step__text">{st.text.replace(/^– /gm, '')}</p>
-              </li>
-            ))}
-          </ol>
+          <div class="v3-flow__grid">
+            <div class="v3-flow__media" aria-hidden="true">
+              {stepPhotos.map((src, i) => <img class:list={[{ 'is-on': i === 0 }]} src={src} alt="" loading="lazy" data-step-img={i} />)}
+              <span class="v3-flow__count"><b data-step-num>01</b> / 05</span>
+            </div>
+            <ol class="v3-flow__list">
+              {steps.items.map((st, i) => (
+                <li class:list={['v3-flow__item', { 'is-on': i === 0 }]} data-step={i}>
+                  <img class="v3-flow__thumb" src={stepPhotos[i]} alt="" loading="lazy" />
+                  <span class="v3-flow__n">{String(i + 1).padStart(2, '0')}</span>
+                  <h3>{st.title}</h3>
+                  <p>{st.text.replace(/^– /gm, '')}</p>
+                </li>
+              ))}
+            </ol>
+          </div>
         </div>
       </section>
 
-      <section class="v3-sec v3-sec--line">
+      <section class="v3-sec v3-sec--line" data-v3-slider>
         <div class="v3-wrap">
           <div class="v3-head v3-reveal">
             <div>
               <p class="v3-caps v3-eyebrow">{team.kicker}</p>
               <h2 class="v3-h2">{team.title}</h2>
             </div>
-            <p class="v3-head__lead v3-muted">{team.lead}</p>
+            <div class="v3-arrows"><button class="v3-ic" type="button" data-prev aria-label="Назад"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M15 5l-7 7 7 7"/></svg></button><button class="v3-ic" type="button" data-next aria-label="Вперёд"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 5l7 7-7 7"/></svg></button></div>
           </div>
-          <div class="v3-team">
-            {crew.map((m, i) => (
-              <figure class="v3-person v3-reveal" style={`transition-delay:${i * 60}ms`}>
-                <span class="v3-person__photo"><img src={m.img} alt={m.name} loading="lazy" width="840" height="1120" /></span>
-                <figcaption>
-                  <span class="v3-person__name">{m.name}</span>
-                  <span class="v3-person__role">{m.role}</span>
-                </figcaption>
-              </figure>
-            ))}
+        </div>
+        <div class="v3-shelf v3-shelf--team" data-track>
+          {crew.map((m) => (
+            <figure class="v3-person">
+              <img src={m.img} alt={m.name} loading="lazy" width="840" height="1120" />
+              <figcaption>
+                <span class="v3-person__name">{m.name}</span>
+                <span class="v3-person__role">{m.role}</span>
+              </figcaption>
+            </figure>
+          ))}
+        </div>
+      </section>
+
+      <section class="v3-banner">
+        <img class="v3-banner__bg" src="/img/gallery/voyah-dreamer/01-front-34.webp" alt="" loading="lazy" />
+        <div class="v3-wrap v3-banner__inner">
+          <div class="v3-banner__copy v3-reveal">
+            <p class="v3-caps v3-eyebrow">{calc.kicker}</p>
+            <h2 class="v3-banner__title">{calc.title}</h2>
+            <p class="v3-banner__text">{calc.lead}</p>
+            <ul class="v3-calc__list">
+              <li>Подборка вариантов на зарубежных рынках</li>
+              <li>Стоимость под ключ: доставка, растаможка, документы</li>
+              <li>Сроки поставки под ваш автомобиль</li>
+            </ul>
+            <div class="v3-calc__cta">
+              <button class="btn" type="button" data-open="quiz">{calc.cta}</button>
+              <a class="v3-btn-line" href="#final" data-open="lead">Получить звонок</a>
+            </div>
+          </div>
+          <div class="v3-mcard v3-reveal">
+            <span class="v3-mcard__photo"><img src="/img/IMG_7468_1.png" alt={calc.manager.name} loading="lazy" /></span>
+            <span class="v3-calc__online"><i></i>На связи сейчас</span>
+            <span class="v3-mcard__name">{calc.manager.name}</span>
+            <span class="v3-muted">{calc.manager.role}</span>
+            <span class="v3-mcard__btns">
+              <a class="v3-msg v3-msg--tg" href={site.telegram} target="_blank" rel="noopener" aria-label="Telegram"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M21.9 4.3 18.7 19c-.2 1-.9 1.3-1.8.8l-4.9-3.6-2.4 2.3c-.3.3-.5.5-1 .5l.4-5 9.1-8.2c.4-.3-.1-.5-.6-.2L6.3 12.7 1.5 11.2c-1-.3-1-1 .2-1.5l19-7.3c.9-.3 1.6.2 1.2 1.9Z"/></svg></a>
+              <a class="v3-msg v3-msg--wa" href={site.whatsapp} target="_blank" rel="noopener" aria-label="WhatsApp"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.8 4.9-1.3A10 10 0 1 0 12 2Zm5.6 14.1c-.2.7-1.3 1.3-1.9 1.3-.5 0-1.1.2-3.6-.8-3-1.3-5-4.4-5.1-4.6-.2-.2-1.3-1.7-1.3-3.3 0-1.5.8-2.3 1.1-2.6.3-.3.6-.4.8-.4h.6c.2 0 .5-.1.7.5l1 2.4c.1.2.1.4 0 .6l-.4.6c-.1.2-.3.3-.1.6.1.3.7 1.2 1.5 1.9 1 .9 1.8 1.2 2.1 1.3.3.1.4.1.6-.1l.8-1c.2-.2.4-.2.6-.1l2.2 1c.2.1.4.2.5.3.1.2.1.6-.1 1.4Z"/></svg></a>
+              <a class="v3-msg" href={site.phoneHref} aria-label="Позвонить"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8a15.2 15.2 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1l-2.3 2.2Z"/></svg></a>
+            </span>
           </div>
         </div>
       </section>
 
-      <section class="v3-sec v3-sec--line">
-        <div class="v3-wrap">
-          <div class="v3-calc v3-reveal">
-            <div class="v3-calc__mgr">
-              <img src="/img/IMG_7468_1.png" alt={`${calc.manager.name}, ${calc.manager.role.toLowerCase()}`} loading="lazy" width="840" height="970" />
-              <div class="v3-calc__badge">
-                <span class="v3-calc__online"><i></i>На связи сейчас</span>
-                <span class="v3-calc__name">{calc.manager.name}</span>
-                <span class="v3-muted">{calc.manager.role}</span>
-              </div>
-            </div>
-            <div class="v3-calc__body">
-              <p class="v3-caps v3-eyebrow">{calc.kicker}</p>
-              <h2 class="v3-h2">{calc.title}</h2>
-              <p class="v3-calc__text">{calc.lead}</p>
-              <ul class="v3-calc__list">
-                <li>Подборка вариантов на зарубежных рынках</li>
-                <li>Стоимость под ключ: доставка, растаможка, документы</li>
-                <li>Сроки поставки под ваш автомобиль</li>
-              </ul>
-              <div class="v3-calc__cta">
-                <button class="btn" type="button" data-open="quiz">{calc.cta}</button>
-                <a class="v3-msg v3-msg--tg" href={site.telegram} target="_blank" rel="noopener" aria-label="Написать в Telegram"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M21.9 4.3 18.7 19c-.2 1-.9 1.3-1.8.8l-4.9-3.6-2.4 2.3c-.3.3-.5.5-1 .5l.4-5 9.1-8.2c.4-.3-.1-.5-.6-.2L6.3 12.7 1.5 11.2c-1-.3-1-1 .2-1.5l19-7.3c.9-.3 1.6.2 1.2 1.9Z"/></svg></a>
-                <a class="v3-msg v3-msg--wa" href={site.whatsapp} target="_blank" rel="noopener" aria-label="Написать в WhatsApp"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.8 4.9-1.3A10 10 0 1 0 12 2Zm5.6 14.1c-.2.7-1.3 1.3-1.9 1.3-.5 0-1.1.2-3.6-.8-3-1.3-5-4.4-5.1-4.6-.2-.2-1.3-1.7-1.3-3.3 0-1.5.8-2.3 1.1-2.6.3-.3.6-.4.8-.4h.6c.2 0 .5-.1.7.5l1 2.4c.1.2.1.4 0 .6l-.4.6c-.1.2-.3.3-.1.6.1.3.7 1.2 1.5 1.9 1 .9 1.8 1.2 2.1 1.3.3.1.4.1.6-.1l.8-1c.2-.2.4-.2.6-.1l2.2 1c.2.1.4.2.5.3.1.2.1.6-.1 1.4Z"/></svg></a>
-              </div>
-              <p class="v3-calc__note v3-muted">{calc.note}</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section class="v3-sec v3-sec--line">
+      <section class="v3-sec" data-v3-slider>
         <div class="v3-wrap">
           <div class="v3-head v3-reveal">
             <div>
@@ -258,31 +316,24 @@ const arrow = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke
             </div>
             <div class="v3-rating">
               <span class="v3-rating__num">5,0</span>
-              <span>
-                <span class="v3-stars" aria-label="5 из 5">★★★★★</span>
-                <a class="v3-link v3-caps" href="/rew/">{reviews.cta}</a>
-              </span>
+              <span><span class="v3-stars" aria-label="5 из 5">★★★★★</span><a class="v3-link v3-caps" href="/rew/">{reviews.cta}</a></span>
             </div>
           </div>
-          <div class="v3-revs">
-            {reviews.items.map((r, i) => (
-              <article class="v3-rev v3-reveal" style={`transition-delay:${i * 80}ms`}>
-                <header class="v3-rev__head">
-                  <span class="v3-rev__ava">{r.name.charAt(0)}</span>
-                  <span>
-                    <span class="v3-rev__name">{r.name}</span>
-                    <span class="v3-stars v3-stars--sm" aria-label="5 из 5">★★★★★</span>
-                  </span>
-                </header>
-                <p class="v3-rev__text">{r.text}</p>
-                <div class="v3-rev__shots">
-                  {r.photos.map((ph) => <img src={ph} alt="" loading="lazy" />)}
-                </div>
-                <a class="v3-rev__link" href="/rew/">{reviews.linkLabel} <span aria-hidden="true">→</span></a>
-              </article>
-            ))}
-          </div>
         </div>
+        <div class="v3-shelf v3-shelf--rev" data-track>
+          {reviews.items.map((r) => (
+            <article class="v3-rv">
+              <span class="v3-rv__cover">
+                <img src={r.photos[0]} alt="" loading="lazy" />
+                <span class="v3-rv__thumbs">{r.photos.slice(1).map((ph) => <img src={ph} alt="" loading="lazy" />)}</span>
+              </span>
+              <span class="v3-stars v3-stars--sm" aria-label="5 из 5">★★★★★</span>
+              <p class="v3-rv__text">«{r.text}»</p>
+              <p class="v3-rv__who"><span class="v3-rev__ava">{r.name.charAt(0)}</span><span><b>{r.name}</b><br /><a href="/rew/">{reviews.linkLabel} →</a></span></p>
+            </article>
+          ))}
+        </div>
+        <div class="v3-wrap v3-rev-arrows"><div class="v3-arrows"><button class="v3-ic" type="button" data-prev aria-label="Назад"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M15 5l-7 7 7 7"/></svg></button><button class="v3-ic" type="button" data-next aria-label="Вперёд"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 5l7 7-7 7"/></svg></button></div></div>
       </section>
 
       <section class="v3-sec v3-sec--line">
@@ -379,6 +430,54 @@ const arrow = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke
   addEventListener('scroll', onScroll, { passive: true });
   onScroll();
 
+  // первый экран: автолистание с полосками прогресса, пауза, стрелки, свайп
+  const hero = document.querySelector<HTMLElement>('[data-v3-hero]');
+  if (hero) {
+    const slides = [...hero.querySelectorAll<HTMLElement>('.v3-slide')];
+    const bars = [...hero.querySelectorAll<HTMLElement>('.v3-bar')];
+    const pauseBtn = hero.querySelector<HTMLButtonElement>('[data-pause]')!;
+    const DUR = 7000;
+    let cur = 0;
+    let paused = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let timer = 0;
+    const go = (i: number) => {
+      cur = (i + slides.length) % slides.length;
+      slides.forEach((s, k) => s.classList.toggle('is-active', k === cur));
+      bars.forEach((b, k) => {
+        b.classList.toggle('is-done', k < cur);
+        b.classList.remove('is-active');
+        void b.offsetWidth; // перезапуск анимации полоски
+        b.classList.toggle('is-active', k === cur);
+      });
+      schedule();
+    };
+    const schedule = () => {
+      clearTimeout(timer);
+      hero.style.setProperty('--play', paused ? 'paused' : 'running');
+      hero.style.setProperty('--dur', `${DUR}ms`);
+      if (!paused) timer = window.setTimeout(() => go(cur + 1), DUR);
+    };
+    bars.forEach((b, k) => b.addEventListener('click', () => go(k)));
+    hero.querySelectorAll<HTMLButtonElement>('[data-go]').forEach((b) => b.addEventListener('click', () => go(cur + Number(b.dataset.go))));
+    pauseBtn.addEventListener('click', () => {
+      paused = !paused;
+      pauseBtn.setAttribute('aria-label', paused ? 'Продолжить' : 'Пауза');
+      pauseBtn.innerHTML = paused
+        ? '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>'
+        : '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 5h3v14H7zM14 5h3v14h-3z"/></svg>';
+      if (!paused) go(cur); else schedule();
+    });
+    let x0: number | null = null;
+    hero.addEventListener('touchstart', (e) => (x0 = e.touches[0].clientX), { passive: true });
+    hero.addEventListener('touchend', (e) => {
+      if (x0 === null) return;
+      const dx = e.changedTouches[0].clientX - x0;
+      if (Math.abs(dx) > 50) go(cur + (dx < 0 ? 1 : -1));
+      x0 = null;
+    });
+    schedule();
+  }
+
   // карточка машины: кадр меняется по зоне под курсором, уход – первый кадр
   document.querySelectorAll<HTMLElement>('[data-car]').forEach((card) => {
     const imgs = [...card.querySelectorAll<HTMLImageElement>('.v3-car__shot img')];
@@ -390,6 +489,40 @@ const arrow = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke
     card.querySelectorAll<HTMLElement>('.v3-car__zones i').forEach((z, k) => z.addEventListener('mouseenter', () => show(k)));
     card.addEventListener('mouseleave', () => show(0));
   });
+
+  // ленты (машины, команда, отзывы): стрелки листают на ширину карточки
+  document.querySelectorAll<HTMLElement>('[data-v3-slider]').forEach((box) => {
+    const track = () => [...box.querySelectorAll<HTMLElement>('[data-track]')].find((t) => !t.hidden)!;
+    const step = (dir: number) => {
+      const t = track();
+      const card = t.firstElementChild as HTMLElement | null;
+      t.scrollBy({ left: dir * ((card?.offsetWidth ?? 300) + 16), behavior: 'smooth' });
+    };
+    box.querySelectorAll('[data-prev]').forEach((b) => b.addEventListener('click', () => step(-1)));
+    box.querySelectorAll('[data-next]').forEach((b) => b.addEventListener('click', () => step(1)));
+  });
+  // вкладки машин
+  document.querySelectorAll<HTMLElement>('[data-v3-tabs]').forEach((box) => {
+    const tabs = [...box.querySelectorAll<HTMLButtonElement>('[data-tab]')];
+    const shelves = [...box.querySelectorAll<HTMLElement>('[data-shelf]')];
+    tabs.forEach((tab, k) => tab.addEventListener('click', () => {
+      tabs.forEach((x, n) => { x.classList.toggle('is-on', n === k); x.setAttribute('aria-selected', String(n === k)); });
+      shelves.forEach((sh, n) => { sh.hidden = n !== k; if (n === k) sh.scrollLeft = 0; });
+    }));
+  });
+  // шаги: большое фото меняется по шагу в центре экрана
+  const flowImgs = [...document.querySelectorAll<HTMLElement>('[data-step-img]')];
+  const flowItems = [...document.querySelectorAll<HTMLElement>('[data-step]')];
+  const flowNum = document.querySelector('[data-step-num]');
+  const setStep = (k: number) => {
+    flowImgs.forEach((im, n) => im.classList.toggle('is-on', n === k));
+    flowItems.forEach((it, n) => it.classList.toggle('is-on', n === k));
+    if (flowNum) flowNum.textContent = String(k + 1).padStart(2, '0');
+  };
+  const flowIo = new IntersectionObserver((entries) => {
+    for (const e of entries) if (e.isIntersecting) setStep(Number((e.target as HTMLElement).dataset.step));
+  }, { rootMargin: '-45% 0px -45% 0px' });
+  flowItems.forEach((it) => { flowIo.observe(it); it.addEventListener('mouseenter', () => setStep(Number(it.dataset.step))); });
 
   // плавное появление блоков при прокрутке
   const io = new IntersectionObserver((entries) => {
