@@ -1,0 +1,48 @@
+{
+ "zeekr-7x": {
+  "source": "https://www.zeekrlife.com/global/vehicles/7x",
+  "generation": "2026",
+  "shots": [
+   {
+    "src": "/img/gallery/zeekr-7x/front-34.webp",
+    "thumb": "/img/gallery/zeekr-7x/front-34-t.webp",
+    "alt": "вид спереди сбоку"
+   },
+   {
+    "src": "/img/gallery/zeekr-7x/side.webp",
+    "thumb": "/img/gallery/zeekr-7x/side-t.webp",
+    "alt": "вид сбоку"
+   },
+   {
+    "src": "/img/gallery/zeekr-7x/rear-34.webp",
+    "thumb": "/img/gallery/zeekr-7x/rear-34-t.webp",
+    "alt": "вид сзади сверху"
+   },
+   {
+    "src": "/img/gallery/zeekr-7x/front-detail.webp",
+    "thumb": "/img/gallery/zeekr-7x/front-detail-t.webp",
+    "alt": "передняя часть и фары"
+   },
+   {
+    "src": "/img/gallery/zeekr-7x/dashboard.webp",
+    "thumb": "/img/gallery/zeekr-7x/dashboard-t.webp",
+    "alt": "салон, место водителя"
+   },
+   {
+    "src": "/img/gallery/zeekr-7x/multimedia.webp",
+    "thumb": "/img/gallery/zeekr-7x/multimedia-t.webp",
+    "alt": "экран мультимедиа"
+   },
+   {
+    "src": "/img/gallery/zeekr-7x/rear-seats.webp",
+    "thumb": "/img/gallery/zeekr-7x/rear-seats-t.webp",
+    "alt": "задний ряд"
+   },
+   {
+    "src": "/img/gallery/zeekr-7x/cabin.webp",
+    "thumb": "/img/gallery/zeekr-7x/cabin-t.webp",
+    "alt": "салон, вид назад"
+   }
+  ]
+ }
+}

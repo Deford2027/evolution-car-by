@@ -1,7 +1,8 @@
-// Дополнительные фото к карточкам машин. Ключ – slug из cars.json; первым
-// кадром галереи всегда идёт фото каталога (car.photo), эти – после него.
-// Zeekr 7X: официальные фото с zeekrlife.com/global/vehicles/7x (13.10.2026),
-// обрезаны к 16:10, чтобы все кадры галереи были одной пропорции.
+// Дополнительные фото к карточкам машин – официальные изображения
+// производителей (сайты марок и пресс-центры). Данные – galleries.json:
+// ключ – slug из cars.json, первым кадром карточка показывает фото каталога.
+// Все кадры обрезаны к 16:10, чтобы галерея не прыгала при листании.
+import data from './galleries.json';
 
 export interface GalleryShot {
   src: string;
@@ -9,27 +10,16 @@ export interface GalleryShot {
   alt: string;
 }
 
-const z7x = (id: string, alt: string): GalleryShot => ({
-  src: `/img/gallery/zeekr-7x/${id}.webp`,
-  thumb: `/img/gallery/zeekr-7x/${id}-t.webp`,
-  alt: `Zeekr 7X – ${alt}`,
-});
+interface Entry { source: string; generation: string; shots: { src: string; thumb: string; alt: string }[] }
 
-export const galleries: Record<string, GalleryShot[]> = {
-  'zeekr-7x': [
-    z7x('front-34', 'вид спереди сбоку'),
-    z7x('side', 'вид сбоку'),
-    z7x('rear-34', 'вид сзади сверху'),
-    z7x('front-detail', 'передняя часть и фары'),
-    z7x('dashboard', 'салон, место водителя'),
-    z7x('multimedia', 'экран мультимедиа'),
-    z7x('rear-seats', 'задний ряд'),
-    z7x('cabin', 'салон, вид назад'),
-  ],
-};
+/** Кадры галереи с подписью для alt: «<модель> – <вид>» */
+export function galleryFor(slug: string, title: string): GalleryShot[] | null {
+  const e = (data as Record<string, Entry>)[slug];
+  if (!e) return null;
+  return e.shots.map((s) => ({ ...s, alt: `${title} – ${s.alt}` }));
+}
 
 export const galleryLabels = {
   prev: 'Предыдущее фото',
   next: 'Следующее фото',
-  more: 'ещё',
 };

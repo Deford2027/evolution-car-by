@@ -54,12 +54,11 @@ const similar = cars
   .filter((c, i, arr) => arr.findIndex((x) => x.slug === c.slug) === i)
   .slice(0, 3);
 import CarGallery from '../../../components/v1/CarGallery.astro';
-import { galleries } from '../../../content/galleries';
+import { galleryFor } from '../../../content/galleries';
 const alt = `${car.title} – ${powertrains[car.powertrain].toLowerCase()}, поставка ${countries[car.country].genitive}`;
 // галерея – только у машин, для которых есть набор фото (пока Zeekr 7X)
-const gallery = galleries[car.slug]
-  ? [{ src: car.photo, thumb: car.photo, alt }, ...galleries[car.slug]]
-  : null;
+const extra = galleryFor(car.slug, car.title);
+const gallery = extra ? [{ src: car.photo, thumb: car.photo, alt }, ...extra] : null;
 ---
 
 <BaseLayout
