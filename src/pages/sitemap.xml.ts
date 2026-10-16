@@ -21,6 +21,8 @@ const paths = [
   '/catalog/lixiang/l9/konfigurator/',
   '/catalog/lixiang/l8/konfigurator/',
   '/catalog/lixiang/l6/konfigurator/',
+  '/catalog/xiaomi/su7/konfigurator/',
+  '/catalog/xiaomi/yu7/konfigurator/',
   ...allBrands().map((b) => `/catalog/${b.slug}/`),
   ...sections.map((s) => `/catalog/${s.slug}/`),
   ...cars.map((c) => carPath(c)),
