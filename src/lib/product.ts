@@ -104,18 +104,12 @@ export function productItem(car: Car): AdsItem {
 // ---------- Товар страницы ----------
 
 /**
- * Какой товар показывает страница – по её адресу. Адреса строятся теми же
- * правилами, что и сами страницы: основная карточка – carPath, версия Zeekr –
- * как в src/pages/zeekr/catalog/[slug].astro (там только машины из Китая).
- * Обе версии карточки дают один номер товара; страницы карточек не правятся.
+ * Какой товар показывает страница – по её адресу. Адреса строятся тем же
+ * правилом, что и сами страницы карточек: carPath.
  */
 const BY_PATH: ReadonlyMap<string, Car> = new Map(
   cars.flatMap((car) => {
-    const paths: [string, Car][] = [[carPath(car), car]];
-    if (car.countries.includes('china')) {
-      paths.push([`/zeekr/catalog/${slugify(car.brand)}-${modelSlug(car)}/`, car]);
-    }
-    return paths;
+    return [[carPath(car), car]] as [string, Car][];
   }),
 );
 

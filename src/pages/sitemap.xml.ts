@@ -23,9 +23,6 @@ const paths = [
   ...sections.map((s) => `/catalog/${s.slug}/`),
   ...cars.map((c) => carPath(c)),
   ...legalPages.map((p) => `/${p.slug}/`),
-  '/zeekr/',
-  '/zeekr/catalog/',
-  ...cars.filter((c) => c.countries.includes('china')).map((c) => `/zeekr/catalog/${slugify(c.brand)}-${modelSlug(c)}/`),
 ];
 
 export const GET: APIRoute = ({ site }) => {
