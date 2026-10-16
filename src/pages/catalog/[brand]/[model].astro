@@ -29,7 +29,10 @@ const meta = carMeta(car);
 const groups = specGroups(car);
 
 // Модели, у которых есть конфигуратор, – кнопка рядом с «Характеристиками»
-const CONFIGURATORS: Record<string, string> = { 'lixiang-l9': '/catalog/lixiang/l9/konfigurator/' };
+const CONFIGURATORS: Record<string, string> = {
+  'lixiang-l9': '/catalog/lixiang/l9/konfigurator/',
+  'lixiang-l6': '/catalog/lixiang/l6/konfigurator/',
+};
 const configurator = CONFIGURATORS[car.slug];
 
 const crumbs = [
