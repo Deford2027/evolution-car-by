@@ -1,0 +1,136 @@
+---
+import '../styles/theme-v1.css';
+import '../styles/islands.css';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/v1/Header.astro';
+import Footer from '../components/v1/Footer.astro';
+import Breadcrumbs from '../components/v1/Breadcrumbs.astro';
+import Contacts from '../components/v1/Contacts.astro';
+import ModalHost from '../components/islands/ModalHost';
+import { configurators, cny } from '../content/configurators';
+import { quiz, finalOffer } from '../content/home';
+import { breadcrumbsLd, abs } from '../lib/seo';
+
+const crumbs = [
+  { name: 'Главная', href: '/' },
+  { name: 'Конфигураторы', href: '/konfiguratory/' },
+];
+
+const title = 'Конфигураторы Lixiang и Xiaomi: собрать комплектацию онлайн | Evolution Car';
+const description =
+  `${configurators.length} конфигураторов китайских новинок: Lixiang L6, L8, L9, i8, i9, MEGA и Xiaomi SU7, YU7. ` +
+  'Выберите цвет кузова, диски и салон на официальных рендерах производителя и получите расчёт под ключ в Минске.';
+
+const itemListLd = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  name: 'Конфигураторы автомобилей Evolution Car',
+  numberOfItems: configurators.length,
+  itemListElement: configurators.map((c, i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    name: `${c.brand} ${c.model}`,
+    url: abs(c.href),
+  })),
+};
+---
+
+<BaseLayout
+  theme="v1"
+  title={title}
+  description={description}
+  canonical={abs('/konfiguratory/')}
+  jsonLd={[breadcrumbsLd(crumbs), itemListLd]}
+>
+  <Header />
+  <Breadcrumbs crumbs={crumbs} />
+
+  <main>
+    <section class="section">
+      <div class="container">
+        <div class="cfg-head">
+          <p class="kicker">[ Конфигураторы ]</p>
+          <h1 class="cfg-head__title">Соберите машину так, как её собирают в Китае</h1>
+          <p class="cfg-head__lead">
+            Мы перенесли конфигураторы Li Auto и Xiaomi: те же версии, цвета, диски и салоны,
+            что в заказе на китайском сайте, и те же официальные студийные рендеры каждой сборки.
+            Выберите комплектацию – менеджер посчитает её под ключ в Минске: с доставкой,
+            таможенным оформлением и документами для постановки на учёт.
+          </p>
+        </div>
+
+        <ul class="cfg-grid">
+          {configurators.map((c) => (
+            <li class="cfg-card">
+              <a class="cfg-card__link" href={c.href}>
+                <span class="cfg-card__media">
+                  <img src={c.cover} alt={`${c.brand} ${c.model}`} width="1440" height="1080" loading="lazy" decoding="async" />
+                </span>
+                <span class="cfg-card__body">
+                  <span class="cfg-card__brand">{c.brand}</span>
+                  <span class="cfg-card__model">{c.model}</span>
+                  <span class="cfg-card__summary">{c.summary}</span>
+                  <span class="cfg-card__rows">
+                    <span class="cfg-card__row"><b>Тип</b>{c.powertrain}</span>
+                    <span class="cfg-card__row"><b>Варианты</b>{c.options}</span>
+                    <span class="cfg-card__row"><b>Цена в Китае</b>от {cny(c.priceFromCny)}</span>
+                  </span>
+                  <span class="cfg-card__cta">Собрать комплектацию <span aria-hidden="true">→</span></span>
+                </span>
+              </a>
+            </li>
+          ))}
+        </ul>
+
+        <p class="note">
+          Цены – розничные цены производителя в Китае на 17.10.2026, без доставки и платежей
+          в Беларуси. Рендеры принадлежат Li Auto и Xiaomi и показаны для выбора комплектации.
+          Набор вариантов у конкретного автомобиля менеджер подтверждает до договора.
+        </p>
+      </div>
+    </section>
+
+    <Contacts />
+  </main>
+
+  <Footer />
+  <ModalHost
+    client:idle
+    quizTitle={quiz.title}
+    quizSteps={quiz.steps}
+    contactQuestion={quiz.contactStep.q}
+    channels={quiz.contactStep.channels}
+    success={finalOffer.success}
+    videoPoster="/img/unsplash/service.jpg"
+  />
+</BaseLayout>
+
+<style>
+  .cfg-head { display: grid; gap: 1rem; margin-bottom: clamp(1.5rem, 1rem + 2vw, 2.5rem); max-width: 70ch; }
+  .cfg-head__title { font-size: clamp(1.75rem, 1.2rem + 2.4vw, 3rem); line-height: 1.05; }
+  .cfg-head__lead { color: var(--c-text-3); font-size: 1rem; line-height: 1.6; }
+
+  .cfg-grid { display: grid; gap: 1rem; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  @media (min-width: 760px) { .cfg-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.25rem; } }
+  @media (min-width: 1100px) { .cfg-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+
+  .cfg-card { display: flex; }
+  .cfg-card__link {
+    display: grid; grid-template-rows: auto 1fr; width: 100%;
+    background: var(--c-surface); border-radius: var(--radius);
+    overflow: hidden; color: inherit; border: 1px solid transparent;
+    transition: border-color .2s ease, transform .2s ease;
+  }
+  .cfg-card__link:hover { border-color: var(--c-accent); transform: translateY(-2px); }
+  .cfg-card__media { display: block; background: #0c1016; }
+  .cfg-card__media img { width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; display: block; }
+  .cfg-card__body { display: grid; gap: .5rem; padding: clamp(.75rem, .6rem + .6vw, 1.25rem); align-content: start; }
+  .cfg-card__brand { color: var(--c-accent); font-size: .75rem; letter-spacing: .08em; text-transform: uppercase; }
+  .cfg-card__model { font-family: var(--font-display, inherit); font-size: clamp(1.05rem, .95rem + .5vw, 1.4rem); text-transform: uppercase; }
+  .cfg-card__summary { color: var(--c-text-3); font-size: .875rem; line-height: 1.5; }
+  .cfg-card__rows { display: grid; gap: .25rem; margin-top: .25rem; }
+  .cfg-card__row { display: flex; gap: .5rem; justify-content: space-between; font-size: .8125rem; color: var(--c-text-2); border-top: 1px solid var(--c-line); padding-top: .25rem; }
+  .cfg-card__row b { color: var(--c-text-3); font-weight: 400; }
+  .cfg-card__cta { margin-top: .5rem; color: var(--c-accent); font-weight: 600; font-size: .875rem; }
+  .note { margin-top: 2rem; color: var(--c-text-3); font-size: .8125rem; line-height: 1.6; max-width: 80ch; }
+</style>

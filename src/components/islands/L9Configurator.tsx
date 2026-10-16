@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'preact/hooks';
 import LeadForm from './LeadForm';
 
-type TrimId = 'ultra' | 'livis';
+type TrimId = string;
 type Avail = Record<TrimId, number | null>;
 interface Paint { id: string; name: string; note?: string; avail: Avail; swatch: string }
 interface Shot { id: string; label: string; kind: 'exterior' | 'interior' }
@@ -34,7 +34,7 @@ const firstFor = <T extends { avail: Avail }>(list: T[], trim: TrimId) => list.f
  */
 export default function L9Configurator(p: Props) {
   const { ui } = p;
-  const [trimId, setTrimId] = useState<TrimId>('ultra');
+  const [trimId, setTrimId] = useState<TrimId>(p.trims[0].id);
   const [paintId, setPaintId] = useState(p.paints[0].id);
   const [wheelId, setWheelId] = useState(p.wheels[0].id);
   const [interiorId, setInteriorId] = useState(p.interiors[0].id);
