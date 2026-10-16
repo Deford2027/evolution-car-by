@@ -3433,5 +3433,97 @@
     "alt": "передние сиденья"
    }
   ]
+ },
+ "polestar-4": {
+  "source": "https://www.polestar.com/en-kw/polestar-4/",
+  "generation": "Polestar 4, одно поколение с 2023 года (официальные фото модельного года 2027)",
+  "shots": [
+   {
+    "src": "/img/gallery/polestar-4/01-front-34.webp",
+    "thumb": "/img/gallery/polestar-4/01-front-34-t.webp",
+    "alt": "вид спереди сбоку"
+   },
+   {
+    "src": "/img/gallery/polestar-4/02-front.webp",
+    "thumb": "/img/gallery/polestar-4/02-front-t.webp",
+    "alt": "вид спереди"
+   },
+   {
+    "src": "/img/gallery/polestar-4/03-side.webp",
+    "thumb": "/img/gallery/polestar-4/03-side-t.webp",
+    "alt": "вид сбоку"
+   },
+   {
+    "src": "/img/gallery/polestar-4/04-rear-34.webp",
+    "thumb": "/img/gallery/polestar-4/04-rear-34-t.webp",
+    "alt": "вид сзади сбоку"
+   },
+   {
+    "src": "/img/gallery/polestar-4/05-detail.webp",
+    "thumb": "/img/gallery/polestar-4/05-detail-t.webp",
+    "alt": "передняя фара крупным планом"
+   },
+   {
+    "src": "/img/gallery/polestar-4/06-dashboard.webp",
+    "thumb": "/img/gallery/polestar-4/06-dashboard-t.webp",
+    "alt": "салон, место водителя"
+   },
+   {
+    "src": "/img/gallery/polestar-4/07-rear-seats.webp",
+    "thumb": "/img/gallery/polestar-4/07-rear-seats-t.webp",
+    "alt": "кресла салона"
+   },
+   {
+    "src": "/img/gallery/polestar-4/08-cabin.webp",
+    "thumb": "/img/gallery/polestar-4/08-cabin-t.webp",
+    "alt": "передняя часть кузова"
+   }
+  ]
+ },
+ "lotus-eletre": {
+  "source": "https://www.lotuscars.com/en-GB/eletre",
+  "generation": "Lotus Eletre, первое поколение (с 2022 года)",
+  "shots": [
+   {
+    "src": "/img/gallery/lotus-eletre/01-front-34.webp",
+    "thumb": "/img/gallery/lotus-eletre/01-front-34-t.webp",
+    "alt": "вид спереди сбоку"
+   },
+   {
+    "src": "/img/gallery/lotus-eletre/02-side.webp",
+    "thumb": "/img/gallery/lotus-eletre/02-side-t.webp",
+    "alt": "вид сбоку"
+   },
+   {
+    "src": "/img/gallery/lotus-eletre/03-rear-34.webp",
+    "thumb": "/img/gallery/lotus-eletre/03-rear-34-t.webp",
+    "alt": "вид сзади сбоку"
+   },
+   {
+    "src": "/img/gallery/lotus-eletre/04-rear.webp",
+    "thumb": "/img/gallery/lotus-eletre/04-rear-t.webp",
+    "alt": "вид сзади"
+   },
+   {
+    "src": "/img/gallery/lotus-eletre/05-front.webp",
+    "thumb": "/img/gallery/lotus-eletre/05-front-t.webp",
+    "alt": "вид спереди"
+   },
+   {
+    "src": "/img/gallery/lotus-eletre/06-dashboard.webp",
+    "thumb": "/img/gallery/lotus-eletre/06-dashboard-t.webp",
+    "alt": "салон, место водителя"
+   },
+   {
+    "src": "/img/gallery/lotus-eletre/07-cabin.webp",
+    "thumb": "/img/gallery/lotus-eletre/07-cabin-t.webp",
+    "alt": "салон целиком"
+   },
+   {
+    "src": "/img/gallery/lotus-eletre/08-rear-seats.webp",
+    "thumb": "/img/gallery/lotus-eletre/08-rear-seats-t.webp",
+    "alt": "задний ряд"
+   }
+  ]
  }
 }
