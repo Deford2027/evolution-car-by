@@ -1,8 +1,8 @@
-# Evolution Car BY — две версии главной страницы
+# Evolution Car BY — сайт автосалона под заказ (Минск)
 
-Перенос главной с Tilda (https://evcars-by.tilda.ws/) в код и вторая версия
-той же страницы в стилистике https://zeekr.com.ru/. Тексты у обеих версий
-одинаковые, различается только подача.
+Перенос сайта с Tilda (https://evcars-by.tilda.ws/) в код. Прод — ликсианг.рф.
+Версия в стилистике zeekr.com.ru удалена по решению владельца; альтернативная
+подача v3 живёт только в ветке `preview` (страницы `/v3/`, `/sravnenie/`).
 
 ## Что где
 
@@ -13,10 +13,11 @@
 - `/catalog/` — каталог, 107 позиций из выгрузки Tilda Store
 - `/catalog/<раздел>/` — in_stock, made_to_order, from_china, from_korea,
   from_europe, from_usa, electro_car, hybrid
-- `/car/<slug>/` — карточка автомобиля, по одной на позицию
+- `/catalog/<марка>/` — страница марки, `/catalog/<марка>/<модель>/` — карточка
+- `/konfiguratory/` — хаб конфигураторов, `/catalog/<марка>/<модель>/konfigurator/` — сам конфигуратор
 - `/about/`, `/contact/`, `/portfolio/`, `/rew/`, `/thank_page/`
+- `/minsk/`, `/gomel/`, `/vitebsk/`, `/brest/`, `/grodno/`, `/mogilev/` — города
 - `/policy/`, `/agreement/`, `/legal_data/` — правовые
-- `/zeekr/` — альтернативная главная в стилистике zeekr.com.ru
 
 ## Стек
 
@@ -33,10 +34,14 @@
   описаниями, ценами и сроками поставки.
 - `src/lib/seo.ts` — canonical, meta и блоки schema.org.
 - `src/styles/base.css` — сброс, контейнер, кнопки, карточки.
-- `src/styles/theme-v1.css`, `theme-v2.css` — семантические токены тем,
-  скоуп `:root[data-theme="v1"|"v2"]`. Hex-значения живут только здесь.
+- `src/styles/theme-v1.css` — семантические токены темы, скоуп
+  `:root[data-theme="v1"]`. Hex-значения живут только здесь.
+  (`v3.css` — только в ветке `preview`.)
 - `src/styles/islands.css` — стили островов, на токенах.
-- `src/components/v1/`, `src/components/v2/` — по 14 секций в каждой.
+- `src/components/v1/` — секции страниц; общие для версий — `src/components/shared/`.
+- `src/content/configurators.ts` — список конфигураторов для хаба,
+  страниц марок и перелинковки.
+- `src/content/models/*-config.ts` — данные конфигураторов (см. ниже).
 - `src/components/islands/` — `MobileMenu`, `LeadForm`, `Quiz`, `ModalHost`.
 - `src/lib/submit.ts` — отправка заявки.
 - `public/img/` — картинки, забранные с тильды + Unsplash для отзывов.
@@ -66,6 +71,12 @@ npm run build    # статика в dist/
 - **Фотографии в каталоге демонстрационные** и не соответствуют конкретным
   машинам. На странице модели об этом есть оговорка, но перед запуском нужны
   реальные фото от клиента.
+- **Галереи есть у 77 машин из 107.** Собраны из официальных источников марок,
+  заготовка и правила сбора — `~/Documents/evolution-car-by-gallery-stash`
+  (`BRIEF.md`, `integrate.py`). Не хватает 30: Genesis (5 моделей), Tesla,
+  Volvo, Chevrolet, GMC, Ford, Alfa Romeo, VW и часть китайских. Сайты Tesla,
+  Volvo и концернов GM/Ford закрывают автоматический сбор (Access Denied),
+  им нужны пресс-архивы и ручная проверка поколения.
 - **Цены и характеристики в `cars.ts`** взяты из Figma-концепта и открытых
   данных по моделям. Перед публикацией их должен подтвердить клиент.
 - **robots.txt закрывает сайт целиком** — снять перед релизом вместе
@@ -122,6 +133,41 @@ npm run build    # статика в dist/
 именем из H1. На сборке с префиксом подпапки (если когда-то вернётся
 `rebase-dist`) сборщик остановится с ошибкой — запускать его до префикса.
 
+## Конфигураторы
+
+Восемь конфигураторов: Lixiang L6, L8, L9, i8, i9, MEGA и Xiaomi SU7, YU7.
+Все рендеры — официальные, из заказных конфигураторов производителя.
+
+- Данные модели — `src/content/models/<модель>-config.ts`: `configTrims`,
+  `commonSpecs`, `paints`, `wheels`, `interiors`, `shots`, `renderPaths`, `ui`.
+  Доплаты в юанях, `null` — варианта нет у этой версии.
+- Остров — общий `src/components/islands/L9Configurator.tsx` (исторически так
+  назван). Версию он берёт первой из `configTrims`, поэтому названия версий
+  у разных моделей свои и ничем не ограничены.
+- Путь к кадру строится из шаблона `renderPaths`: подставляются
+  `{trim}`, `{paint}`, `{wheel}`, `{interior}`, `{shot}`. Если у версий модели
+  разные рендеры кузова (L8, i8) — в шаблон входит `{trim}`.
+- Картинки: `public/img/<модель>/render/*.webp` 1440×1080 (качество 70)
+  и `public/img/<модель>/options/*.webp` 160×120 — свотчи цветов, дисков, салона.
+- Откуда берутся кадры:
+  - **Li Auto** отдаёт готовый рендер на каждую сборку. Путь:
+    `lixiang.com/mall/buy-new/model.html?seriesId=<id>` → кнопка `去选配` →
+    `config.html`. Обход свотчей кликами, кадры — `img` с `variantMedia`
+    шириной больше 300 px. Порядок кадров: 0 — перед 3/4, 1 — зад 3/4,
+    2 — сбоку, 4 — панель, 5 — второй ряд (у L6/L8/L9 нумерация своя, проверять).
+    Между кликом и съёмом ждать ≥3 с, иначе снимется предыдущая сборка.
+  - **Xiaomi** готовых кадров не отдаёт — только слои. API
+    `website-api.xiaomiev.com/mtop/guidemarketing/product/materialV2` даёт
+    `pageMap.CAR_CONFIG_OUTCOMEOUTSIDE_PAGE`: фон сцены, кузов в цвете и
+    накладку дисков с координатами в системе 5000×2812. Кадр собирается
+    наложением (см. историю коммитов), CDN уменьшает оригинал параметром
+    `?x-fds-process=image/resize,w_1600`.
+- Новый конфигуратор = файл данных + страница
+  `src/pages/catalog/<марка>/<модель>/konfigurator.astro` + строки в
+  `src/content/configurators.ts`, `src/pages/sitemap.xml.ts` и (если у модели
+  есть карточка) в `CONFIGURATORS` внутри `src/pages/catalog/[brand]/[model].astro`.
+- Li Auto L7 снят с производства, i6 выходит 28.10.2026 — конфигураторов нет.
+
 ## Google Ads
 
 Товар как сущность для Google, события в dataLayer, пользовательский фид
@@ -141,9 +187,21 @@ npm run build    # статика в dist/
   Workflow — `.github/workflows/deploy.yml`, `PUBLIC_SITE_URL` указывает на домен.
 - DNS домена — в reg.ru (аккаунт artemiy.galimov@yandex.ru): A @ → 185.199.108–111.153,
   CNAME www → tema-mail.github.io. MX и TXT — почта Яндекса, не трогать.
+- **Открытая проблема DNS:** у `@` остаётся лишняя A-запись `95.163.244.138`
+  (парковка reg.ru). Через неё каждый пятый заход получает 404 вместо сайта.
+  Проверка: `curl --resolve ликсианг.рф:80:<ip> http://ликсианг.рф/catalog/`.
+  Исправляется только в панели reg.ru — удалить эту запись.
 - Перед пушем в `main` — локальная сборка `npm run build` без ошибок.
-- `scripts/rebase-dist.mjs` больше не используется: он нужен был, пока сайт жил
-  в подпапке `/evolution-car-by/`. На домене сайт отдаётся от корня.
+- `scripts/rebase-dist.mjs` нужен для зеркал в подпапке GitHub Pages. На домене
+  сайт отдаётся от корня, а зеркала собираются так:
+  `PUBLIC_SITE_URL=https://tema-mail.github.io/<репо> npx astro build`,
+  затем `node scripts/rebase-dist.mjs /<репо>`, затем копирование `dist/`
+  в клон репозитория зеркала (без `CNAME`, с `.nojekyll`).
+  Зеркала: `evolution-car-by-preview` (ветка `gh-pages`, копия main) и
+  `evolution-car-preview` (ветка `main`, сборка ветки `preview` со стилистикой v3).
+  Скрипт обязан проставлять префикс и островам Preact (`component-url`,
+  `renderer-url`), и путям к картинкам внутри их `props` — иначе на зеркале
+  конфигураторы не оживают и рендеры отдают 404.
 - Секреты в репозиторий не попадают: `.env` в `.gitignore`, ключи и токены
   только в переменных окружения.
 
