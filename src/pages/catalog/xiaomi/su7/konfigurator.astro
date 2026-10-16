@@ -5,6 +5,7 @@ import BaseLayout from '../../../../layouts/BaseLayout.astro';
 import Header from '../../../../components/v1/Header.astro';
 import Footer from '../../../../components/v1/Footer.astro';
 import Breadcrumbs from '../../../../components/v1/Breadcrumbs.astro';
+import ConfiguratorsNav from '../../../../components/v1/ConfiguratorsNav.astro';
 import Contacts from '../../../../components/v1/Contacts.astro';
 import ModalHost from '../../../../components/islands/ModalHost';
 import L9Configurator from '../../../../components/islands/L9Configurator';
@@ -64,6 +65,7 @@ const crumbs = [
       </div>
     </section>
 
+    <ConfiguratorsNav current={su7Config.path} />
     <Contacts />
   </main>
 
