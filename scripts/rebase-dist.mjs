@@ -16,11 +16,17 @@ const exts = new Set(['.html', '.css', '.xml', '.txt', '.js']);
 /** Пропускаем внешние ссылки, протоколы и уже переписанные пути. */
 const rules = [
   [/(\s(?:href|src|action|content|poster)=")\/(?!\/)/g, `$1${base}/`],
+  // <astro-island> грузит сам остров и рендерер по этим адресам: без префикса
+  // скрипты отдают 404 и остров не оживает – кнопки конфигуратора не работают
+  [/(\s(?:component-url|renderer-url|before-hydration-url|data-src)=")\/(?!\/)/g, `$1${base}/`],
   // srcset хранит список «URL дескриптор, URL дескриптор» – префикс нужен каждому
-  [/(\ssrcset=")([^"]+)"/g, (_, attr, list) =>
+  [/(\s(?:srcset|imagesrcset)=")([^"]+)"/g, (_, attr, list) =>
     attr + list.split(',').map((part) => part.trim().replace(/^\/(?!\/)/, `${base}/`)).join(', ') + '"'],
   [/(url\()\/(?!\/)/g, `$1${base}/`],
   [/("(?:url|image)":\s*")\//g, `$1${base}/`],
+  // пути внутри props островов и встроенных данных: Astro кодирует кавычки как
+  // &quot;, а остров потом строит из них адрес картинки уже в браузере
+  [new RegExp(`(&quot;|["'])/(img|catalog|video|sravnenie)/`, 'g'), `$1${base}/$2/`],
 ];
 
 async function walk(dir) {
