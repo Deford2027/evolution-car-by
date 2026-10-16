@@ -1,0 +1,60 @@
+---
+import '../styles/theme-v1.css';
+import '../styles/islands.css';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/v1/Header.astro';
+import Footer from '../components/v1/Footer.astro';
+import ModalHost from '../components/islands/ModalHost';
+import { sections } from '../content/cars';
+import { quiz, finalOffer } from '../content/home';
+
+const links = [
+  { label: 'Каталог автомобилей', href: '/catalog/' },
+  { label: 'Конфигураторы', href: '/konfiguratory/' },
+  ...sections.slice(0, 4).map((s) => ({ label: s.title, href: `/catalog/${s.slug}/` })),
+  { label: 'Доставка и растаможка', href: '/dostavka-i-rastamozhka/' },
+  { label: 'Контакты', href: '/contact/' },
+];
+---
+
+<BaseLayout theme="v1" title="Страница не найдена | Evolution Car" description="Такой страницы на сайте нет. Перейдите в каталог автомобилей или напишите нам – подберём машину под ваш запрос." noindex>
+  <Header />
+  <main>
+    <section class="section nf">
+      <div class="container nf__wrap">
+        <p class="kicker">[ 404 ]</p>
+        <h1 class="nf__title">Такой страницы нет</h1>
+        <p class="nf__lead">
+          Возможно, адрес набран с ошибкой или страницу убрали. Посмотрите каталог
+          или напишите нам – подберём автомобиль под ваш запрос и посчитаем под ключ.
+        </p>
+        <ul class="nf__links">
+          {links.map((l) => <li><a href={l.href}>{l.label}</a></li>)}
+        </ul>
+        <button class="btn nf__cta" type="button" data-open="quiz">Подобрать автомобиль</button>
+      </div>
+    </section>
+  </main>
+  <Footer />
+  <ModalHost
+    client:idle
+    quizTitle={quiz.title}
+    quizSteps={quiz.steps}
+    contactQuestion={quiz.contactStep.q}
+    channels={quiz.contactStep.channels}
+    success={finalOffer.success}
+    videoPoster="/img/unsplash/service.jpg"
+  />
+</BaseLayout>
+
+<style>
+  .nf { padding-block: clamp(2rem, 1.5rem + 4vw, 5rem); }
+  .nf__wrap { display: grid; gap: 1rem; max-width: 68ch; }
+  .nf__title { font-size: clamp(1.9rem, 1.3rem + 3vw, 3.5rem); line-height: 1.05; }
+  .nf__lead { color: var(--c-text-3); font-size: 1rem; line-height: 1.6; }
+  .nf__links { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .5rem .75rem; list-style: none; padding: 0; margin: .5rem 0 0; }
+  @media (min-width: 760px) { .nf__links { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+  .nf__links a { color: var(--c-accent); font-size: .9375rem; }
+  .nf__links a:hover { color: var(--c-accent-hover); }
+  .nf__cta { justify-self: start; margin-top: 1rem; }
+</style>
