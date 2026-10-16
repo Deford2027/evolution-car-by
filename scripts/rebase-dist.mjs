@@ -16,6 +16,9 @@ const exts = new Set(['.html', '.css', '.xml', '.txt', '.js']);
 /** Пропускаем внешние ссылки, протоколы и уже переписанные пути. */
 const rules = [
   [/(\s(?:href|src|action|content|poster)=")\/(?!\/)/g, `$1${base}/`],
+  // srcset хранит список «URL дескриптор, URL дескриптор» – префикс нужен каждому
+  [/(\ssrcset=")([^"]+)"/g, (_, attr, list) =>
+    attr + list.split(',').map((part) => part.trim().replace(/^\/(?!\/)/, `${base}/`)).join(', ') + '"'],
   [/(url\()\/(?!\/)/g, `$1${base}/`],
   [/("(?:url|image)":\s*")\//g, `$1${base}/`],
 ];
@@ -37,8 +40,11 @@ for (const file of files) {
   const text = await readFile(file, 'utf8');
   let next = text;
   for (const [from, to] of rules) next = next.replace(from, to);
-  // абсолютные URL в canonical и JSON-LD уже содержат домен — чиним двойной префикс
-  next = next.replaceAll(`https://tema-mail.github.io${base}${base}/`, `https://tema-mail.github.io${base}/`);
+  // canonical, og:url и JSON-LD содержат абсолютный адрес: Astro собирает его
+  // из site + pathname, и подпапка Pages при этом теряется — дописываем её здесь
+  const host = 'https://tema-mail.github.io';
+  next = next.replaceAll(new RegExp(`${host}(?!${base}/)/`, 'g'), `${host}${base}/`);
+  next = next.replaceAll(`${host}${base}${base}`, `${host}${base}`);
   if (next !== text) {
     await writeFile(file, next);
     touched += 1;
