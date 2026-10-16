@@ -172,6 +172,7 @@ export const footer = {
       { label: 'Авто под заказ', href: '/catalog/pod-zakaz/' },
       { label: 'Электромобили', href: '/catalog/elektromobili/' },
       { label: 'Гибридные автомобили', href: '/catalog/gibridy/' },
+      { label: 'Конфигураторы Lixiang и Xiaomi', href: '/konfiguratory/' },
       { label: 'Рассчитать стоимость', href: '/#cost' },
       { label: 'Подобрать автомобиль', href: '/#final' },
     ] },

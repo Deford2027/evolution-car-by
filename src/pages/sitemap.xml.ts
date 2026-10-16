@@ -18,6 +18,7 @@ const paths = [
     '/dostavka-i-rastamozhka/',
   ...cities.map((c) => `/${c.slug}/`),
   '/catalog/',
+  '/konfiguratory/',
   '/catalog/lixiang/l9/konfigurator/',
   '/catalog/lixiang/l8/konfigurator/',
   '/catalog/lixiang/l6/konfigurator/',
