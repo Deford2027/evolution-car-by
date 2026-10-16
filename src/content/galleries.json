@@ -1235,5 +1235,2203 @@
     "alt": "вид спереди сбоку в городе"
    }
   ]
+ },
+ "xiaomi-su7": {
+  "source": "https://www.xiaomiev.com/su7",
+  "generation": "新一代 SU7 (второе поколение / рестайлинг 2026, сайт с марта 2026)",
+  "shots": [
+   {
+    "src": "/img/gallery/xiaomi-su7/01-front-34.webp",
+    "thumb": "/img/gallery/xiaomi-su7/01-front-34-t.webp",
+    "alt": "вид спереди сбоку"
+   },
+   {
+    "src": "/img/gallery/xiaomi-su7/02-side.webp",
+    "thumb": "/img/gallery/xiaomi-su7/02-side-t.webp",
+    "alt": "вид сбоку"
+   },
+   {
+    "src": "/img/gallery/xiaomi-su7/03-rear-34.webp",
+    "thumb": "/img/gallery/xiaomi-su7/03-rear-34-t.webp",
+    "alt": "вид сзади сбоку"
+   },
+   {
+    "src": "/img/gallery/xiaomi-su7/04-detail.webp",
+    "thumb": "/img/gallery/xiaomi-su7/04-detail-t.webp",
+    "alt": "задний фонарь и спойлер"
+   },
+   {
+    "src": "/img/gallery/xiaomi-su7/05-dashboard.webp",
+    "thumb": "/img/gallery/xiaomi-su7/05-dashboard-t.webp",
+    "alt": "салон, место водителя"
+   },
+   {
+    "src": "/img/gallery/xiaomi-su7/06-multimedia.webp",
+    "thumb": "/img/gallery/xiaomi-su7/06-multimedia-t.webp",
+    "alt": "передняя панель и экран мультимедиа"
+   },
+   {
+    "src": "/img/gallery/xiaomi-su7/07-rear-seats.webp",
+    "thumb": "/img/gallery/xiaomi-su7/07-rear-seats-t.webp",
+    "alt": "задний ряд: экраны для пассажиров"
+   },
+   {
+    "src": "/img/gallery/xiaomi-su7/08-cabin.webp",
+    "thumb": "/img/gallery/xiaomi-su7/08-cabin-t.webp",
+    "alt": "передние кресла и салон"
+   }
+  ]
+ },
+ "avatr-11": {
+  "source": "https://www.avatr.com/11",
+  "generation": "Avatr 11 рестайлинг 2026 (новая передняя часть, текущий сайт avatr.com/11)",
+  "shots": [
+   {
+    "src": "/img/gallery/avatr-11/01-front-34.webp",
+    "thumb": "/img/gallery/avatr-11/01-front-34-t.webp",
+    "alt": "вид спереди сбоку"
+   },
+   {
+    "src": "/img/gallery/avatr-11/02-side.webp",
+    "thumb": "/img/gallery/avatr-11/02-side-t.webp",
+    "alt": "вид сбоку"
+   },
+   {
+    "src": "/img/gallery/avatr-11/03-rear-34.webp",
+    "thumb": "/img/gallery/avatr-11/03-rear-34-t.webp",
+    "alt": "вид сзади сбоку"
+   },
+   {
+    "src": "/img/gallery/avatr-11/04-detail.webp",
+    "thumb": "/img/gallery/avatr-11/04-detail-t.webp",
+    "alt": "колёсный диск и боковина"
+   },
+   {
+    "src": "/img/gallery/avatr-11/05-dashboard.webp",
+    "thumb": "/img/gallery/avatr-11/05-dashboard-t.webp",
+    "alt": "салон, место водителя"
+   },
+   {
+    "src": "/img/gallery/avatr-11/06-multimedia.webp",
+    "thumb": "/img/gallery/avatr-11/06-multimedia-t.webp",
+    "alt": "экран мультимедиа"
+   },
+   {
+    "src": "/img/gallery/avatr-11/07-rear-seats.webp",
+    "thumb": "/img/gallery/avatr-11/07-rear-seats-t.webp",
+    "alt": "задний ряд"
+   },
+   {
+    "src": "/img/gallery/avatr-11/08-cabin.webp",
+    "thumb": "/img/gallery/avatr-11/08-cabin-t.webp",
+    "alt": "передние кресла и салон"
+   }
+  ]
+ },
+ "avatr-12": {
+  "source": "https://www.avatr.com/12",
+  "generation": "Avatr 12 2026 (текущий сайт avatr.com/12)",
+  "shots": [
+   {
+    "src": "/img/gallery/avatr-12/01-front-34.webp",
+    "thumb": "/img/gallery/avatr-12/01-front-34-t.webp",
+    "alt": "вид спереди сбоку"
+   },
+   {
+    "src": "/img/gallery/avatr-12/02-side.webp",
+    "thumb": "/img/gallery/avatr-12/02-side-t.webp",
+    "alt": "вид сбоку"
+   },
+   {
+    "src": "/img/gallery/avatr-12/03-rear-34.webp",
+    "thumb": "/img/gallery/avatr-12/03-rear-34-t.webp",
+    "alt": "вид сзади сбоку"
+   },
+   {
+    "src": "/img/gallery/avatr-12/04-detail.webp",
+    "thumb": "/img/gallery/avatr-12/04-detail-t.webp",
+    "alt": "задний фонарь и спойлер"
+   },
+   {
+    "src": "/img/gallery/avatr-12/05-dashboard.webp",
+    "thumb": "/img/gallery/avatr-12/05-dashboard-t.webp",
+    "alt": "передняя панель"
+   },
+   {
+    "src": "/img/gallery/avatr-12/06-multimedia.webp",
+    "thumb": "/img/gallery/avatr-12/06-multimedia-t.webp",
+    "alt": "экран мультимедиа"
+   },
+   {
+    "src": "/img/gallery/avatr-12/07-rear-seats.webp",
+    "thumb": "/img/gallery/avatr-12/07-rear-seats-t.webp",
+    "alt": "задний ряд"
+   },
+   {
+    "src": "/img/gallery/avatr-12/08-cabin.webp",
+    "thumb": "/img/gallery/avatr-12/08-cabin-t.webp",
+    "alt": "салон с экраном для пассажиров"
+   }
+  ]
+ },
+ "xiaomi-yu7": {
+  "source": "https://www.xiaomiev.com/yu7",
+  "generation": "YU7 (первое поколение, 2025; кадры серии yu7_2025*, без версии GT)",
+  "shots": [
+   {
+    "src": "/img/gallery/xiaomi-yu7/01-front-34.webp",
+    "thumb": "/img/gallery/xiaomi-yu7/01-front-34-t.webp",
+    "alt": "вид спереди сбоку"
+   },
+   {
+    "src": "/img/gallery/xiaomi-yu7/02-side.webp",
+    "thumb": "/img/gallery/xiaomi-yu7/02-side-t.webp",
+    "alt": "вид сбоку"
+   },
+   {
+    "src": "/img/gallery/xiaomi-yu7/03-rear-34.webp",
+    "thumb": "/img/gallery/xiaomi-yu7/03-rear-34-t.webp",
+    "alt": "вид сзади сбоку"
+   },
+   {
+    "src": "/img/gallery/xiaomi-yu7/04-detail.webp",
+    "thumb": "/img/gallery/xiaomi-yu7/04-detail-t.webp",
+    "alt": "передняя фара"
+   },
+   {
+    "src": "/img/gallery/xiaomi-yu7/05-dashboard.webp",
+    "thumb": "/img/gallery/xiaomi-yu7/05-dashboard-t.webp",
+    "alt": "салон, место водителя"
+   },
+   {
+    "src": "/img/gallery/xiaomi-yu7/06-multimedia.webp",
+    "thumb": "/img/gallery/xiaomi-yu7/06-multimedia-t.webp",
+    "alt": "экран мультимедиа и проекционная панель"
+   },
+   {
+    "src": "/img/gallery/xiaomi-yu7/07-rear-seats.webp",
+    "thumb": "/img/gallery/xiaomi-yu7/07-rear-seats-t.webp",
+    "alt": "задний ряд"
+   },
+   {
+    "src": "/img/gallery/xiaomi-yu7/08-cabin.webp",
+    "thumb": "/img/gallery/xiaomi-yu7/08-cabin-t.webp",
+    "alt": "салон целиком"
+   }
+  ]
+ },
+ "deepal-s07": {
+  "source": "https://www.deepal.com.cn/S07?id=2104817103923617793",
+  "generation": "全新深蓝S07 (рестайлинг 2026 с лидаром, текущий сайт deepal.com.cn)",
+  "shots": [
+   {
+    "src": "/img/gallery/deepal-s07/01-front-34.webp",
+    "thumb": "/img/gallery/deepal-s07/01-front-34-t.webp",
+    "alt": "вид спереди сбоку"
+   },
+   {
+    "src": "/img/gallery/deepal-s07/02-side.webp",
+    "thumb": "/img/gallery/deepal-s07/02-side-t.webp",
+    "alt": "вид сбоку"
+   },
+   {
+    "src": "/img/gallery/deepal-s07/03-front-34.webp",
+    "thumb": "/img/gallery/deepal-s07/03-front-34-t.webp",
+    "alt": "спереди сбоку в движении"
+   },
+   {
+    "src": "/img/gallery/deepal-s07/04-detail.webp",
+    "thumb": "/img/gallery/deepal-s07/04-detail-t.webp",
+    "alt": "лидар на крыше"
+   },
+   {
+    "src": "/img/gallery/deepal-s07/05-dashboard.webp",
+    "thumb": "/img/gallery/deepal-s07/05-dashboard-t.webp",
+    "alt": "салон, место водителя"
+   },
+   {
+    "src": "/img/gallery/deepal-s07/06-multimedia.webp",
+    "thumb": "/img/gallery/deepal-s07/06-multimedia-t.webp",
+    "alt": "экран мультимедиа"
+   },
+   {
+    "src": "/img/gallery/deepal-s07/07-rear-seats.webp",
+    "thumb": "/img/gallery/deepal-s07/07-rear-seats-t.webp",
+    "alt": "задний ряд: дефлекторы для пассажиров"
+   },
+   {
+    "src": "/img/gallery/deepal-s07/08-cabin.webp",
+    "thumb": "/img/gallery/deepal-s07/08-cabin-t.webp",
+    "alt": "салон целиком, оранжевая отделка"
+   }
+  ]
+ },
+ "changan-deepal-s07": {
+  "source": "https://www.deepal.com.cn/S07?id=2104817103923617793",
+  "generation": "全新深蓝S07 – те же фото, что у deepal-s07 (одно поколение C673)",
+  "shots": [
+   {
+    "src": "/img/gallery/changan-deepal-s07/01-front-34.webp",
+    "thumb": "/img/gallery/changan-deepal-s07/01-front-34-t.webp",
+    "alt": "вид спереди сбоку"
+   },
+   {
+    "src": "/img/gallery/changan-deepal-s07/02-side.webp",
+    "thumb": "/img/gallery/changan-deepal-s07/02-side-t.webp",
+    "alt": "вид сбоку"
+   },
+   {
+    "src": "/img/gallery/changan-deepal-s07/03-front-34.webp",
+    "thumb": "/img/gallery/changan-deepal-s07/03-front-34-t.webp",
+    "alt": "спереди сбоку в движении"
+   },
+   {
+    "src": "/img/gallery/changan-deepal-s07/04-detail.webp",
+    "thumb": "/img/gallery/changan-deepal-s07/04-detail-t.webp",
+    "alt": "лидар на крыше"
+   },
+   {
+    "src": "/img/gallery/changan-deepal-s07/05-dashboard.webp",
+    "thumb": "/img/gallery/changan-deepal-s07/05-dashboard-t.webp",
+    "alt": "салон, место водителя"
+   },
+   {
+    "src": "/img/gallery/changan-deepal-s07/06-multimedia.webp",
+    "thumb": "/img/gallery/changan-deepal-s07/06-multimedia-t.webp",
+    "alt": "экран мультимедиа"
+   },
+   {
+    "src": "/img/gallery/changan-deepal-s07/07-rear-seats.webp",
+    "thumb": "/img/gallery/changan-deepal-s07/07-rear-seats-t.webp",
+    "alt": "задний ряд: дефлекторы для пассажиров"
+   },
+   {
+    "src": "/img/gallery/changan-deepal-s07/08-cabin.webp",
+    "thumb": "/img/gallery/changan-deepal-s07/08-cabin-t.webp",
+    "alt": "салон целиком, оранжевая отделка"
+   }
+  ]
+ },
+ "deepal-s05": {
+  "source": "https://www.deepal.com.cn/S05?id=2100390512527187969",
+  "generation": "全新深蓝S05 (обновление 2026 с лидаром, текущий сайт deepal.com.cn)",
+  "shots": [
+   {
+    "src": "/img/gallery/deepal-s05/01-front-34.webp",
+    "thumb": "/img/gallery/deepal-s05/01-front-34-t.webp",
+    "alt": "вид спереди сбоку"
+   },
+   {
+    "src": "/img/gallery/deepal-s05/02-side.webp",
+    "thumb": "/img/gallery/deepal-s05/02-side-t.webp",
+    "alt": "вид сбоку"
+   },
+   {
+    "src": "/img/gallery/deepal-s05/03-rear-34.webp",
+    "thumb": "/img/gallery/deepal-s05/03-rear-34-t.webp",
+    "alt": "вид сзади сбоку"
+   },
+   {
+    "src": "/img/gallery/deepal-s05/04-detail.webp",
+    "thumb": "/img/gallery/deepal-s05/04-detail-t.webp",
+    "alt": "колёсный диск"
+   },
+   {
+    "src": "/img/gallery/deepal-s05/05-dashboard.webp",
+    "thumb": "/img/gallery/deepal-s05/05-dashboard-t.webp",
+    "alt": "салон, место водителя"
+   },
+   {
+    "src": "/img/gallery/deepal-s05/06-multimedia.webp",
+    "thumb": "/img/gallery/deepal-s05/06-multimedia-t.webp",
+    "alt": "экран мультимедиа"
+   },
+   {
+    "src": "/img/gallery/deepal-s05/07-rear-seats.webp",
+    "thumb": "/img/gallery/deepal-s05/07-rear-seats-t.webp",
+    "alt": "задний ряд"
+   },
+   {
+    "src": "/img/gallery/deepal-s05/08-cabin.webp",
+    "thumb": "/img/gallery/deepal-s05/08-cabin-t.webp",
+    "alt": "салон целиком"
+   }
+  ]
+ },
+ "aito-m9": {
+  "source": "https://aito.auto/model/m9-new/",
+  "generation": "AITO M9 (первое поколение 2024–; на сайте сейчас обновлённый «全新问界M9» 2025, кузов и салон того же поколения)",
+  "shots": [
+   {
+    "src": "/img/gallery/aito-m9/01-front-34.webp",
+    "thumb": "/img/gallery/aito-m9/01-front-34-t.webp",
+    "alt": "вид спереди сбоку"
+   },
+   {
+    "src": "/img/gallery/aito-m9/02-side.webp",
+    "thumb": "/img/gallery/aito-m9/02-side-t.webp",
+    "alt": "вид сбоку"
+   },
+   {
+    "src": "/img/gallery/aito-m9/03-rear-34.webp",
+    "thumb": "/img/gallery/aito-m9/03-rear-34-t.webp",
+    "alt": "вид сзади сбоку"
+   },
+   {
+    "src": "/img/gallery/aito-m9/04-detail.webp",
+    "thumb": "/img/gallery/aito-m9/04-detail-t.webp",
+    "alt": "задний светодиодный фонарь"
+   },
+   {
+    "src": "/img/gallery/aito-m9/05-dashboard.webp",
+    "thumb": "/img/gallery/aito-m9/05-dashboard-t.webp",
+    "alt": "салон, место водителя"
+   },
+   {
+    "src": "/img/gallery/aito-m9/06-multimedia.webp",
+    "thumb": "/img/gallery/aito-m9/06-multimedia-t.webp",
+    "alt": "экраны мультимедиа и потолочный экран"
+   },
+   {
+    "src": "/img/gallery/aito-m9/07-rear-seats.webp",
+    "thumb": "/img/gallery/aito-m9/07-rear-seats-t.webp",
+    "alt": "второй ряд"
+   },
+   {
+    "src": "/img/gallery/aito-m9/08-cabin.webp",
+    "thumb": "/img/gallery/aito-m9/08-cabin-t.webp",
+    "alt": "салон целиком"
+   }
+  ]
+ },
+ "changan-qiyuan-q05": {
+  "source": "https://www.changan.com.cn/qiyuan/#/Q05New",
+  "generation": "Changan Qiyuan Q05 (B216), страница Q05New на changan.com.cn/qiyuan – модели 2026/2027 того же поколения",
+  "shots": [
+   {
+    "src": "/img/gallery/changan-qiyuan-q05/01-front-34.webp",
+    "thumb": "/img/gallery/changan-qiyuan-q05/01-front-34-t.webp",
+    "alt": "вид спереди сбоку"
+   },
+   {
+    "src": "/img/gallery/changan-qiyuan-q05/02-side.webp",
+    "thumb": "/img/gallery/changan-qiyuan-q05/02-side-t.webp",
+    "alt": "вид сбоку"
+   },
+   {
+    "src": "/img/gallery/changan-qiyuan-q05/03-rear-34.webp",
+    "thumb": "/img/gallery/changan-qiyuan-q05/03-rear-34-t.webp",
+    "alt": "вид сзади сбоку"
+   },
+   {
+    "src": "/img/gallery/changan-qiyuan-q05/04-detail.webp",
+    "thumb": "/img/gallery/changan-qiyuan-q05/04-detail-t.webp",
+    "alt": "передняя часть и фары"
+   },
+   {
+    "src": "/img/gallery/changan-qiyuan-q05/05-dashboard.webp",
+    "thumb": "/img/gallery/changan-qiyuan-q05/05-dashboard-t.webp",
+    "alt": "передняя панель"
+   },
+   {
+    "src": "/img/gallery/changan-qiyuan-q05/06-multimedia.webp",
+    "thumb": "/img/gallery/changan-qiyuan-q05/06-multimedia-t.webp",
+    "alt": "экран мультимедиа"
+   },
+   {
+    "src": "/img/gallery/changan-qiyuan-q05/07-rear-seats.webp",
+    "thumb": "/img/gallery/changan-qiyuan-q05/07-rear-seats-t.webp",
+    "alt": "задний ряд"
+   },
+   {
+    "src": "/img/gallery/changan-qiyuan-q05/08-cabin.webp",
+    "thumb": "/img/gallery/changan-qiyuan-q05/08-cabin-t.webp",
+    "alt": "передние кресла"
+   }
+  ]
+ },
+ "changan-qiyuan-a07": {
+  "source": "https://www.changan.com.cn/qiyuan/#/A07",
+  "generation": "Changan Qiyuan A07 (C236), текущая страница changan.com.cn/qiyuan/#/A07",
+  "shots": [
+   {
+    "src": "/img/gallery/changan-qiyuan-a07/01-front-34.webp",
+    "thumb": "/img/gallery/changan-qiyuan-a07/01-front-34-t.webp",
+    "alt": "вид спереди сбоку"
+   },
+   {
+    "src": "/img/gallery/changan-qiyuan-a07/02-side.webp",
+    "thumb": "/img/gallery/changan-qiyuan-a07/02-side-t.webp",
+    "alt": "вид сбоку"
+   },
+   {
+    "src": "/img/gallery/changan-qiyuan-a07/03-rear-34.webp",
+    "thumb": "/img/gallery/changan-qiyuan-a07/03-rear-34-t.webp",
+    "alt": "вид сзади сбоку"
+   },
+   {
+    "src": "/img/gallery/changan-qiyuan-a07/04-detail.webp",
+    "thumb": "/img/gallery/changan-qiyuan-a07/04-detail-t.webp",
+    "alt": "передняя светодиодная оптика"
+   },
+   {
+    "src": "/img/gallery/changan-qiyuan-a07/05-dashboard.webp",
+    "thumb": "/img/gallery/changan-qiyuan-a07/05-dashboard-t.webp",
+    "alt": "салон, место водителя"
+   },
+   {
+    "src": "/img/gallery/changan-qiyuan-a07/06-multimedia.webp",
+    "thumb": "/img/gallery/changan-qiyuan-a07/06-multimedia-t.webp",
+    "alt": "салон и экран мультимедиа"
+   },
+   {
+    "src": "/img/gallery/changan-qiyuan-a07/07-rear-seats.webp",
+    "thumb": "/img/gallery/changan-qiyuan-a07/07-rear-seats-t.webp",
+    "alt": "задний ряд"
+   }
+  ]
+ },
+ "kia-sportage-5-nq5": {
+  "source": "https://www.kiamedia.com/us/en/models/sportage/2023/gallery",
+  "generation": "Kia Sportage 5 (NQ5), 2023 модельный год (США, SX/X-Pro)",
+  "shots": [
+   {
+    "src": "/img/gallery/kia-sportage-5-nq5/01-front-34.webp",
+    "thumb": "/img/gallery/kia-sportage-5-nq5/01-front-34-t.webp",
+    "alt": "вид спереди сбоку"
+   },
+   {
+    "src": "/img/gallery/kia-sportage-5-nq5/02-side.webp",
+    "thumb": "/img/gallery/kia-sportage-5-nq5/02-side-t.webp",
+    "alt": "вид сбоку"
+   },
+   {
+    "src": "/img/gallery/kia-sportage-5-nq5/03-rear-34.webp",
+    "thumb": "/img/gallery/kia-sportage-5-nq5/03-rear-34-t.webp",
+    "alt": "вид сзади сбоку"
+   },
+   {
+    "src": "/img/gallery/kia-sportage-5-nq5/04-detail.webp",
+    "thumb": "/img/gallery/kia-sportage-5-nq5/04-detail-t.webp",
+    "alt": "фара и решётка радиатора"
+   },
+   {
+    "src": "/img/gallery/kia-sportage-5-nq5/05-dashboard.webp",
+    "thumb": "/img/gallery/kia-sportage-5-nq5/05-dashboard-t.webp",
+    "alt": "салон, место водителя"
+   },
+   {
+    "src": "/img/gallery/kia-sportage-5-nq5/06-multimedia.webp",
+    "thumb": "/img/gallery/kia-sportage-5-nq5/06-multimedia-t.webp",
+    "alt": "экран мультимедиа"
+   },
+   {
+    "src": "/img/gallery/kia-sportage-5-nq5/07-rear-seats.webp",
+    "thumb": "/img/gallery/kia-sportage-5-nq5/07-rear-seats-t.webp",
+    "alt": "вид из заднего ряда, панорамная крыша"
+   },
+   {
+    "src": "/img/gallery/kia-sportage-5-nq5/08-cabin.webp",
+    "thumb": "/img/gallery/kia-sportage-5-nq5/08-cabin-t.webp",
+    "alt": "салон целиком"
+   }
+  ]
+ },
+ "kia-sorento-4-mq4": {
+  "source": "https://www.kiamedia.com/us/en/models/sorento/2023/gallery",
+  "generation": "Kia Sorento 4 (MQ4) дорестайлинг, 2021–2023 модельные годы (США)",
+  "shots": [
+   {
+    "src": "/img/gallery/kia-sorento-4-mq4/01-front-34.webp",
+    "thumb": "/img/gallery/kia-sorento-4-mq4/01-front-34-t.webp",
+    "alt": "вид спереди сбоку"
+   },
+   {
+    "src": "/img/gallery/kia-sorento-4-mq4/02-side.webp",
+    "thumb": "/img/gallery/kia-sorento-4-mq4/02-side-t.webp",
+    "alt": "вид сбоку"
+   },
+   {
+    "src": "/img/gallery/kia-sorento-4-mq4/03-rear-34.webp",
+    "thumb": "/img/gallery/kia-sorento-4-mq4/03-rear-34-t.webp",
+    "alt": "вид сзади сбоку"
+   },
+   {
+    "src": "/img/gallery/kia-sorento-4-mq4/04-detail.webp",
+    "thumb": "/img/gallery/kia-sorento-4-mq4/04-detail-t.webp",
+    "alt": "деталь кузова, боковина"
+   },
+   {
+    "src": "/img/gallery/kia-sorento-4-mq4/05-dashboard.webp",
+    "thumb": "/img/gallery/kia-sorento-4-mq4/05-dashboard-t.webp",
+    "alt": "салон, место водителя"
+   },
+   {
+    "src": "/img/gallery/kia-sorento-4-mq4/06-multimedia.webp",
+    "thumb": "/img/gallery/kia-sorento-4-mq4/06-multimedia-t.webp",
+    "alt": "панель приборов и экран мультимедиа"
+   },
+   {
+    "src": "/img/gallery/kia-sorento-4-mq4/07-rear-seats.webp",
+    "thumb": "/img/gallery/kia-sorento-4-mq4/07-rear-seats-t.webp",
+    "alt": "второй и третий ряд"
+   },
+   {
+    "src": "/img/gallery/kia-sorento-4-mq4/08-cabin.webp",
+    "thumb": "/img/gallery/kia-sorento-4-mq4/08-cabin-t.webp",
+    "alt": "салон с панорамной крышей"
+   }
+  ]
+ },
+ "kia-k5": {
+  "source": "https://www.kiamedia.com/us/en/models/k5/2023/gallery",
+  "generation": "Kia K5 (DL3) дорестайлинг, 2021–2023 модельные годы (США)",
+  "shots": [
+   {
+    "src": "/img/gallery/kia-k5/01-front-34.webp",
+    "thumb": "/img/gallery/kia-k5/01-front-34-t.webp",
+    "alt": "вид спереди сбоку"
+   },
+   {
+    "src": "/img/gallery/kia-k5/02-side.webp",
+    "thumb": "/img/gallery/kia-k5/02-side-t.webp",
+    "alt": "вид сбоку"
+   },
+   {
+    "src": "/img/gallery/kia-k5/03-rear-34.webp",
+    "thumb": "/img/gallery/kia-k5/03-rear-34-t.webp",
+    "alt": "вид сзади сбоку"
+   },
+   {
+    "src": "/img/gallery/kia-k5/04-detail.webp",
+    "thumb": "/img/gallery/kia-k5/04-detail-t.webp",
+    "alt": "задний фонарь"
+   },
+   {
+    "src": "/img/gallery/kia-k5/05-dashboard.webp",
+    "thumb": "/img/gallery/kia-k5/05-dashboard-t.webp",
+    "alt": "салон, место водителя"
+   },
+   {
+    "src": "/img/gallery/kia-k5/06-multimedia.webp",
+    "thumb": "/img/gallery/kia-k5/06-multimedia-t.webp",
+    "alt": "экран мультимедиа"
+   },
+   {
+    "src": "/img/gallery/kia-k5/07-rear-seats.webp",
+    "thumb": "/img/gallery/kia-k5/07-rear-seats-t.webp",
+    "alt": "задний ряд"
+   },
+   {
+    "src": "/img/gallery/kia-k5/08-cabin.webp",
+    "thumb": "/img/gallery/kia-k5/08-cabin-t.webp",
+    "alt": "передние сиденья, салон"
+   }
+  ]
+ },
+ "kia-carnival-4": {
+  "source": "https://www.kiamedia.com/us/en/models/carnival/2023/gallery",
+  "generation": "Kia Carnival 4 (KA4) дорестайлинг, 2023 модельный год (США)",
+  "shots": [
+   {
+    "src": "/img/gallery/kia-carnival-4/01-front-34.webp",
+    "thumb": "/img/gallery/kia-carnival-4/01-front-34-t.webp",
+    "alt": "вид спереди сбоку"
+   },
+   {
+    "src": "/img/gallery/kia-carnival-4/02-side.webp",
+    "thumb": "/img/gallery/kia-carnival-4/02-side-t.webp",
+    "alt": "вид сбоку"
+   },
+   {
+    "src": "/img/gallery/kia-carnival-4/03-rear-34.webp",
+    "thumb": "/img/gallery/kia-carnival-4/03-rear-34-t.webp",
+    "alt": "вид сзади сбоку"
+   },
+   {
+    "src": "/img/gallery/kia-carnival-4/04-detail.webp",
+    "thumb": "/img/gallery/kia-carnival-4/04-detail-t.webp",
+    "alt": "фара"
+   },
+   {
+    "src": "/img/gallery/kia-carnival-4/05-dashboard.webp",
+    "thumb": "/img/gallery/kia-carnival-4/05-dashboard-t.webp",
+    "alt": "салон, место водителя"
+   },
+   {
+    "src": "/img/gallery/kia-carnival-4/06-multimedia.webp",
+    "thumb": "/img/gallery/kia-carnival-4/06-multimedia-t.webp",
+    "alt": "экран мультимедиа"
+   },
+   {
+    "src": "/img/gallery/kia-carnival-4/07-rear-seats.webp",
+    "thumb": "/img/gallery/kia-carnival-4/07-rear-seats-t.webp",
+    "alt": "второй ряд, кресла с подставками для ног"
+   },
+   {
+    "src": "/img/gallery/kia-carnival-4/08-cabin.webp",
+    "thumb": "/img/gallery/kia-carnival-4/08-cabin-t.webp",
+    "alt": "салон целиком"
+   }
+  ]
+ },
+ "kia-ev9": {
+  "source": "https://www.kiamedia.com/us/en/models/ev9/2024/gallery",
+  "generation": "Kia EV9 (MV), 2024 модельный год (США)",
+  "shots": [
+   {
+    "src": "/img/gallery/kia-ev9/01-front-34.webp",
+    "thumb": "/img/gallery/kia-ev9/01-front-34-t.webp",
+    "alt": "вид спереди сбоку"
+   },
+   {
+    "src": "/img/gallery/kia-ev9/02-side.webp",
+    "thumb": "/img/gallery/kia-ev9/02-side-t.webp",
+    "alt": "вид сбоку"
+   },
+   {
+    "src": "/img/gallery/kia-ev9/03-rear-34.webp",
+    "thumb": "/img/gallery/kia-ev9/03-rear-34-t.webp",
+    "alt": "вид сзади сбоку"
+   },
+   {
+    "src": "/img/gallery/kia-ev9/04-detail.webp",
+    "thumb": "/img/gallery/kia-ev9/04-detail-t.webp",
+    "alt": "фара"
+   },
+   {
+    "src": "/img/gallery/kia-ev9/05-dashboard.webp",
+    "thumb": "/img/gallery/kia-ev9/05-dashboard-t.webp",
+    "alt": "салон, место водителя"
+   },
+   {
+    "src": "/img/gallery/kia-ev9/06-multimedia.webp",
+    "thumb": "/img/gallery/kia-ev9/06-multimedia-t.webp",
+    "alt": "экран мультимедиа"
+   },
+   {
+    "src": "/img/gallery/kia-ev9/07-rear-seats.webp",
+    "thumb": "/img/gallery/kia-ev9/07-rear-seats-t.webp",
+    "alt": "второй ряд"
+   },
+   {
+    "src": "/img/gallery/kia-ev9/08-cabin.webp",
+    "thumb": "/img/gallery/kia-ev9/08-cabin-t.webp",
+    "alt": "салон целиком"
+   }
+  ]
+ },
+ "kia-niro": {
+  "source": "https://www.kiamedia.com/us/en/models/niro-hev/2023/gallery",
+  "generation": "Kia Niro 2 (SG2), 2023 модельный год (США, Niro HEV / Niro EV)",
+  "shots": [
+   {
+    "src": "/img/gallery/kia-niro/01-front-34.webp",
+    "thumb": "/img/gallery/kia-niro/01-front-34-t.webp",
+    "alt": "вид спереди сбоку"
+   },
+   {
+    "src": "/img/gallery/kia-niro/02-exterior.webp",
+    "thumb": "/img/gallery/kia-niro/02-exterior-t.webp",
+    "alt": "вид спереди сбоку, Niro EV"
+   },
+   {
+    "src": "/img/gallery/kia-niro/03-rear-34.webp",
+    "thumb": "/img/gallery/kia-niro/03-rear-34-t.webp",
+    "alt": "вид сзади сбоку"
+   },
+   {
+    "src": "/img/gallery/kia-niro/04-detail.webp",
+    "thumb": "/img/gallery/kia-niro/04-detail-t.webp",
+    "alt": "задняя стойка и фонарь"
+   },
+   {
+    "src": "/img/gallery/kia-niro/05-dashboard.webp",
+    "thumb": "/img/gallery/kia-niro/05-dashboard-t.webp",
+    "alt": "салон, место водителя"
+   },
+   {
+    "src": "/img/gallery/kia-niro/06-multimedia.webp",
+    "thumb": "/img/gallery/kia-niro/06-multimedia-t.webp",
+    "alt": "экран мультимедиа"
+   },
+   {
+    "src": "/img/gallery/kia-niro/07-rear-seats.webp",
+    "thumb": "/img/gallery/kia-niro/07-rear-seats-t.webp",
+    "alt": "задний ряд"
+   },
+   {
+    "src": "/img/gallery/kia-niro/08-cabin.webp",
+    "thumb": "/img/gallery/kia-niro/08-cabin-t.webp",
+    "alt": "салон целиком"
+   }
+  ]
+ },
+ "kia-ev3": {
+  "source": "https://www.press-eu.kia.com/document/1126#/passenger-cars/the-kia-ev3",
+  "generation": "Kia EV3 (SV1), европейская пресс-галерея 2024",
+  "shots": [
+   {
+    "src": "/img/gallery/kia-ev3/01-front-34.webp",
+    "thumb": "/img/gallery/kia-ev3/01-front-34-t.webp",
+    "alt": "вид спереди сбоку"
+   },
+   {
+    "src": "/img/gallery/kia-ev3/02-side.webp",
+    "thumb": "/img/gallery/kia-ev3/02-side-t.webp",
+    "alt": "вид сбоку сзади"
+   },
+   {
+    "src": "/img/gallery/kia-ev3/03-rear-34.webp",
+    "thumb": "/img/gallery/kia-ev3/03-rear-34-t.webp",
+    "alt": "вид сзади сбоку"
+   },
+   {
+    "src": "/img/gallery/kia-ev3/04-front.webp",
+    "thumb": "/img/gallery/kia-ev3/04-front-t.webp",
+    "alt": "вид спереди"
+   },
+   {
+    "src": "/img/gallery/kia-ev3/05-dashboard.webp",
+    "thumb": "/img/gallery/kia-ev3/05-dashboard-t.webp",
+    "alt": "салон, место водителя"
+   },
+   {
+    "src": "/img/gallery/kia-ev3/06-multimedia.webp",
+    "thumb": "/img/gallery/kia-ev3/06-multimedia-t.webp",
+    "alt": "экран мультимедиа"
+   },
+   {
+    "src": "/img/gallery/kia-ev3/07-detail.webp",
+    "thumb": "/img/gallery/kia-ev3/07-detail-t.webp",
+    "alt": "центральная консоль"
+   },
+   {
+    "src": "/img/gallery/kia-ev3/08-cabin.webp",
+    "thumb": "/img/gallery/kia-ev3/08-cabin-t.webp",
+    "alt": "передние сиденья, салон"
+   }
+  ]
+ },
+ "kia-k8": {
+  "source": "https://kiaoldnewsroom.newsmarket.com/vehicles/k8",
+  "generation": "Kia K8 (GL3) дорестайлинг, 2021–2024 (Корея)",
+  "shots": [
+   {
+    "src": "/img/gallery/kia-k8/01-front-34.webp",
+    "thumb": "/img/gallery/kia-k8/01-front-34-t.webp",
+    "alt": "вид спереди сбоку"
+   },
+   {
+    "src": "/img/gallery/kia-k8/02-side.webp",
+    "thumb": "/img/gallery/kia-k8/02-side-t.webp",
+    "alt": "вид сбоку"
+   },
+   {
+    "src": "/img/gallery/kia-k8/03-rear-34.webp",
+    "thumb": "/img/gallery/kia-k8/03-rear-34-t.webp",
+    "alt": "вид сзади сбоку"
+   },
+   {
+    "src": "/img/gallery/kia-k8/04-detail.webp",
+    "thumb": "/img/gallery/kia-k8/04-detail-t.webp",
+    "alt": "решётка радиатора и фары"
+   },
+   {
+    "src": "/img/gallery/kia-k8/05-dashboard.webp",
+    "thumb": "/img/gallery/kia-k8/05-dashboard-t.webp",
+    "alt": "салон, место водителя и экраны"
+   },
+   {
+    "src": "/img/gallery/kia-k8/06-cabin.webp",
+    "thumb": "/img/gallery/kia-k8/06-cabin-t.webp",
+    "alt": "передние сиденья"
+   },
+   {
+    "src": "/img/gallery/kia-k8/07-rear-seats.webp",
+    "thumb": "/img/gallery/kia-k8/07-rear-seats-t.webp",
+    "alt": "задний ряд, спинки передних сидений и дефлекторы"
+   },
+   {
+    "src": "/img/gallery/kia-k8/08-exterior.webp",
+    "thumb": "/img/gallery/kia-k8/08-exterior-t.webp",
+    "alt": "вид спереди сбоку"
+   }
+  ]
+ },
+ "kia-k9": {
+  "source": "https://www.kia.ru/models/k9/photo/",
+  "generation": "Kia K9 (RJ) рестайлинг 2021+, 2022 модельный год (офиц. сайт Kia Россия)",
+  "shots": [
+   {
+    "src": "/img/gallery/kia-k9/01-front-34.webp",
+    "thumb": "/img/gallery/kia-k9/01-front-34-t.webp",
+    "alt": "вид спереди сбоку"
+   },
+   {
+    "src": "/img/gallery/kia-k9/02-side.webp",
+    "thumb": "/img/gallery/kia-k9/02-side-t.webp",
+    "alt": "вид сбоку"
+   },
+   {
+    "src": "/img/gallery/kia-k9/03-rear-34.webp",
+    "thumb": "/img/gallery/kia-k9/03-rear-34-t.webp",
+    "alt": "вид сзади сбоку"
+   },
+   {
+    "src": "/img/gallery/kia-k9/04-detail.webp",
+    "thumb": "/img/gallery/kia-k9/04-detail-t.webp",
+    "alt": "фары и решётка радиатора"
+   },
+   {
+    "src": "/img/gallery/kia-k9/05-dashboard.webp",
+    "thumb": "/img/gallery/kia-k9/05-dashboard-t.webp",
+    "alt": "салон, место водителя"
+   },
+   {
+    "src": "/img/gallery/kia-k9/06-multimedia.webp",
+    "thumb": "/img/gallery/kia-k9/06-multimedia-t.webp",
+    "alt": "экран мультимедиа с навигацией"
+   },
+   {
+    "src": "/img/gallery/kia-k9/07-rear-seats.webp",
+    "thumb": "/img/gallery/kia-k9/07-rear-seats-t.webp",
+    "alt": "задний ряд"
+   },
+   {
+    "src": "/img/gallery/kia-k9/08-cabin.webp",
+    "thumb": "/img/gallery/kia-k9/08-cabin-t.webp",
+    "alt": "салон целиком"
+   }
+  ]
+ },
+ "kia-mohave-the-master": {
+  "source": "https://www.kia.ru/models/mohave/photo/",
+  "generation": "Kia Mohave The Master (HM, рестайлинг 2019+), 2020–2022 (офиц. сайт Kia Россия)",
+  "shots": [
+   {
+    "src": "/img/gallery/kia-mohave-the-master/01-front-34.webp",
+    "thumb": "/img/gallery/kia-mohave-the-master/01-front-34-t.webp",
+    "alt": "вид спереди сбоку (студийный рендер)"
+   },
+   {
+    "src": "/img/gallery/kia-mohave-the-master/02-side.webp",
+    "thumb": "/img/gallery/kia-mohave-the-master/02-side-t.webp",
+    "alt": "вид сбоку (студийный рендер)"
+   },
+   {
+    "src": "/img/gallery/kia-mohave-the-master/03-rear-34.webp",
+    "thumb": "/img/gallery/kia-mohave-the-master/03-rear-34-t.webp",
+    "alt": "вид сзади сбоку (студийный рендер)"
+   },
+   {
+    "src": "/img/gallery/kia-mohave-the-master/04-detail.webp",
+    "thumb": "/img/gallery/kia-mohave-the-master/04-detail-t.webp",
+    "alt": "фара"
+   },
+   {
+    "src": "/img/gallery/kia-mohave-the-master/05-dashboard.webp",
+    "thumb": "/img/gallery/kia-mohave-the-master/05-dashboard-t.webp",
+    "alt": "салон, место водителя"
+   },
+   {
+    "src": "/img/gallery/kia-mohave-the-master/06-multimedia.webp",
+    "thumb": "/img/gallery/kia-mohave-the-master/06-multimedia-t.webp",
+    "alt": "панель и экран мультимедиа"
+   },
+   {
+    "src": "/img/gallery/kia-mohave-the-master/07-rear-seats.webp",
+    "thumb": "/img/gallery/kia-mohave-the-master/07-rear-seats-t.webp",
+    "alt": "задний ряд"
+   },
+   {
+    "src": "/img/gallery/kia-mohave-the-master/08-cabin.webp",
+    "thumb": "/img/gallery/kia-mohave-the-master/08-cabin-t.webp",
+    "alt": "салон целиком"
+   }
+  ]
+ },
+ "kia-ev5-light": {
+  "source": "https://worldwide.kia.com/en/newsroom/view/?id=161606",
+  "generation": "Kia EV5 (OV1), китайская версия – пресс-релиз Kia EV Day, октябрь 2023",
+  "shots": [
+   {
+    "src": "/img/gallery/kia-ev5-light/01-front-34.webp",
+    "thumb": "/img/gallery/kia-ev5-light/01-front-34-t.webp",
+    "alt": "вид спереди сбоку"
+   },
+   {
+    "src": "/img/gallery/kia-ev5-light/02-side.webp",
+    "thumb": "/img/gallery/kia-ev5-light/02-side-t.webp",
+    "alt": "вид сбоку"
+   },
+   {
+    "src": "/img/gallery/kia-ev5-light/03-rear-34.webp",
+    "thumb": "/img/gallery/kia-ev5-light/03-rear-34-t.webp",
+    "alt": "вид сзади сбоку"
+   },
+   {
+    "src": "/img/gallery/kia-ev5-light/04-front.webp",
+    "thumb": "/img/gallery/kia-ev5-light/04-front-t.webp",
+    "alt": "вид спереди"
+   },
+   {
+    "src": "/img/gallery/kia-ev5-light/05-dashboard.webp",
+    "thumb": "/img/gallery/kia-ev5-light/05-dashboard-t.webp",
+    "alt": "салон, место водителя и экраны"
+   },
+   {
+    "src": "/img/gallery/kia-ev5-light/06-cabin.webp",
+    "thumb": "/img/gallery/kia-ev5-light/06-cabin-t.webp",
+    "alt": "передние сиденья, салон"
+   },
+   {
+    "src": "/img/gallery/kia-ev5-light/07-exterior.webp",
+    "thumb": "/img/gallery/kia-ev5-light/07-exterior-t.webp",
+    "alt": "вид сбоку спереди, студия"
+   },
+   {
+    "src": "/img/gallery/kia-ev5-light/08-exterior.webp",
+    "thumb": "/img/gallery/kia-ev5-light/08-exterior-t.webp",
+    "alt": "вид сзади сбоку, студия"
+   }
+  ]
+ },
+ "hyundai-tucson-nx4": {
+  "source": "https://www.hyundainews.com/models/hyundai-tucson-2022-tucson/photos",
+  "generation": "Hyundai Tucson (NX4) дорестайлинг, 2022 модельный год (США)",
+  "shots": [
+   {
+    "src": "/img/gallery/hyundai-tucson-nx4/01-front-34.webp",
+    "thumb": "/img/gallery/hyundai-tucson-nx4/01-front-34-t.webp",
+    "alt": "вид спереди сбоку"
+   },
+   {
+    "src": "/img/gallery/hyundai-tucson-nx4/02-side.webp",
+    "thumb": "/img/gallery/hyundai-tucson-nx4/02-side-t.webp",
+    "alt": "вид сбоку"
+   },
+   {
+    "src": "/img/gallery/hyundai-tucson-nx4/03-rear-34.webp",
+    "thumb": "/img/gallery/hyundai-tucson-nx4/03-rear-34-t.webp",
+    "alt": "вид сзади сбоку"
+   },
+   {
+    "src": "/img/gallery/hyundai-tucson-nx4/04-detail.webp",
+    "thumb": "/img/gallery/hyundai-tucson-nx4/04-detail-t.webp",
+    "alt": "фара и решётка радиатора"
+   },
+   {
+    "src": "/img/gallery/hyundai-tucson-nx4/05-dashboard.webp",
+    "thumb": "/img/gallery/hyundai-tucson-nx4/05-dashboard-t.webp",
+    "alt": "салон, место водителя"
+   },
+   {
+    "src": "/img/gallery/hyundai-tucson-nx4/06-multimedia.webp",
+    "thumb": "/img/gallery/hyundai-tucson-nx4/06-multimedia-t.webp",
+    "alt": "экран мультимедиа"
+   },
+   {
+    "src": "/img/gallery/hyundai-tucson-nx4/07-rear-seats.webp",
+    "thumb": "/img/gallery/hyundai-tucson-nx4/07-rear-seats-t.webp",
+    "alt": "задний ряд"
+   },
+   {
+    "src": "/img/gallery/hyundai-tucson-nx4/08-cabin.webp",
+    "thumb": "/img/gallery/hyundai-tucson-nx4/08-cabin-t.webp",
+    "alt": "передние сиденья"
+   }
+  ]
+ },
+ "hyundai-santa-fe-tm": {
+  "source": "https://www.hyundainews.com/models/hyundai-santa_fe-2023-santa_fe/photos",
+  "generation": "Hyundai Santa Fe (TM) рестайлинг, 2023 модельный год (США)",
+  "shots": [
+   {
+    "src": "/img/gallery/hyundai-santa-fe-tm/01-front-34.webp",
+    "thumb": "/img/gallery/hyundai-santa-fe-tm/01-front-34-t.webp",
+    "alt": "вид спереди сбоку"
+   },
+   {
+    "src": "/img/gallery/hyundai-santa-fe-tm/02-side.webp",
+    "thumb": "/img/gallery/hyundai-santa-fe-tm/02-side-t.webp",
+    "alt": "вид сбоку"
+   },
+   {
+    "src": "/img/gallery/hyundai-santa-fe-tm/03-rear-34.webp",
+    "thumb": "/img/gallery/hyundai-santa-fe-tm/03-rear-34-t.webp",
+    "alt": "вид сзади сбоку"
+   },
+   {
+    "src": "/img/gallery/hyundai-santa-fe-tm/04-detail.webp",
+    "thumb": "/img/gallery/hyundai-santa-fe-tm/04-detail-t.webp",
+    "alt": "фара"
+   },
+   {
+    "src": "/img/gallery/hyundai-santa-fe-tm/05-dashboard.webp",
+    "thumb": "/img/gallery/hyundai-santa-fe-tm/05-dashboard-t.webp",
+    "alt": "салон, место водителя"
+   },
+   {
+    "src": "/img/gallery/hyundai-santa-fe-tm/06-multimedia.webp",
+    "thumb": "/img/gallery/hyundai-santa-fe-tm/06-multimedia-t.webp",
+    "alt": "экран мультимедиа"
+   },
+   {
+    "src": "/img/gallery/hyundai-santa-fe-tm/07-rear-seats.webp",
+    "thumb": "/img/gallery/hyundai-santa-fe-tm/07-rear-seats-t.webp",
+    "alt": "задний ряд"
+   },
+   {
+    "src": "/img/gallery/hyundai-santa-fe-tm/08-cabin.webp",
+    "thumb": "/img/gallery/hyundai-santa-fe-tm/08-cabin-t.webp",
+    "alt": "салон, передний ряд"
+   }
+  ]
+ },
+ "hyundai-palisade": {
+  "source": "https://www.hyundainews.com/models/hyundai-palisade-2020-palisade/photos",
+  "generation": "Hyundai Palisade (LX2) дорестайлинг, 2020–2022 модельные годы (США)",
+  "shots": [
+   {
+    "src": "/img/gallery/hyundai-palisade/01-front-34.webp",
+    "thumb": "/img/gallery/hyundai-palisade/01-front-34-t.webp",
+    "alt": "вид спереди сбоку"
+   },
+   {
+    "src": "/img/gallery/hyundai-palisade/02-side.webp",
+    "thumb": "/img/gallery/hyundai-palisade/02-side-t.webp",
+    "alt": "вид сбоку"
+   },
+   {
+    "src": "/img/gallery/hyundai-palisade/03-rear-34.webp",
+    "thumb": "/img/gallery/hyundai-palisade/03-rear-34-t.webp",
+    "alt": "вид сзади сбоку"
+   },
+   {
+    "src": "/img/gallery/hyundai-palisade/04-detail.webp",
+    "thumb": "/img/gallery/hyundai-palisade/04-detail-t.webp",
+    "alt": "фара и решётка радиатора"
+   },
+   {
+    "src": "/img/gallery/hyundai-palisade/05-dashboard.webp",
+    "thumb": "/img/gallery/hyundai-palisade/05-dashboard-t.webp",
+    "alt": "салон, место водителя"
+   },
+   {
+    "src": "/img/gallery/hyundai-palisade/06-multimedia.webp",
+    "thumb": "/img/gallery/hyundai-palisade/06-multimedia-t.webp",
+    "alt": "экран мультимедиа"
+   },
+   {
+    "src": "/img/gallery/hyundai-palisade/07-rear-seats.webp",
+    "thumb": "/img/gallery/hyundai-palisade/07-rear-seats-t.webp",
+    "alt": "второй и третий ряд"
+   },
+   {
+    "src": "/img/gallery/hyundai-palisade/08-cabin.webp",
+    "thumb": "/img/gallery/hyundai-palisade/08-cabin-t.webp",
+    "alt": "салон, передний ряд"
+   }
+  ]
+ },
+ "hyundai-sonata-dn8": {
+  "source": "https://www.hyundainews.com/models/hyundai-sonata-2020-sonata/photos",
+  "generation": "Hyundai Sonata (DN8) дорестайлинг, 2020–2023 модельные годы (США, Limited)",
+  "shots": [
+   {
+    "src": "/img/gallery/hyundai-sonata-dn8/01-front-34.webp",
+    "thumb": "/img/gallery/hyundai-sonata-dn8/01-front-34-t.webp",
+    "alt": "вид спереди сбоку"
+   },
+   {
+    "src": "/img/gallery/hyundai-sonata-dn8/02-side.webp",
+    "thumb": "/img/gallery/hyundai-sonata-dn8/02-side-t.webp",
+    "alt": "вид сбоку"
+   },
+   {
+    "src": "/img/gallery/hyundai-sonata-dn8/03-rear-34.webp",
+    "thumb": "/img/gallery/hyundai-sonata-dn8/03-rear-34-t.webp",
+    "alt": "вид сзади сбоку"
+   },
+   {
+    "src": "/img/gallery/hyundai-sonata-dn8/04-detail.webp",
+    "thumb": "/img/gallery/hyundai-sonata-dn8/04-detail-t.webp",
+    "alt": "фара и решётка радиатора"
+   },
+   {
+    "src": "/img/gallery/hyundai-sonata-dn8/05-dashboard.webp",
+    "thumb": "/img/gallery/hyundai-sonata-dn8/05-dashboard-t.webp",
+    "alt": "салон, место водителя"
+   },
+   {
+    "src": "/img/gallery/hyundai-sonata-dn8/06-multimedia.webp",
+    "thumb": "/img/gallery/hyundai-sonata-dn8/06-multimedia-t.webp",
+    "alt": "экран мультимедиа"
+   },
+   {
+    "src": "/img/gallery/hyundai-sonata-dn8/07-rear-seats.webp",
+    "thumb": "/img/gallery/hyundai-sonata-dn8/07-rear-seats-t.webp",
+    "alt": "задний ряд"
+   },
+   {
+    "src": "/img/gallery/hyundai-sonata-dn8/08-cabin.webp",
+    "thumb": "/img/gallery/hyundai-sonata-dn8/08-cabin-t.webp",
+    "alt": "салон, передний ряд"
+   }
+  ]
+ },
+ "bmw-x1": {
+  "source": "https://www.press.bmwgroup.com/united-kingdom/photo/compilation/T0395653EN_GB/the-all-new-bmw-x1-and-the-first-ever-bmw-ix1?language=en_GB",
+  "generation": "BMW X1 (U11) xDrive23i, пресс-кит 05/2022",
+  "shots": [
+   {
+    "src": "/img/gallery/bmw-x1/01-front-34.webp",
+    "thumb": "/img/gallery/bmw-x1/01-front-34-t.webp",
+    "alt": "вид спереди сбоку"
+   },
+   {
+    "src": "/img/gallery/bmw-x1/02-side.webp",
+    "thumb": "/img/gallery/bmw-x1/02-side-t.webp",
+    "alt": "вид сбоку"
+   },
+   {
+    "src": "/img/gallery/bmw-x1/03-rear-34.webp",
+    "thumb": "/img/gallery/bmw-x1/03-rear-34-t.webp",
+    "alt": "вид сзади сбоку"
+   },
+   {
+    "src": "/img/gallery/bmw-x1/04-detail.webp",
+    "thumb": "/img/gallery/bmw-x1/04-detail-t.webp",
+    "alt": "деталь кузова, фары"
+   },
+   {
+    "src": "/img/gallery/bmw-x1/05-dashboard.webp",
+    "thumb": "/img/gallery/bmw-x1/05-dashboard-t.webp",
+    "alt": "салон, место водителя"
+   },
+   {
+    "src": "/img/gallery/bmw-x1/06-multimedia.webp",
+    "thumb": "/img/gallery/bmw-x1/06-multimedia-t.webp",
+    "alt": "экран мультимедиа"
+   },
+   {
+    "src": "/img/gallery/bmw-x1/07-rear-seats.webp",
+    "thumb": "/img/gallery/bmw-x1/07-rear-seats-t.webp",
+    "alt": "задний ряд сидений"
+   },
+   {
+    "src": "/img/gallery/bmw-x1/08-cabin.webp",
+    "thumb": "/img/gallery/bmw-x1/08-cabin-t.webp",
+    "alt": "салон"
+   }
+  ]
+ },
+ "bmw-x3": {
+  "source": "https://www.press.bmwgroup.com/global/photo/compilation/T0357632EN/the-new-bmw-x3-additional-pictures?language=en",
+  "generation": "BMW X3 (G01 LCI) xDrive30d, медиа-презентация 11/2021",
+  "shots": [
+   {
+    "src": "/img/gallery/bmw-x3/01-front-34.webp",
+    "thumb": "/img/gallery/bmw-x3/01-front-34-t.webp",
+    "alt": "вид спереди сбоку"
+   },
+   {
+    "src": "/img/gallery/bmw-x3/02-side.webp",
+    "thumb": "/img/gallery/bmw-x3/02-side-t.webp",
+    "alt": "вид сбоку"
+   },
+   {
+    "src": "/img/gallery/bmw-x3/03-rear-34.webp",
+    "thumb": "/img/gallery/bmw-x3/03-rear-34-t.webp",
+    "alt": "вид сзади сбоку"
+   },
+   {
+    "src": "/img/gallery/bmw-x3/04-detail.webp",
+    "thumb": "/img/gallery/bmw-x3/04-detail-t.webp",
+    "alt": "деталь кузова, фары"
+   },
+   {
+    "src": "/img/gallery/bmw-x3/05-dashboard.webp",
+    "thumb": "/img/gallery/bmw-x3/05-dashboard-t.webp",
+    "alt": "салон, место водителя"
+   },
+   {
+    "src": "/img/gallery/bmw-x3/06-multimedia.webp",
+    "thumb": "/img/gallery/bmw-x3/06-multimedia-t.webp",
+    "alt": "экран мультимедиа"
+   },
+   {
+    "src": "/img/gallery/bmw-x3/07-rear-seats.webp",
+    "thumb": "/img/gallery/bmw-x3/07-rear-seats-t.webp",
+    "alt": "задний ряд сидений"
+   },
+   {
+    "src": "/img/gallery/bmw-x3/08-cabin.webp",
+    "thumb": "/img/gallery/bmw-x3/08-cabin-t.webp",
+    "alt": "передние сидения"
+   }
+  ]
+ },
+ "bmw-x5": {
+  "source": "https://www.press.bmwgroup.com/usa/photo/compilation/T0408460EN_US/the-2024-bmw-x5-and-x6?language=en_US",
+  "generation": "BMW X5 (G05 LCI) xDrive50e, пресс-кит 2023 (US)",
+  "shots": [
+   {
+    "src": "/img/gallery/bmw-x5/01-front-34.webp",
+    "thumb": "/img/gallery/bmw-x5/01-front-34-t.webp",
+    "alt": "вид спереди сбоку"
+   },
+   {
+    "src": "/img/gallery/bmw-x5/02-side.webp",
+    "thumb": "/img/gallery/bmw-x5/02-side-t.webp",
+    "alt": "вид сбоку"
+   },
+   {
+    "src": "/img/gallery/bmw-x5/03-rear-34.webp",
+    "thumb": "/img/gallery/bmw-x5/03-rear-34-t.webp",
+    "alt": "вид сзади сбоку"
+   },
+   {
+    "src": "/img/gallery/bmw-x5/04-detail.webp",
+    "thumb": "/img/gallery/bmw-x5/04-detail-t.webp",
+    "alt": "фара"
+   },
+   {
+    "src": "/img/gallery/bmw-x5/05-dashboard.webp",
+    "thumb": "/img/gallery/bmw-x5/05-dashboard-t.webp",
+    "alt": "салон, место водителя"
+   },
+   {
+    "src": "/img/gallery/bmw-x5/06-multimedia.webp",
+    "thumb": "/img/gallery/bmw-x5/06-multimedia-t.webp",
+    "alt": "экран мультимедиа"
+   },
+   {
+    "src": "/img/gallery/bmw-x5/07-rear-seats.webp",
+    "thumb": "/img/gallery/bmw-x5/07-rear-seats-t.webp",
+    "alt": "задний ряд сидений"
+   },
+   {
+    "src": "/img/gallery/bmw-x5/08-cabin.webp",
+    "thumb": "/img/gallery/bmw-x5/08-cabin-t.webp",
+    "alt": "передние сидения"
+   }
+  ]
+ },
+ "bmw-x7": {
+  "source": "https://www.press.bmwgroup.com/global/photo/compilation/T0293750EN/the-first-ever-bmw-x7-additional-pictures-and-footage?language=en",
+  "generation": "BMW X7 (G07, дорестайлинг) xDrive40i M Sport, международная презентация 03/2019",
+  "shots": [
+   {
+    "src": "/img/gallery/bmw-x7/01-front-34.webp",
+    "thumb": "/img/gallery/bmw-x7/01-front-34-t.webp",
+    "alt": "вид спереди сбоку"
+   },
+   {
+    "src": "/img/gallery/bmw-x7/02-side.webp",
+    "thumb": "/img/gallery/bmw-x7/02-side-t.webp",
+    "alt": "вид сбоку"
+   },
+   {
+    "src": "/img/gallery/bmw-x7/03-rear-34.webp",
+    "thumb": "/img/gallery/bmw-x7/03-rear-34-t.webp",
+    "alt": "вид сзади сбоку"
+   },
+   {
+    "src": "/img/gallery/bmw-x7/04-detail.webp",
+    "thumb": "/img/gallery/bmw-x7/04-detail-t.webp",
+    "alt": "фара и решётка радиатора"
+   },
+   {
+    "src": "/img/gallery/bmw-x7/05-dashboard.webp",
+    "thumb": "/img/gallery/bmw-x7/05-dashboard-t.webp",
+    "alt": "салон, место водителя"
+   },
+   {
+    "src": "/img/gallery/bmw-x7/06-multimedia.webp",
+    "thumb": "/img/gallery/bmw-x7/06-multimedia-t.webp",
+    "alt": "панель приборов и экран мультимедиа"
+   },
+   {
+    "src": "/img/gallery/bmw-x7/07-rear-seats.webp",
+    "thumb": "/img/gallery/bmw-x7/07-rear-seats-t.webp",
+    "alt": "второй ряд, капитанские кресла"
+   },
+   {
+    "src": "/img/gallery/bmw-x7/08-cabin.webp",
+    "thumb": "/img/gallery/bmw-x7/08-cabin-t.webp",
+    "alt": "передние сидения"
+   }
+  ]
+ },
+ "bmw-3-seriya-g20": {
+  "source": "https://www.press.bmwgroup.com/canada/photo/compilation/T0403964EN/the-new-bmw-3-series-sedan-additional-pictures?language=en",
+  "generation": "BMW 3 серия (G20 LCI) M340i, международная презентация 2022",
+  "shots": [
+   {
+    "src": "/img/gallery/bmw-3-seriya-g20/01-front-34.webp",
+    "thumb": "/img/gallery/bmw-3-seriya-g20/01-front-34-t.webp",
+    "alt": "вид спереди сбоку"
+   },
+   {
+    "src": "/img/gallery/bmw-3-seriya-g20/02-side.webp",
+    "thumb": "/img/gallery/bmw-3-seriya-g20/02-side-t.webp",
+    "alt": "вид сбоку"
+   },
+   {
+    "src": "/img/gallery/bmw-3-seriya-g20/03-rear-34.webp",
+    "thumb": "/img/gallery/bmw-3-seriya-g20/03-rear-34-t.webp",
+    "alt": "вид сзади сбоку"
+   },
+   {
+    "src": "/img/gallery/bmw-3-seriya-g20/04-detail.webp",
+    "thumb": "/img/gallery/bmw-3-seriya-g20/04-detail-t.webp",
+    "alt": "фара и решётка радиатора"
+   },
+   {
+    "src": "/img/gallery/bmw-3-seriya-g20/05-dashboard.webp",
+    "thumb": "/img/gallery/bmw-3-seriya-g20/05-dashboard-t.webp",
+    "alt": "салон, место водителя"
+   },
+   {
+    "src": "/img/gallery/bmw-3-seriya-g20/06-multimedia.webp",
+    "thumb": "/img/gallery/bmw-3-seriya-g20/06-multimedia-t.webp",
+    "alt": "экран мультимедиа"
+   },
+   {
+    "src": "/img/gallery/bmw-3-seriya-g20/07-rear-seats.webp",
+    "thumb": "/img/gallery/bmw-3-seriya-g20/07-rear-seats-t.webp",
+    "alt": "задний ряд сидений"
+   },
+   {
+    "src": "/img/gallery/bmw-3-seriya-g20/08-cabin.webp",
+    "thumb": "/img/gallery/bmw-3-seriya-g20/08-cabin-t.webp",
+    "alt": "салон, место водителя (другой ракурс)"
+   }
+  ]
+ },
+ "bmw-5-seriya-g30": {
+  "source": "https://www.press.bmwgroup.com/global/photo/compilation/T0318970EN/the-new-bmw-5-series-sedan-additional-pictures?language=en",
+  "generation": "BMW 5 серия (G30 LCI) 540i xDrive M Sport, международная презентация 10/2020",
+  "shots": [
+   {
+    "src": "/img/gallery/bmw-5-seriya-g30/01-front-34.webp",
+    "thumb": "/img/gallery/bmw-5-seriya-g30/01-front-34-t.webp",
+    "alt": "вид спереди сбоку"
+   },
+   {
+    "src": "/img/gallery/bmw-5-seriya-g30/02-side.webp",
+    "thumb": "/img/gallery/bmw-5-seriya-g30/02-side-t.webp",
+    "alt": "вид сбоку"
+   },
+   {
+    "src": "/img/gallery/bmw-5-seriya-g30/03-rear-34.webp",
+    "thumb": "/img/gallery/bmw-5-seriya-g30/03-rear-34-t.webp",
+    "alt": "вид сзади сбоку"
+   },
+   {
+    "src": "/img/gallery/bmw-5-seriya-g30/04-detail.webp",
+    "thumb": "/img/gallery/bmw-5-seriya-g30/04-detail-t.webp",
+    "alt": "фара"
+   },
+   {
+    "src": "/img/gallery/bmw-5-seriya-g30/05-dashboard.webp",
+    "thumb": "/img/gallery/bmw-5-seriya-g30/05-dashboard-t.webp",
+    "alt": "салон, место водителя"
+   },
+   {
+    "src": "/img/gallery/bmw-5-seriya-g30/06-multimedia.webp",
+    "thumb": "/img/gallery/bmw-5-seriya-g30/06-multimedia-t.webp",
+    "alt": "экран мультимедиа"
+   },
+   {
+    "src": "/img/gallery/bmw-5-seriya-g30/07-rear-seats.webp",
+    "thumb": "/img/gallery/bmw-5-seriya-g30/07-rear-seats-t.webp",
+    "alt": "задний ряд сидений"
+   },
+   {
+    "src": "/img/gallery/bmw-5-seriya-g30/08-cabin.webp",
+    "thumb": "/img/gallery/bmw-5-seriya-g30/08-cabin-t.webp",
+    "alt": "салон, передняя панель"
+   }
+  ]
+ },
+ "audi-q5": {
+  "source": "https://www.audi-mediacenter.com/en/photos/album/audi-q5-until-2024-1631",
+  "generation": "Audi Q5 (FY, рестайлинг 2020) – 40 TDI и 55 TFSI e",
+  "shots": [
+   {
+    "src": "/img/gallery/audi-q5/01-front-34.webp",
+    "thumb": "/img/gallery/audi-q5/01-front-34-t.webp",
+    "alt": "вид спереди сбоку"
+   },
+   {
+    "src": "/img/gallery/audi-q5/02-side.webp",
+    "thumb": "/img/gallery/audi-q5/02-side-t.webp",
+    "alt": "вид сбоку"
+   },
+   {
+    "src": "/img/gallery/audi-q5/03-rear-34.webp",
+    "thumb": "/img/gallery/audi-q5/03-rear-34-t.webp",
+    "alt": "вид сзади сбоку"
+   },
+   {
+    "src": "/img/gallery/audi-q5/04-front.webp",
+    "thumb": "/img/gallery/audi-q5/04-front-t.webp",
+    "alt": "вид спереди"
+   },
+   {
+    "src": "/img/gallery/audi-q5/05-detail.webp",
+    "thumb": "/img/gallery/audi-q5/05-detail-t.webp",
+    "alt": "задний OLED-фонарь"
+   },
+   {
+    "src": "/img/gallery/audi-q5/06-dashboard.webp",
+    "thumb": "/img/gallery/audi-q5/06-dashboard-t.webp",
+    "alt": "салон, место водителя"
+   },
+   {
+    "src": "/img/gallery/audi-q5/07-multimedia.webp",
+    "thumb": "/img/gallery/audi-q5/07-multimedia-t.webp",
+    "alt": "панель приборов и экран мультимедиа"
+   },
+   {
+    "src": "/img/gallery/audi-q5/08-cabin.webp",
+    "thumb": "/img/gallery/audi-q5/08-cabin-t.webp",
+    "alt": "салон, передняя часть"
+   }
+  ]
+ },
+ "bmw-7": {
+  "source": "https://www.press.bmwgroup.com/usa/photo/compilation/T0382613EN_US/the-new-bmw-7-series?language=en_US",
+  "generation": "BMW 7 серия (G70) 760i xDrive, пресс-кит 04/2022 (US)",
+  "shots": [
+   {
+    "src": "/img/gallery/bmw-7/01-front-34.webp",
+    "thumb": "/img/gallery/bmw-7/01-front-34-t.webp",
+    "alt": "вид спереди сбоку"
+   },
+   {
+    "src": "/img/gallery/bmw-7/02-side.webp",
+    "thumb": "/img/gallery/bmw-7/02-side-t.webp",
+    "alt": "вид сбоку"
+   },
+   {
+    "src": "/img/gallery/bmw-7/03-rear-34.webp",
+    "thumb": "/img/gallery/bmw-7/03-rear-34-t.webp",
+    "alt": "вид сзади сбоку"
+   },
+   {
+    "src": "/img/gallery/bmw-7/04-detail.webp",
+    "thumb": "/img/gallery/bmw-7/04-detail-t.webp",
+    "alt": "фара"
+   },
+   {
+    "src": "/img/gallery/bmw-7/05-dashboard.webp",
+    "thumb": "/img/gallery/bmw-7/05-dashboard-t.webp",
+    "alt": "салон, место водителя"
+   },
+   {
+    "src": "/img/gallery/bmw-7/06-multimedia.webp",
+    "thumb": "/img/gallery/bmw-7/06-multimedia-t.webp",
+    "alt": "изогнутый экран мультимедиа и передняя панель"
+   },
+   {
+    "src": "/img/gallery/bmw-7/07-rear-seats.webp",
+    "thumb": "/img/gallery/bmw-7/07-rear-seats-t.webp",
+    "alt": "задний ряд сидений"
+   },
+   {
+    "src": "/img/gallery/bmw-7/08-cabin.webp",
+    "thumb": "/img/gallery/bmw-7/08-cabin-t.webp",
+    "alt": "задний экран BMW Theatre Screen"
+   }
+  ]
+ },
+ "bmw-5": {
+  "source": "https://www.press.bmwgroup.com/global/photo/compilation/T0416261EN/the-new-bmw-5-series-sedan?language=en",
+  "generation": "BMW 5 серия (G60), мировая премьера 05/2023 – 530e и i5 eDrive40",
+  "shots": [
+   {
+    "src": "/img/gallery/bmw-5/01-front-34.webp",
+    "thumb": "/img/gallery/bmw-5/01-front-34-t.webp",
+    "alt": "вид спереди сбоку"
+   },
+   {
+    "src": "/img/gallery/bmw-5/02-side.webp",
+    "thumb": "/img/gallery/bmw-5/02-side-t.webp",
+    "alt": "вид сбоку"
+   },
+   {
+    "src": "/img/gallery/bmw-5/03-rear-34.webp",
+    "thumb": "/img/gallery/bmw-5/03-rear-34-t.webp",
+    "alt": "вид сзади сбоку"
+   },
+   {
+    "src": "/img/gallery/bmw-5/04-detail.webp",
+    "thumb": "/img/gallery/bmw-5/04-detail-t.webp",
+    "alt": "фара и решётка радиатора"
+   },
+   {
+    "src": "/img/gallery/bmw-5/05-dashboard.webp",
+    "thumb": "/img/gallery/bmw-5/05-dashboard-t.webp",
+    "alt": "салон, место водителя"
+   },
+   {
+    "src": "/img/gallery/bmw-5/06-multimedia.webp",
+    "thumb": "/img/gallery/bmw-5/06-multimedia-t.webp",
+    "alt": "экран мультимедиа"
+   },
+   {
+    "src": "/img/gallery/bmw-5/07-rear-seats.webp",
+    "thumb": "/img/gallery/bmw-5/07-rear-seats-t.webp",
+    "alt": "задний ряд сидений"
+   },
+   {
+    "src": "/img/gallery/bmw-5/08-cabin.webp",
+    "thumb": "/img/gallery/bmw-5/08-cabin-t.webp",
+    "alt": "передние сидения"
+   }
+  ]
+ },
+ "audi-q7": {
+  "source": "https://media.audiusa.com/gallery/images?models=477",
+  "generation": "Audi Q7 (4M рестайлинг) – 2020 Audi Q7, Audi of America Media",
+  "shots": [
+   {
+    "src": "/img/gallery/audi-q7/01-front-34.webp",
+    "thumb": "/img/gallery/audi-q7/01-front-34-t.webp",
+    "alt": "вид спереди сбоку"
+   },
+   {
+    "src": "/img/gallery/audi-q7/02-side.webp",
+    "thumb": "/img/gallery/audi-q7/02-side-t.webp",
+    "alt": "вид сбоку"
+   },
+   {
+    "src": "/img/gallery/audi-q7/03-rear-34.webp",
+    "thumb": "/img/gallery/audi-q7/03-rear-34-t.webp",
+    "alt": "вид сзади сбоку"
+   },
+   {
+    "src": "/img/gallery/audi-q7/04-detail.webp",
+    "thumb": "/img/gallery/audi-q7/04-detail-t.webp",
+    "alt": "фара"
+   },
+   {
+    "src": "/img/gallery/audi-q7/05-dashboard.webp",
+    "thumb": "/img/gallery/audi-q7/05-dashboard-t.webp",
+    "alt": "салон, место водителя"
+   },
+   {
+    "src": "/img/gallery/audi-q7/06-multimedia.webp",
+    "thumb": "/img/gallery/audi-q7/06-multimedia-t.webp",
+    "alt": "экран мультимедиа"
+   },
+   {
+    "src": "/img/gallery/audi-q7/07-rear-seats.webp",
+    "thumb": "/img/gallery/audi-q7/07-rear-seats-t.webp",
+    "alt": "задний ряд сидений"
+   },
+   {
+    "src": "/img/gallery/audi-q7/08-cabin.webp",
+    "thumb": "/img/gallery/audi-q7/08-cabin-t.webp",
+    "alt": "салон, передняя часть"
+   }
+  ]
+ },
+ "audi-a5": {
+  "source": "https://media.audiusa.com/gallery/images?models=299",
+  "generation": "Audi A5 Sportback (F5 рестайлинг) – 2023 A5 Sportback S line 45, Audi of America Media",
+  "shots": [
+   {
+    "src": "/img/gallery/audi-a5/01-front-34.webp",
+    "thumb": "/img/gallery/audi-a5/01-front-34-t.webp",
+    "alt": "вид спереди сбоку"
+   },
+   {
+    "src": "/img/gallery/audi-a5/02-front.webp",
+    "thumb": "/img/gallery/audi-a5/02-front-t.webp",
+    "alt": "вид спереди"
+   },
+   {
+    "src": "/img/gallery/audi-a5/03-rear-34.webp",
+    "thumb": "/img/gallery/audi-a5/03-rear-34-t.webp",
+    "alt": "вид сзади сбоку"
+   },
+   {
+    "src": "/img/gallery/audi-a5/04-detail.webp",
+    "thumb": "/img/gallery/audi-a5/04-detail-t.webp",
+    "alt": "фара"
+   },
+   {
+    "src": "/img/gallery/audi-a5/05-dashboard.webp",
+    "thumb": "/img/gallery/audi-a5/05-dashboard-t.webp",
+    "alt": "салон, место водителя"
+   },
+   {
+    "src": "/img/gallery/audi-a5/06-multimedia.webp",
+    "thumb": "/img/gallery/audi-a5/06-multimedia-t.webp",
+    "alt": "передняя панель и экран мультимедиа"
+   },
+   {
+    "src": "/img/gallery/audi-a5/07-rear-seats.webp",
+    "thumb": "/img/gallery/audi-a5/07-rear-seats-t.webp",
+    "alt": "задний ряд сидений"
+   },
+   {
+    "src": "/img/gallery/audi-a5/08-cabin.webp",
+    "thumb": "/img/gallery/audi-a5/08-cabin-t.webp",
+    "alt": "передние сидения"
+   }
+  ]
+ },
+ "audi-a4-b9": {
+  "source": "https://media.audiusa.com/gallery/images?models=290",
+  "generation": "Audi A4 седан (B9 рестайлинг) – 2020 Audi A4, Audi of America Media",
+  "shots": [
+   {
+    "src": "/img/gallery/audi-a4-b9/01-front-34.webp",
+    "thumb": "/img/gallery/audi-a4-b9/01-front-34-t.webp",
+    "alt": "вид спереди сбоку"
+   },
+   {
+    "src": "/img/gallery/audi-a4-b9/02-side.webp",
+    "thumb": "/img/gallery/audi-a4-b9/02-side-t.webp",
+    "alt": "вид сбоку сзади"
+   },
+   {
+    "src": "/img/gallery/audi-a4-b9/03-rear-34.webp",
+    "thumb": "/img/gallery/audi-a4-b9/03-rear-34-t.webp",
+    "alt": "вид сзади сбоку"
+   },
+   {
+    "src": "/img/gallery/audi-a4-b9/04-detail.webp",
+    "thumb": "/img/gallery/audi-a4-b9/04-detail-t.webp",
+    "alt": "фара и решётка радиатора"
+   },
+   {
+    "src": "/img/gallery/audi-a4-b9/05-dashboard.webp",
+    "thumb": "/img/gallery/audi-a4-b9/05-dashboard-t.webp",
+    "alt": "салон, место водителя"
+   },
+   {
+    "src": "/img/gallery/audi-a4-b9/06-multimedia.webp",
+    "thumb": "/img/gallery/audi-a4-b9/06-multimedia-t.webp",
+    "alt": "экран мультимедиа"
+   },
+   {
+    "src": "/img/gallery/audi-a4-b9/07-rear-seats.webp",
+    "thumb": "/img/gallery/audi-a4-b9/07-rear-seats-t.webp",
+    "alt": "задний ряд сидений"
+   },
+   {
+    "src": "/img/gallery/audi-a4-b9/08-cabin.webp",
+    "thumb": "/img/gallery/audi-a4-b9/08-cabin-t.webp",
+    "alt": "передние сидения"
+   }
+  ]
+ },
+ "mercedes-benz-glc": {
+  "source": "https://media.mercedes-benz.com/article/5f7375a9-0932-4ccd-bfa9-d53285048991",
+  "generation": "Mercedes-Benz GLC (X254), пресс-фото премьеры 06/2022",
+  "shots": [
+   {
+    "src": "/img/gallery/mercedes-benz-glc/01-front-34.webp",
+    "thumb": "/img/gallery/mercedes-benz-glc/01-front-34-t.webp",
+    "alt": "вид спереди сбоку"
+   },
+   {
+    "src": "/img/gallery/mercedes-benz-glc/02-side.webp",
+    "thumb": "/img/gallery/mercedes-benz-glc/02-side-t.webp",
+    "alt": "вид сбоку"
+   },
+   {
+    "src": "/img/gallery/mercedes-benz-glc/03-rear-34.webp",
+    "thumb": "/img/gallery/mercedes-benz-glc/03-rear-34-t.webp",
+    "alt": "вид сзади сбоку"
+   },
+   {
+    "src": "/img/gallery/mercedes-benz-glc/04-detail.webp",
+    "thumb": "/img/gallery/mercedes-benz-glc/04-detail-t.webp",
+    "alt": "фара и бампер"
+   },
+   {
+    "src": "/img/gallery/mercedes-benz-glc/05-dashboard.webp",
+    "thumb": "/img/gallery/mercedes-benz-glc/05-dashboard-t.webp",
+    "alt": "салон, место водителя"
+   },
+   {
+    "src": "/img/gallery/mercedes-benz-glc/06-multimedia.webp",
+    "thumb": "/img/gallery/mercedes-benz-glc/06-multimedia-t.webp",
+    "alt": "руль, приборы и экран мультимедиа"
+   },
+   {
+    "src": "/img/gallery/mercedes-benz-glc/07-rear-seats.webp",
+    "thumb": "/img/gallery/mercedes-benz-glc/07-rear-seats-t.webp",
+    "alt": "задний ряд сидений"
+   },
+   {
+    "src": "/img/gallery/mercedes-benz-glc/08-cabin.webp",
+    "thumb": "/img/gallery/mercedes-benz-glc/08-cabin-t.webp",
+    "alt": "передние сидения"
+   }
+  ]
+ },
+ "mercedes-benz-gle": {
+  "source": "https://media.mercedes-benz.com/article/8d4ac5ae-6684-4c8c-b1ee-383721a634c2",
+  "generation": "Mercedes-Benz GLE SUV (V167, рестайлинг 2023) – GLE 450e/450 4MATIC",
+  "shots": [
+   {
+    "src": "/img/gallery/mercedes-benz-gle/01-front-34.webp",
+    "thumb": "/img/gallery/mercedes-benz-gle/01-front-34-t.webp",
+    "alt": "вид спереди сбоку"
+   },
+   {
+    "src": "/img/gallery/mercedes-benz-gle/02-side.webp",
+    "thumb": "/img/gallery/mercedes-benz-gle/02-side-t.webp",
+    "alt": "вид сбоку"
+   },
+   {
+    "src": "/img/gallery/mercedes-benz-gle/03-rear-34.webp",
+    "thumb": "/img/gallery/mercedes-benz-gle/03-rear-34-t.webp",
+    "alt": "вид сзади сбоку"
+   },
+   {
+    "src": "/img/gallery/mercedes-benz-gle/04-detail.webp",
+    "thumb": "/img/gallery/mercedes-benz-gle/04-detail-t.webp",
+    "alt": "фара"
+   },
+   {
+    "src": "/img/gallery/mercedes-benz-gle/05-dashboard.webp",
+    "thumb": "/img/gallery/mercedes-benz-gle/05-dashboard-t.webp",
+    "alt": "салон, место водителя"
+   },
+   {
+    "src": "/img/gallery/mercedes-benz-gle/06-multimedia.webp",
+    "thumb": "/img/gallery/mercedes-benz-gle/06-multimedia-t.webp",
+    "alt": "передняя панель и экраны MBUX"
+   },
+   {
+    "src": "/img/gallery/mercedes-benz-gle/07-rear-seats.webp",
+    "thumb": "/img/gallery/mercedes-benz-gle/07-rear-seats-t.webp",
+    "alt": "задний ряд сидений"
+   },
+   {
+    "src": "/img/gallery/mercedes-benz-gle/08-cabin.webp",
+    "thumb": "/img/gallery/mercedes-benz-gle/08-cabin-t.webp",
+    "alt": "передние сидения"
+   }
+  ]
+ },
+ "mercedes-benz-s-class": {
+  "source": "https://media.mercedes-benz.com/article/9fef5cfc-70e7-4a48-a9c1-2cea0376d9a5",
+  "generation": "Mercedes-Benz S-Class (W223), пресс-материалы премьеры 09/2020",
+  "shots": [
+   {
+    "src": "/img/gallery/mercedes-benz-s-class/01-front-34.webp",
+    "thumb": "/img/gallery/mercedes-benz-s-class/01-front-34-t.webp",
+    "alt": "вид спереди сбоку"
+   },
+   {
+    "src": "/img/gallery/mercedes-benz-s-class/02-side.webp",
+    "thumb": "/img/gallery/mercedes-benz-s-class/02-side-t.webp",
+    "alt": "вид сбоку"
+   },
+   {
+    "src": "/img/gallery/mercedes-benz-s-class/03-rear-34.webp",
+    "thumb": "/img/gallery/mercedes-benz-s-class/03-rear-34-t.webp",
+    "alt": "вид сзади сбоку"
+   },
+   {
+    "src": "/img/gallery/mercedes-benz-s-class/04-detail.webp",
+    "thumb": "/img/gallery/mercedes-benz-s-class/04-detail-t.webp",
+    "alt": "фара"
+   },
+   {
+    "src": "/img/gallery/mercedes-benz-s-class/05-dashboard.webp",
+    "thumb": "/img/gallery/mercedes-benz-s-class/05-dashboard-t.webp",
+    "alt": "салон, место водителя"
+   },
+   {
+    "src": "/img/gallery/mercedes-benz-s-class/06-multimedia.webp",
+    "thumb": "/img/gallery/mercedes-benz-s-class/06-multimedia-t.webp",
+    "alt": "центральный экран MBUX"
+   },
+   {
+    "src": "/img/gallery/mercedes-benz-s-class/07-rear-seats.webp",
+    "thumb": "/img/gallery/mercedes-benz-s-class/07-rear-seats-t.webp",
+    "alt": "задний ряд сидений"
+   },
+   {
+    "src": "/img/gallery/mercedes-benz-s-class/08-cabin.webp",
+    "thumb": "/img/gallery/mercedes-benz-s-class/08-cabin-t.webp",
+    "alt": "салон, место водителя (другой ракурс)"
+   }
+  ]
+ },
+ "mercedes-benz-eqb": {
+  "source": "https://media.mercedes-benz.com/article/9743d113-4cc9-476c-a0a8-286bf896c22f",
+  "generation": "Mercedes-Benz EQB (X243, дорестайлинг), пресс-фото 2021",
+  "shots": [
+   {
+    "src": "/img/gallery/mercedes-benz-eqb/01-front-34.webp",
+    "thumb": "/img/gallery/mercedes-benz-eqb/01-front-34-t.webp",
+    "alt": "вид спереди сбоку"
+   },
+   {
+    "src": "/img/gallery/mercedes-benz-eqb/02-side.webp",
+    "thumb": "/img/gallery/mercedes-benz-eqb/02-side-t.webp",
+    "alt": "вид сбоку"
+   },
+   {
+    "src": "/img/gallery/mercedes-benz-eqb/03-rear-34.webp",
+    "thumb": "/img/gallery/mercedes-benz-eqb/03-rear-34-t.webp",
+    "alt": "вид сзади"
+   },
+   {
+    "src": "/img/gallery/mercedes-benz-eqb/04-detail.webp",
+    "thumb": "/img/gallery/mercedes-benz-eqb/04-detail-t.webp",
+    "alt": "фара"
+   },
+   {
+    "src": "/img/gallery/mercedes-benz-eqb/05-dashboard.webp",
+    "thumb": "/img/gallery/mercedes-benz-eqb/05-dashboard-t.webp",
+    "alt": "салон, место водителя"
+   },
+   {
+    "src": "/img/gallery/mercedes-benz-eqb/06-multimedia.webp",
+    "thumb": "/img/gallery/mercedes-benz-eqb/06-multimedia-t.webp",
+    "alt": "экраны MBUX и передняя панель"
+   },
+   {
+    "src": "/img/gallery/mercedes-benz-eqb/07-rear-seats.webp",
+    "thumb": "/img/gallery/mercedes-benz-eqb/07-rear-seats-t.webp",
+    "alt": "третий ряд сидений"
+   },
+   {
+    "src": "/img/gallery/mercedes-benz-eqb/08-cabin.webp",
+    "thumb": "/img/gallery/mercedes-benz-eqb/08-cabin-t.webp",
+    "alt": "передние сидения"
+   }
+  ]
+ },
+ "volvo-xc60": {
+  "source": "https://www.volvocars.com/intl/media/models/xc60/2022/images/",
+  "generation": "Volvo XC60 (рестайлинг 2021, MY2022-2023), Volvo Cars Global Newsroom",
+  "shots": [
+   {
+    "src": "/img/gallery/volvo-xc60/01-front-34.webp",
+    "thumb": "/img/gallery/volvo-xc60/01-front-34-t.webp",
+    "alt": "вид спереди сбоку"
+   },
+   {
+    "src": "/img/gallery/volvo-xc60/02-front.webp",
+    "thumb": "/img/gallery/volvo-xc60/02-front-t.webp",
+    "alt": "вид спереди"
+   },
+   {
+    "src": "/img/gallery/volvo-xc60/03-rear.webp",
+    "thumb": "/img/gallery/volvo-xc60/03-rear-t.webp",
+    "alt": "вид сзади"
+   },
+   {
+    "src": "/img/gallery/volvo-xc60/04-detail.webp",
+    "thumb": "/img/gallery/volvo-xc60/04-detail-t.webp",
+    "alt": "динамик Bowers & Wilkins в двери"
+   },
+   {
+    "src": "/img/gallery/volvo-xc60/05-multimedia.webp",
+    "thumb": "/img/gallery/volvo-xc60/05-multimedia-t.webp",
+    "alt": "экран мультимедиа с Google"
+   },
+   {
+    "src": "/img/gallery/volvo-xc60/06-seats.webp",
+    "thumb": "/img/gallery/volvo-xc60/06-seats-t.webp",
+    "alt": "передние сидения"
+   },
+   {
+    "src": "/img/gallery/volvo-xc60/07-rear-seats.webp",
+    "thumb": "/img/gallery/volvo-xc60/07-rear-seats-t.webp",
+    "alt": "задний ряд сидений"
+   },
+   {
+    "src": "/img/gallery/volvo-xc60/08-cabin.webp",
+    "thumb": "/img/gallery/volvo-xc60/08-cabin-t.webp",
+    "alt": "салон, передняя панель"
+   }
+  ]
+ },
+ "toyota-rav4": {
+  "source": "https://pressroom.toyota.com/vehicle/2022-toyota-rav4-hybrid/",
+  "generation": "Toyota RAV4 XA50, 2022 модельный год (SE Hybrid; деталь – XSE Hybrid 2022)",
+  "shots": [
+   {
+    "src": "/img/gallery/toyota-rav4/01-front-34.webp",
+    "thumb": "/img/gallery/toyota-rav4/01-front-34-t.webp",
+    "alt": "вид спереди сбоку"
+   },
+   {
+    "src": "/img/gallery/toyota-rav4/02-side.webp",
+    "thumb": "/img/gallery/toyota-rav4/02-side-t.webp",
+    "alt": "вид сбоку"
+   },
+   {
+    "src": "/img/gallery/toyota-rav4/03-rear-34.webp",
+    "thumb": "/img/gallery/toyota-rav4/03-rear-34-t.webp",
+    "alt": "вид сзади сбоку"
+   },
+   {
+    "src": "/img/gallery/toyota-rav4/04-detail.webp",
+    "thumb": "/img/gallery/toyota-rav4/04-detail-t.webp",
+    "alt": "фара, деталь кузова"
+   },
+   {
+    "src": "/img/gallery/toyota-rav4/05-dashboard.webp",
+    "thumb": "/img/gallery/toyota-rav4/05-dashboard-t.webp",
+    "alt": "салон, место водителя"
+   },
+   {
+    "src": "/img/gallery/toyota-rav4/06-multimedia.webp",
+    "thumb": "/img/gallery/toyota-rav4/06-multimedia-t.webp",
+    "alt": "центральная консоль и экран мультимедиа"
+   },
+   {
+    "src": "/img/gallery/toyota-rav4/07-rear-seats.webp",
+    "thumb": "/img/gallery/toyota-rav4/07-rear-seats-t.webp",
+    "alt": "задний ряд"
+   },
+   {
+    "src": "/img/gallery/toyota-rav4/08-cabin.webp",
+    "thumb": "/img/gallery/toyota-rav4/08-cabin-t.webp",
+    "alt": "передние сиденья"
+   }
+  ]
+ },
+ "honda-cr-v": {
+  "source": "https://hondanews.eu/eu/en/cars/media/pressreleases/446546/2023-honda-cr-v-press-kit",
+  "generation": "Honda CR-V 6-го поколения (RS/RT), европейская версия 2023 (e:HEV/e:PHEV)",
+  "shots": [
+   {
+    "src": "/img/gallery/honda-cr-v/01-front-34.webp",
+    "thumb": "/img/gallery/honda-cr-v/01-front-34-t.webp",
+    "alt": "вид спереди сбоку"
+   },
+   {
+    "src": "/img/gallery/honda-cr-v/02-side.webp",
+    "thumb": "/img/gallery/honda-cr-v/02-side-t.webp",
+    "alt": "вид сбоку"
+   },
+   {
+    "src": "/img/gallery/honda-cr-v/03-rear-34.webp",
+    "thumb": "/img/gallery/honda-cr-v/03-rear-34-t.webp",
+    "alt": "вид сзади сбоку"
+   },
+   {
+    "src": "/img/gallery/honda-cr-v/04-detail.webp",
+    "thumb": "/img/gallery/honda-cr-v/04-detail-t.webp",
+    "alt": "фара и решётка радиатора"
+   },
+   {
+    "src": "/img/gallery/honda-cr-v/05-dashboard.webp",
+    "thumb": "/img/gallery/honda-cr-v/05-dashboard-t.webp",
+    "alt": "салон, место водителя"
+   },
+   {
+    "src": "/img/gallery/honda-cr-v/06-multimedia.webp",
+    "thumb": "/img/gallery/honda-cr-v/06-multimedia-t.webp",
+    "alt": "экран мультимедиа"
+   },
+   {
+    "src": "/img/gallery/honda-cr-v/07-rear-seats.webp",
+    "thumb": "/img/gallery/honda-cr-v/07-rear-seats-t.webp",
+    "alt": "задний ряд"
+   },
+   {
+    "src": "/img/gallery/honda-cr-v/08-cabin.webp",
+    "thumb": "/img/gallery/honda-cr-v/08-cabin-t.webp",
+    "alt": "передние сиденья"
+   }
+  ]
+ },
+ "honda-civic": {
+  "source": "https://hondanews.eu/at/de/cars/media/pressreleases/375394/honda-civic-ehev-2",
+  "generation": "Honda Civic 11-го поколения (FL), европейская версия e:HEV 2022, кузов хэтчбек",
+  "shots": [
+   {
+    "src": "/img/gallery/honda-civic/01-front-34.webp",
+    "thumb": "/img/gallery/honda-civic/01-front-34-t.webp",
+    "alt": "вид спереди сбоку"
+   },
+   {
+    "src": "/img/gallery/honda-civic/02-side.webp",
+    "thumb": "/img/gallery/honda-civic/02-side-t.webp",
+    "alt": "вид сбоку"
+   },
+   {
+    "src": "/img/gallery/honda-civic/03-rear-34.webp",
+    "thumb": "/img/gallery/honda-civic/03-rear-34-t.webp",
+    "alt": "вид сзади сбоку"
+   },
+   {
+    "src": "/img/gallery/honda-civic/04-detail.webp",
+    "thumb": "/img/gallery/honda-civic/04-detail-t.webp",
+    "alt": "светодиодная фара"
+   },
+   {
+    "src": "/img/gallery/honda-civic/05-dashboard.webp",
+    "thumb": "/img/gallery/honda-civic/05-dashboard-t.webp",
+    "alt": "салон, место водителя"
+   },
+   {
+    "src": "/img/gallery/honda-civic/06-multimedia.webp",
+    "thumb": "/img/gallery/honda-civic/06-multimedia-t.webp",
+    "alt": "экран мультимедиа"
+   },
+   {
+    "src": "/img/gallery/honda-civic/07-cabin.webp",
+    "thumb": "/img/gallery/honda-civic/07-cabin-t.webp",
+    "alt": "передние сиденья"
+   },
+   {
+    "src": "/img/gallery/honda-civic/08-detail.webp",
+    "thumb": "/img/gallery/honda-civic/08-detail-t.webp",
+    "alt": "задний фонарь"
+   }
+  ]
+ },
+ "honda-accord": {
+  "source": "https://global.honda/jp/news/2020/4200220-accord.html",
+  "generation": "Honda Accord 10-го поколения, японская версия (выпуск 20.02.2020, e:HEV)",
+  "shots": [
+   {
+    "src": "/img/gallery/honda-accord/01-front-34.webp",
+    "thumb": "/img/gallery/honda-accord/01-front-34-t.webp",
+    "alt": "вид спереди сбоку"
+   },
+   {
+    "src": "/img/gallery/honda-accord/02-side.webp",
+    "thumb": "/img/gallery/honda-accord/02-side-t.webp",
+    "alt": "вид сбоку"
+   },
+   {
+    "src": "/img/gallery/honda-accord/03-rear-34.webp",
+    "thumb": "/img/gallery/honda-accord/03-rear-34-t.webp",
+    "alt": "вид сзади сбоку"
+   },
+   {
+    "src": "/img/gallery/honda-accord/04-front.webp",
+    "thumb": "/img/gallery/honda-accord/04-front-t.webp",
+    "alt": "вид спереди в движении"
+   },
+   {
+    "src": "/img/gallery/honda-accord/05-dashboard.webp",
+    "thumb": "/img/gallery/honda-accord/05-dashboard-t.webp",
+    "alt": "руль и место водителя"
+   },
+   {
+    "src": "/img/gallery/honda-accord/06-multimedia.webp",
+    "thumb": "/img/gallery/honda-accord/06-multimedia-t.webp",
+    "alt": "передняя панель и экран мультимедиа"
+   },
+   {
+    "src": "/img/gallery/honda-accord/07-rear-seats.webp",
+    "thumb": "/img/gallery/honda-accord/07-rear-seats-t.webp",
+    "alt": "задний ряд"
+   },
+   {
+    "src": "/img/gallery/honda-accord/08-cabin.webp",
+    "thumb": "/img/gallery/honda-accord/08-cabin-t.webp",
+    "alt": "передние сиденья"
+   }
+  ]
+ },
+ "ford-mustang": {
+  "source": "https://www.fromtheroad.ford.com/content/dam/fordmediasite/us/en/library/2024/2024-mustang",
+  "generation": "Ford Mustang S650 (7-е поколение), 2024 модельный год (купе GT/EcoBoost/Dark Horse)",
+  "shots": [
+   {
+    "src": "/img/gallery/ford-mustang/01-front-34.webp",
+    "thumb": "/img/gallery/ford-mustang/01-front-34-t.webp",
+    "alt": "вид спереди сбоку"
+   },
+   {
+    "src": "/img/gallery/ford-mustang/02-side.webp",
+    "thumb": "/img/gallery/ford-mustang/02-side-t.webp",
+    "alt": "вид сбоку"
+   },
+   {
+    "src": "/img/gallery/ford-mustang/03-rear-34.webp",
+    "thumb": "/img/gallery/ford-mustang/03-rear-34-t.webp",
+    "alt": "вид сзади сбоку"
+   },
+   {
+    "src": "/img/gallery/ford-mustang/04-detail.webp",
+    "thumb": "/img/gallery/ford-mustang/04-detail-t.webp",
+    "alt": "фара и решётка радиатора"
+   },
+   {
+    "src": "/img/gallery/ford-mustang/05-dashboard.webp",
+    "thumb": "/img/gallery/ford-mustang/05-dashboard-t.webp",
+    "alt": "салон, место водителя"
+   },
+   {
+    "src": "/img/gallery/ford-mustang/06-multimedia.webp",
+    "thumb": "/img/gallery/ford-mustang/06-multimedia-t.webp",
+    "alt": "цифровая панель и экран мультимедиа"
+   },
+   {
+    "src": "/img/gallery/ford-mustang/08-cabin.webp",
+    "thumb": "/img/gallery/ford-mustang/08-cabin-t.webp",
+    "alt": "салон, вид сбоку"
+   }
+  ]
+ },
+ "chevrolet-trax": {
+  "source": "https://news.chevrolet.com/content/Pages/galleries/us/en/vehicles/chevrolet/2024/24-trax-rs.html",
+  "generation": "Chevrolet Trax 2-го поколения, 2024 модельный год (RS)",
+  "shots": [
+   {
+    "src": "/img/gallery/chevrolet-trax/01-front-34.webp",
+    "thumb": "/img/gallery/chevrolet-trax/01-front-34-t.webp",
+    "alt": "вид спереди сбоку"
+   },
+   {
+    "src": "/img/gallery/chevrolet-trax/02-rear-34.webp",
+    "thumb": "/img/gallery/chevrolet-trax/02-rear-34-t.webp",
+    "alt": "вид сзади сбоку"
+   },
+   {
+    "src": "/img/gallery/chevrolet-trax/03-front-34.webp",
+    "thumb": "/img/gallery/chevrolet-trax/03-front-34-t.webp",
+    "alt": "вид спереди сбоку на дороге"
+   },
+   {
+    "src": "/img/gallery/chevrolet-trax/04-rear-34.webp",
+    "thumb": "/img/gallery/chevrolet-trax/04-rear-34-t.webp",
+    "alt": "вид сзади сбоку на дороге"
+   },
+   {
+    "src": "/img/gallery/chevrolet-trax/05-detail.webp",
+    "thumb": "/img/gallery/chevrolet-trax/05-detail-t.webp",
+    "alt": "колесо и арка"
+   },
+   {
+    "src": "/img/gallery/chevrolet-trax/06-dashboard.webp",
+    "thumb": "/img/gallery/chevrolet-trax/06-dashboard-t.webp",
+    "alt": "салон, место водителя"
+   },
+   {
+    "src": "/img/gallery/chevrolet-trax/07-multimedia.webp",
+    "thumb": "/img/gallery/chevrolet-trax/07-multimedia-t.webp",
+    "alt": "передняя панель и экран мультимедиа"
+   },
+   {
+    "src": "/img/gallery/chevrolet-trax/08-cabin.webp",
+    "thumb": "/img/gallery/chevrolet-trax/08-cabin-t.webp",
+    "alt": "передние сиденья"
+   }
+  ]
  }
 }
