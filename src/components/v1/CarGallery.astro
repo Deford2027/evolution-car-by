@@ -1,0 +1,201 @@
+---
+/**
+ * Галерея карточки машины: большое фото со слайдером (еле заметные стрелки
+ * по бокам, свайп, клавиши) и под ним ровно четыре одинаковые миниатюры.
+ * Если кадров больше четырёх, лента миниатюр сдвигается за текущим кадром.
+ * Высоту задаёт сетка карточки: галерея растягивается до низа кнопок
+ * соседней колонки, большое фото забирает всё, что не заняли миниатюры.
+ * Последний кадр – «закрытый»: замок, «ещё 15 живых фото» и кнопка заявки
+ * (по образцу закрытых фото в объявлениях Авито).
+ */
+import { galleryLabels as ui, type GalleryShot } from '../../content/galleries';
+
+interface Props { shots: GalleryShot[] }
+const { shots } = Astro.props;
+---
+
+<div class="cg" data-gallery>
+  <div class="cg__main">
+    {shots.map((s, i) => (
+      <img
+        class:list={['cg__img cg__slide', { 'is-active': i === 0 }]}
+        src={s.src}
+        alt={s.alt}
+        width="1600"
+        height="1000"
+        loading={i === 0 ? 'eager' : 'lazy'}
+        fetchpriority={i === 0 ? 'high' : undefined}
+        data-i={i}
+      />
+    ))}
+    <div class="cg__slide cg__lock" data-i={shots.length}>
+      <img class="cg__lock-bg" src={shots[0].src} alt="" loading="lazy" />
+      <div class="cg__lock-body">
+        <svg class="cg__lock-icon" viewBox="0 0 24 24" width="40" height="40" aria-hidden="true"><path fill="currentColor" d="M12 2a5 5 0 0 0-5 5v3H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8a2 2 0 0 0-2-2h-1V7a5 5 0 0 0-5-5Zm-3 8V7a3 3 0 1 1 6 0v3H9Zm3 4a1.5 1.5 0 0 1 .75 2.8V18h-1.5v-1.2A1.5 1.5 0 0 1 12 14Z"/></svg>
+        <p class="cg__lock-title">{ui.lockTitle}</p>
+        <p class="cg__lock-text">{ui.lockText}</p>
+        <a class="btn cg__lock-cta" href="#request" data-open="lead">{ui.lockCta}</a>
+      </div>
+    </div>
+    <button class="cg__arrow cg__arrow--prev" type="button" aria-label={ui.prev} data-dir="-1">
+      <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" /></svg>
+    </button>
+    <button class="cg__arrow cg__arrow--next" type="button" aria-label={ui.next} data-dir="1">
+      <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" /></svg>
+    </button>
+  </div>
+
+  <div class="cg__thumbs" data-thumbs>
+    {shots.map((s, i) => (
+      <button class:list={['cg__thumb', { 'is-active': i === 0 }]} type="button" data-i={i} aria-label={s.alt}>
+        <img src={s.thumb} alt="" width="400" height="250" loading="lazy" />
+      </button>
+    ))}
+    <button class="cg__thumb cg__thumb--lock" type="button" data-i={shots.length} aria-label={ui.lockThumb}>
+      <svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><path fill="currentColor" d="M12 2a5 5 0 0 0-5 5v3H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8a2 2 0 0 0-2-2h-1V7a5 5 0 0 0-5-5Zm-3 8V7a3 3 0 1 1 6 0v3H9Zm3 4a1.5 1.5 0 0 1 .75 2.8V18h-1.5v-1.2A1.5 1.5 0 0 1 12 14Z"/></svg>
+    </button>
+  </div>
+</div>
+
+<style>
+  .cg { display: flex; flex-direction: column; gap: .625rem; height: 100%; min-width: 0; }
+  .cg__main {
+    position: relative;
+    flex: 1 1 auto;
+    min-height: 16rem;
+    border-radius: var(--r-card);
+    overflow: hidden;
+    background: var(--c-surface);
+    touch-action: pan-y;
+  }
+  .cg__img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity .45s var(--ease);
+  }
+  .cg__img.is-active { opacity: 1; }
+
+  /* закрытый кадр: размытое фото машины под затемнением, замок и заявка */
+  .cg__lock {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity .45s var(--ease), visibility .45s;
+    background: var(--c-bg);
+  }
+  .cg__lock.is-active { opacity: 1; visibility: visible; }
+  .cg__lock-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transform: scale(1.25); filter: blur(22px) brightness(.35); }
+  .cg__lock-body { position: relative; display: grid; justify-items: center; gap: .75rem; padding: 1.5rem; text-align: center; max-width: 30rem; }
+  .cg__lock-icon { color: var(--c-text); margin-bottom: .25rem; }
+  .cg__lock-title { font-family: var(--font-display); font-weight: 650; font-size: clamp(1.375rem, 1.1rem + 1vw, 2rem); letter-spacing: -.03em; line-height: 1.1; }
+  .cg__lock-text { color: var(--c-text-2); font-size: .9375rem; line-height: 1.45; }
+  .cg__lock-cta { margin-top: .5rem; min-width: min(100%, 16rem); }
+  /* телефон: кадр невысокий – без пояснения, компактнее */
+  @media (max-width: 639px) {
+    .cg__lock-body { gap: .5rem; padding: 1rem 3rem; }
+    .cg__lock-icon { width: 28px; height: 28px; margin: 0; }
+    .cg__lock-text { display: none; }
+    .cg__lock-cta { margin-top: .25rem; min-width: 12rem; padding-block: .875rem; }
+  }
+
+  /* стрелки еле видны и не портят фото; чуть ярче при наведении на фото */
+  .cg__arrow {
+    position: absolute;
+    top: 50%;
+    translate: 0 -50%;
+    display: grid;
+    place-items: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    color: var(--c-text);
+    background: rgba(0, 4, 12, .18);
+    opacity: .35;
+    transition: opacity .25s var(--ease), background .25s var(--ease);
+  }
+  .cg__arrow--prev { left: .625rem; }
+  .cg__arrow--next { right: .625rem; }
+  .cg__main:hover .cg__arrow { opacity: .7; }
+  .cg__arrow:hover, .cg__arrow:focus-visible { opacity: 1; background: rgba(0, 4, 12, .4); }
+
+  /* ровно четыре одинаковые миниатюры в ряд; остальные – за прокруткой */
+  .cg__thumbs {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: calc((100% - 3 * .625rem) / 4);
+    gap: .625rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    flex: none;
+  }
+  .cg__thumbs::-webkit-scrollbar { display: none; }
+  .cg__thumb {
+    scroll-snap-align: start;
+    aspect-ratio: 16 / 10;
+    padding: 0;
+    border-radius: calc(var(--r-card) * .6);
+    overflow: hidden;
+    border: 2px solid transparent;
+    opacity: .6;
+    transition: opacity .2s var(--ease), border-color .2s var(--ease);
+  }
+  .cg__thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .cg__thumb:hover { opacity: .9; }
+  .cg__thumb.is-active { opacity: 1; border-color: var(--c-accent); }
+  .cg__thumb--lock { display: grid; place-items: center; background: var(--c-bg); border-color: var(--c-line-strong); color: var(--c-text); opacity: 1; }
+  .cg__thumb--lock:hover { border-color: var(--c-accent); }
+
+  @media (max-width: 1023px) {
+    .cg__main { flex: none; aspect-ratio: 16 / 10; min-height: 0; }
+  }
+</style>
+
+<script>
+  for (const g of document.querySelectorAll<HTMLElement>('[data-gallery]')) {
+    const imgs = [...g.querySelectorAll<HTMLElement>('.cg__slide')];
+    const thumbs = [...g.querySelectorAll<HTMLButtonElement>('.cg__thumb')];
+    const strip = g.querySelector<HTMLElement>('[data-thumbs]')!;
+    let cur = 0;
+    const show = (i: number) => {
+      cur = (i + imgs.length) % imgs.length;
+      imgs.forEach((im, k) => im.classList.toggle('is-active', k === cur));
+      thumbs.forEach((t, k) => t.classList.toggle('is-active', k === cur));
+      // соседний кадр грузим заранее
+      const next = imgs[(cur + 1) % imgs.length];
+      if (next instanceof HTMLImageElement && next.loading === 'lazy') next.loading = 'eager';
+      // лента миниатюр держит текущую в поле зрения
+      const t = thumbs[cur];
+      const left = t.offsetLeft - strip.offsetLeft;
+      if (left < strip.scrollLeft || left + t.offsetWidth > strip.scrollLeft + strip.clientWidth) {
+        strip.scrollTo({ left: Math.max(0, left - t.offsetWidth * 1.5), behavior: 'smooth' });
+      }
+    };
+    g.querySelectorAll<HTMLButtonElement>('.cg__arrow').forEach((b) =>
+      b.addEventListener('click', () => show(cur + Number(b.dataset.dir))),
+    );
+    thumbs.forEach((t, k) => t.addEventListener('click', () => show(k)));
+    const main = g.querySelector<HTMLElement>('.cg__main')!;
+    let x0: number | null = null;
+    main.addEventListener('pointerdown', (e) => { if (e.pointerType !== 'mouse') x0 = e.clientX; });
+    main.addEventListener('pointercancel', () => (x0 = null));
+    main.addEventListener('pointerup', (e) => {
+      if (x0 === null) return;
+      const dx = e.clientX - x0;
+      x0 = null;
+      if (Math.abs(dx) > 40) show(cur + (dx < 0 ? 1 : -1));
+    });
+    main.tabIndex = 0;
+    main.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight') show(cur + 1);
+      if (e.key === 'ArrowLeft') show(cur - 1);
+    });
+  }
+</script>

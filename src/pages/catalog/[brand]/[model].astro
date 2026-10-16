@@ -28,6 +28,10 @@ const { car } = Astro.props as { car: Car };
 const meta = carMeta(car);
 const groups = specGroups(car);
 
+// Модели, у которых есть конфигуратор, – кнопка рядом с «Характеристиками»
+const CONFIGURATORS: Record<string, string> = { 'lixiang-l9': '/catalog/lixiang/l9/konfigurator/' };
+const configurator = CONFIGURATORS[car.slug];
+
 const crumbs = [
   { name: 'Главная', href: '/' },
   { name: 'Каталог автомобилей', href: '/catalog/' },
@@ -49,6 +53,14 @@ const similar = cars
   .concat(cars.filter((c) => c.slug !== car.slug && c.country === car.country && c.powertrain === car.powertrain))
   .filter((c, i, arr) => arr.findIndex((x) => x.slug === c.slug) === i)
   .slice(0, 3);
+import CarGallery from '../../../components/v1/CarGallery.astro';
+import { galleryFor } from '../../../content/galleries';
+const alt = `${car.title} – ${powertrains[car.powertrain].toLowerCase()}, поставка ${countries[car.country].genitive}`;
+// галерея – только у машин, для которых есть набор фото (пока Zeekr 7X)
+const extra = galleryFor(car.slug, car.title);
+// галерея с закрытым кадром – только у машин с официальными фото (galleries.json);
+// раскатка на весь каталог остановлена владельцем 13.10.2026, см. AGENTS.md
+const gallery = extra ? [{ src: car.photo, thumb: car.photo, alt }, ...extra] : null;
 ---
 
 <BaseLayout
@@ -65,21 +77,18 @@ const similar = cars
   <main>
     <article>
       <section class="section section--top">
-        <div class="container top">
-          <div class="gallery">
-            <img
-              class="gallery__main"
-              src={car.photo}
-              alt={`${car.title} – ${powertrains[car.powertrain].toLowerCase()}, поставка ${countries[car.country].genitive}`}
-              width="900"
-              height="563"
-              fetchpriority="high"
-            />
-            <p class="gallery__note">
-              Фотография модели. Снимки конкретного автомобиля с площадки менеджер
-              пришлёт до согласования договора.
-            </p>
-          </div>
+        <div class:list={['container top', { 'top--gallery': gallery }]}>
+          {gallery ? (
+            <div class="top__gallery"><CarGallery shots={gallery} /></div>
+          ) : (
+            <div class="gallery">
+              <img class="gallery__main" src={car.photo} alt={alt} width="900" height="563" fetchpriority="high" />
+              <p class="gallery__note">
+                Фотография модели. Снимки конкретного автомобиля с площадки менеджер
+                пришлёт до согласования договора.
+              </p>
+            </div>
+          )}
 
           <div class="intro">
             <p class="kicker">[ {countries[car.country].label} · {availabilities[car.availability]} ]</p>
@@ -96,9 +105,19 @@ const similar = cars
             </dl>
 
             <div class="intro__actions">
-              <a class="btn" href="#request">Запросить расчёт</a>
-              <button class="btn btn--ghost" type="button" data-open="quiz">Пройти опрос</button>
+              <a class="btn" href="#request" data-open="lead">Заказать</a>
+              <a class="btn btn--ghost" href="#specs">Характеристики</a>
+              {configurator && <a class="btn btn--ghost" href={configurator}>Конфигуратор</a>}
             </div>
+          </div>
+
+          <div class="intro-extra">
+            {gallery && (
+              <p class="gallery__note">
+                Фото – официальные изображения производителя. Снимки конкретного автомобиля
+                с площадки менеджер пришлёт до согласования договора.
+              </p>
+            )}
 
             <p class="intro__links">
               <a href={brandPath(car.brand)}>Все автомобили {car.brand}</a>
@@ -125,7 +144,7 @@ const similar = cars
       </section>
 
       {groups.length > 0 && (
-        <section class="section section--tight">
+        <section class="section section--tight" id="specs">
           <div class="container">
             <h2 class="block__title">Характеристики</h2>
             <div class="specs">
@@ -250,9 +269,24 @@ const similar = cars
   .block__title { margin-bottom: clamp(1.25rem, 1rem + 1vw, 2rem); }
 
   .top { display: grid; gap: clamp(1.5rem, 1rem + 2vw, 3rem); }
+  .intro-extra > :first-child { margin-top: 0; }
   @media (min-width: 1024px) {
-    .top { grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); align-items: start; }
+    /* фото слева на обе строки, справа – описание с кнопками и под ним ссылки */
+    .top {
+      grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+      grid-template-areas: 'g i' 'g x';
+      align-items: start;
+      row-gap: 0;
+    }
+    .gallery, .top__gallery { grid-area: g; }
+    .intro { grid-area: i; }
+    .intro-extra { grid-area: x; margin-top: 1.25rem; }
+    /* с галереей: фото и миниатюры ровно по высоте блока до низа кнопок,
+       подпись к фото и ссылки – под кнопками */
+    .top--gallery { grid-template-areas: 'g i' '. x'; }
+    .top--gallery .top__gallery { align-self: stretch; }
   }
+  .top--gallery .gallery__note { margin-top: 0; margin-bottom: .75rem; }
 
   .gallery__main {
     width: 100%;
