@@ -79,6 +79,22 @@ export const configurators: ConfiguratorCard[] = [
     summary: 'Трековый флагман: 1548 л. с., разгон до сотни за 2 секунды, карбон-керамика.',
   },
   {
+    slug: 'xiaomi-n70', brand: 'Xiaomi', model: 'N70',
+    href: '/catalog/xiaomi/n70/konfigurator/',
+    cover: '/img/xiaomi-n70/render/butterfly-blue--19-blade--front.webp',
+    powertrain: 'Гибрид с генератором', priceFromCny: 209900,
+    options: '6 цветов, 4 варианта дисков, 3 салона',
+    summary: 'Пятиместный кроссовер серии Kunlun: 1351 км хода, салон из кожи Nappa.',
+  },
+  {
+    slug: 'xiaomi-n90', brand: 'Xiaomi', model: 'N90',
+    href: '/catalog/xiaomi/n90/konfigurator/',
+    cover: '/img/xiaomi-n90/render/wine-red--21-star--front.webp',
+    powertrain: 'Гибрид с генератором', priceFromCny: 269900,
+    options: '6 цветов, 4 варианта дисков, 3 салона',
+    summary: 'Семиместный флагман серии Kunlun: 1705 км хода, полный привод, пневма.',
+  },
+  {
     slug: 'xiaomi-yu7', brand: 'Xiaomi', model: 'YU7',
     href: '/catalog/xiaomi/yu7/konfigurator/',
     cover: '/img/xiaomi-yu7/render/titanium--19-diamond--front.webp',
