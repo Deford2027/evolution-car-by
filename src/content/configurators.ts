@@ -71,6 +71,14 @@ export const configurators: ConfiguratorCard[] = [
     summary: 'Лифтбек Changan, Huawei и CATL: 1260 км хода, лидар, звук Bowers & Wilkins.',
   },
   {
+    slug: 'voyah-dreamer', brand: 'Voyah', model: 'Dreamer 9',
+    href: '/catalog/voyah/dreamer/konfigurator/',
+    cover: '/img/voyah-dreamer/render/gold-red--21-starlight--front.webp',
+    powertrain: 'Гибрид, платформа 800 В', priceFromCny: 419900,
+    options: '5 цветов, 2 варианта дисков, 2 салона',
+    summary: 'Минивэн Dongfeng: кресла «нулевой гравитации», потолочный экран, холодильник.',
+  },
+  {
     slug: 'xiaomi-su7', brand: 'Xiaomi', model: 'SU7',
     href: '/catalog/xiaomi/su7/konfigurator/',
     cover: '/img/xiaomi-su7/render/capri-blue--19-diamond--front.webp',
