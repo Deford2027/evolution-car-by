@@ -160,7 +160,7 @@ npm run build    # статика в dist/
 
 ## Конфигураторы
 
-Восемь конфигураторов: Lixiang L6, L8, L9, i8, i9, MEGA и Xiaomi SU7, YU7.
+Одиннадцать конфигураторов: Lixiang L6, L8, L9, i8, i9, MEGA и Xiaomi SU7, SU7 Ultra, YU7, N70, N90.
 Все рендеры — официальные, из заказных конфигураторов производителя.
 
 - Данные модели — `src/content/models/<модель>-config.ts`: `configTrims`,
@@ -192,6 +192,11 @@ npm run build    # статика в dist/
   `src/content/configurators.ts`, `src/pages/sitemap.xml.ts` и (если у модели
   есть карточка) в `CONFIGURATORS` внутри `src/pages/catalog/[brand]/[model].astro`.
 - Li Auto L7 снят с производства, i6 выходит 28.10.2026 — конфигураторов нет.
+- Разведка 17.10.2026, что ещё можно подключить: **Avatr** (`avatr.com/carset`,
+  готовые кадры `car_diagram_combine`) и **Voyah** (`configuration-3d-web.dsmp.voyah.com.cn`,
+  кадры `car-series-model-config`). Не выйдет: BYD и Denza (китайские сайты уводят
+  на европейский BYD, битый сертификат), Zeekr, Geely Galaxy (домены недоступны),
+  AITO (заказ только в приложении), Tesla/Volvo/Ford/GM (блокируют автоматизацию).
 
 ## Google Ads
 

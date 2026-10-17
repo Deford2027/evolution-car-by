@@ -63,6 +63,22 @@ export const configurators: ConfiguratorCard[] = [
     summary: 'Минивэн-гостиная: батарея 108 кВт·ч, вращающиеся кресла, активное шасси 800 В.',
   },
   {
+    slug: 'avatr-12', brand: 'Avatr', model: '12',
+    href: '/catalog/avatr/12/konfigurator/',
+    cover: '/img/avatr-12/render/cloud-purple--21-beam--front.webp',
+    powertrain: 'Гибрид с генератором', priceFromCny: 293900,
+    options: '5 цветов, 2 варианта дисков, 4 салона',
+    summary: 'Лифтбек Changan, Huawei и CATL: 1260 км хода, лидар, звук Bowers & Wilkins.',
+  },
+  {
+    slug: 'voyah-dreamer', brand: 'Voyah', model: 'Dreamer 9',
+    href: '/catalog/voyah/dreamer/konfigurator/',
+    cover: '/img/voyah-dreamer/render/gold-red--21-starlight--front.webp',
+    powertrain: 'Гибрид, платформа 800 В', priceFromCny: 419900,
+    options: '5 цветов, 2 варианта дисков, 2 салона',
+    summary: 'Минивэн Dongfeng: кресла «нулевой гравитации», потолочный экран, холодильник.',
+  },
+  {
     slug: 'xiaomi-su7', brand: 'Xiaomi', model: 'SU7',
     href: '/catalog/xiaomi/su7/konfigurator/',
     cover: '/img/xiaomi-su7/render/capri-blue--19-diamond--front.webp',
@@ -103,5 +119,6 @@ export const configurators: ConfiguratorCard[] = [
     summary: 'Электрический кроссовер: четыре версии, до 835 км хода и разгон от 3,23 с.',
   },
 ];
+
 
 export const cny = (v: number) => `${v.toLocaleString('ru-RU')} ¥`;
