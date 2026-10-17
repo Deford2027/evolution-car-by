@@ -1,0 +1,183 @@
+---
+// Витрина анимаций логотипа: та же форма логотипа сайта, десять техно-подач
+// идеи «хамелеона» – без рисованной ящерицы, только свет, металл и чешуя.
+import '../styles/theme-v1.css';
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const variants = [
+  { id: 'chrome', name: 'Жидкий хром', note: 'металл течёт по буквам, зелёный отлив' },
+  { id: 'scan', name: 'Сканер', note: 'луч проходит и оставляет изумрудный след' },
+  { id: 'scales', name: 'Чешуя', note: 'ромбы переливаются волной по диагонали' },
+  { id: 'mimicry', name: 'Мимикрия', note: 'буквы перекрашиваются волной, как кожа' },
+  { id: 'rgb', name: 'Расслоение', note: 'три слоя расходятся и сходятся' },
+  { id: 'film', name: 'Плёнка', note: 'масляный спектр: зелёный – бирюза – фиолет' },
+  { id: 'iris', name: 'Диафрагма', note: 'кольцо света расходится из центра, как зрачок' },
+  { id: 'grid', name: 'Сетка', note: 'буквы собираются из техно-сетки' },
+  { id: 'neon', name: 'Контур', note: 'световой импульс бежит по кромке' },
+  { id: 'thermal', name: 'Термальный', note: 'тепловая карта от холодного к зелёному' },
+];
+---
+
+<BaseLayout theme="v1" title="Логотип: анимации | Evolution Car" description="Витрина анимаций логотипа" noindex>
+  <div class="lab">
+    <header class="lab__bar">
+      <span class="lab__kicker">[ анимация логотипа ]</span>
+      <span class="lab__hint">наведите на карточку — анимация ускорится</span>
+    </header>
+
+    <section class="stage" data-variant="chrome">
+      <div class={`logo logo--xl`} data-stage>
+        <span class="logo__fill"></span>
+        <span class="logo__extra"></span>
+      </div>
+      <p class="stage__name" data-stage-name>Жидкий хром</p>
+    </section>
+
+    <ul class="grid">
+      {variants.map((v, i) => (
+        <li>
+          <button class="tile" type="button" data-pick={v.id} data-name={v.name} aria-pressed={i === 0}>
+            <span class={`logo v-${v.id}`}>
+              <span class="logo__fill"></span>
+              <span class="logo__extra"></span>
+            </span>
+            <span class="tile__name">{v.name}</span>
+            <span class="tile__note">{v.note}</span>
+          </button>
+        </li>
+      ))}
+    </ul>
+  </div>
+</BaseLayout>
+
+<style is:global>
+  .lab { background: #06080a; color: #e9efec; min-height: 100vh; padding-bottom: 5rem; }
+  .lab__bar { display: flex; flex-wrap: wrap; gap: .5rem 1.5rem; justify-content: space-between;
+    padding: 1rem clamp(1rem, 3vw, 2.5rem); border-bottom: 1px solid rgba(255,255,255,.07); }
+  .lab__kicker { font-size: .75rem; letter-spacing: .16em; text-transform: uppercase; color: #7fd6b2; }
+  .lab__hint { font-size: .75rem; color: #6c7673; }
+
+  .stage { padding: clamp(2.5rem, 6vw, 6rem) clamp(1rem, 3vw, 2.5rem); display: grid; gap: 1.25rem; justify-items: center;
+    background: radial-gradient(120% 90% at 50% 0%, #0d1512 0%, #06080a 70%); }
+  .stage__name { margin: 0; font-size: .875rem; letter-spacing: .18em; text-transform: uppercase; color: #8d9995; }
+
+  /* логотип = маска формы, под ней анимированные слои */
+  .logo { position: relative; display: block; width: min(100%, 34rem); aspect-ratio: 939 / 48; }
+  .logo--xl { width: min(100%, 60rem); }
+  .logo__fill, .logo__extra {
+    position: absolute; inset: 0;
+    -webkit-mask-image: url('/img/logo-evolution-car.png'); mask-image: url('/img/logo-evolution-car.png');
+    -webkit-mask-size: 100% 100%; mask-size: 100% 100%;
+    -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat;
+  }
+  .logo__extra { pointer-events: none; }
+
+  .grid { list-style: none; margin: 0; padding: 0 clamp(1rem, 3vw, 2.5rem);
+    display: grid; gap: .75rem; grid-template-columns: repeat(1, minmax(0, 1fr)); }
+  @media (min-width: 700px) { .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; } }
+  @media (min-width: 1200px) { .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  .tile { width: 100%; display: grid; gap: .75rem; justify-items: center; cursor: pointer;
+    padding: 1.6rem 1.25rem 1.3rem; border-radius: 16px; background: #0c100f;
+    border: 1px solid rgba(255,255,255,.07); transition: border-color .25s, transform .25s; }
+  .tile:hover { transform: translateY(-2px); border-color: rgba(127,214,178,.4); }
+  .tile[aria-pressed="true"] { border-color: #7fd6b2; }
+  .tile__name { font-size: .9375rem; }
+  .tile__note { font-size: .75rem; color: #7d8783; text-align: center; }
+  .tile:hover .logo__fill, .tile:hover .logo__extra { animation-duration: 2.4s !important; }
+
+  /* ——— 1. жидкий хром ——— */
+  .v-chrome .logo__fill, .stage[data-variant="chrome"] .logo__fill {
+    background: linear-gradient(100deg, #6f7a77 0%, #ffffff 14%, #9fb0aa 26%, #2f8f6b 40%, #eafff6 50%,
+      #2f8f6b 60%, #9fb0aa 74%, #ffffff 86%, #6f7a77 100%);
+    background-size: 260% 100%; animation: flowx 7s linear infinite;
+  }
+  /* ——— 2. сканер ——— */
+  .v-scan .logo__fill, .stage[data-variant="scan"] .logo__fill { background: #7f8c88; }
+  .v-scan .logo__extra, .stage[data-variant="scan"] .logo__extra {
+    background: linear-gradient(90deg, transparent 42%, #39f0ad 48%, #b9fff0 50%, #39f0ad 52%, transparent 58%);
+    background-size: 240% 100%; animation: flowx 4.5s linear infinite; mix-blend-mode: screen;
+  }
+  /* ——— 3. чешуя ——— */
+  .v-scales .logo__fill, .stage[data-variant="scales"] .logo__fill {
+    background:
+      repeating-linear-gradient(60deg, rgba(0,0,0,.45) 0 3px, transparent 3px 7px),
+      repeating-linear-gradient(-60deg, rgba(0,0,0,.45) 0 3px, transparent 3px 7px),
+      linear-gradient(100deg, #184b3b 0%, #39b386 30%, #cdfbe6 48%, #39b386 66%, #184b3b 100%);
+    background-size: auto, auto, 240% 100%; animation: flowx 8s linear infinite;
+  }
+  /* ——— 4. мимикрия ——— */
+  .v-mimicry .logo__fill, .stage[data-variant="mimicry"] .logo__fill {
+    background: linear-gradient(100deg, #ffffff 0%, #ffffff 22%, #7fd6b2 36%, #1b7f5f 46%, #7fd6b2 56%, #ffffff 72%, #ffffff 100%);
+    background-size: 300% 100%; animation: flowx 9s ease-in-out infinite;
+  }
+  /* ——— 5. расслоение ——— */
+  .v-rgb .logo__fill, .stage[data-variant="rgb"] .logo__fill {
+    background: #e9f6f1; animation: shiftx 3.6s ease-in-out infinite;
+  }
+  .v-rgb .logo__extra, .stage[data-variant="rgb"] .logo__extra {
+    background: #16c08a; mix-blend-mode: screen; opacity: .85; animation: shiftx 3.6s ease-in-out infinite reverse;
+  }
+  /* ——— 6. плёнка ——— */
+  .v-film .logo__fill, .stage[data-variant="film"] .logo__fill {
+    background: linear-gradient(100deg, #0f3b31 0%, #16a37a 18%, #46e3c0 32%, #7ec8ff 46%, #a98bf0 58%, #16a37a 78%, #0f3b31 100%);
+    background-size: 280% 100%; animation: flowx 10s linear infinite;
+  }
+  /* ——— 7. глаз ——— */
+  .v-iris .logo__fill, .stage[data-variant="iris"] .logo__fill {
+    background: linear-gradient(100deg, #9fada8 0%, #e8f1ed 40%, #9fada8 100%);
+  }
+  .v-iris .logo__extra, .stage[data-variant="iris"] .logo__extra {
+    background: radial-gradient(circle at 50% 50%, transparent 0%, transparent 28%,
+      #19c48f 34%, #d7fff1 38%, #19c48f 42%, transparent 50%, transparent 100%);
+    background-size: 100% 2000%; background-position: 50% 50%;
+    animation: iris 5s ease-in-out infinite; mix-blend-mode: screen;
+  }
+  /* ——— 8. сетка ——— */
+  .v-grid .logo__fill, .stage[data-variant="grid"] .logo__fill {
+    background:
+      repeating-linear-gradient(90deg, rgba(0,0,0,.6) 0 1px, transparent 1px 6px),
+      repeating-linear-gradient(0deg, rgba(0,0,0,.5) 0 1px, transparent 1px 5px),
+      linear-gradient(100deg, #1d6a51 0%, #43d8a4 40%, #d8fff2 50%, #43d8a4 60%, #1d6a51 100%);
+    background-size: auto, auto, 240% 100%; animation: flowx 6s linear infinite;
+  }
+  /* ——— 9. контур ——— */
+  .v-neon .logo__fill, .stage[data-variant="neon"] .logo__fill {
+    background: #0e1613; box-shadow: none;
+  }
+  .v-neon .logo__fill, .stage[data-variant="neon"] .logo__fill {
+    background: #16211d; box-shadow: none;
+  }
+  .v-neon .logo__extra, .stage[data-variant="neon"] .logo__extra {
+    background: linear-gradient(90deg, transparent 40%, rgba(25,196,143,.5) 46%, #d7fff1 50%,
+      rgba(25,196,143,.5) 54%, transparent 60%);
+    background-size: 300% 100%; animation: flowx 4.5s linear infinite;
+    filter: drop-shadow(0 0 8px rgba(25,196,143,.9)); mix-blend-mode: screen;
+  }
+  /* ——— 10. термальный ——— */
+  .v-thermal .logo__fill, .stage[data-variant="thermal"] .logo__fill {
+    background: linear-gradient(100deg, #10243a 0%, #15546b 18%, #1a9e86 36%, #5fe59f 48%, #d8ff8a 56%, #1a9e86 72%, #10243a 100%);
+    background-size: 260% 100%; animation: flowx 8.5s linear infinite;
+  }
+
+  @keyframes flowx { from { background-position: 0% 50%, 0 0, 0 0; } to { background-position: 200% 50%, 0 0, 0 0; } }
+  @keyframes shiftx { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(.35%); } }
+  @keyframes iris { 0% { background-size: 100% 60%; opacity: 0; }
+    35% { opacity: 1; } 100% { background-size: 100% 2600%; opacity: 0; } }
+
+  @media (prefers-reduced-motion: reduce) {
+    .logo__fill, .logo__extra { animation: none !important; }
+  }
+</style>
+
+<script>
+  const stage = document.querySelector('.stage');
+  const name = document.querySelector('[data-stage-name]');
+  for (const b of document.querySelectorAll('[data-pick]')) {
+    b.addEventListener('click', () => {
+      stage?.setAttribute('data-variant', b.getAttribute('data-pick'));
+      if (name) name.textContent = b.getAttribute('data-name');
+      for (const o of document.querySelectorAll('[data-pick]')) o.setAttribute('aria-pressed', String(o === b));
+      stage?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  }
+</script>
