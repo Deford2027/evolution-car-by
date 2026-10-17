@@ -26,6 +26,7 @@ const paths = [
   '/catalog/xiaomi/su7-ultra/konfigurator/',
   '/catalog/xiaomi/n70/konfigurator/',
   '/catalog/xiaomi/n90/konfigurator/',
+  '/catalog/avatr/12/konfigurator/',
   '/catalog/xiaomi/yu7/konfigurator/',
   '/catalog/lixiang/i8/konfigurator/',
   '/catalog/lixiang/i9/konfigurator/',
