@@ -1,0 +1,263 @@
+---
+// Десять сцен «хамелеон и логотип»: зверь нарисован вектором (маска
+// cham-solid.svg / cham-line.svg), логотип – маска из логотипа сайта.
+// Каждая сцена – свой сценарий появления и входа в логотип.
+import '../styles/theme-v1.css';
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const scenes = [
+  { id: 'walk',    name: 'Подход',      note: 'приходит слева и растворяется в буквах' },
+  { id: 'glitch',  name: 'Глитч',       note: 'дёргается слоями и впрыгивает в логотип' },
+  { id: 'scales',  name: 'Чешуя',       note: 'рассыпается ромбами, они пролетают по тексту' },
+  { id: 'wire',    name: 'Каркас',      note: 'техно-сетка: линии разворачиваются в логотип' },
+  { id: 'mimicry', name: 'Мимикрия',    note: 'проявляется из фона и перекрашивает буквы' },
+  { id: 'tail',    name: 'Хвост',       note: 'абстракция: спираль уходит под логотип' },
+  { id: 'scan',    name: 'Сканер',      note: 'луч читает зверя и уходит по буквам' },
+  { id: 'dust',    name: 'Частицы',     note: 'собирается из точек и улетает в текст' },
+  { id: 'shadow',  name: 'Тень',        note: 'идёт за логотипом, виден сквозь буквы' },
+  { id: 'sit',     name: 'Сидит',       note: 'живёт на логотипе, хвост держит букву' },
+];
+---
+
+<BaseLayout theme="v1" title="Хамелеон и логотип | Evolution Car" description="Десять сцен появления хамелеона" noindex>
+  <div class="lab">
+    <header class="lab__bar">
+      <span class="lab__kicker">[ хамелеон и логотип ]</span>
+      <span class="lab__hint">наведите — сцена пойдёт быстрее</span>
+    </header>
+
+    <ul class="scenes">
+      {scenes.map((s) => (
+        <li class={`scene s-${s.id}`}>
+          <div class="stage">
+            <span class="cham"><i></i><i class="cham__b"></i><i class="cham__c"></i></span>
+            <span class="mark"><i></i><i class="mark__b"></i></span>
+            <span class="dust" aria-hidden="true"></span>
+          </div>
+          <div class="meta">
+            <span class="meta__name">{s.name}</span>
+            <span class="meta__note">{s.note}</span>
+          </div>
+        </li>
+      ))}
+    </ul>
+  </div>
+</BaseLayout>
+
+<style is:global>
+  .lab { background: #05080a; color: #e8efeb; min-height: 100vh; padding-bottom: 4rem; }
+  .lab__bar { display: flex; flex-wrap: wrap; gap: .5rem 1.5rem; justify-content: space-between;
+    padding: 1rem clamp(1rem, 3vw, 2.5rem); border-bottom: 1px solid rgba(255,255,255,.07); }
+  .lab__kicker { font-size: .75rem; letter-spacing: .16em; text-transform: uppercase; color: #5fd3a8; }
+  .lab__hint { font-size: .75rem; color: #6a7470; }
+
+  .scenes { list-style: none; margin: 0; padding: clamp(1rem, 3vw, 2rem);
+    display: grid; gap: 1rem; grid-template-columns: 1fr; }
+  @media (min-width: 1000px) { .scenes { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.25rem; } }
+
+  .scene { background: #0a0e0d; border: 1px solid rgba(255,255,255,.07); border-radius: 16px; overflow: hidden; }
+  .scene:hover .stage * { animation-duration: 4s !important; }
+  .meta { display: flex; flex-wrap: wrap; gap: .25rem .75rem; align-items: baseline;
+    padding: .85rem 1.1rem 1rem; border-top: 1px solid rgba(255,255,255,.05); }
+  .meta__name { font-size: .9375rem; }
+  .meta__note { font-size: .75rem; color: #78837f; }
+
+  /* сцена: логотип по центру, зверь летает вокруг */
+  .stage { position: relative; height: clamp(200px, 25vw, 270px); display: grid; place-items: center;
+    background: radial-gradient(90% 120% at 50% 40%, #0e1413 0%, #06090a 72%); overflow: hidden; }
+
+  .mark { position: relative; display: block; width: min(78%, 30rem); aspect-ratio: 939/48; }
+  .mark i {
+    position: absolute; inset: 0;
+    -webkit-mask: url('/img/logo-evolution-car.png') no-repeat center / 100% 100%;
+    mask: url('/img/logo-evolution-car.png') no-repeat center / 100% 100%;
+    background: #cfe0d9;
+  }
+  .cham { position: absolute; display: block; width: 34%; aspect-ratio: 300/180; left: 2%; top: 58%;
+    translate: 0 -50%; }
+  .cham i {
+    position: absolute; inset: 0;
+    -webkit-mask: url('/img/cham-solid.svg') no-repeat center / contain;
+    mask: url('/img/cham-solid.svg') no-repeat center / contain;
+    background: #2fbf8d;
+  }
+  .cham__b, .cham__c { opacity: 0; }
+
+  /* мягкая металлическая заливка: три стопа, без белых вспышек */
+  .metal { background: linear-gradient(100deg, #15604a 0%, #3fc295 50%, #15604a 100%);
+    background-size: 220% 100%; animation: slide 14s linear infinite; }
+  @keyframes slide { from { background-position: 0 50%; } to { background-position: 200% 50%; } }
+
+  /* ——— 1. подход ——— */
+  .s-walk .cham i { background: linear-gradient(100deg, #14563f 0%, #41cf9c 50%, #14563f 100%);
+    background-size: 220% 100%; animation: slide 16s linear infinite; }
+  .s-walk .cham { animation: walk 8s cubic-bezier(.4,0,.5,1) infinite; }
+  .s-walk .mark i { animation: tint 8s ease-in-out infinite; }
+  @keyframes walk {
+    0%   { left: -34%; top: 72%; opacity: 0; scale: 1; }
+    10%  { opacity: 1; }
+    55%  { left: 26%; top: 70%; opacity: 1; scale: .9; }
+    74%  { left: 38%; top: 46%; opacity: .85; scale: .55; }
+    86%  { left: 44%; top: 42%; opacity: 0; scale: .3; }
+    100% { left: -34%; top: 72%; opacity: 0; scale: 1; }
+  }
+  @keyframes tint {
+    0%, 55% { background: #cfe0d9; }
+    72%     { background: #41cf9c; }
+    100%    { background: #cfe0d9; }
+  }
+
+  /* ——— 2. глитч ——— */
+  .s-glitch .cham i { background: #d7efe6; }
+  .s-glitch .cham .cham__b { opacity: .9; background: #19c48f; mix-blend-mode: screen; animation: gshift 2.6s steps(2, end) infinite; }
+  .s-glitch .cham .cham__c { opacity: .7; background: #ff4d6d; mix-blend-mode: screen; animation: gshift 2.6s steps(2, end) infinite reverse; }
+  .s-glitch .cham { animation: gjump 7s steps(1, end) infinite; }
+  .s-glitch .mark i { animation: gmark 7s steps(1, end) infinite; }
+  @keyframes gshift { 0%,100% { translate: 0 0; } 25% { translate: -3% 1%; } 50% { translate: 2% -1%; } 75% { translate: -1% 2%; } }
+  @keyframes gjump {
+    0%   { left: 3%; top: 70%; opacity: 1; scale: 1; }
+    56%  { left: 3%; top: 70%; opacity: 1; scale: 1; }
+    60%  { left: 16%; top: 62%; opacity: .7; scale: .9; }
+    64%  { left: 30%; top: 50%; opacity: .9; scale: .7; }
+    68%  { left: 40%; top: 44%; opacity: 0; scale: .4; }
+    96%  { left: 3%; top: 70%; opacity: 0; scale: 1; }
+    100% { left: 3%; top: 70%; opacity: 1; scale: 1; }
+  }
+  @keyframes gmark {
+    0%, 50%  { background: #cfe0d9; clip-path: none; translate: 0 0; }
+    53%      { background: #19c48f; translate: -1.2% 0; }
+    56%      { background: #ff4d6d; translate: 1.2% 0; }
+    59%      { background: #d7efe6; translate: 0 0; }
+    62%      { background: #19c48f; translate: .6% 0; }
+    66%, 100%{ background: #cfe0d9; translate: 0 0; }
+  }
+
+  /* ——— 3. чешуя ——— */
+  .s-scales .cham i {
+    background:
+      repeating-linear-gradient(60deg, rgba(0,0,0,.5) 0 2px, transparent 2px 6px),
+      repeating-linear-gradient(-60deg, rgba(0,0,0,.5) 0 2px, transparent 2px 6px),
+      linear-gradient(100deg, #2b8e6d 0%, #5fe0b4 50%, #2b8e6d 100%);
+    background-size: auto, auto, 220% 100%; animation: slide 13s linear infinite;
+  }
+  .s-scales .cham { animation: fade-left 8s ease-in-out infinite; }
+  .s-scales .mark i {
+    background:
+      repeating-linear-gradient(60deg, rgba(0,0,0,.35) 0 2px, transparent 2px 6px),
+      linear-gradient(100deg, #cfe0d9 0%, #46cfa0 50%, #cfe0d9 100%);
+    background-size: auto, 240% 100%; animation: slide 10s linear infinite;
+  }
+  @keyframes fade-left {
+    0%  { left: 1%; top: 72%; opacity: 0; scale: 1; }
+    12% { opacity: 1; }
+    58% { left: 20%; top: 70%; opacity: 1; scale: .95; }
+    80% { left: 34%; top: 46%; opacity: .7; scale: .6; }
+    92% { left: 40%; top: 42%; opacity: 0; scale: .35; }
+    100%{ left: 1%; top: 72%; opacity: 0; scale: 1; }
+  }
+
+  /* ——— 4. каркас ——— */
+  .s-wire .cham i {
+    -webkit-mask-image: url('/img/cham-line.svg'); mask-image: url('/img/cham-line.svg');
+    background: linear-gradient(100deg, #37a883 0%, #8af2d0 50%, #37a883 100%);
+    background-size: 220% 100%; animation: slide 9s linear infinite;
+  }
+  .s-wire .cham { animation: fade-left 8s ease-in-out infinite; }
+  .s-wire .mark i {
+    background:
+      repeating-linear-gradient(90deg, rgba(0,0,0,.55) 0 1px, transparent 1px 5px),
+      linear-gradient(100deg, #1c7a5e 0%, #9ff0d4 50%, #1c7a5e 100%);
+    background-size: auto, 220% 100%; animation: slide 11s linear infinite;
+  }
+
+  /* ——— 5. мимикрия ——— */
+  .s-mimicry .cham i { background: #2a3733; animation: mimic 7s ease-in-out infinite; }
+  .s-mimicry .cham { left: 5%; width: 36%; }
+  .s-mimicry .mark i { background: linear-gradient(100deg, #cfe0d9 0%, #cfe0d9 30%, #3fc295 50%, #cfe0d9 70%, #cfe0d9 100%);
+    background-size: 260% 100%; animation: slide 12s linear infinite; }
+  @keyframes mimic {
+    0%, 100% { background: #212b28; }
+    45%      { background: #3fc295; }
+    70%      { background: #212b28; }
+  }
+
+  /* ——— 6. хвост ——— */
+  .s-tail .cham { width: 40%; left: 4%; animation: tail-in 8s ease-in-out infinite; }
+  .s-tail .cham i { -webkit-mask-image: url('/img/cham-abstract.svg'); mask-image: url('/img/cham-abstract.svg'); }
+  .s-tail .cham i { background: linear-gradient(100deg, #15604a 0%, #45cfa0 50%, #15604a 100%);
+    background-size: 220% 100%; animation: slide 15s linear infinite; }
+  .s-tail .mark i { background: #cfe0d9; }
+  @keyframes tail-in {
+    0%   { rotate: -20deg; opacity: 0; translate: 0 -50%; }
+    12%  { opacity: 1; }
+    60%  { rotate: 6deg; translate: 8% -50%; opacity: 1; }
+    86%  { rotate: 16deg; translate: 18% -46%; opacity: 0; }
+    100% { rotate: -20deg; opacity: 0; }
+  }
+
+  /* ——— 7. сканер ——— */
+  .s-scan .cham i { background: #16413a; }
+  .s-scan .cham .cham__b { opacity: 1;
+    background: linear-gradient(90deg, transparent 44%, #6ff2c6 50%, transparent 56%);
+    background-size: 260% 100%; animation: slide 4.5s linear infinite; mix-blend-mode: screen; }
+  .s-scan .mark i { background: #26332f; }
+  .s-scan .mark .mark__b { position: absolute; inset: 0;
+    -webkit-mask: url('/img/logo-evolution-car.png') no-repeat center / 100% 100%;
+    mask: url('/img/logo-evolution-car.png') no-repeat center / 100% 100%;
+    background: linear-gradient(90deg, transparent 44%, #9ff6d8 50%, transparent 56%);
+    background-size: 300% 100%; animation: slide 6s linear infinite 1.2s; mix-blend-mode: screen; }
+
+  /* ——— 8. частицы ——— */
+  .s-dust .cham i {
+    background:
+      radial-gradient(circle at 50% 50%, #5fe3b6 0 1.1px, transparent 1.4px) 0 0 / 5px 5px,
+      linear-gradient(100deg, #14563f 0%, #2fa47e 50%, #14563f 100%);
+    background-size: 5px 5px, 220% 100%; animation: slide 12s linear infinite;
+  }
+  .s-dust .cham { animation: dust 8s ease-in-out infinite; }
+  .s-dust .mark i {
+    background: radial-gradient(circle at 50% 50%, #cfe0d9 0 1.1px, transparent 1.4px) 0 0 / 4px 4px, #1d2724;
+    animation: densify 8s ease-in-out infinite;
+  }
+  @keyframes dust {
+    0%   { left: 1%; top: 72%; opacity: 0; filter: blur(8px); scale: 1; }
+    14%  { opacity: 1; filter: blur(0); }
+    60%  { left: 22%; top: 70%; opacity: 1; filter: blur(0); scale: .95; }
+    82%  { left: 36%; top: 46%; opacity: .5; filter: blur(5px); scale: .55; }
+    94%  { left: 42%; top: 42%; opacity: 0; filter: blur(9px); scale: .3; }
+    100% { left: 1%; top: 72%; opacity: 0; filter: blur(9px); scale: 1; }
+  }
+  @keyframes densify {
+    0%, 55% { background-size: 4px 4px, auto; }
+    80%     { background-size: 2px 2px, auto; }
+    100%    { background-size: 4px 4px, auto; }
+  }
+
+  /* ——— 9. тень ——— */
+  .s-shadow .cham { width: 46%; left: 10%; z-index: 0; }
+  .s-shadow .cham i { background: #0f3a2d; animation: behind 12s ease-in-out infinite; }
+  .s-shadow .mark { z-index: 1; }
+  .s-shadow .mark i { background: #0b100e; box-shadow: none; }
+  .s-shadow .mark .mark__b { position: absolute; inset: 0;
+    -webkit-mask: url('/img/logo-evolution-car.png') no-repeat center / 100% 100%;
+    mask: url('/img/logo-evolution-car.png') no-repeat center / 100% 100%;
+    background: linear-gradient(100deg, #1a5a46 0%, #46cfa0 50%, #1a5a46 100%);
+    background-size: 220% 100%; animation: slide 13s linear infinite; opacity: .95; }
+  @keyframes behind {
+    0%   { left: -6%; opacity: .25; }
+    50%  { left: 46%; opacity: .55; }
+    100% { left: -6%; opacity: .25; }
+  }
+
+  /* ——— 10. сидит ——— */
+  .s-sit .cham { width: 24%; left: 60%; top: 26%; animation: breathe 6s ease-in-out infinite; }
+  .s-sit .cham i { background: linear-gradient(100deg, #17604a 0%, #46cfa0 50%, #17604a 100%);
+    background-size: 220% 100%; animation: slide 14s linear infinite; }
+  .s-sit .mark i { background: linear-gradient(100deg, #cfe0d9 0%, #dcebe5 50%, #cfe0d9 100%); }
+  @keyframes breathe {
+    0%, 100% { translate: 0 -50%; scale: 1; }
+    50%      { translate: 0 -52%; scale: 1.03; }
+  }
+
+  @media (prefers-reduced-motion: reduce) { .stage * { animation: none !important; } }
+</style>
