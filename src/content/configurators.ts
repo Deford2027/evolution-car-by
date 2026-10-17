@@ -71,6 +71,14 @@ export const configurators: ConfiguratorCard[] = [
     summary: 'Электрический седан: версии SU7, Pro и Max, до 902 км хода и до 690 л. с.',
   },
   {
+    slug: 'xiaomi-su7-ultra', brand: 'Xiaomi', model: 'SU7 Ultra',
+    href: '/catalog/xiaomi/su7-ultra/konfigurator/',
+    cover: '/img/xiaomi-su7-ultra/render/carbon--lightning-yellow--forged-neodymium--front.webp',
+    powertrain: 'Электромобиль', priceFromCny: 529900,
+    options: '5 цветов, 4 варианта дисков, карбон-пакет, 3 салона',
+    summary: 'Трековый флагман: 1548 л. с., разгон до сотни за 2 секунды, карбон-керамика.',
+  },
+  {
     slug: 'xiaomi-yu7', brand: 'Xiaomi', model: 'YU7',
     href: '/catalog/xiaomi/yu7/konfigurator/',
     cover: '/img/xiaomi-yu7/render/titanium--19-diamond--front.webp',
