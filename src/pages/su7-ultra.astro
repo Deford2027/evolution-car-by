@@ -1,0 +1,310 @@
+---
+// Кинематографичная страница Xiaomi SU7 Ultra: вьюпорт зафиксирован,
+// один жест прокрутки = ровно один переход между сценами.
+// Переходы – настоящий облёт машины, снятый покадрово в 3D-конфигураторе
+// Xiaomi (изумрудный «попугай»), кадры собраны в mp4.
+import '../styles/theme-v1.css';
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const scenes = [
+  {
+    id: 's1', poster: '/media/su7-ultra/s1.webp',
+    kicker: 'Xiaomi SU7 Ultra', title: 'Три мотора.<br>Полторы тысячи сил.',
+    lead: 'Серийный электроседан, собранный вокруг одного принципа – ехать быстрее, чем выглядит.',
+    facts: [['1548', 'л. с.'], ['2,1', 'с до 100'], ['350', 'км/ч']],
+  },
+  {
+    id: 's2', poster: '/media/su7-ultra/s2.webp',
+    kicker: 'Профиль', title: 'Длинный капот,<br>короткая корма',
+    lead: 'Посадка ниже, колея шире, кузов вылизан до коэффициента, который обычно пишут в отчётах о гонках.',
+    facts: [['1770', 'Н·м'], ['897', 'В платформа'], ['21″', 'кованые диски']],
+  },
+  {
+    id: 's3', poster: '/media/su7-ultra/s3.webp',
+    kicker: 'Корма', title: 'Прижим,<br>а не украшение',
+    lead: 'Диффузор и антикрыло работают на скорости, а не на фотографии. Карбоновый пакет добавляет и то и другое.',
+    facts: [['630', 'км запас хода'], ['10', 'мин до 80%'], ['CLTC', 'цикл']],
+  },
+  {
+    id: 's4', poster: '/media/su7-ultra/s4.webp',
+    kicker: 'Три четверти', title: 'Останавливается<br>так же серьёзно',
+    lead: 'Карбон-керамические диски и суппорты Akebono: с сотни до нуля – от 30,8 метра.',
+    facts: [['30,8', 'м со 100 км/ч'], ['Akebono', 'суппорты'], ['карбон', 'керамика']],
+  },
+  {
+    id: 's5', poster: '/media/su7-ultra/s5.webp',
+    kicker: 'Деталь', title: 'Привезём<br>именно такую',
+    lead: 'Цвет «изумрудный попугай», кованые диски, карбоновый пакет – соберите свою в конфигураторе, а расчёт под ключ в Минске пришлёт менеджер.',
+    facts: [['529 900 ¥', 'цена в Китае'], ['4–7', 'недель'], ['под ключ', 'расчёт']],
+    cta: { label: 'Собрать свою SU7 Ultra', href: '/catalog/xiaomi/su7-ultra/konfigurator/' },
+  },
+];
+
+const clips = ['/media/su7-ultra/t1.mp4', '/media/su7-ultra/t2.mp4', '/media/su7-ultra/t3.mp4', '/media/su7-ultra/t4.mp4'];
+---
+
+<BaseLayout theme="v1" title="Xiaomi SU7 Ultra | Evolution Car" description="Кинематографичная страница Xiaomi SU7 Ultra" noindex>
+  <div class="kino" data-scene="0">
+    <div class="kino__stage">
+      {scenes.map((s, i) => (
+        <img class="kino__poster" data-poster={i} src={s.poster} alt="" width="1600" height="900"
+             loading={i === 0 ? 'eager' : 'lazy'} decoding="async" />
+      ))}
+      {clips.map((src, i) => (
+        <video class="kino__clip" data-clip={i} src={src} muted playsinline preload="auto" width="1600" height="900"></video>
+      ))}
+      <span class="kino__vignette" aria-hidden="true"></span>
+    </div>
+
+    {scenes.map((s, i) => (
+      <section class="kino__panel" data-panel={i} aria-hidden={i === 0 ? 'false' : 'true'}>
+        <p class="kino__kicker"><span>{s.kicker}</span></p>
+        <h2 class="kino__title"><span set:html={s.title} /></h2>
+        <p class="kino__lead"><span>{s.lead}</span></p>
+        <ul class="kino__facts">
+          {s.facts.map((f) => (
+            <li><b>{f[0]}</b><i>{f[1]}</i></li>
+          ))}
+        </ul>
+        {s.cta && <a class="kino__cta" href={s.cta.href}><span>{s.cta.label}</span></a>}
+      </section>
+    ))}
+
+    <nav class="kino__dots" aria-label="Сцены">
+      {scenes.map((s, i) => (
+        <button type="button" data-dot={i} aria-label={`Сцена ${i + 1}`} aria-current={i === 0 ? 'true' : 'false'}></button>
+      ))}
+    </nav>
+    <p class="kino__hint" data-hint>Прокрутите — один жест, одна сцена</p>
+  </div>
+</BaseLayout>
+
+<style is:global>
+  html, body { overflow: hidden; height: 100%; overscroll-behavior: none; }
+  .kino { position: fixed; inset: 0; background: #05070a; color: #eef3f1; overflow: hidden; }
+  .kino__stage { position: absolute; inset: 0; }
+  .kino__poster, .kino__clip {
+    position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
+    opacity: 0; transition: opacity .35s ease;
+  }
+  .kino__poster.is-on, .kino__clip.is-on { opacity: 1; }
+  .kino__vignette {
+    position: absolute; inset: 0; pointer-events: none;
+    background: radial-gradient(120% 80% at 50% 45%, transparent 40%, rgba(0,0,0,.55) 100%),
+                linear-gradient(90deg, rgba(0,0,0,.72) 0%, rgba(0,0,0,.15) 46%, transparent 70%);
+  }
+
+  .kino__panel {
+    position: absolute; left: clamp(1.25rem, 5vw, 6rem); top: 50%; translate: 0 -50%;
+    max-width: min(90vw, 34rem); display: grid; gap: .85rem;
+    pointer-events: none; opacity: 0;
+  }
+  .kino__panel.is-on { opacity: 1; pointer-events: auto; }
+  .kino__panel > * > span, .kino__panel > ul > li, .kino__panel > a > span {
+    display: inline-block; opacity: 0; translate: 0 18px; filter: blur(6px);
+  }
+  .kino__panel.is-on > * > span,
+  .kino__panel.is-on > ul > li,
+  .kino__panel.is-on > a > span {
+    opacity: 1; translate: 0 0; filter: blur(0);
+    transition: opacity .5s ease, translate .5s cubic-bezier(.2,.7,.3,1), filter .5s ease;
+  }
+  .kino__panel.is-on > p.kino__kicker > span { transition-delay: .02s; }
+  .kino__panel.is-on > h2 > span { transition-delay: .10s; }
+  .kino__panel.is-on > p.kino__lead > span { transition-delay: .18s; }
+  .kino__panel.is-on > ul > li:nth-child(1) { transition-delay: .26s; }
+  .kino__panel.is-on > ul > li:nth-child(2) { transition-delay: .32s; }
+  .kino__panel.is-on > ul > li:nth-child(3) { transition-delay: .38s; }
+  .kino__panel.is-on > a > span { transition-delay: .46s; }
+  .kino__panel.is-leaving > * > span,
+  .kino__panel.is-leaving > ul > li,
+  .kino__panel.is-leaving > a > span {
+    opacity: 0; translate: 0 -10px; filter: blur(5px);
+    transition: opacity .35s ease, translate .35s ease, filter .35s ease;
+  }
+
+  .kino__kicker { margin: 0; font-size: .75rem; letter-spacing: .22em; text-transform: uppercase; color: #5fd3a8; }
+  .kino__title { margin: 0; font-family: var(--font-display); font-size: clamp(1.9rem, 1.2rem + 3.4vw, 4.2rem); line-height: 1.02; }
+  .kino__lead { margin: 0; color: #b6c2bd; font-size: clamp(.9375rem, .9rem + .2vw, 1.0625rem); line-height: 1.55; max-width: 44ch; }
+  .kino__facts { display: flex; flex-wrap: wrap; gap: 1.5rem; list-style: none; margin: .5rem 0 0; padding: 0; }
+  .kino__facts li { display: flex; flex-direction: column; gap: .2rem; align-items: flex-start; }
+  .kino__facts b { display: block; font-family: var(--font-display); font-size: clamp(1.1rem, 1rem + .9vw, 1.7rem); font-weight: 600; line-height: 1.1; }
+  .kino__facts i { display: block; font-style: normal; font-size: .75rem; letter-spacing: .06em; color: #8a9793; text-transform: uppercase; }
+  .kino__cta {
+    justify-self: start; margin-top: .75rem; padding: .95rem 1.8rem; border-radius: 14px;
+    background: linear-gradient(100deg, #15604a 0%, #41cf9c 50%, #15604a 100%);
+    background-size: 220% 100%; animation: kinoflow 13s linear infinite;
+    color: #04130e; font-weight: 600; font-size: .9375rem;
+  }
+  @keyframes kinoflow { from { background-position: 0 50%; } to { background-position: 200% 50%; } }
+
+  .kino__dots { position: absolute; right: clamp(1rem, 2.5vw, 2.5rem); top: 50%; translate: 0 -50%;
+    display: grid; gap: .65rem; }
+  .kino__dots button {
+    width: 10px; height: 10px; border-radius: 50%; border: 1px solid rgba(255,255,255,.45);
+    background: transparent; cursor: pointer; padding: 0; transition: background .25s, transform .25s;
+  }
+  .kino__dots button[aria-current="true"] { background: #41cf9c; border-color: #41cf9c; transform: scale(1.25); }
+
+  .kino__hint { position: absolute; left: 50%; bottom: 1.5rem; translate: -50% 0; margin: 0;
+    font-size: .75rem; letter-spacing: .14em; text-transform: uppercase; color: #76827e;
+    transition: opacity .4s ease; }
+  .kino__hint.is-off { opacity: 0; }
+
+  @media (max-width: 760px) {
+    .kino__panel { left: 1.1rem; right: 1.1rem; top: auto; bottom: 2.2rem; translate: 0 0; max-width: none; gap: .6rem; }
+    .kino__vignette { background: linear-gradient(0deg, rgba(0,0,0,.9) 12%, rgba(0,0,0,.25) 58%, transparent 82%); }
+    .kino__dots { right: .75rem; }
+    .kino__poster, .kino__clip { object-position: center 38%; }
+    .kino__hint { display: none; }
+    .kino__facts { gap: 1.1rem; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .kino__poster, .kino__clip, .kino__panel > * > span { transition: none !important; }
+    .kino__cta { animation: none; }
+  }
+</style>
+
+<script>
+  const root = document.querySelector('.kino');
+  if (root) {
+    const posters = [...document.querySelectorAll('[data-poster]')];
+    const clips = [...document.querySelectorAll('[data-clip]')];
+    const panels = [...document.querySelectorAll('[data-panel]')];
+    const dots = [...document.querySelectorAll('[data-dot]')];
+    const hint = document.querySelector('[data-hint]');
+    const last = posters.length - 1;
+    const RATE = 1.5;
+    let cur = 0, busy = false, raf = 0;
+
+    const show = (el) => el && el.classList.add('is-on');
+    const hide = (el) => el && el.classList.remove('is-on');
+
+    function settle(i) {
+      cur = i;
+      posters.forEach((p, k) => p.classList.toggle('is-on', k === i));
+      clips.forEach(hide);
+      panels.forEach((p, k) => {
+        p.classList.toggle('is-on', k === i);
+        p.classList.remove('is-leaving');
+        p.setAttribute('aria-hidden', k === i ? 'false' : 'true');
+      });
+      dots.forEach((d, k) => d.setAttribute('aria-current', k === i ? 'true' : 'false'));
+      busy = false;
+    }
+
+    function leaving(i) {
+      const p = panels[i];
+      if (!p) return;
+      p.classList.remove('is-on');
+      p.classList.add('is-leaving');
+      p.setAttribute('aria-hidden', 'true');
+    }
+
+    // Переход: вперёд – играем клип, назад – отматываем его же.
+    function go(next) {
+      if (busy || next < 0 || next > last || next === cur) return;
+      const forward = next > cur;
+      const clip = clips[forward ? cur : next];
+      if (!clip) { settle(next); return; }
+      busy = true;
+      if (hint) hint.classList.add('is-off');
+      leaving(cur);
+      cancelAnimationFrame(raf);
+
+      const finish = () => { cancelAnimationFrame(raf); clip.onended = null; settle(next); };
+      const guard = setTimeout(finish, 4000);          // клип не доехал – доводим состояние сами
+      const done = () => { clearTimeout(guard); finish(); };
+
+      const start = () => {
+        posters.forEach(hide);
+        show(clip);
+        if (forward) {
+          clip.playbackRate = RATE;
+          clip.currentTime = 0;
+          clip.onended = done;
+          clip.play().catch(done);
+        } else {
+          clip.pause();
+          const dur = clip.duration || 1;
+          clip.currentTime = dur;
+          const step = () => {
+            clip.currentTime = Math.max(0, clip.currentTime - (1 / 30) * RATE);
+            if (clip.currentTime <= 0.02) { done(); return; }
+            raf = requestAnimationFrame(step);
+          };
+          raf = requestAnimationFrame(step);
+        }
+      };
+
+      if (clip.readyState >= 2) start();
+      else {
+        const onReady = () => { clip.removeEventListener('loadeddata', onReady); start(); };
+        clip.addEventListener('loadeddata', onReady);
+        setTimeout(() => { if (busy && clip.readyState < 2) finish(); }, 2500);
+      }
+    }
+
+    // Один жест = один переход: ждём паузы в инерции колеса.
+    let wheelLock = false, wheelTimer = 0;
+    addEventListener('wheel', (e) => {
+      e.preventDefault();
+      if (busy) return;
+      if (!wheelLock && Math.abs(e.deltaY) > 4) {
+        wheelLock = true;
+        go(cur + (e.deltaY > 0 ? 1 : -1));
+      }
+      clearTimeout(wheelTimer);
+      wheelTimer = setTimeout(() => { wheelLock = false; }, 220);
+    }, { passive: false });
+
+    addEventListener('keydown', (e) => {
+      const map = { ArrowDown: 1, PageDown: 1, ' ': 1, ArrowRight: 1, ArrowUp: -1, PageUp: -1, ArrowLeft: -1 };
+      if (e.key in map) { e.preventDefault(); go(cur + map[e.key]); }
+      if (e.key === 'Home') go(0);
+      if (e.key === 'End') go(last);
+    });
+
+    let touchY = null;
+    addEventListener('touchstart', (e) => { touchY = e.touches[0].clientY; }, { passive: true });
+    addEventListener('touchmove', (e) => { e.preventDefault(); }, { passive: false });
+    addEventListener('touchend', (e) => {
+      if (touchY === null) return;
+      const dy = touchY - (e.changedTouches[0]?.clientY ?? touchY);
+      if (Math.abs(dy) > 40) go(cur + (dy > 0 ? 1 : -1));
+      touchY = null;
+    });
+
+    dots.forEach((d, i) => d.addEventListener('click', () => {
+      // перепрыгивать через сцену нельзя – идём на соседнюю в нужную сторону
+      if (i === cur || busy) return;
+      go(cur + (i > cur ? 1 : -1));
+    }));
+
+    settle(0);
+
+    // Самопроверка механики: /su7-ultra/?test=1
+    if (new URLSearchParams(location.search).has('test')) {
+      const log = [];
+      const wait = (ms) => new Promise((r) => setTimeout(r, ms));
+      const idle = async () => { for (let i = 0; i < 80 && busy; i++) await wait(100); };
+      (async () => {
+        await wait(400);
+        for (let i = 0; i < last; i++) { go(cur + 1); await idle(); log.push(`вперёд ${i} → ${cur}`); }
+        log.push(cur === last ? 'дошли до последней сцены: да' : 'дошли до последней сцены: НЕТ');
+        go(cur + 1); await idle();
+        log.push(cur === last ? 'за последнюю не ушли: да' : 'за последнюю не ушли: НЕТ');
+        for (let i = last; i > 0; i--) { go(cur - 1); await idle(); }
+        log.push(cur === 0 ? 'вернулись на первую: да' : 'вернулись на первую: НЕТ');
+        go(cur - 1); await idle();
+        log.push(cur === 0 ? 'за первую не ушли: да' : 'за первую не ушли: НЕТ');
+        go(1); go(1); go(1); await idle();
+        log.push(cur === 1 ? 'тройной жест = один переход: да' : `тройной жест = один переход: НЕТ (${cur})`);
+        const panelOn = panels[cur].classList.contains('is-on');
+        log.push(panelOn ? 'текст сцены показан: да' : 'текст сцены показан: НЕТ');
+        window.__kinoTest = log;
+        console.log(log.join('\n'));
+      })();
+    }
+  }
+</script>
