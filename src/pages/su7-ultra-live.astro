@@ -1,0 +1,289 @@
+---
+// Динамичная версия страницы SU7 Ultra: камера подъезжает, проносится по дуге
+// и упирается в колесо, которое продолжает крутиться. Кадры сняты в 3D-сцене
+// Xiaomi (настоящий наезд камеры, не увеличение картинки), склеены со смазом.
+import '../styles/theme-v1.css';
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const scenes = [
+  { id: 'p1', poster: '/media/su7-live/p1.webp', kicker: 'Xiaomi SU7 Ultra',
+    title: 'Стоит смирно<br>ровно до педали',
+    lead: 'Три мотора, 1548 сил и полный привод с векторизацией тяги. Прокрутите — она подъедет.',
+    facts: [['1548', 'л. с.'], ['2,1', 'с до 100'], ['350', 'км/ч']] },
+  { id: 'p2', poster: '/media/su7-live/p2.webp', kicker: 'Подъехала',
+    title: 'Ближе —<br>и видно характер',
+    lead: 'Карбоновый капот с воздуховодами, сплиттер, расширенные арки. Это не пакет наклеек, а аэродинамика.',
+    facts: [['1770', 'Н·м'], ['897', 'В'], ['21″', 'кованые']] },
+  { id: 'p3', poster: '/media/su7-live/p3.webp', kicker: 'Пронеслась',
+    title: 'Корма,<br>которая прижимает',
+    lead: 'Антикрыло и активный диффузор работают вместе: на 350 км/ч машину держит воздух, а не надежда.',
+    facts: [['630', 'км хода'], ['10', 'мин до 80%'], ['CLTC', 'цикл']] },
+  { id: 'p4', poster: '/media/su7-live/p4.webp', kicker: 'Сверху',
+    title: 'Пропорции<br>как у прототипа',
+    lead: 'Длинная база, сдвинутая назад кабина, покатая корма. Серийная машина, собранная по правилам гоночной.',
+    facts: [['4,0', 'м колёсная база'], ['2', 'места спереди'], ['серия', 'не концепт']] },
+  { id: 'p5', poster: '/media/su7-live/p5.webp', kicker: 'Стоп-кадр', wheel: true,
+    title: 'Колесо<br>не останавливается',
+    lead: 'Карбон-керамика и суппорты Akebono: со ста километров в час — от 30,8 метра. Соберите свою в конфигураторе.',
+    facts: [['30,8', 'м торможение'], ['529 900 ¥', 'в Китае'], ['4–7', 'недель']],
+    cta: { label: 'Собрать свою SU7 Ultra', href: '/catalog/xiaomi/su7-ultra/konfigurator/' } },
+];
+const clips = ['/media/su7-live/v1.mp4', '/media/su7-live/v2.mp4', '/media/su7-live/v3.mp4', '/media/su7-live/v4.mp4'];
+---
+
+<BaseLayout theme="v1" title="Xiaomi SU7 Ultra – в движении | Evolution Car" description="Динамичная страница Xiaomi SU7 Ultra" noindex>
+  <div class="live" data-scene="0">
+    <div class="live__stage" data-stage>
+      {scenes.map((s, i) => (
+        <div class="live__frame" data-frame={i}>
+          <img class="live__bg" src={s.poster} alt="" width="1600" height="900" loading={i === 0 ? 'eager' : 'lazy'} decoding="async" />
+          {s.wheel && <img class="live__wheel" data-wheel src="/media/su7-live/wheel.png" alt="" width="228" height="228" loading="lazy" />}
+        </div>
+      ))}
+      {clips.map((src, i) => (
+        <video class="live__clip" data-clip={i} src={src} muted playsinline preload="auto"></video>
+      ))}
+      <span class="live__flash" data-flash aria-hidden="true"></span>
+      <span class="live__vignette" aria-hidden="true"></span>
+    </div>
+
+    {scenes.map((s, i) => (
+      <section class="live__panel" data-panel={i} aria-hidden={i === 0 ? 'false' : 'true'}>
+        <p class="live__kicker"><span>{s.kicker}</span></p>
+        <h2 class="live__title"><span set:html={s.title} /></h2>
+        <p class="live__lead"><span>{s.lead}</span></p>
+        <ul class="live__facts">{s.facts.map((f) => <li><b>{f[0]}</b><i>{f[1]}</i></li>)}</ul>
+        {s.cta && <a class="live__cta" href={s.cta.href}><span>{s.cta.label}</span></a>}
+      </section>
+    ))}
+
+    <nav class="live__dots" aria-label="Сцены">
+      {scenes.map((s, i) => <button type="button" data-dot={i} aria-label={`Сцена ${i + 1}`} aria-current={i === 0 ? 'true' : 'false'}></button>)}
+    </nav>
+    <p class="live__hint" data-hint>Прокрутите — она поедет</p>
+  </div>
+</BaseLayout>
+
+<style is:global>
+  html, body { overflow: hidden; height: 100%; overscroll-behavior: none; }
+  .live { position: fixed; inset: 0; background: #04060a; color: #eef3f1; overflow: hidden; }
+
+  /* сцена живёт в кадре 16:9, который всегда накрывает экран –
+     поэтому колесо можно поставить в процентах и оно всегда совпадёт */
+  .live__stage { position: absolute; inset: 0; overflow: hidden; }
+  .live__frame, .live__clip {
+    position: absolute; left: 50%; top: 50%; translate: -50% -50%;
+    width: max(100vw, calc(100vh * 16 / 9)); height: max(100vh, calc(100vw * 9 / 16));
+    opacity: 0; transition: opacity .3s ease;
+  }
+  .live__frame.is-on, .live__clip.is-on { opacity: 1; }
+  .live__frame > img.live__bg { width: 100%; height: 100%; object-fit: fill; display: block; }
+  .live__clip { object-fit: fill; }
+  .live__wheel {
+    position: absolute; left: 48.67%; top: 61.53%; width: 17.81%; height: auto;
+    translate: -50% -50%; animation: spin 2.6s linear infinite;
+    filter: drop-shadow(0 0 1px rgba(0,0,0,.6));
+  }
+  .live.is-boost .live__wheel { animation-duration: .45s; }
+  @keyframes spin { to { rotate: 1turn; } }
+
+  .live__flash { position: absolute; inset: 0; pointer-events: none; opacity: 0;
+    background: radial-gradient(60% 50% at 50% 55%, rgba(120,255,210,.35), transparent 70%); }
+  .live.is-boost .live__flash { animation: flash .5s ease-out; }
+  @keyframes flash { 0% { opacity: .9; } 100% { opacity: 0; } }
+
+  .live__vignette { position: absolute; inset: 0; pointer-events: none;
+    background: radial-gradient(120% 80% at 50% 45%, transparent 38%, rgba(0,0,0,.6) 100%),
+                linear-gradient(90deg, rgba(0,0,0,.76) 0%, rgba(0,0,0,.16) 48%, transparent 72%); }
+
+  /* рывок камеры на «газу» */
+  .live.is-boost .live__stage { animation: shake .5s cubic-bezier(.3,.7,.4,1); }
+  @keyframes shake {
+    0% { transform: scale(1.015) translate(0, 0); }
+    25% { transform: scale(1.022) translate(-6px, 3px); }
+    50% { transform: scale(1.018) translate(5px, -3px); }
+    75% { transform: scale(1.012) translate(-3px, 2px); }
+    100% { transform: scale(1) translate(0, 0); }
+  }
+
+  .live__panel { position: absolute; left: clamp(1.25rem, 5vw, 6rem); top: 50%; translate: 0 -50%;
+    max-width: min(90vw, 33rem); display: grid; gap: .8rem; pointer-events: none; opacity: 0; }
+  .live__panel.is-on { opacity: 1; pointer-events: auto; }
+  .live__panel > * > span, .live__panel > ul > li, .live__panel > a > span {
+    display: inline-block; opacity: 0; translate: 0 20px; filter: blur(7px); }
+  .live__panel.is-on > * > span, .live__panel.is-on > ul > li, .live__panel.is-on > a > span {
+    opacity: 1; translate: 0 0; filter: blur(0);
+    transition: opacity .45s ease, translate .45s cubic-bezier(.2,.7,.3,1), filter .45s ease; }
+  .live__panel.is-on > p.live__kicker > span { transition-delay: .02s; }
+  .live__panel.is-on > h2 > span { transition-delay: .09s; }
+  .live__panel.is-on > p.live__lead > span { transition-delay: .16s; }
+  .live__panel.is-on > ul > li:nth-child(1) { transition-delay: .23s; }
+  .live__panel.is-on > ul > li:nth-child(2) { transition-delay: .28s; }
+  .live__panel.is-on > ul > li:nth-child(3) { transition-delay: .33s; }
+  .live__panel.is-on > a > span { transition-delay: .42s; }
+  .live__panel.is-leaving > * > span, .live__panel.is-leaving > ul > li, .live__panel.is-leaving > a > span {
+    opacity: 0; translate: 0 -12px; filter: blur(6px);
+    transition: opacity .3s ease, translate .3s ease, filter .3s ease; }
+
+  .live__kicker { margin: 0; font-size: .75rem; letter-spacing: .22em; text-transform: uppercase; color: #5fd3a8; }
+  .live__title { margin: 0; font-family: var(--font-display); font-size: clamp(1.9rem, 1.2rem + 3.3vw, 4rem); line-height: 1.03; }
+  .live__lead { margin: 0; color: #b6c2bd; font-size: clamp(.9375rem, .9rem + .2vw, 1.0625rem); line-height: 1.55; max-width: 44ch; }
+  .live__facts { display: flex; flex-wrap: wrap; gap: 1.4rem; list-style: none; margin: .4rem 0 0; padding: 0; }
+  .live__facts li { display: flex; flex-direction: column; gap: .2rem; align-items: flex-start; }
+  .live__facts b { display: block; font-family: var(--font-display); font-size: clamp(1.1rem, 1rem + .9vw, 1.65rem); font-weight: 600; line-height: 1.1; }
+  .live__facts i { display: block; font-style: normal; font-size: .75rem; letter-spacing: .06em; color: #8a9793; text-transform: uppercase; }
+  .live__cta { justify-self: start; margin-top: .7rem; padding: .95rem 1.8rem; border-radius: 14px;
+    background: linear-gradient(100deg, #15604a 0%, #41cf9c 50%, #15604a 100%); background-size: 220% 100%;
+    animation: liveflow 13s linear infinite; color: #04130e; font-weight: 600; font-size: .9375rem; }
+  @keyframes liveflow { from { background-position: 0 50%; } to { background-position: 200% 50%; } }
+
+  .live__dots { position: absolute; right: clamp(1rem, 2.5vw, 2.5rem); top: 50%; translate: 0 -50%; display: grid; gap: .65rem; }
+  .live__dots button { width: 10px; height: 10px; border-radius: 50%; border: 1px solid rgba(255,255,255,.45);
+    background: transparent; cursor: pointer; padding: 0; transition: background .25s, transform .25s; }
+  .live__dots button[aria-current="true"] { background: #41cf9c; border-color: #41cf9c; transform: scale(1.25); }
+
+  .live__hint { position: absolute; left: 50%; bottom: 1.4rem; translate: -50% 0; margin: 0; font-size: .75rem;
+    letter-spacing: .14em; text-transform: uppercase; color: #76827e; transition: opacity .4s ease; }
+  .live__hint.is-off { opacity: 0; }
+
+  @media (max-width: 760px) {
+    .live__panel { left: 1.1rem; right: 1.1rem; top: auto; bottom: 2.2rem; translate: 0 0; max-width: none; gap: .55rem; }
+    .live__vignette { background: linear-gradient(0deg, rgba(0,0,0,.9) 12%, rgba(0,0,0,.25) 58%, transparent 82%); }
+    .live__dots { right: .7rem; }
+    .live__hint { display: none; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .live__wheel, .live__cta { animation: none !important; }
+    .live.is-boost .live__stage { animation: none !important; }
+  }
+</style>
+
+<script>
+  const root = document.querySelector('.live');
+  if (root) {
+    const frames = [...document.querySelectorAll('[data-frame]')];
+    const clips = [...document.querySelectorAll('[data-clip]')];
+    const panels = [...document.querySelectorAll('[data-panel]')];
+    const dots = [...document.querySelectorAll('[data-dot]')];
+    const hint = document.querySelector('[data-hint]');
+    const last = frames.length - 1;
+    const RATE = 1.6;
+    let cur = 0, busy = false, raf = 0, boostT = 0;
+
+    const boost = () => {
+      root.classList.remove('is-boost');
+      void root.offsetWidth;
+      root.classList.add('is-boost');
+      clearTimeout(boostT);
+      boostT = setTimeout(() => root.classList.remove('is-boost'), 700);
+    };
+
+    function settle(i) {
+      cur = i;
+      frames.forEach((f, k) => f.classList.toggle('is-on', k === i));
+      clips.forEach((c) => c.classList.remove('is-on'));
+      panels.forEach((p, k) => {
+        p.classList.toggle('is-on', k === i);
+        p.classList.remove('is-leaving');
+        p.setAttribute('aria-hidden', k === i ? 'false' : 'true');
+      });
+      dots.forEach((d, k) => d.setAttribute('aria-current', k === i ? 'true' : 'false'));
+      busy = false;
+    }
+
+    function go(next) {
+      if (busy || next < 0 || next > last || next === cur) return;
+      const forward = next > cur;
+      const clip = clips[forward ? cur : next];
+      if (!clip) { settle(next); return; }
+      busy = true;
+      boost();
+      if (hint) hint.classList.add('is-off');
+      const p = panels[cur];
+      if (p) { p.classList.remove('is-on'); p.classList.add('is-leaving'); p.setAttribute('aria-hidden', 'true'); }
+      cancelAnimationFrame(raf);
+
+      const finish = () => { cancelAnimationFrame(raf); clip.onended = null; settle(next); };
+      const guard = setTimeout(finish, 4000);
+      const done = () => { clearTimeout(guard); finish(); };
+
+      const start = () => {
+        frames.forEach((f) => f.classList.remove('is-on'));
+        clip.classList.add('is-on');
+        if (forward) {
+          clip.playbackRate = RATE;
+          clip.currentTime = 0;
+          clip.onended = done;
+          clip.play().catch(done);
+        } else {
+          clip.pause();
+          clip.currentTime = clip.duration || 1;
+          const step = () => {
+            clip.currentTime = Math.max(0, clip.currentTime - (1 / 30) * RATE);
+            if (clip.currentTime <= 0.02) { done(); return; }
+            raf = requestAnimationFrame(step);
+          };
+          raf = requestAnimationFrame(step);
+        }
+      };
+
+      if (clip.readyState >= 2) start();
+      else {
+        const onReady = () => { clip.removeEventListener('loadeddata', onReady); start(); };
+        clip.addEventListener('loadeddata', onReady);
+        setTimeout(() => { if (busy && clip.readyState < 2) finish(); }, 2500);
+      }
+    }
+
+    let wheelLock = false, wheelTimer = 0;
+    addEventListener('wheel', (e) => {
+      e.preventDefault();
+      if (busy) return;
+      if (!wheelLock && Math.abs(e.deltaY) > 4) { wheelLock = true; go(cur + (e.deltaY > 0 ? 1 : -1)); }
+      clearTimeout(wheelTimer);
+      wheelTimer = setTimeout(() => { wheelLock = false; }, 220);
+    }, { passive: false });
+
+    addEventListener('keydown', (e) => {
+      const map = { ArrowDown: 1, PageDown: 1, ' ': 1, ArrowRight: 1, ArrowUp: -1, PageUp: -1, ArrowLeft: -1 };
+      if (e.key in map) { e.preventDefault(); go(cur + map[e.key]); }
+      if (e.key === 'Home') go(0);
+      if (e.key === 'End') go(last);
+    });
+
+    let touchY = null;
+    addEventListener('touchstart', (e) => { touchY = e.touches[0].clientY; }, { passive: true });
+    addEventListener('touchmove', (e) => { e.preventDefault(); }, { passive: false });
+    addEventListener('touchend', (e) => {
+      if (touchY === null) return;
+      const dy = touchY - (e.changedTouches[0]?.clientY ?? touchY);
+      if (Math.abs(dy) > 40) go(cur + (dy > 0 ? 1 : -1));
+      touchY = null;
+    });
+
+    dots.forEach((d, i) => d.addEventListener('click', () => { if (i !== cur && !busy) go(cur + (i > cur ? 1 : -1)); }));
+    settle(0);
+
+    if (new URLSearchParams(location.search).has('test')) {
+      const log = [];
+      const wait = (ms) => new Promise((r) => setTimeout(r, ms));
+      const idle = async () => { for (let i = 0; i < 80 && busy; i++) await wait(100); };
+      (async () => {
+        await wait(400);
+        for (let i = 0; i < last; i++) { go(cur + 1); await idle(); }
+        log.push(cur === last ? 'дошли до последней: да' : 'дошли до последней: НЕТ');
+        go(cur + 1); await idle();
+        log.push(cur === last ? 'за последнюю не ушли: да' : 'за последнюю не ушли: НЕТ');
+        log.push(document.querySelector('[data-wheel]') ? 'колесо на месте: да' : 'колесо на месте: НЕТ');
+        for (let i = last; i > 0; i--) { go(cur - 1); await idle(); }
+        log.push(cur === 0 ? 'вернулись на первую: да' : 'вернулись на первую: НЕТ');
+        go(cur - 1); await idle();
+        log.push(cur === 0 ? 'за первую не ушли: да' : 'за первую не ушли: НЕТ');
+        go(1); go(1); go(1); await idle();
+        log.push(cur === 1 ? 'тройной жест = один переход: да' : `тройной жест: НЕТ (${cur})`);
+        log.push(panels[cur].classList.contains('is-on') ? 'текст показан: да' : 'текст показан: НЕТ');
+        window.__liveTest = log; console.log(log.join('\n'));
+      })();
+    }
+  }
+</script>
