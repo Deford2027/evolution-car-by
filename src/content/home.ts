@@ -209,6 +209,7 @@ export const footer = {
   legal: [
     { label: 'Юридические данные', href: '/legal_data/' },
     { label: 'Политика конфиденциальности', href: '/policy/' },
+    { label: 'Пользовательское соглашение', href: '/terms/' },
     { label: 'Согласие на обработку персональных данных', href: '/agreement/' },
   ],
   credit: 'Разработка сайта',

@@ -13,6 +13,21 @@ export function getStaticPaths() {
 
 const { page } = Astro.props as { page: LegalPage };
 
+// Разбор текста документа: «N. Заголовок» – раздел, строки с тире подряд –
+// список, остальное – абзацы.
+type Block = { kind: 'h' | 'p'; text: string } | { kind: 'ul'; items: string[] };
+const blocks: Block[] = [];
+for (const line of (page.text ?? '').split('\n').map((l) => l.trim()).filter(Boolean)) {
+  const item = line.match(/^[—-]\s+(.*)$/);
+  const last = blocks[blocks.length - 1];
+  if (item) {
+    if (last?.kind === 'ul') last.items.push(item[1]);
+    else blocks.push({ kind: 'ul', items: [item[1]] });
+  } else {
+    blocks.push({ kind: /^\d+\.\s/.test(line) ? 'h' : 'p', text: line });
+  }
+}
+
 const crumbs = [
   { name: 'Главная', href: '/' },
   { name: page.h1, href: `/${page.slug}/` },
@@ -29,19 +44,31 @@ const crumbs = [
   <PageShell crumbs={crumbs} h1={page.h1} lead={page.intro} contacts={false}>
     <section class="section" style="padding-top:0">
       <div class="container">
-        <div class="doc">
-          {page.sections.map((item, i) => (
-            <section class="doc__part">
-              <h2 class="doc__title">{i + 1}. {item.title}</h2>
-              <p class="doc__text">{item.text}</p>
-            </section>
-          ))}
-        </div>
+        {page.text ? (
+          <div class="doc doc--full">
+            {blocks.map((block) =>
+              block.kind === 'h' ? <h2 class="doc__title">{block.text}</h2>
+              : block.kind === 'ul' ? <ul class="doc__list">{block.items.map((item) => <li>{item}</li>)}</ul>
+              : <p class="doc__text">{block.text}</p>
+            )}
+          </div>
+        ) : (
+          <>
+            <div class="doc">
+              {page.sections?.map((item, i) => (
+                <section class="doc__part">
+                  <h2 class="doc__title">{i + 1}. {item.title}</h2>
+                  <p class="doc__text">{item.text}</p>
+                </section>
+              ))}
+            </div>
 
-        <p class="doc__note">
-          Это рабочий каркас документа. Окончательную редакцию с реквизитами и формулировками
-          под законодательство Республики Беларусь предоставляет владелец сайта.
-        </p>
+            <p class="doc__note">
+              Это рабочий каркас документа. Окончательную редакцию с реквизитами и формулировками
+              под законодательство Республики Беларусь предоставляет владелец сайта.
+            </p>
+          </>
+        )}
       </div>
     </section>
   </PageShell>
@@ -58,6 +85,10 @@ const crumbs = [
     margin-bottom: .75rem;
   }
   .doc__text { color: var(--c-text-2); line-height: 1.65; }
+  .doc--full { gap: 1rem; }
+  .doc--full .doc__title { margin: 1.5rem 0 0; }
+  .doc--full .doc__title:first-child { margin-top: 0; }
+  .doc__list { display: grid; gap: .5rem; padding-left: 1.25rem; color: var(--c-text-2); line-height: 1.65; list-style: '— '; }
   .doc__note {
     margin-top: clamp(2rem, 1.2rem + 3vw, 3rem);
     padding-top: 1.5rem;
