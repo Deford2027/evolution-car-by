@@ -83,3 +83,69 @@ const columns = [faq.items.slice(0, half), faq.items.slice(half)];
   .faq__a { display: grid; gap: .75rem; margin-top: 1.25rem; padding-right: 3.5rem; }
   .faq__a p { color: var(--c-text-3); font-size: .9375rem; line-height: 1.5; }
 </style>
+
+<script>
+  // Плавное раскрытие: <details> сам переключается рывком, поэтому клик по
+  // вопросу перехватываем и анимируем высоту карточки. В группе открыт
+  // только один ответ – соседний закрывается так же плавно.
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+  const timing = { duration: 380, easing: 'cubic-bezier(.16, 1, .3, 1)' };
+  // направление идущей анимации: true – раскрывается, false – закрывается
+  const running = new WeakMap<HTMLDetailsElement, { anim: Animation; open: boolean }>();
+
+  const closedHeight = (el: HTMLDetailsElement) => {
+    const answer = el.querySelector<HTMLElement>('.faq__a');
+    if (!answer || !el.open) return el.offsetHeight;
+    return el.offsetHeight - answer.offsetHeight - parseFloat(getComputedStyle(answer).marginTop);
+  };
+
+  const animate = (el: HTMLDetailsElement, open: boolean) => {
+    const answer = el.querySelector<HTMLElement>('.faq__a');
+    const from = el.offsetHeight;
+    running.get(el)?.anim.cancel();
+    answer?.getAnimations().forEach((a) => a.cancel());
+    if (reduced.matches) { el.open = open; return; }
+    let to: number;
+    if (open) {
+      el.open = true;
+      el.style.height = 'auto';
+      to = el.offsetHeight;
+      el.style.height = '';
+      answer?.animate([{ opacity: 0, transform: 'translateY(-.5rem)' }, { opacity: 1, transform: 'none' }], { ...timing, delay: 60, fill: 'backwards' });
+    } else {
+      to = closedHeight(el);
+      answer?.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 200, fill: 'forwards' });
+    }
+    el.style.overflow = 'hidden';
+    const anim = el.animate([{ height: `${from}px` }, { height: `${to}px` }], timing);
+    running.set(el, { anim, open });
+    anim.onfinish = () => {
+      if (!open) {
+        el.open = false;
+        answer?.getAnimations().forEach((a) => a.cancel());
+      }
+      el.style.overflow = '';
+      running.delete(el);
+    };
+  };
+
+  const items = [...document.querySelectorAll<HTMLDetailsElement>('.faq__item')];
+  for (const el of items) {
+    // Эксклюзивность ведём сами: с атрибутом name браузер закрывает соседний
+    // ответ мгновенно и обрывает его анимацию. Без скриптов name остаётся.
+    el.dataset.group = el.name;
+    el.removeAttribute('name');
+    el.querySelector('summary')?.addEventListener('click', (e) => {
+      e.preventDefault();
+      const state = running.get(el);
+      const willOpen = state ? !state.open : !el.open;
+      if (willOpen) {
+        for (const other of items) {
+          const otherOpen = running.get(other)?.open ?? other.open;
+          if (other !== el && otherOpen && other.dataset.group === el.dataset.group) animate(other, false);
+        }
+      }
+      animate(el, willOpen);
+    });
+  }
+</script>
