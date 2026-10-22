@@ -49,6 +49,9 @@ p { text-wrap: pretty; }
 }
 
 /* ––– раскладка ––– */
+/* Отступ полноширинной ленты карточек, при котором первая карточка встаёт
+   ровно по левому краю .container. Проценты считаются от ширины самой ленты. */
+:root { --edge: max(var(--gutter), (100% - var(--container)) / 2); }
 .container {
   width: 100%;
   max-width: calc(var(--container) + var(--gutter) * 2);
