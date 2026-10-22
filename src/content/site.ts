@@ -11,7 +11,7 @@ export const site = {
   showroom: 'пр-т Машерова, 15/4',
   service: '4-й пер. Монтажников, 13',
   city: 'Минск',
-  telegram: 'https://t.me/',
+  telegram: 'https://t.me/evolutioncar_by',
   whatsapp: 'https://wa.me/375291358888',
   vk: 'https://vk.com/',
 } as const;
