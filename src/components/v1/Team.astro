@@ -14,7 +14,7 @@ import { team } from '../../content/home';
   </div>
 
   <ul class="team__track" role="list">
-    {team.items.map((member) => (
+    {team.items.filter((member) => !('hidden' in member && member.hidden)).map((member) => (
       <li class="team__card">
         <img class="team__img" src={member.img} alt={member.name} loading="lazy" width="840" height="1120" />
         <div class="team__copy">

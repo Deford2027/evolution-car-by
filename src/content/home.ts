@@ -124,6 +124,10 @@ export const team = {
     { name: 'Дмитрий', role: 'Слесарь по ремонту автомобилей', img: '/img/team/dmitrij.jpg' },
     { name: 'Екатерина Мягкова', role: 'Менеджер по продажам', img: '/img/team/ekaterina.jpg' },
     { name: 'Вадим Немкович', role: 'Менеджер по продажам', img: '/img/team/vadim.jpg' },
+    // Скрыты до уточнения имён и должностей – не удалять, вернуть, убрав hidden.
+    { name: 'Сотрудник', role: 'Должность уточняется', img: '/img/IMG_7466_1.png', hidden: true },
+    { name: 'Сотрудник', role: 'Должность уточняется', img: '/img/IMG_7470_2.png', hidden: true },
+    { name: 'Сотрудник', role: 'Должность уточняется', img: '/img/IMG_7471_2.png', hidden: true },
   ],
 };
 
