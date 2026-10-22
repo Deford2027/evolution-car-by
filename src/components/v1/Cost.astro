@@ -1,33 +1,40 @@
 ---
-import { calc } from '../../content/home';
+import { calc, quiz, finalOffer } from '../../content/home';
 import { site } from '../../content/site';
+import Quiz from '../islands/Quiz';
 ---
 
 <section class="section cost" id="cost">
   <div class="container">
+    <!-- Плашка-подложка: слева текст и менеджер, справа опрос открыт сразу,
+         без всплывающего окна. -->
     <div class="cost__panel">
       <div class="cost__copy">
         <p class="kicker cost__kicker">[ {calc.kicker} ]</p>
         <h2 class="cost__title">{calc.title}</h2>
         <p class="cost__lead">{calc.lead}</p>
-        <div class="cost__actions">
-          <button class="btn" type="button" data-open="quiz">{calc.cta}</button>
-          <p class="cost__note">{calc.note}</p>
-        </div>
-      </div>
 
-      <div class="cost__stage">
-        <span class="cost__word" aria-hidden="true">EVOLUTION</span>
-        <img class="cost__car" src="/img/Group_1171275068.png" alt="" loading="lazy" width="1298" height="784" />
-        <img class="cost__manager" src="/img/IMG_7468_1.png" alt={calc.manager.name} loading="lazy" width="840" height="970" />
-        <div class="cost__badge">
-          <div class="cost__badge-who">
-            <p class="cost__badge-name">{calc.manager.name}</p>
-            <p class="cost__badge-role">{calc.manager.role}</p>
+        <div class="cost__manager">
+          <img class="cost__avatar" src="/img/IMG_7468_1.png" alt={calc.manager.name} loading="lazy" width="840" height="970" />
+          <div class="cost__who">
+            <p class="cost__name">{calc.manager.name}</p>
+            <p class="cost__role">{calc.manager.role} · подготовит расчёт</p>
           </div>
           <a class="cost__chip cost__chip--tg" href={site.telegram} target="_blank" rel="noopener" aria-label="Написать в Telegram"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M21.4 4.3 18.2 19.4c-.24 1.07-.87 1.33-1.77.83l-4.88-3.6-2.36 2.27c-.26.26-.48.48-.98.48l.35-4.97 9.05-8.18c.39-.35-.09-.54-.61-.2L5.83 13.08 1.02 11.57c-1.05-.33-1.07-1.05.22-1.55L19.98 2.8c.87-.32 1.63.2 1.42 1.5z"/></svg></a>
           <a class="cost__chip cost__chip--wa" href={site.whatsapp} target="_blank" rel="noopener" aria-label="Написать в WhatsApp"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M12.04 2C6.55 2 2.1 6.45 2.1 11.94c0 1.75.46 3.46 1.33 4.97L2 22l5.22-1.37a9.9 9.9 0 0 0 4.82 1.23h.01c5.48 0 9.94-4.45 9.94-9.94A9.93 9.93 0 0 0 12.04 2zm5.8 14.03c-.24.68-1.42 1.3-1.96 1.34-.5.05-.97.22-3.28-.68-2.77-1.09-4.53-3.93-4.67-4.11-.13-.18-1.11-1.48-1.11-2.83 0-1.34.7-2 .95-2.28.25-.27.54-.34.72-.34h.52c.17 0 .4-.06.62.48.24.56.8 1.94.87 2.08.07.14.11.3.02.48-.09.18-.14.3-.27.46-.14.16-.29.36-.41.48-.14.14-.28.29-.12.56.16.27.71 1.18 1.53 1.91 1.05.94 1.94 1.23 2.21 1.37.27.14.43.12.59-.07.16-.18.68-.8.86-1.07.18-.27.36-.23.61-.14.25.09 1.59.75 1.86.89.27.14.45.2.52.32.07.11.07.66-.17 1.33z"/></svg></a>
         </div>
+      </div>
+
+      <div class="cost__form">
+        <Quiz
+          client:visible
+          title={quiz.title}
+          steps={quiz.steps}
+          contactQuestion={quiz.contactStep.q}
+          channels={quiz.contactStep.channels}
+          success={finalOffer.success}
+        />
+        <p class="cost__note">{calc.note}</p>
       </div>
     </div>
   </div>
@@ -36,103 +43,98 @@ import { site } from '../../content/site';
 <style>
   .cost__panel {
     position: relative;
-    background: var(--c-surface-light);
-    color: var(--c-text-on-light);
-    border-radius: var(--r-card);
-    overflow: hidden;
     display: grid;
+    gap: clamp(1.75rem, 1rem + 2.5vw, 3.5rem);
+    padding: clamp(1.25rem, .75rem + 2.5vw, 3.5rem);
+    border-radius: calc(var(--r-card) + 8px);
+    border: 1px solid var(--c-line-strong);
+    background: radial-gradient(90% 120% at 100% 100%, #2a1206 0%, var(--c-surface) 60%);
+    overflow: hidden;
     isolation: isolate;
   }
-  .cost__copy {
-    padding: clamp(1.75rem, 1rem + 3vw, 3.25rem);
-    display: grid;
-    align-content: start;
-    gap: 1.25rem;
-    position: relative;
-    z-index: 2;
-  }
-  .cost__kicker { color: #8a8a86; }
-  .cost__title {
-    color: var(--c-text-on-light);
-    max-width: 24ch;
-    font-size: clamp(1.625rem, .95rem + 2.9vw, 2.5rem);
-  }
-  .cost__lead { color: #5f5f5c; font-size: 1rem; max-width: 46ch; }
-  .cost__actions { display: grid; gap: 1rem; margin-top: .5rem; }
-  .cost__note { color: #8a8a86; font-size: .8125rem; line-height: 1.35; }
-  @media (min-width: 560px) {
-    .cost__actions { grid-template-columns: auto minmax(0, 1fr); align-items: center; gap: 1.5rem; }
+  /* оранжевое свечение из-под формы */
+  .cost__panel::before {
+    content: '';
+    position: absolute;
+    right: -10%;
+    bottom: -40%;
+    width: 36rem;
+    height: 36rem;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255, 81, 2, .4), transparent 65%);
+    filter: blur(30px);
+    z-index: -1;
+    pointer-events: none;
   }
 
-  .cost__stage { position: relative; min-height: 18rem; }
-  .cost__word {
-    position: absolute;
-    top: 8%;
-    right: -2%;
-    font-family: var(--font-display);
-    font-weight: 700;
-    font-size: clamp(3rem, 1rem + 9vw, 7.5rem);
-    letter-spacing: -.02em;
-    color: #ededea;
-    white-space: nowrap;
-    z-index: -1;
-    user-select: none;
-  }
-  .cost__car {
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    width: 72%;
-    height: auto;
-    object-fit: contain;
-  }
+  .cost__copy { display: grid; gap: 1.25rem; align-content: center; }
+  .cost__kicker { color: var(--c-accent); }
+  .cost__title { max-width: 18ch; font-size: clamp(1.75rem, 1rem + 2.9vw, 3rem); }
+  .cost__lead { color: var(--c-text-2); font-size: 1rem; line-height: 1.55; max-width: 46ch; }
+
   .cost__manager {
-    position: absolute;
-    left: 50%;
-    bottom: 0;
-    translate: -50% 0;
-    width: auto;
-    height: 94%;
-    object-fit: contain;
-  }
-  /* Анастасия – по центру: плашка с именем, должностью и логотипами
-     мессенджеров стоит под ней посередине, а не сбоку */
-  .cost__badge {
-    position: absolute;
-    left: 50%;
-    translate: -50% 0;
-    bottom: clamp(.75rem, .4rem + 1.2vw, 1.5rem);
-    width: max-content;
-    max-width: calc(100% - 1.5rem);
-    background: #fff;
-    border-radius: 10px;
-    padding: .625rem .75rem;
     display: flex;
     align-items: center;
-    gap: .625rem;
-    box-shadow: 0 10px 30px -12px rgba(0, 0, 0, .35);
+    gap: .875rem;
+    margin-top: .75rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--c-line);
   }
-  .cost__badge-name { font-family: var(--font-display); font-weight: 700; text-transform: uppercase; font-size: 1rem; line-height: 1.1; }
-  .cost__badge-role { color: #6f6f6c; font-size: .75rem; }
-  .cost__badge-who { text-align: center; }
+  .cost__avatar {
+    flex: none;
+    width: 3.5rem;
+    height: 3.5rem;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center 12%;
+    background: #e9e9e6;
+  }
+  .cost__who { flex: 1; min-width: 0; }
+  .cost__name { font-family: var(--font-display); font-weight: 700; text-transform: uppercase; line-height: 1.2; }
+  .cost__role { color: var(--c-text-3); font-size: .8125rem; }
   .cost__chip {
     flex: none;
-    width: 2.25rem;
-    height: 2.25rem;
+    width: 2.5rem;
+    height: 2.5rem;
     border-radius: 50%;
     display: grid;
     place-items: center;
-    font-size: .625rem;
-    font-weight: 700;
     color: #fff;
-    letter-spacing: .02em;
   }
   .cost__chip:hover { filter: brightness(1.08); }
   .cost__chip--tg { background: #27a7e7; }
   .cost__chip--wa { background: #2cb742; }
 
-  @media (min-width: 900px) {
-    .cost__panel { grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); min-height: 30rem; }
-    .cost__copy { align-content: center; }
+  /* Белая карточка опроса. Цвета квиза переопределены переменными,
+     поэтому общие стили формы из islands.css работают и на светлом. */
+  .cost__form {
+    --c-text: var(--c-text-on-light);
+    --c-text-2: #4a4a47;
+    --c-text-3: #8a8a86;
+    --c-line: #e6e6e3;
+    --c-line-strong: #dededa;
+    --c-surface-2: #f5f5f3;
+    --c-accent-soft: #fff1ea;
+    display: grid;
+    align-content: start;
+    gap: 1rem;
+    padding: clamp(1.25rem, .9rem + 1.5vw, 2.25rem);
+    border-radius: var(--r-card);
+    background: var(--c-surface-light);
+    color: var(--c-text);
+    box-shadow: 0 40px 80px -40px rgba(255, 81, 2, .55);
+  }
+  .cost__form :global(.quiz__title) { font-size: clamp(1.125rem, 1rem + .5vw, 1.375rem); }
+  .cost__form :global(.quiz__bar) { height: 4px; border-radius: 4px; }
+  .cost__form :global(.quiz__q) { font-family: var(--font-display); font-weight: 700; font-size: clamp(1.25rem, 1.05rem + .8vw, 1.625rem); line-height: 1.15; }
+  .cost__form :global(.quiz__option) { background: #fafaf8; border-radius: 14px; padding: 1rem 1.125rem; }
+  .cost__form :global(.quiz__option:hover) { background: var(--c-accent-soft); }
+  .cost__note { color: var(--c-text-3); font-size: .8125rem; line-height: 1.35; }
+
+  @media (min-width: 560px) {
+    .cost__form :global(.quiz__options) { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  @media (min-width: 1024px) {
+    .cost__panel { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: center; }
   }
 </style>
