@@ -117,9 +117,9 @@ export const team = {
   title: 'Кто работает над вашим автомобилем',
   lead: 'Команда Evolution Car сопровождает ваш автомобиль от подбора до выдачи и дальнейшего обслуживания',
   items: [
-    { name: 'Денис', role: 'Менеджер отдела продаж', img: '/img/team/denis.jpg' },
     { name: 'Екатерина Мягкова', role: 'Менеджер по продажам', img: '/img/team/ekaterina.jpg' },
     { name: 'Вадим Немкович', role: 'Менеджер по продажам', img: '/img/team/vadim.jpg' },
+    { name: 'Денис', role: 'Менеджер отдела продаж', img: '/img/team/denis.jpg' },
     { name: 'Николай', role: 'Слесарь по ремонту автомобилей', img: '/img/team/nikolaj.jpg' },
     { name: 'Иван', role: 'Техник-механик', img: '/img/team/ivan.jpg' },
     { name: 'Дарья', role: 'Мастер-приёмщик', img: '/img/team/darya.jpg' },
