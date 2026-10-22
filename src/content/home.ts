@@ -212,7 +212,8 @@ export const footer = {
     { label: 'Пользовательское соглашение', href: '/terms/' },
     { label: 'Согласие на обработку персональных данных', href: '/agreement/' },
   ],
-  credit: 'Разработка сайта',
+  credit: 'Разработка сайта – Deford Studio',
+  creditHref: 'https://deford-studio.ru/',
 };
 
 // Полоса цифр – приём из Figma-концепта, используется в V2.

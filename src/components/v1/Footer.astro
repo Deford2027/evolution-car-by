@@ -62,7 +62,7 @@ import { popularBrands } from '../../content/brands';
           <li><a href={link.href}>{link.label}</a></li>
         ))}
       </ul>
-      <span>{footer.credit}</span>
+      <a class="footer__credit" href={footer.creditHref} target="_blank" rel="noopener">{footer.credit}</a>
     </div>
   </div>
 
@@ -140,6 +140,8 @@ import { popularBrands } from '../../content/brands';
   }
   .footer__legal { display: flex; flex-wrap: wrap; gap: .375rem 1.25rem; }
   .footer__legal a { font-size: .75rem; color: var(--c-text-3); }
+  .footer__credit { transition: color .2s var(--ease); }
+  .footer__credit:hover { color: var(--c-accent); }
 
   .footer__marquee { overflow: hidden; margin-top: .5rem; user-select: none; pointer-events: none; }
   .footer__marquee-track { display: flex; width: max-content; animation: footer-marquee 90s linear infinite; }
