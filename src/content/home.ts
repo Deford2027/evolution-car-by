@@ -162,7 +162,8 @@ export const contacts = {
     { label: 'Номер телефона:', value: '+375 29 135-88-88' },
     { label: 'Сервис:', value: '4-й пер. Монтажников, 13' },
     { label: 'Сервис и шоурум:', value: 'пр-т Машерова, 15/4' },
-    { label: 'Режим работы:', value: 'Ежедневно, 9:00 – 20:00' },
+    { label: 'Автосалон:', value: 'Ежедневно, 09:00 – 18:00' },
+    { label: 'Сервисы:', value: 'Ежедневно, 09:00 – 19:00' },
   ],
   photos: ['/img/Rectangle_30753.png', '/img/Rectangle_30754.png', '/img/Rectangle_30755.png', '/img/Rectangle_30756.png', '/img/Rectangle_30757.png'],
 };

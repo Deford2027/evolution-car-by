@@ -14,8 +14,8 @@ import { popularBrands } from '../../content/brands';
           <img src="/img/logo-evolution-car.png" alt={site.brand} width="939" height="48" />
         </a>
         <a class="footer__phone" href={site.phoneHref}>{site.phone}</a>
-        <p class="footer__muted">{site.hoursFull}</p>
-        <p class="footer__muted">Шоурум: {site.showroom}<br />Сервис: {site.service}</p>
+        <p class="footer__muted">{site.hoursShowroom}<br />{site.hoursService}</p>
+        <p class="footer__muted">Шоурум и сервис: {site.showroom}<br />Сервис: {site.service}</p>
         <ul class="footer__social">
           <Socials />
         </ul>
