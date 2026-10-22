@@ -1,19 +1,23 @@
 ---
 import { team } from '../../content/home';
+import SlideArrows from '../shared/SlideArrows.astro';
 ---
 
-<section class="section team" id="team">
+<section class="section team" id="team" data-slider>
   <div class="container">
     <div class="sec-head">
       <p class="kicker">[ {team.kicker} ]</p>
       <div>
         <h2 class="team__title">{team.title}</h2>
-        <p class="team__lead">{team.lead}</p>
+        <div class="sec-head__aside">
+          <p class="team__lead">{team.lead}</p>
+          <SlideArrows always />
+        </div>
       </div>
     </div>
   </div>
 
-  <ul class="team__track" role="list">
+  <ul class="team__track" role="list" data-track>
     {team.items.filter((member) => !('hidden' in member && member.hidden)).map((member) => (
       <li class="team__card">
         <img class="team__img" src={member.img} alt={member.name} loading="lazy" width="840" height="1120" />
@@ -32,7 +36,9 @@ import { team } from '../../content/home';
     .sec-head { grid-template-columns: minmax(0, 18rem) minmax(0, 1fr); gap: 2rem; align-items: start; }
   }
   .team__title { max-width: 20ch; }
-  .team__lead { color: var(--c-text-3); margin-top: 1.25rem; font-size: 1rem; max-width: 46ch; }
+  .team__lead { color: var(--c-text-3); font-size: 1rem; max-width: 46ch; }
+  /* описание слева, стрелки ленты – по правому краю сетки */
+  .sec-head__aside { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-top: 1.25rem; }
 
   .team__track {
     display: grid;

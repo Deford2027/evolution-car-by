@@ -1,17 +1,21 @@
 ---
 import { steps, finalOffer } from '../../content/home';
 import LeadForm from '../islands/LeadForm';
+import SlideArrows from '../shared/SlideArrows.astro';
 ---
 
-<section class="section steps" id="steps">
+<section class="section steps" id="steps" data-slider>
   <div class="container">
     <div class="sec-head">
       <p class="kicker">[ {steps.kicker} ]</p>
-      <h2 class="steps__title">{steps.title}</h2>
+      <div class="sec-head__main">
+        <h2 class="steps__title">{steps.title}</h2>
+        <div class="sec-head__aside"><SlideArrows always /></div>
+      </div>
     </div>
   </div>
 
-  <ul class="steps__track" role="list">
+  <ul class="steps__track" role="list" data-track>
     {steps.items.map((step) => (
       <li class="card steps__card">
         <div class="steps__body">
@@ -50,6 +54,8 @@ import LeadForm from '../islands/LeadForm';
     .sec-head { grid-template-columns: minmax(0, 18rem) minmax(0, 1fr); gap: 2rem; align-items: start; }
   }
   .steps__title { max-width: 24ch; }
+  /* стрелки ленты – по правому краю сетки */
+  .sec-head__aside { display: flex; justify-content: flex-end; margin-top: 1.5rem; }
 
   .steps__track {
     display: grid;
