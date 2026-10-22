@@ -1,36 +1,47 @@
 ---
 import { reviews } from '../../content/home';
+import { yandexOrg, yandexReviews } from '../../content/reviews-yandex';
+import SlideArrows from '../shared/SlideArrows.astro';
 ---
 
-<section class="section reviews" id="reviews">
+<section class="section reviews" id="reviews" data-slider>
   <div class="container">
     <div class="sec-head">
       <p class="kicker">[ {reviews.kicker} ]</p>
       <div>
         <h2 class="reviews__title">{reviews.title}</h2>
-        <p class="reviews__lead">{reviews.lead}</p>
+        <div class="reviews__aside">
+          <a class="reviews__rating" href={yandexOrg.url} target="_blank" rel="noopener">
+            <span class="reviews__score">{yandexOrg.rating}</span>
+            <span>
+              <span class="reviews__stars" aria-hidden="true">★★★★★</span>
+              <span class="reviews__votes">{yandexOrg.votes} на Яндекс Картах</span>
+            </span>
+          </a>
+          <SlideArrows always />
+        </div>
       </div>
     </div>
+  </div>
 
-    <ul class="grid grid--3">
-      {reviews.items.map((item) => (
-        <li class="card review">
-          <div class="review__top">
+  <ul class="reviews__track" role="list" data-track>
+    {yandexReviews.map((item) => (
+      <li class="review" data-review>
+        <div class="review__top">
+          <span class="review__ava" aria-hidden="true">{item.name.charAt(0).toUpperCase()}</span>
+          <div>
             <p class="review__name">{item.name}</p>
-            <p class="review__stars" aria-label="Оценка 5 из 5">★★★★★</p>
+            <p class="review__date">{item.date}</p>
           </div>
-          <p class="review__text">{item.text}</p>
-          <ul class="review__shots">
-            {item.photos.map((photo) => (
-              <li><img src={photo} alt="" loading="lazy" width="300" height="200" /></li>
-            ))}
-          </ul>
-          <a class="review__link" href="#contacts">{reviews.linkLabel}</a>
-        </li>
-      ))}
-    </ul>
+        </div>
+        <p class="review__text">{item.text}</p>
+        <button class="review__more" type="button" hidden>Читать полностью</button>
+      </li>
+    ))}
+  </ul>
 
-    <a class="btn reviews__cta" href="#contacts">{reviews.cta}</a>
+  <div class="container">
+    <a class="btn reviews__cta" href={yandexOrg.url} target="_blank" rel="noopener">Все отзывы на Яндекс Картах</a>
   </div>
 </section>
 
@@ -40,32 +51,84 @@ import { reviews } from '../../content/home';
     .sec-head { grid-template-columns: minmax(0, 18rem) minmax(0, 1fr); gap: 2rem; align-items: start; }
   }
   .reviews__title { max-width: 20ch; }
-  .reviews__lead { color: var(--c-text-3); margin-top: 1.25rem; font-size: 1rem; max-width: 60ch; }
+  /* рейтинг слева, стрелки ленты – по правому краю сетки */
+  .reviews__aside { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-top: 1.5rem; }
+  .reviews__rating { display: flex; align-items: center; gap: .875rem; }
+  .reviews__score { font-family: var(--font-display); font-weight: 700; font-size: 2.5rem; line-height: 1; }
+  .reviews__rating > span:last-child { display: grid; gap: .125rem; }
+  .reviews__stars { color: var(--c-accent); letter-spacing: .12em; font-size: .9375rem; }
+  .reviews__votes { color: var(--c-text-3); font-size: .8125rem; transition: color .2s var(--ease); }
+  .reviews__rating:hover .reviews__votes { color: var(--c-text); }
 
-  .review {
-    padding: clamp(1.5rem, 1rem + 1.5vw, 2rem);
+  .reviews__track {
     display: grid;
-    grid-template-rows: auto 1fr auto auto;
-    gap: 1.25rem;
+    grid-auto-flow: column;
+    grid-auto-columns: min(84vw, 24rem);
+    gap: var(--gap);
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding-inline: var(--edge);
+    scroll-padding-inline: var(--edge);
+    padding-bottom: 1rem;
+    scrollbar-width: thin;
+    scrollbar-color: var(--c-line-strong) transparent;
+    align-items: start;
+  }
+  .review {
+    scroll-snap-align: start;
+    display: grid;
+    gap: 1rem;
+    align-content: start;
+    padding: clamp(1.5rem, 1rem + 1.2vw, 1.875rem);
+    border-radius: var(--r-card);
+    border: 1px solid var(--c-line);
     background: var(--c-surface);
   }
-  .review__top { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
-  .review__name {
-    font-family: var(--font-body);
-    font-size: clamp(1.125rem, 1rem + .5vw, 1.375rem);
+  .review__top { display: flex; align-items: center; gap: .875rem; }
+  .review__ava {
+    flex: none;
+    display: grid;
+    place-items: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: 50%;
+    background: var(--c-accent-soft);
+    color: var(--c-accent);
+    font-weight: 700;
   }
-  .review__stars { color: var(--c-accent); letter-spacing: .12em; font-size: .9375rem; }
-  .review__text { color: var(--c-text-3); font-size: .9375rem; line-height: 1.5; }
-  .review__shots { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .5rem; }
-  .review__shots img { width: 100%; aspect-ratio: 3 / 2; object-fit: cover; border-radius: 4px; }
-  .review__link { color: var(--c-accent); font-weight: 600; font-size: .9375rem; }
-  .review__link:hover { color: var(--c-accent-hover); }
+  .review__name { font-weight: 600; font-size: 1.0625rem; }
+  .review__date { color: var(--c-text-3); font-size: .8125rem; }
+  /* переносы строк – как в оригинале на Яндексе */
+  .review__text { color: var(--c-text-2); font-size: .9375rem; line-height: 1.55; white-space: pre-line; }
+  .review.is-clamped .review__text {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 8;
+    overflow: hidden;
+  }
+  .review__more { justify-self: start; color: var(--c-accent); font-weight: 600; font-size: .875rem; }
+  .review__more:hover { text-decoration: underline; text-underline-offset: 3px; }
 
   .reviews__cta {
     display: flex;
     width: fit-content;
-    margin: clamp(2rem, 1rem + 3vw, 3rem) auto 0;
+    margin: clamp(1.5rem, 1rem + 2vw, 2.5rem) auto 0;
     min-width: min(100%, 18.75rem);
-    padding-block: 1.375rem;
   }
 </style>
+
+<script>
+  // Длинные отзывы показываем первые 8 строк и кнопку «Читать полностью».
+  for (const card of document.querySelectorAll<HTMLElement>('[data-review]')) {
+    const text = card.querySelector<HTMLElement>('.review__text');
+    const more = card.querySelector<HTMLButtonElement>('.review__more');
+    if (!text || !more) continue;
+    card.classList.add('is-clamped');
+    if (text.scrollHeight <= text.clientHeight + 2) { card.classList.remove('is-clamped'); continue; }
+    more.hidden = false;
+    more.addEventListener('click', () => {
+      const open = card.classList.toggle('is-clamped');
+      more.textContent = open ? 'Читать полностью' : 'Свернуть';
+    });
+  }
+</script>
