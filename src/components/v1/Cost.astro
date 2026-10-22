@@ -15,7 +15,7 @@ import Quiz from '../islands/Quiz';
         <p class="cost__lead">{calc.lead}</p>
 
         <div class="cost__manager">
-          <img class="cost__avatar" src="/img/IMG_7468_1.png" alt={calc.manager.name} loading="lazy" width="840" height="970" />
+          <img class="cost__avatar" src={calc.manager.img} alt={calc.manager.name} loading="lazy" width="240" height="240" />
           <div class="cost__who">
             <p class="cost__name">{calc.manager.name}</p>
             <p class="cost__role">{calc.manager.role} · подготовит расчёт</p>
@@ -86,7 +86,7 @@ import Quiz from '../islands/Quiz';
     height: 3.5rem;
     border-radius: 50%;
     object-fit: cover;
-    object-position: center 12%;
+    object-position: center;
     background: #e9e9e6;
   }
   .cost__who { flex: 1; min-width: 0; }
