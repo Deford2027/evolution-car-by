@@ -1,28 +1,25 @@
 ---
-// стили карты – в общем CSS страницы: динамический импорт CSS грузится
-// по корневому пути и на превью в подпапке отдаёт 404
-import 'leaflet/dist/leaflet.css';
 import Socials from '../shared/Socials.astro';
 import { contacts } from '../../content/home';
 import { site } from '../../content/site';
 
-// Шоурум на Машерова, 15/4. Карта – Leaflet с тайлами OpenStreetMap в тёмном
-// фильтре: без рекламы и ключа, метка ставится в центр видимой части карты.
+// Шоурум на Машерова, 15/4. Карта – бесплатный виджет Яндекса, затемнённый
+// фильтром; центр карты скрипт сдвигает так, чтобы метка была в свободной части.
 const showroom = { lat: 53.9134, lng: 27.5366 };
 const routeHref = `https://yandex.ru/maps/?rtext=~${showroom.lat},${showroom.lng}&rtt=auto`;
 ---
 
 <section class="contacts" id="contacts">
   <div class="contacts__map">
-    <div
-      class="contacts__leaflet"
+    <iframe
+      class="contacts__frame"
       data-map
       data-lat={showroom.lat}
       data-lng={showroom.lng}
-      data-ykey={site.yandexMapsKey}
-      role="img"
-      aria-label="Карта: Evolution Car на проспекте Машерова, 15/4"
-    ></div>
+      title="Карта: Evolution Car на проспекте Машерова, 15/4"
+      loading="lazy"
+      allowfullscreen
+    ></iframe>
   </div>
 
   <div class="container contacts__layer">
@@ -60,45 +57,28 @@ const routeHref = `https://yandex.ru/maps/?rtext=~${showroom.lat},${showroom.lng
 <style>
   .contacts { position: relative; isolation: isolate; }
   .contacts__map { position: absolute; inset: 0; z-index: -1; }
-  .contacts__leaflet { width: 100%; height: 100%; background: #1b1d21; }
-  /* тёмно-серая карта под цвет сайта: светлые тайлы OSM инвертируются */
-  .contacts__leaflet :global(.leaflet-tile-pane) { filter: grayscale(1) invert(1) brightness(.78) contrast(.92); }
-  .contacts__leaflet :global(.leaflet-control-attribution) {
-    background: rgba(2, 5, 11, .6);
-    color: var(--c-text-3);
-    font-size: .625rem;
+  .contacts__frame {
+    width: 100%;
+    height: 100%;
+    border: 0;
+    background: #1b1d21;
+    /* светлая карта Яндекса → тёмно-серая: invert с поворотом оттенка
+       сохраняет цвет метки, grayscale убирает пестроту */
+    filter: invert(.92) hue-rotate(180deg) grayscale(.55) brightness(.82) contrast(.95);
   }
-  .contacts__leaflet :global(.leaflet-control-attribution a) { color: var(--c-text-2); }
-  .contacts__leaflet :global(.leaflet-control-zoom a) {
-    background: rgba(2, 5, 11, .85);
-    color: var(--c-text);
-    border-color: var(--c-line-strong);
+  /* плавный переход фона страницы в карту сверху и снизу */
+  .contacts__map::before,
+  .contacts__map::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: clamp(5rem, 3rem + 8vw, 10rem);
+    z-index: 1;
+    pointer-events: none;
   }
-  .contacts__leaflet :global(.ec-pin) {
-    display: grid;
-    justify-items: center;
-    gap: .375rem;
-    width: max-content;
-    translate: -50% -100%;
-  }
-  .contacts__leaflet :global(.ec-pin__label) {
-    padding: .375rem .75rem;
-    border-radius: 999px;
-    background: var(--c-accent);
-    color: #fff;
-    font-weight: 600;
-    font-size: .8125rem;
-    white-space: nowrap;
-    box-shadow: 0 8px 24px -8px rgba(255, 81, 2, .8);
-  }
-  .contacts__leaflet :global(.ec-pin__dot) {
-    width: 1rem;
-    height: 1rem;
-    border-radius: 50%;
-    background: var(--c-accent);
-    border: 3px solid #fff;
-    box-shadow: 0 0 0 8px rgba(255, 81, 2, .25);
-  }
+  .contacts__map::before { top: 0; background: linear-gradient(180deg, var(--c-bg) 0%, rgba(0, 4, 12, .6) 45%, transparent 100%); }
+  .contacts__map::after { bottom: 0; background: linear-gradient(0deg, var(--c-bg) 0%, rgba(0, 4, 12, .6) 45%, transparent 100%); }
   .contacts__route { justify-self: start; margin-top: .25rem; color: var(--c-accent); font-size: .875rem; font-weight: 600; }
   .contacts__route:hover { text-decoration: underline; text-underline-offset: 3px; }
 
@@ -179,116 +159,50 @@ const routeHref = `https://yandex.ru/maps/?rtext=~${showroom.lat},${showroom.lng
 </style>
 
 <script>
-  // Карта грузится, только когда блок подъезжает к экрану. С ключом – Яндекс
-  // в тёмной теме, без ключа – OpenStreetMap под тёмным фильтром.
-  const el = document.querySelector<HTMLElement>('[data-map]');
-  const pinHtml = '<div class="ec-pin"><span class="ec-pin__label">Evolution Car</span><span class="ec-pin__dot"></span></div>';
-  const coarse = matchMedia('(pointer: coarse)').matches;
+  // Виджет сам ставит точку ll в центр окна, а центр закрыт панелью. Поэтому
+  // сдвигаем ll на столько пикселей, чтобы метка pt встала в центр свободной
+  // части карты (справа от панели на десктопе, над панелью на телефоне).
+  const frame = document.querySelector<HTMLIFrameElement>('[data-map]');
+  const ZOOM = 16;
 
-  /** Часть карты, не закрытая панелью и фото, – в пикселях от краёв карты. */
-  const visibleArea = (map: HTMLElement) => {
-    const box = map.getBoundingClientRect();
-    const section = map.closest('.contacts');
+  const visibleCenter = (el: HTMLElement) => {
+    const box = el.getBoundingClientRect();
+    const section = el.closest('.contacts');
     const panel = section?.querySelector<HTMLElement>('.contacts__panel')?.getBoundingClientRect();
     const shots = section?.querySelector<HTMLElement>('.contacts__shots')?.getBoundingClientRect();
-    const area = { left: 0, top: 0, right: box.width, bottom: box.height, width: box.width, height: box.height };
+    let left = 0, top = 0, right = box.width, bottom = box.height;
     if (panel && panel.right - box.left < box.width * 0.6) {
-      // десктоп: панель слева, свободна правая часть над лентой фото
-      area.left = panel.right - box.left;
-      if (shots) area.bottom = shots.top - box.top;
+      left = panel.right - box.left;
+      if (shots) bottom = shots.top - box.top;
     } else if (panel) {
-      // телефон: панель внизу на всю ширину, свободен верх
-      area.bottom = panel.top - box.top;
+      bottom = panel.top - box.top;
     }
-    return area;
+    return { dx: (left + right) / 2 - box.width / 2, dy: (top + bottom) / 2 - box.height / 2 };
   };
 
-  const onResize = (fn: () => void) => {
-    let t = 0;
-    addEventListener('resize', () => { clearTimeout(t); t = window.setTimeout(fn, 150); });
+  const place = () => {
+    if (!frame) return;
+    const lat = Number(frame.dataset.lat);
+    const lng = Number(frame.dataset.lng);
+    const { dx, dy } = visibleCenter(frame);
+    // веб-меркатор: градусов долготы на пиксель при данном масштабе
+    const degPerPx = 360 / (256 * 2 ** ZOOM);
+    const centerLng = lng - dx * degPerPx;
+    const centerLat = lat + dy * degPerPx * Math.cos((lat * Math.PI) / 180);
+    const src = `https://yandex.ru/map-widget/v1/?ll=${centerLng.toFixed(6)}%2C${centerLat.toFixed(6)}&z=${ZOOM}&pt=${lng},${lat},pm2rdm`;
+    if (frame.src !== src) frame.src = src;
   };
 
-  const loadScript = (src: string) => new Promise<void>((resolve, reject) => {
-    const s = document.createElement('script');
-    s.src = src;
-    s.onload = () => resolve();
-    s.onerror = () => reject(new Error(`не загрузился ${src}`));
-    document.head.append(s);
-  });
-
-  const initYandex = async (key: string, lat: number, lng: number) => {
-    await loadScript(`https://api-maps.yandex.ru/v3/?apikey=${encodeURIComponent(key)}&lang=ru_RU`);
-    const ymaps3 = (window as any).ymaps3;
-    // с неверным ключом ready может не завершиться – не ждём дольше 8 секунд
-    await Promise.race([ymaps3.ready, new Promise((_, reject) => setTimeout(() => reject(new Error('таймаут')), 8000))]);
-    const { YMap, YMapDefaultSchemeLayer, YMapDefaultFeaturesLayer, YMapMarker } = ymaps3;
-    // margin сдвигает «центр» карты в свободную часть – метка встаёт по её центру
-    const margin = () => {
-      const a = visibleArea(el!);
-      return [a.top, a.width - a.right, a.height - a.bottom, a.left];
-    };
-    const map = new YMap(el, {
-      location: { center: [lng, lat], zoom: 16 },
-      margin: margin(),
-      theme: 'dark',
-      // колесо и свайп на телефоне листают страницу, а не карту
-      behaviors: coarse ? ['dblClick', 'pinchZoom'] : ['drag', 'dblClick'],
-    });
-    map.addChild(new YMapDefaultSchemeLayer({}));
-    map.addChild(new YMapDefaultFeaturesLayer({}));
-    const pin = document.createElement('div');
-    pin.innerHTML = pinHtml;
-    map.addChild(new YMapMarker({ coordinates: [lng, lat] }, pin));
-    onResize(() => map.update({ margin: margin(), location: { center: [lng, lat], zoom: 16 } }));
-  };
-
-  const initLeaflet = async (lat: number, lng: number) => {
-    const { default: L } = await import('leaflet');
-    const point = L.latLng(lat, lng);
-    const map = L.map(el!, {
-      zoomControl: false,
-      scrollWheelZoom: false,
-      dragging: !coarse,
-      attributionControl: true,
-    });
-    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      maxZoom: 19,
-      attribution: '© <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a>',
-    }).addTo(map);
-    L.control.zoom({ position: 'topright' }).addTo(map);
-    map.attributionControl.setPrefix('<a href="https://leafletjs.com" target="_blank" rel="noopener">Leaflet</a>');
-    L.marker(point, {
-      icon: L.divIcon({ className: '', html: pinHtml, iconSize: [0, 0] }),
-      keyboard: false,
-    }).addTo(map);
-
-    const zoom = 16;
-    const place = () => {
-      const a = visibleArea(el!);
-      const target = L.point((a.left + a.right) / 2, (a.top + a.bottom) / 2);
-      const shift = L.point(a.width / 2, a.height / 2).subtract(target);
-      map.setView(map.unproject(map.project(point, zoom).add(shift), zoom), zoom, { animate: false });
-    };
+  if (frame) {
     place();
-    onResize(place);
-  };
-
-  const init = async () => {
-    if (!el) return;
-    const lat = Number(el.dataset.lat);
-    const lng = Number(el.dataset.lng);
-    const key = el.dataset.ykey;
-    if (key) {
-      try { return await initYandex(key, lat, lng); }
-      catch (e) { console.warn('Яндекс Карты недоступны, показываем OpenStreetMap', e); el.innerHTML = ''; }
-    }
-    await initLeaflet(lat, lng);
-  };
-
-  if (el) {
-    const io = new IntersectionObserver((entries) => {
-      if (entries.some((e) => e.isIntersecting)) { io.disconnect(); init(); }
-    }, { rootMargin: '400px' });
-    io.observe(el);
+    let t = 0;
+    let lastWidth = innerWidth;
+    // на телефоне resize прилетает при прокрутке (адресная строка) – реагируем только на ширину
+    addEventListener('resize', () => {
+      if (innerWidth === lastWidth) return;
+      lastWidth = innerWidth;
+      clearTimeout(t);
+      t = window.setTimeout(place, 300);
+    });
   }
 </script>

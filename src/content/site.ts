@@ -15,8 +15,6 @@ export const site = {
   service: '4-й пер. Монтажников, 13',
   city: 'Минск',
   telegram: 'https://t.me/evolutioncar_by',
-  // ключ JavaScript API Яндекс Карт (ограничен по HTTP Referer); пустой – карта OpenStreetMap
-  yandexMapsKey: '69265626-24a9-47fa-a814-ad5a7cce5461',
   whatsapp: 'https://wa.me/375291358888',
   vk: 'https://vk.com/',
   instagram: 'https://www.instagram.com/evolutioncar.by/',
