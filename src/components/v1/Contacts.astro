@@ -1,4 +1,5 @@
 ---
+import Socials from '../shared/Socials.astro';
 import { contacts } from '../../content/home';
 import { site } from '../../content/site';
 
@@ -32,9 +33,7 @@ const mapSrc = 'https://yandex.ru/map-widget/v1/?ll=27.5366%2C53.9134&z=16&pt=27
       </dl>
 
       <ul class="contacts__social">
-        <li><a href={site.telegram} aria-label="Telegram">TG</a></li>
-        <li><a href={site.whatsapp} aria-label="WhatsApp">WA</a></li>
-        <li><a href={site.vk} aria-label="ВКонтакте">VK</a></li>
+        <Socials />
       </ul>
     </div>
 
@@ -81,7 +80,7 @@ const mapSrc = 'https://yandex.ru/map-widget/v1/?ll=27.5366%2C53.9134&z=16&pt=27
   .contacts__row dt { color: var(--c-text-3); font-size: .875rem; margin-bottom: .375rem; }
   .contacts__row dd { font-size: 1.0625rem; }
   .contacts__social { display: flex; gap: .625rem; margin-top: 1rem; }
-  .contacts__social a {
+  .contacts__social :global(a) {
     width: 2.5rem;
     height: 2.5rem;
     border-radius: 8px;
@@ -92,7 +91,7 @@ const mapSrc = 'https://yandex.ru/map-widget/v1/?ll=27.5366%2C53.9134&z=16&pt=27
     font-weight: 600;
     color: var(--c-text-2);
   }
-  .contacts__social a:hover { background: var(--c-btn2-bg-hover); color: var(--c-text); }
+  .contacts__social :global(a:hover) { background: var(--c-btn2-bg-hover); color: var(--c-text); }
 
   .contacts__shots {
     display: grid;

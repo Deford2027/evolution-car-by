@@ -14,6 +14,9 @@ export const site = {
   telegram: 'https://t.me/evolutioncar_by',
   whatsapp: 'https://wa.me/375291358888',
   vk: 'https://vk.com/',
+  instagram: 'https://www.instagram.com/evolutioncar.by/',
+  tiktok: 'https://www.tiktok.com/@evolutioncar.by',
+  youtube: 'https://www.youtube.com/@Evoutioncar.by1',
 } as const;
 
 // href, начинающийся с #, – якорь на главной: шапка добавляет к нему свой префикс
