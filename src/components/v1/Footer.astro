@@ -65,7 +65,17 @@ import { popularBrands } from '../../content/brands';
     </div>
   </div>
 
-  <p class="footer__word" aria-hidden="true">EVOLUTION CAR</p>
+  <!-- Медленная бегущая строка: две одинаковые половины сдвигаются на -50%,
+       поэтому шов не виден. -->
+  <div class="footer__marquee" aria-hidden="true">
+    <div class="footer__marquee-track">
+      {[0, 1].map(() => (
+        <div class="footer__marquee-half">
+          {Array.from({ length: 4 }, () => <span class="footer__word">EVOLUTION CAR<i>✦</i></span>)}
+        </div>
+      ))}
+    </div>
+  </div>
 </footer>
 
 <style>
@@ -128,18 +138,23 @@ import { popularBrands } from '../../content/brands';
   .footer__legal { display: flex; flex-wrap: wrap; gap: .375rem 1.25rem; }
   .footer__legal a { font-size: .75rem; color: var(--c-text-3); }
 
+  .footer__marquee { overflow: hidden; margin-top: .5rem; user-select: none; pointer-events: none; }
+  .footer__marquee-track { display: flex; width: max-content; animation: footer-marquee 90s linear infinite; }
+  .footer__marquee-half { display: flex; flex: none; }
   .footer__word {
+    display: inline-flex;
+    align-items: center;
     font-family: var(--font-display);
     font-weight: 700;
     font-size: clamp(3rem, -1rem + 12vw, 9rem);
     line-height: .85;
     letter-spacing: -.02em;
-    text-align: center;
-    color: rgba(255, 255, 255, .05);
+    color: rgba(255, 255, 255, .06);
     white-space: nowrap;
-    user-select: none;
-    margin-top: .5rem;
   }
+  .footer__word i { font-style: normal; font-size: .35em; margin-inline: .6em; color: rgba(255, 81, 2, .35); }
+  @keyframes footer-marquee { to { transform: translateX(-50%); } }
+  @media (prefers-reduced-motion: reduce) { .footer__marquee-track { animation: none; } }
 
   @media (min-width: 768px) {
     .footer__main { grid-template-columns: repeat(4, minmax(0, 1fr)); }
