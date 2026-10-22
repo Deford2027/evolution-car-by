@@ -6,6 +6,12 @@ export const site = {
   phone: '+375 (29) 135-88-88',
   phonePlain: '+375 29 135-88-88',
   phoneHref: 'tel:+375291358888',
+  email: 'evolution.car.by@gmail.com',
+  emailHref: 'mailto:evolution.car.by@gmail.com',
+  // юрлицо – оператор персональных данных и владелец сайта
+  company: 'ООО «Тренд Экспресс Авто»',
+  unp: '193710155',
+  legalAddress: 'г. Минск, ул. Тиражная, 150, пом. 411',
   // график автосалона – он же в шапке рядом с телефоном отдела продаж
   hoursShort: 'Ежедневно, 09:00 – 18:00',
   hoursFull: 'Ежедневно, 09:00 – 18:00',

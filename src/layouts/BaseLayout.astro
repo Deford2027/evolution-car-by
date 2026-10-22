@@ -37,7 +37,10 @@ const organizationLd = {
   '@context': 'https://schema.org',
   '@type': 'AutoDealer',
   name: site.brand,
+  legalName: site.company,
+  taxID: site.unp,
   telephone: site.phone,
+  email: site.email,
   url: Astro.site?.href,
   address: {
     '@type': 'PostalAddress',

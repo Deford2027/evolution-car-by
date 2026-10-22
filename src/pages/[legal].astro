@@ -44,7 +44,16 @@ const crumbs = [
   <PageShell crumbs={crumbs} h1={page.h1} lead={page.intro} contacts={false}>
     <section class="section" style="padding-top:0">
       <div class="container">
-        {page.text ? (
+        {page.requisites ? (
+          <dl class="req">
+            {page.requisites.map((row) => (
+              <div class="req__row">
+                <dt>{row.label}</dt>
+                <dd>{row.value}</dd>
+              </div>
+            ))}
+          </dl>
+        ) : page.text ? (
           <div class="doc doc--full">
             {blocks.map((block) =>
               block.kind === 'h' ? <h2 class="doc__title">{block.text}</h2>
@@ -86,6 +95,11 @@ const crumbs = [
   }
   .doc__text { color: var(--c-text-2); line-height: 1.65; }
   .doc--full { gap: 1rem; }
+  .req { display: grid; max-width: 56rem; border-top: 1px solid var(--c-line); }
+  .req__row { display: grid; gap: .25rem; padding-block: .875rem; border-bottom: 1px solid var(--c-line); }
+  .req dt { color: var(--c-text-3); font-size: .875rem; }
+  .req dd { overflow-wrap: anywhere; }
+  @media (min-width: 640px) { .req__row { grid-template-columns: 14rem minmax(0, 1fr); gap: 1.5rem; } }
   .doc--full .doc__title { margin: 1.5rem 0 0; }
   .doc--full .doc__title:first-child { margin-top: 0; }
   .doc__list { display: grid; gap: .5rem; padding-left: 1.25rem; color: var(--c-text-2); line-height: 1.65; list-style: '— '; }
