@@ -1,4 +1,7 @@
 ---
+// стили карты – в общем CSS страницы: динамический импорт CSS грузится
+// по корневому пути и на превью в подпапке отдаёт 404
+import 'leaflet/dist/leaflet.css';
 import Socials from '../shared/Socials.astro';
 import { contacts } from '../../content/home';
 import { site } from '../../content/site';
@@ -181,7 +184,7 @@ const routeHref = `https://yandex.ru/maps/?rtext=~${showroom.lat},${showroom.lng
 
   const init = async () => {
     if (!el) return;
-    const [{ default: L }] = await Promise.all([import('leaflet'), import('leaflet/dist/leaflet.css')]);
+    const { default: L } = await import('leaflet');
     const point = L.latLng(Number(el.dataset.lat), Number(el.dataset.lng));
     const map = L.map(el, {
       zoomControl: false,
