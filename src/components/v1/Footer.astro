@@ -7,34 +7,29 @@ import { popularBrands } from '../../content/brands';
 
 <footer class="footer">
   <div class="container">
+    <!-- 1. Бренд и контакты -->
     <div class="footer__top">
-      <a class="footer__logo" href="/">
-        <img src="/img/logo-evolution-car.png" alt={site.brand} width="939" height="48" />
-      </a>
+      <div class="footer__brand">
+        <a class="footer__logo" href="/">
+          <img src="/img/logo-evolution-car.png" alt={site.brand} width="939" height="48" />
+        </a>
+        <p class="footer__about">{footer.about}</p>
+      </div>
+
       <div class="footer__contact">
         <a class="footer__phone" href={site.phoneHref}>{site.phone}</a>
-        <p class="footer__hours">Ежедневно с 10 до 20</p>
+        <p class="footer__muted">{site.hoursFull}</p>
+        <p class="footer__muted">Шоурум: {site.city}, {site.showroom}</p>
+        <p class="footer__muted">Сервис: {site.city}, {site.service}</p>
+        <ul class="footer__social">
+          <Socials />
+        </ul>
+        <a class="btn footer__order" href="/#final" data-open="lead">Оставить заявку</a>
       </div>
-      <ul class="footer__social">
-        <Socials />
-      </ul>
-      <a class="btn btn--ghost footer__order" href="/#final">Заказать</a>
     </div>
 
+    <!-- 2. Навигация -->
     <div class="footer__cols">
-      <div class="footer__about">
-        {footer.about.split('\n').map((line) => <p>{line}</p>)}
-        <p class="footer__hours footer__hours--block">{footer.hours}</p>
-      </div>
-      <nav class="footer__col" aria-label="Популярные марки">
-        <p class="footer__col-title">Популярные марки:</p>
-        <ul>
-          {popularBrands().slice(0, 8).map((brand) => (
-            <li><a href={`/catalog/${brand.slug}/`}>{brand.name}</a></li>
-          ))}
-        </ul>
-      </nav>
-
       {footer.columns.map((column) => (
         <nav class="footer__col" aria-label={column.title}>
           <p class="footer__col-title">{column.title}</p>
@@ -47,8 +42,34 @@ import { popularBrands } from '../../content/brands';
       ))}
     </div>
 
+    <!-- 3. SEO-строки: марки и города одной строкой, а не длинными колонками -->
+    <div class="footer__lines">
+      <nav class="footer__line" aria-label="Популярные марки">
+        <p class="footer__line-title">Популярные марки</p>
+        <ul>
+          {popularBrands().slice(0, 10).map((brand) => (
+            <li><a href={`/catalog/${brand.slug}/`}>{brand.name}</a></li>
+          ))}
+        </ul>
+      </nav>
+      <nav class="footer__line" aria-label="Доставка по городам">
+        <p class="footer__line-title">Доставка по городам</p>
+        <ul>
+          {footer.cities.map((city) => (
+            <li><a href={city.href}>{city.label}</a></li>
+          ))}
+        </ul>
+      </nav>
+    </div>
+
+    <!-- 4. Юридическое -->
     <div class="footer__bottom">
       <p>© {new Date().getFullYear()} {site.brand}</p>
+      <ul class="footer__legal">
+        {footer.legal.map((link) => (
+          <li><a href={link.href}>{link.label}</a></li>
+        ))}
+      </ul>
       <span>{footer.credit}</span>
     </div>
   </div>
@@ -66,49 +87,63 @@ import { popularBrands } from '../../content/brands';
   }
   .footer__top {
     display: grid;
-    gap: 1.25rem;
-    align-items: center;
-    padding-bottom: clamp(1.5rem, 1rem + 2vw, 2.5rem);
+    gap: 2rem;
+    padding-bottom: clamp(2rem, 1.5rem + 2vw, 3rem);
     border-bottom: 1px solid var(--c-line);
   }
+  .footer__brand { display: grid; gap: 1.25rem; align-content: start; }
   .footer__logo img { width: min(100%, 22rem); height: auto; display: block; }
-  .footer__phone { font-weight: 600; font-size: .9375rem; }
-  .footer__hours { color: var(--c-text-3); font-size: .8125rem; }
-  .footer__social { display: flex; gap: .625rem; }
+  .footer__about { color: var(--c-text-3); font-size: .875rem; line-height: 1.55; max-width: 46ch; }
+
+  .footer__contact { display: grid; gap: .375rem; align-content: start; justify-items: start; }
+  .footer__phone { font-family: var(--font-display); font-weight: 700; font-size: 1.5rem; line-height: 1.2; }
+  .footer__phone:hover { color: var(--c-accent); }
+  .footer__muted { color: var(--c-text-3); font-size: .875rem; }
+  .footer__social { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: 1rem; }
   .footer__social :global(a) {
     width: 2.75rem; height: 2.75rem;
     border-radius: 50%;
     border: 1px solid var(--c-line-strong);
     display: grid; place-items: center;
-    font-size: .6875rem; font-weight: 600;
     color: var(--c-text-2);
     transition: color .2s var(--ease), border-color .2s var(--ease);
   }
   .footer__social :global(a:hover) { color: var(--c-accent); border-color: var(--c-accent); }
-  .footer__order { border-radius: var(--r-pill); padding-inline: 2rem; }
+  .footer__order { margin-top: 1rem; border-radius: var(--r-pill); padding-inline: 2rem; }
 
   .footer__cols {
     display: grid;
-    gap: 2rem;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 2rem 1.5rem;
     padding-block: clamp(2rem, 1.5rem + 2vw, 3rem);
   }
-  .footer__about p { color: var(--c-text-2); font-size: .875rem; line-height: 1.5; margin-bottom: 1rem; max-width: 34ch; }
-  .footer__hours--block { margin-top: 1.5rem; }
-  .footer__col-title { margin-bottom: 1rem; font-size: .9375rem; }
+  .footer__col-title, .footer__line-title {
+    margin-bottom: 1rem;
+    color: var(--c-text-3);
+    font-size: .75rem;
+    font-weight: 600;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+  }
   .footer__col li + li { margin-top: .625rem; }
-  .footer__col a { color: var(--c-text-2); font-size: .875rem; }
-  .footer__col a:hover { color: var(--c-text); }
+  .footer__col a, .footer__line a, .footer__legal a { color: var(--c-text-2); font-size: .875rem; transition: color .2s var(--ease); }
+  .footer__col a:hover, .footer__line a:hover, .footer__legal a:hover { color: var(--c-accent); }
+
+  .footer__lines { display: grid; gap: 1.5rem; padding-block: 1.75rem; border-top: 1px solid var(--c-line); }
+  .footer__line-title { margin-bottom: .75rem; }
+  .footer__line ul { display: flex; flex-wrap: wrap; gap: .5rem 1.25rem; }
 
   .footer__bottom {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-    justify-content: space-between;
+    display: grid;
+    gap: .875rem;
     padding-block: 1.5rem;
     border-top: 1px solid var(--c-line);
     color: var(--c-text-3);
     font-size: .8125rem;
   }
+  .footer__legal { display: flex; flex-wrap: wrap; gap: .5rem 1.5rem; }
+  .footer__legal a { font-size: .8125rem; color: var(--c-text-3); }
+
   .footer__word {
     font-family: var(--font-display);
     font-weight: 700;
@@ -123,10 +158,14 @@ import { popularBrands } from '../../content/brands';
   }
 
   @media (min-width: 768px) {
-    .footer__top { grid-template-columns: minmax(0, 1fr) auto auto auto; gap: 1.5rem; }
-    .footer__cols { grid-template-columns: minmax(0, 1.4fr) repeat(3, minmax(0, 1fr)); gap: 2.5rem; }
+    .footer__top { grid-template-columns: minmax(0, 1fr) auto; gap: 3rem; }
+    .footer__cols { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 2.5rem; }
+    .footer__lines { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2.5rem; }
+    .footer__bottom { grid-template-columns: auto 1fr auto; align-items: center; gap: 2rem; }
+    .footer__legal { justify-content: center; }
   }
-  @media (min-width: 1200px) {
-    .footer__cols { grid-template-columns: minmax(0, 1.3fr) repeat(4, minmax(0, 1fr)); }
+  @media (min-width: 1024px) {
+    .footer__contact { justify-items: end; text-align: right; }
+    .footer__social { justify-content: flex-end; }
   }
 </style>

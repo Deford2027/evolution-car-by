@@ -168,52 +168,50 @@ export const contacts = {
 };
 
 export const footer = {
-  about: 'Автосалон автомобилей в наличии и под заказ.\nПодбираем и доставляем автомобили из Китая, Южной Кореи, Японии, США, Европы и других стран.\nБерём на себя подбор, покупку, страхование, доставку, таможенное оформление и подготовку документов для постановки автомобиля на учёт.',
-  hours: 'Ежедневно 9:00 – 20:00',
+  about: 'Автосалон автомобилей в наличии и под заказ. Подбираем, покупаем, доставляем и растамаживаем автомобили из Китая, Южной Кореи, Японии, США и Европы.',
+  // четыре колонки ссылок: что купить, откуда везём, услуги, компания
   columns: [
-    { title: 'Каталог:', links: [
-      { label: 'Каталог автомобилей', href: '/catalog/' },
-      { label: 'Автомобили из Китая', href: '/catalog/iz-kitaya/' },
-      { label: 'Автомобили из Кореи', href: '/catalog/iz-korei/' },
-      { label: 'Автомобили из Европы', href: '/catalog/iz-evropy/' },
-      { label: 'Автомобили из США', href: '/catalog/iz-ssha/' },
-    ] },
-    { title: 'Автомобили:', links: [
-      { label: 'Авто в наличии', href: '/catalog/v-nalichii/' },
-      { label: 'Авто под заказ', href: '/catalog/pod-zakaz/' },
+    { title: 'Автомобили', links: [
+      { label: 'Весь каталог', href: '/catalog/' },
+      { label: 'В наличии', href: '/catalog/v-nalichii/' },
+      { label: 'Под заказ', href: '/catalog/pod-zakaz/' },
       { label: 'Электромобили', href: '/catalog/elektromobili/' },
-      { label: 'Гибридные автомобили', href: '/catalog/gibridy/' },
+      { label: 'Гибриды', href: '/catalog/gibridy/' },
       { label: 'Конфигураторы Lixiang и Xiaomi', href: '/konfiguratory/' },
+    ] },
+    { title: 'Откуда везём', links: [
+      { label: 'Из Китая', href: '/china/' },
+      { label: 'Из Южной Кореи', href: '/korea/' },
+      { label: 'Из Европы', href: '/europa/' },
+      { label: 'Из США', href: '/usa/' },
+    ] },
+    { title: 'Услуги', links: [
       { label: 'Рассчитать стоимость', href: '/#cost' },
       { label: 'Подобрать автомобиль', href: '/#final' },
-    ] },
-    { title: 'Компания:', links: [
-      { label: 'О компании', href: '/about/' },
+      { label: 'Доставка и растаможка', href: '/dostavka-i-rastamozhka/' },
       { label: 'Для бизнеса', href: '/dlya-biznesa/' },
       { label: 'Для таксопарков', href: '/dlya-taksoparkov/' },
-      { label: 'Партнёрам', href: '/partneram/' },
-      { label: 'Доставка и растаможка', href: '/dostavka-i-rastamozhka/' },
+    ] },
+    { title: 'Компания', links: [
+      { label: 'О компании', href: '/about/' },
       { label: 'Пригнанные авто', href: '/portfolio/' },
       { label: 'Отзывы', href: '/rew/' },
+      { label: 'Партнёрам', href: '/partneram/' },
       { label: 'Контакты', href: '/contact/' },
-      { label: 'Юридические данные', href: '/legal_data/' },
-      { label: 'Политика конфиденциальности', href: '/policy/' },
-      { label: 'Согласие на обработку персональных данных', href: '/agreement/' },
     ] },
-    { title: 'Доставка по городам:', links: [
-      { label: 'Минск', href: '/minsk/' },
-      { label: 'Гомель', href: '/gomel/' },
-      { label: 'Витебск', href: '/vitebsk/' },
-      { label: 'Брест', href: '/brest/' },
-      { label: 'Гродно', href: '/grodno/' },
-      { label: 'Могилёв', href: '/mogilev/' },
-    ] },
-    { title: 'Направления:', links: [
-      { label: 'Китай', href: '/china/' },
-      { label: 'Южная Корея', href: '/korea/' },
-      { label: 'Европа', href: '/europa/' },
-      { label: 'США', href: '/usa/' },
-    ] },
+  ],
+  cities: [
+    { label: 'Минск', href: '/minsk/' },
+    { label: 'Гомель', href: '/gomel/' },
+    { label: 'Витебск', href: '/vitebsk/' },
+    { label: 'Брест', href: '/brest/' },
+    { label: 'Гродно', href: '/grodno/' },
+    { label: 'Могилёв', href: '/mogilev/' },
+  ],
+  legal: [
+    { label: 'Юридические данные', href: '/legal_data/' },
+    { label: 'Политика конфиденциальности', href: '/policy/' },
+    { label: 'Согласие на обработку персональных данных', href: '/agreement/' },
   ],
   credit: 'Разработка сайта',
 };
