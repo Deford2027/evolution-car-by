@@ -1,8 +1,7 @@
 name: Сборка и публикация на GitHub Pages
 
+# В форке прод-деплой только вручную: иначе он затирает превью ветки preview.
 on:
-  push:
-    branches: [main]
   workflow_dispatch:
 
 permissions:
