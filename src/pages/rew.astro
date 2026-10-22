@@ -4,6 +4,7 @@ import '../styles/islands.css';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageShell from '../components/v1/PageShell.astro';
 import { reviewsPage } from '../content/pages';
+import { yandexOrg, yandexReviews } from '../content/reviews-yandex';
 import { breadcrumbsLd, abs } from '../lib/seo';
 
 const crumbs = [
@@ -22,36 +23,80 @@ const crumbs = [
   <PageShell crumbs={crumbs} h1={reviewsPage.h1} lead={reviewsPage.lead}>
     <section class="section" style="padding-top:0">
       <div class="container">
+        <div class="rating">
+          <a class="rating__score" href={yandexOrg.url} target="_blank" rel="noopener">
+            <span class="rating__num">{yandexOrg.rating}</span>
+            <span class="rating__meta">
+              <span class="rating__stars" aria-label={`Рейтинг ${yandexOrg.rating} из 5`}>★★★★★</span>
+              <span>{yandexOrg.votes} на Яндекс Картах</span>
+            </span>
+          </a>
+          <a class="btn btn--ghost" href={yandexOrg.url} target="_blank" rel="noopener">Оставить отзыв</a>
+        </div>
+
         <ul class="reviews">
-          {reviewsPage.items.map((item) => (
+          {yandexReviews.map((item) => (
             <li class="card review">
               <div class="review__head">
-                <p class="review__name">{item.name}</p>
+                <span class="review__avatar" aria-hidden="true">{item.name.trim()[0].toUpperCase()}</span>
+                <div>
+                  <p class="review__name">{item.name}</p>
+                  <p class="review__date">{item.date}</p>
+                </div>
                 <p class="review__stars" aria-label="Оценка 5 из 5">★★★★★</p>
               </div>
               <p class="review__text">{item.text}</p>
-              <a class="review__link" href="/contact/">{reviewsPage.linkLabel}</a>
             </li>
           ))}
         </ul>
+
+        <p class="more">
+          <a class="btn" href={yandexOrg.url} target="_blank" rel="noopener">Все отзывы на Яндекс Картах</a>
+        </p>
       </div>
     </section>
   </PageShell>
 </BaseLayout>
 
 <style>
-  .reviews { display: grid; gap: var(--gap); }
-  @media (min-width: 640px) { .reviews { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-  @media (min-width: 1024px) { .reviews { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+  .rating {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    margin-bottom: clamp(1.5rem, 1rem + 2vw, 2.5rem);
+  }
+  .rating__score { display: flex; align-items: center; gap: 1rem; }
+  .rating__num { font-family: var(--font-heading); font-size: clamp(2.5rem, 2rem + 2vw, 3.5rem); line-height: 1; }
+  .rating__meta { display: grid; gap: .25rem; color: var(--c-text-3); font-size: .875rem; }
+  .rating__stars { color: var(--c-accent); letter-spacing: .12em; }
+
+  /* тексты разной длины – раскладка колонками, без пустот */
+  .reviews { columns: 1; column-gap: var(--gap); }
+  @media (min-width: 640px) { .reviews { columns: 2; } }
+  @media (min-width: 1024px) { .reviews { columns: 3; } }
   .review {
+    break-inside: avoid;
+    margin-bottom: var(--gap);
     padding: clamp(1.5rem, 1rem + 1.5vw, 2rem);
     display: grid;
-    grid-template-rows: auto 1fr auto;
     gap: 1.25rem;
   }
-  .review__head { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
-  .review__name { font-family: var(--font-body); font-size: 1.25rem; }
-  .review__stars { color: var(--c-accent); letter-spacing: .12em; font-size: .9375rem; }
-  .review__text { color: var(--c-text-3); font-size: .9375rem; line-height: 1.55; }
-  .review__link { color: var(--c-accent); font-weight: 600; font-size: .9375rem; }
+  .review__head { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: .875rem; }
+  .review__avatar {
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    background: rgba(255, 85, 0, .15);
+    color: var(--c-accent);
+    font-weight: 600;
+  }
+  .review__name { font-family: var(--font-body); font-size: 1.0625rem; font-weight: 600; }
+  .review__date { color: var(--c-text-3); font-size: .8125rem; }
+  .review__stars { color: var(--c-accent); letter-spacing: .12em; font-size: .875rem; align-self: start; }
+  .review__text { color: var(--c-text-2); font-size: .9375rem; line-height: 1.55; white-space: pre-line; }
+  .more { display: flex; justify-content: center; margin-top: clamp(1rem, .5rem + 2vw, 2rem); }
 </style>
