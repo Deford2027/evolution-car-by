@@ -1,0 +1,56 @@
+name: Превью v3 на GitHub Pages форка
+
+# Собирает ветку preview в подпапку /evolution-car-by/ на <владелец>.github.io.
+# Домен ликсианг.рф здесь не используется и CNAME не публикуется, чтобы форк
+# не претендовал на прод-домен.
+on:
+  push:
+    branches: [preview]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      SITE: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npx astro build
+        env:
+          PUBLIC_SITE_URL: ${{ env.SITE }}
+      # Админка собирается из готовых страниц строго до префикса подпапки.
+      - name: Собрать админку из готовых страниц
+        run: python3 admin/build.py dist
+        env:
+          SITE_URL: ${{ env.SITE }}
+      - name: Дописать префикс подпапки
+        run: node scripts/rebase-dist.mjs /${{ github.event.repository.name }}
+      - name: Без CNAME и без Jekyll
+        run: rm -f dist/CNAME && touch dist/.nojekyll
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
