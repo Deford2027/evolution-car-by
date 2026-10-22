@@ -219,7 +219,8 @@ const routeHref = `https://yandex.ru/maps/?rtext=~${showroom.lat},${showroom.lng
   const initYandex = async (key: string, lat: number, lng: number) => {
     await loadScript(`https://api-maps.yandex.ru/v3/?apikey=${encodeURIComponent(key)}&lang=ru_RU`);
     const ymaps3 = (window as any).ymaps3;
-    await ymaps3.ready;
+    // с неверным ключом ready может не завершиться – не ждём дольше 8 секунд
+    await Promise.race([ymaps3.ready, new Promise((_, reject) => setTimeout(() => reject(new Error('таймаут')), 8000))]);
     const { YMap, YMapDefaultSchemeLayer, YMapDefaultFeaturesLayer, YMapMarker } = ymaps3;
     // margin сдвигает «центр» карты в свободную часть – метка встаёт по её центру
     const margin = () => {
