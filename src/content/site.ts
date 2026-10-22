@@ -33,7 +33,7 @@ export const nav: NavLink[] = [
   { label: 'Авто в наличии', href: '/catalog/v-nalichii/' },
   { label: 'Авто под заказ', href: '/catalog/pod-zakaz/' },
   { label: 'Каталог', href: '/catalog/' },
-  { label: 'Конфигураторы', href: '/konfiguratory/' },
+  // скрыто по просьбе клиента, страница остаётся: { label: 'Конфигураторы', href: '/konfiguratory/' },
   { label: 'Электромобили', href: '/catalog/elektromobili/' },
   { label: 'Доставка', href: '/dostavka-i-rastamozhka/' },
   { label: 'Пригнали', href: '/portfolio/' },

@@ -175,7 +175,7 @@ export const footer = {
       { label: 'Под заказ', href: '/catalog/pod-zakaz/' },
       { label: 'Электромобили', href: '/catalog/elektromobili/' },
       { label: 'Гибриды', href: '/catalog/gibridy/' },
-      { label: 'Конфигураторы Lixiang и Xiaomi', href: '/konfiguratory/' },
+      // скрыто по просьбе клиента: { label: 'Конфигураторы Lixiang и Xiaomi', href: '/konfiguratory/' },
     ] },
     { title: 'Откуда везём', links: [
       { label: 'Из Китая', href: '/china/' },
