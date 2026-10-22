@@ -61,8 +61,8 @@ const links = [
       </div>
 
       <ul class="mega__tiles">
-        {tiles.map((t) => (
-          <li>
+        {tiles.map((t, i) => (
+          <li style={`--i:${i + 1}`}>
             <a class:list={['tile', { 'tile--accent': t.accent }]} href={t.href}>
               <img src={t.img} alt="" loading="lazy" width="600" height="400" style={`object-position:${t.pos}`} />
               <span class="tile__body">
@@ -78,8 +78,8 @@ const links = [
       </ul>
 
       <nav class="mega__links" aria-label="Разделы сайта">
-        {links.map((l) => (
-          <a href={l.href}>
+        {links.map((l, i) => (
+          <a href={l.href} style={`--i:${i + tiles.length + 1}`}>
             {l.label}
             <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /></svg>
           </a>
@@ -105,6 +105,35 @@ const links = [
     background: var(--c-bg);
   }
   .mega[hidden] { display: none; }
+
+  /* Плавное открытие: фон проявляется, панель выезжает сверху, плитки и
+     ссылки появляются друг за другом. Класс is-open ставит скрипт кадром
+     позже снятия hidden, иначе переход не сработает. */
+  .mega {
+    opacity: 0;
+    transition: opacity .3s var(--ease);
+  }
+  .mega.is-open { opacity: 1; }
+  .mega__panel, .mega__bar {
+    opacity: 0;
+    transform: translateY(-1.25rem);
+    transition: opacity .45s var(--ease), transform .55s var(--ease);
+  }
+  .mega__bar { transform: translateY(1.25rem); }
+  .mega.is-open .mega__panel, .mega.is-open .mega__bar { opacity: 1; transform: none; }
+  .mega__lead, .mega__tiles > li, .mega__links > a {
+    opacity: 0;
+    transform: translateY(.75rem);
+    transition: opacity .4s var(--ease), transform .5s var(--ease);
+  }
+  .mega.is-open :is(.mega__lead, .mega__tiles > li, .mega__links > a) {
+    opacity: 1;
+    transform: none;
+    transition-delay: calc(.05s + var(--i, 0) * .03s);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .mega, .mega *, .mega *::after { transition-duration: .01ms !important; transition-delay: 0s !important; }
+  }
   .mega__wrap { padding-bottom: 1rem; }
   .mega__panel { display: grid; gap: .75rem; }
 
@@ -202,7 +231,7 @@ const links = [
     padding: 1rem .25rem;
     border-bottom: 1px solid var(--c-line);
     font-size: 1rem;
-    transition: color .2s var(--ease);
+    transition: color .2s var(--ease), border-color .2s var(--ease), opacity .4s var(--ease), transform .5s var(--ease);
   }
   .mega__links a:hover { color: var(--c-accent); }
 
@@ -270,9 +299,23 @@ const links = [
   const mega = document.querySelector<HTMLElement>('[data-mega]');
   const toggles = document.querySelectorAll<HTMLButtonElement>('[data-mega-toggle]');
 
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+  let hideTimer = 0;
+
   const setOpen = (open: boolean) => {
     if (!mega) return;
-    mega.hidden = !open;
+    if (open === mega.classList.contains('is-open')) return;
+    clearTimeout(hideTimer);
+    if (open) {
+      mega.hidden = false;
+      // кадр с opacity: 0 должен отрисоваться, прежде чем включится переход
+      void mega.offsetWidth;
+      mega.classList.add('is-open');
+    } else {
+      mega.classList.remove('is-open');
+      // прячем после того, как отыграет закрытие
+      hideTimer = window.setTimeout(() => { mega.hidden = true; }, reduced.matches ? 0 : 320);
+    }
     document.documentElement.classList.toggle('is-mega-open', open);
     document.body.style.overflow = open ? 'hidden' : '';
     for (const t of toggles) {
@@ -281,7 +324,7 @@ const links = [
     }
   };
 
-  for (const t of toggles) t.addEventListener('click', () => setOpen(!!mega?.hidden));
+  for (const t of toggles) t.addEventListener('click', () => setOpen(!mega?.classList.contains('is-open')));
   addEventListener('keydown', (e) => e.key === 'Escape' && setOpen(false));
   // клик по ссылке или кнопке заявки закрывает меню; клик по пустому полю
   // вокруг панели на десктопе – тоже
