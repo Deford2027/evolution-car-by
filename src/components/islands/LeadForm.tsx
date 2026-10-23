@@ -55,7 +55,7 @@ export default function LeadForm({
     }
     setError('');
     setStatus('sending');
-    const { submitLead } = await import('../../lib/submit');
+    const { submitLead, goToThanks } = await import('../../lib/submit');
     const ok = await submitLead({
       name,
       phone: fullPhone(phone, country),
@@ -64,6 +64,7 @@ export default function LeadForm({
       company,
     });
     setStatus(ok ? 'done' : 'error');
+    if (ok) goToThanks();
   };
 
   if (status === 'done') {

@@ -1,5 +1,5 @@
 import { useState } from 'preact/hooks';
-import { submitLead } from '../../lib/submit';
+import { goToThanks, submitLead } from '../../lib/submit';
 import { fullPhone, nationalFilled } from '../../lib/phone';
 import { Consent, PhoneField } from './LeadForm';
 
@@ -53,6 +53,7 @@ export default function Quiz({ title, steps, contactQuestion, channels, success,
     }
     setState('done');
     onDone?.();
+    goToThanks();
   };
 
   if (state === 'done') return <p class="quiz__done">{success}</p>;

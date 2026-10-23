@@ -26,7 +26,7 @@ const rules = [
   [/("(?:url|image)":\s*")\//g, `$1${base}/`],
   // пути внутри props островов и встроенных данных: Astro кодирует кавычки как
   // &quot;, а остров потом строит из них адрес картинки уже в браузере
-  [new RegExp(`(&quot;|["'])/(img|catalog|video|sravnenie)/`, 'g'), `$1${base}/$2/`],
+  [new RegExp(`(&quot;|["'\`])/(img|catalog|video|sravnenie|thank_page)/`, 'g'), `$1${base}/$2/`],
 ];
 
 async function walk(dir) {

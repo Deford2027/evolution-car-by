@@ -76,3 +76,12 @@ export async function submitLead(lead: Lead): Promise<boolean> {
     return false;
   }
 }
+
+/**
+ * После успешной заявки – страница «Спасибо»: на неё же вешают цели в
+ * аналитике. Пауза даёт событию trackLead уйти до перехода. Путь пишется
+ * от корня, на превью префикс подпапки дописывает scripts/rebase-dist.mjs.
+ */
+export function goToThanks() {
+  setTimeout(() => location.assign('/thank_page/'), 300);
+}
