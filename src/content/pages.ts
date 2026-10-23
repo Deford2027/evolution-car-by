@@ -48,9 +48,9 @@ export const about = {
 
 export const contactPage = {
   h1: 'Контакты',
-  seoTitle: 'Контакты Evolution Car – Минск, пр-т Машерова, 15/4',
+  seoTitle: 'Контакты Evolution Car – г. Минск, проспект Машерова, 15/4',
   seoDescription:
-    'Шоурум и сервис Evolution Car: Минск, пр-т Машерова, 15/4. ' +
+    'Шоурум и сервис Evolution Car: г. Минск, проспект Машерова, 15/4. ' +
     'Телефон +375 29 135-88-88. Автосалон ежедневно с 9:00 до 18:00, сервис – с 9:00 до 19:00.',
 };
 
@@ -137,7 +137,7 @@ export const legalPages: LegalPage[] = [
       { label: 'Банк', value: 'ЗАО «Альфа-Банк», БИК: ALFABY2X' },
       { label: 'Р/с CNY', value: 'BY94ALFA30122D91730020270000' },
       { label: 'Банк', value: 'ЗАО «Альфа-Банк», БИК: ALFABY2X' },
-      { label: 'Шоурум и сервис', value: `${site.city}, ${site.showroom}` },
+      { label: 'Шоурум и сервис', value: site.address },
       { label: 'Телефон', value: site.phonePlain },
       { label: 'Электронная почта', value: site.email },
     ],
