@@ -27,7 +27,7 @@ import SlideArrows from '../shared/SlideArrows.astro';
         <div class="dir-card__shot">
           <img class="dir-card__img" src={item.img} alt="" loading="lazy" width="854" height="950" />
         </div>
-        <a class="btn dir-card__cta" href="/catalog/">{item.cta}</a>
+        <a class="btn dir-card__cta" href={item.href}>{item.cta}</a>
       </li>
     ))}
   </ul>
