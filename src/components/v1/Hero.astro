@@ -4,9 +4,10 @@ import { hero } from '../../content/home';
 
 <section class="hero">
   {/* Видео первого экрана – как на evolutioncar.by: на телефоне вертикальная
-      версия, на десктопе 16:9. Без звука и по кругу – иначе браузер не даст
-      запустить его сам. Пока грузится, виден постер. */}
-  <video class="hero__bg" autoplay muted loop playsinline preload="auto" poster="/img/hero-poster.webp" aria-hidden="true" data-hero-video>
+      версия 720×1280 (вырезана из 16:9 вокруг машины), на десктопе 16:9.
+      Без звука и по кругу – иначе браузер не даст запустить его сам.
+      Пока грузится, виден постер. */}
+  <video class="hero__bg" autoplay muted loop playsinline preload="auto" poster="/img/hero-poster.webp" data-poster-m="/img/hero-poster-m.webp" aria-hidden="true" data-hero-video>
     <source media="(max-width: 620px)" src="/video/hero-m.mp4" type="video/mp4" />
     <source src="/video/hero.mp4" type="video/mp4" />
   </video>
@@ -85,5 +86,19 @@ import { hero } from '../../content/home';
   if (video && matchMedia('(prefers-reduced-motion: reduce)').matches) {
     video.removeAttribute('autoplay');
     video.pause();
+  } else if (video) {
+    // На телефоне – вертикальное видео и его постер. Атрибут media у <source>
+    // понимают не все браузеры (часть ставит десктопное 16:9), поэтому
+    // выбираем источник сами.
+    const mobile = video.querySelector<HTMLSourceElement>('source[media]');
+    if (mobile && matchMedia(mobile.media).matches) {
+      video.poster = video.dataset.posterM ?? video.poster;
+      if (video.currentSrc !== mobile.src) { video.src = mobile.src; video.load(); }
+    }
+    // iPhone в режиме энергосбережения не запускает autoplay сам –
+    // пробуем ещё раз при первом касании экрана
+    const play = () => video.play().catch(() => {});
+    play();
+    addEventListener('touchstart', play, { once: true, passive: true });
   }
 </script>

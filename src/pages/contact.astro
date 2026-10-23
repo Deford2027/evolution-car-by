@@ -36,14 +36,9 @@ const crumbs = [
             <p class="tile__note">{site.city}</p>
           </li>
           <li class="card tile">
-            <p class="tile__label">Сервис</p>
-            <p class="tile__value">{site.service}</p>
-            <p class="tile__note">{site.city}</p>
-          </li>
-          <li class="card tile">
             <p class="tile__label">Режим работы</p>
             <p class="tile__value">09:00 – 18:00</p>
-            <p class="tile__note">Автосалон ежедневно. Сервисы – 09:00 – 19:00</p>
+            <p class="tile__note">Автосалон ежедневно. Сервис – 09:00 – 19:00</p>
           </li>
         </ul>
 
@@ -69,7 +64,7 @@ const crumbs = [
 <style>
   .tiles { display: grid; gap: var(--gap); margin-bottom: var(--gap); }
   @media (min-width: 560px) { .tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-  @media (min-width: 1024px) { .tiles { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+  @media (min-width: 1024px) { .tiles { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
   .tile { padding: clamp(1.25rem, 1rem + 1vw, 1.75rem); align-content: start; }
   .tile__label { color: var(--c-text-3); font-size: .8125rem; margin-bottom: .75rem; }
   .tile__value { display: block; font-size: 1.125rem; line-height: 1.3; }

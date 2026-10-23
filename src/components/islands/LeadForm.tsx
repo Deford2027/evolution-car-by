@@ -1,8 +1,7 @@
-import { useEffect, useState } from 'preact/hooks';
+import { useState } from 'preact/hooks';
 import type { JSX } from 'preact';
 import {
   COUNTRIES,
-  detectCountry,
   fullPhone,
   maskNational,
   nationalFilled,
@@ -146,15 +145,12 @@ interface PhoneFieldProps {
 }
 
 /**
- * Телефон с выбором страны. Страна подставляется по устройству посетителя
- * (detectCountry), человек может сменить её списком, а маска берётся у
- * выбранной страны. Определение – в эффекте, а не в начальном значении:
- * на сервере браузера нет, и разметка разошлась бы с той, что в HTML.
+ * Телефон с выбором страны. По умолчанию всегда Беларусь – большая часть
+ * заявок оттуда (просьба клиента); другую страну человек выбирает списком,
+ * маска берётся у выбранной страны. detectCountry больше не подставляем:
+ * по часовому поясу он ставил +7 тем, у кого на телефоне московское время.
  */
 export function PhoneField({ label, country, national, onChange }: PhoneFieldProps) {
-  useEffect(() => {
-    if (!national) onChange(detectCountry(), '');
-  }, []);
 
   const c = COUNTRIES.find((x) => x.iso === country) ?? COUNTRIES[0];
 

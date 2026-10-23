@@ -18,7 +18,7 @@ const rules = [
   [/(\s(?:href|src|action|content|poster)=")\/(?!\/)/g, `$1${base}/`],
   // <astro-island> грузит сам остров и рендерер по этим адресам: без префикса
   // скрипты отдают 404 и остров не оживает – кнопки конфигуратора не работают
-  [/(\s(?:component-url|renderer-url|before-hydration-url|data-src)=")\/(?!\/)/g, `$1${base}/`],
+  [/(\s(?:component-url|renderer-url|before-hydration-url|data-src|data-poster-m)=")\/(?!\/)/g, `$1${base}/`],
   // srcset хранит список «URL дескриптор, URL дескриптор» – префикс нужен каждому
   [/(\s(?:srcset|imagesrcset)=")([^"]+)"/g, (_, attr, list) =>
     attr + list.split(',').map((part) => part.trim().replace(/^\/(?!\/)/, `${base}/`)).join(', ') + '"'],

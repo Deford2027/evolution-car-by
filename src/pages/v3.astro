@@ -28,7 +28,7 @@ const lineups = [
   { title: 'Гибриды', cars: withPhotos.filter((c) => c.powertrain === 'hybrid').slice(0, 6) },
   { title: 'В наличии', cars: withPhotos.filter((c) => c.availability === 'in-stock').slice(0, 6) },
 ];
-const dirLinks = ['/catalog/iz-kitaya/', '/catalog/iz-korei/', '/catalog/iz-evropy/', '/catalog/iz-ssha/'];
+const dirLinks = ['/catalog/iz-kitaya/', '/catalog/iz-korei/', '/catalog/iz-ssha/', '/catalog/iz-evropy/'];
 const plural = (n: number) => (n % 10 === 1 && n % 100 !== 11 ? 'автомобиль' : n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % 100 > 14) ? 'автомобиля' : 'автомобилей');
 const arrow = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
 ---
@@ -346,7 +346,6 @@ const arrow = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke
           <div>
             <p class="v3-foot__title">Шоурум</p>
             <p>{site.city}, {site.showroom}</p>
-            <p>Сервис: {site.service}</p>
             <p>{site.hoursFull}</p>
           </div>
         </div>
