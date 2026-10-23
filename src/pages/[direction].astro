@@ -153,7 +153,7 @@ const catalogHref = `/catalog/${countries[direction.country].slug}/`;
           </div>
         </div>
         <ol class="process">
-          {processSteps.map((step, i) => (
+          {processSteps(direction.country).map((step, i) => (
             <li class="card process__step">
               <p class="process__num">{String(i + 1).padStart(2, '0')}</p>
               <h3 class="process__title">{step.title}</h3>
