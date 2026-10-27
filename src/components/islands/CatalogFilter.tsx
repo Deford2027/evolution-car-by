@@ -39,6 +39,22 @@ export default function CatalogFilter({ facets, cars, total }: Props) {
       (!picked.availability || car.availability === picked.availability),
   );
 
+  // Фильтр можно задать ссылкой: /catalog/elektromobili/?country=china –
+  // так ведут кнопки со страниц направлений. Неизвестные значения игнорируем.
+  useEffect(() => {
+    const q = new URLSearchParams(location.search);
+    const fromUrl = { ...picked };
+    let found = false;
+    for (const key of Object.keys(LABELS) as Key[]) {
+      const value = q.get(key);
+      if (value && cars.some((car) => car[key] === value)) {
+        fromUrl[key] = value;
+        found = true;
+      }
+    }
+    if (found) setPicked(fromUrl);
+  }, []);
+
   useEffect(() => {
     const visible = new Set(matches.map((c) => c.slug));
     document.querySelectorAll<HTMLElement>('#catalog-grid > li').forEach((li) => {

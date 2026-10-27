@@ -14,7 +14,7 @@ import ModalHost from '../components/islands/ModalHost';
 import LeadForm from '../components/islands/LeadForm';
 import { directions, protection, processSteps, noBrand } from '../content/directions';
 import type { Direction } from '../content/directions';
-import { cars, countries } from '../content/cars';
+import { cars, countries, getSection } from '../content/cars';
 import type { Car } from '../content/cars';
 import { breadcrumbsLd, abs } from '../lib/seo';
 import { quiz, finalOffer } from '../content/home';
@@ -27,6 +27,26 @@ export function getStaticPaths() {
 }
 
 const { direction, list } = Astro.props as { direction: Direction; list: Car[] };
+
+// Кнопка типа ведёт в каталог уже с фильтром по стране направления:
+// раздел типа + ?country=…, либо раздел самой страны + ?powertrain=….
+// Если таких машин в каталоге нет – раздел страны целиком, а если нет и
+// его – кнопка открывает заявку (пустой каталог показывать незачем).
+const countrySlug = countries[direction.country].slug;
+const ownCars = cars.filter((c) => c.country === direction.country);
+const typeLink = (type: Direction['types'][number]) => {
+  if (!ownCars.length) return { href: '#final', label: 'Оставить заявку', lead: true };
+  const section = type.section === 'country' ? null : getSection(type.section);
+  const hit = ownCars.some(
+    (c) => (!section || section.match(c)) && (!type.powertrain || c.powertrain === type.powertrain),
+  );
+  const href = !hit
+    ? `/catalog/${countrySlug}/`
+    : section
+      ? `/catalog/${section.slug}/?country=${direction.country}`
+      : `/catalog/${countrySlug}/${type.powertrain ? `?powertrain=${type.powertrain}` : ''}`;
+  return { href, label: 'Смотреть в каталоге', lead: false };
+};
 
 const crumbs = [
   { name: 'Главная', href: '/' },
@@ -105,7 +125,10 @@ const catalogHref = `/catalog/${countries[direction.country].slug}/`;
             <li class="card type">
               <h3 class="type__title">{type.title}</h3>
               <p class="type__text">{type.text}</p>
-              <a class="btn btn--block type__cta" href={`/catalog/${type.section}/`}>Смотреть в каталоге</a>
+              {(() => {
+                const link = typeLink(type);
+                return <a class="btn btn--block type__cta" href={link.href} data-open={link.lead ? 'lead' : undefined}>{link.label}</a>;
+              })()}
             </li>
           ))}
         </ul>

@@ -6,7 +6,10 @@ import type { Country } from './cars';
 export interface CarType {
   title: string;
   text: string;
+  /** раздел каталога; 'country' – раздел страны направления (iz-kitaya и т.п.) */
   section: string;
+  /** фильтр по двигателю внутри раздела страны */
+  powertrain?: string;
 }
 
 export interface Direction {
@@ -44,7 +47,8 @@ const BASE_TYPES: CarType[] = [
   {
     title: 'Бензиновые автомобили',
     text: 'Кроссоверы, седаны и другие модели китайских и международных брендов.',
-    section: 'pod-zakaz',
+    section: 'country',
+    powertrain: 'petrol',
   },
 ];
 
@@ -52,12 +56,12 @@ const USED_TYPES: CarType[] = [
   {
     title: 'Новые автомобили',
     text: 'Модели текущего и прошлого годов выпуска без пробега по дорогам общего пользования.',
-    section: 'pod-zakaz',
+    section: 'country',
   },
   {
     title: 'Автомобили с пробегом',
     text: 'Проверенные автомобили с подтверждённой историей обслуживания и прозрачным пробегом.',
-    section: 'pod-zakaz',
+    section: 's-probegom',
   },
 ];
 
