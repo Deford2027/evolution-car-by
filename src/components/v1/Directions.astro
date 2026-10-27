@@ -86,7 +86,18 @@ import SlideArrows from '../shared/SlideArrows.astro';
   .dir-card__copy { display: grid; gap: .75rem; align-content: start; padding: clamp(1.25rem, 1rem + 1.2vw, 1.75rem) clamp(1.25rem, 1rem + 1.2vw, 1.75rem) 1.25rem; }
   .dir-card__title { font-size: clamp(1.5rem, 1.2rem + 1.1vw, 1.875rem); line-height: 1.08; }
   .dir-card__text { color: var(--c-text-2); font-size: .9375rem; line-height: 1.45; }
-  .dir-card__shot { align-self: end; }
+  .dir-card__shot { align-self: end; position: relative; }
+  /* фото плавно растворяется в фоне карточки сверху и снизу */
+  .dir-card__shot::before,
+  .dir-card__shot::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    pointer-events: none;
+  }
+  .dir-card__shot::before { top: 0; height: 22%; background: linear-gradient(180deg, var(--c-bg-alt), transparent); }
+  .dir-card__shot::after { bottom: 0; height: 45%; background: linear-gradient(0deg, var(--c-bg-alt) 0%, color-mix(in srgb, var(--c-bg-alt) 55%, transparent) 45%, transparent 100%); }
   /* исходники вертикальные: кадрируем по нижней части, где стоит автомобиль */
   .dir-card__img { display: block; width: 100%; aspect-ratio: 16 / 11; object-fit: cover; object-position: center 72%; }
   .dir-card__cta { margin: 1.25rem clamp(1.25rem, 1rem + 1.2vw, 1.75rem) clamp(1.25rem, 1rem + 1.2vw, 1.75rem); font-size: .75rem; }
